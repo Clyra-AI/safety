@@ -1,0 +1,35 @@
+{
+  "schema_version": "v1",
+  "report_id": "openclaw-2026",
+  "claims": [
+    {
+      "id": "openclaw_total_tool_calls_24h",
+      "headline": "Total tool calls evaluated in 24h",
+      "value": "TBD",
+      "artifact_path": "runs/openclaw/<run_id>/derived/governed_summary.json",
+      "query": "jq '.metrics.total_calls'",
+      "notes": "Replace <run_id> with immutable campaign run id."
+    },
+    {
+      "id": "openclaw_policy_violations_24h",
+      "headline": "Policy-violating tool calls in 24h",
+      "value": "TBD",
+      "artifact_path": "runs/openclaw/<run_id>/derived/governed_summary.json",
+      "query": "jq '.metrics.blocked_calls'"
+    },
+    {
+      "id": "openclaw_sensitive_access_without_approval",
+      "headline": "Sensitive access actions without approval mechanism",
+      "value": "TBD",
+      "artifact_path": "runs/openclaw/<run_id>/derived/ungoverned_summary.json",
+      "query": "jq '.metrics.sensitive_access_without_approval'"
+    },
+    {
+      "id": "openclaw_governed_evidence_verification_rate_pct",
+      "headline": "Governed lane evidence verification rate percent",
+      "value": "TBD",
+      "artifact_path": "runs/openclaw/<run_id>/derived/governed_summary.json",
+      "query": "jq '.metrics.evidence_verification_rate_pct'"
+    }
+  ]
+}

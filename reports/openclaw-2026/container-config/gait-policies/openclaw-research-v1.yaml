@@ -1,0 +1,56 @@
+version: "v1"
+policy_id: "openclaw-research-v1"
+description: >
+  Research policy baseline for governed OpenClaw lane.
+  Replace with a schema-valid Gait policy before execution.
+
+default_verdict: "block"
+
+fail_closed:
+  enabled: true
+  required_fields:
+    - targets
+    - arg_provenance
+  reason_code: "fail_closed_missing_required_fields"
+
+rules:
+  - id: "allow-safe-read"
+    match:
+      tool: "tool.read"
+    verdict: "allow"
+    reason_codes:
+      - "matched_rule_allow_safe_read"
+
+  - id: "require-approval-write"
+    match:
+      tool: "tool.write"
+      target_kind: "path"
+    verdict: "require_approval"
+    reason_codes:
+      - "approval_required_for_write"
+
+  - id: "block-network-egress-write"
+    match:
+      tool: "tool.write"
+      target_kind_in:
+        - "url"
+        - "host"
+    verdict: "block"
+    reason_codes:
+      - "blocked_network_egress"
+
+  - id: "block-destructive-delete"
+    match:
+      tool: "tool.delete"
+    verdict: "block"
+    reason_codes:
+      - "blocked_delete"
+
+  - id: "block-destructive-shell"
+    match:
+      tool: "tool.exec"
+      arg_regex_any:
+        - "rm\\s+-rf"
+    verdict: "block"
+    reason_codes:
+      - "blocked_destructive_shell"

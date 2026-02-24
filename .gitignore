@@ -1,0 +1,15 @@
+# macOS
+.DS_Store
+
+# Generated local outputs (kept out of git history)
+runs/openclaw/*/raw/
+runs/openclaw/*/derived/
+runs/tool-sprawl/*/states/
+runs/tool-sprawl/*/states-enrich/
+runs/tool-sprawl/*/scans/
+runs/tool-sprawl/*/agg/
+runs/tool-sprawl/*/appendix/
+runs/*/*/artifacts/publish-pack/
+
+# Build output
+*.log

@@ -1,0 +1,37 @@
+{
+  "schema_version": "v1",
+  "reports": {
+    "openclaw-2026": {
+      "required_claim_thresholds": {
+        "openclaw_policy_violations_24h": {
+          "op": ">=",
+          "value": 500
+        },
+        "openclaw_total_tool_calls_24h": {
+          "op": ">=",
+          "value": 2000
+        },
+        "openclaw_governed_evidence_verification_rate_pct": {
+          "op": ">=",
+          "value": 99.0
+        }
+      }
+    },
+    "ai-tool-sprawl-q1-2026": {
+      "required_claim_thresholds": {
+        "sprawl_unapproved_to_approved_ratio": {
+          "op": ">=",
+          "value": 2.5
+        },
+        "sprawl_avg_unknown_tools_per_org": {
+          "op": ">=",
+          "value": 1.5
+        },
+        "sprawl_orgs_scanned": {
+          "op": ">=",
+          "value": 500
+        }
+      }
+    }
+  }
+}

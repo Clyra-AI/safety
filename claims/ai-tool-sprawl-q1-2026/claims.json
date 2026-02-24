@@ -1,0 +1,34 @@
+{
+  "schema_version": "v1",
+  "report_id": "ai-tool-sprawl-q1-2026",
+  "claims": [
+    {
+      "id": "sprawl_avg_unknown_tools_per_org",
+      "headline": "Average unknown AI tools per organization",
+      "value": "TBD",
+      "artifact_path": "runs/tool-sprawl/<run_id>/agg/campaign-summary.json",
+      "query": "jq '.campaign.metrics.avg_unknown_tools_per_org'"
+    },
+    {
+      "id": "sprawl_unapproved_to_approved_ratio",
+      "headline": "Unapproved-to-approved tool ratio",
+      "value": "TBD",
+      "artifact_path": "runs/tool-sprawl/<run_id>/agg/campaign-summary.json",
+      "query": "jq '.campaign.metrics.unapproved_to_approved_ratio'"
+    },
+    {
+      "id": "sprawl_article15_gap_prevalence_pct",
+      "headline": "Organizations with Article 15 transparency gap",
+      "value": "TBD",
+      "artifact_path": "runs/tool-sprawl/<run_id>/agg/campaign-summary.json",
+      "query": "jq '.campaign.metrics.article15_gap_prevalence_pct'"
+    },
+    {
+      "id": "sprawl_orgs_scanned",
+      "headline": "Organizations scanned",
+      "value": "TBD",
+      "artifact_path": "runs/tool-sprawl/<run_id>/agg/campaign-summary.json",
+      "query": "jq '.campaign.metrics.orgs_scanned // .campaign.metrics.organizations_scanned // (.campaign.scans | length)'"
+    }
+  ]
+}
