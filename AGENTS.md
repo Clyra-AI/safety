@@ -51,8 +51,9 @@ If these files conflict with draft notes, control files win.
 
 1. Confirm definitions and protocol version.
 2. Confirm citation logs exist for timeline/regulatory assertions.
-3. Create immutable run ID via `pipelines/*/run.sh`.
-4. If workload commands are not yet implemented in `pipelines/*/run.sh`, add them before claiming execution results.
+3. Preflight run scaffold with `pipelines/*/run.sh --run-id <id> --dry-run`.
+4. Create immutable run scaffold with `pipelines/*/run.sh --run-id <id>` (or `--resume` only for existing IDs).
+5. If workload commands are not yet implemented in `pipelines/*/run.sh`, add them before claiming execution results.
 
 ## B) During execution
 

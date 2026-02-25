@@ -86,8 +86,12 @@ Lock protocol before execution:
 
 Create immutable run scaffolds:
 
-- `pipelines/openclaw/run.sh --run-id <id>`
-- `pipelines/sprawl/run.sh --run-id <id>`
+- `pipelines/openclaw/run.sh --run-id <id> --dry-run` (preview only)
+- `pipelines/openclaw/run.sh --run-id <id>` (create new immutable run)
+- `pipelines/openclaw/run.sh --run-id <id> --resume` (continue existing run)
+- `pipelines/sprawl/run.sh --run-id <id> --dry-run` (preview only)
+- `pipelines/sprawl/run.sh --run-id <id>` (create new immutable run)
+- `pipelines/sprawl/run.sh --run-id <id> --resume` (continue existing run)
 
 Write artifacts under:
 
@@ -96,7 +100,7 @@ Write artifacts under:
 
 Current script status:
 
-- `pipelines/*/run.sh` currently scaffolds run directories and manifests.
+- `pipelines/*/run.sh` currently scaffolds run directories/manifests with fail-fast immutability for existing run IDs.
 - Actual workload execution commands are intentionally not hardcoded yet and must be added per finalized test plan.
 
 ## 3) Derive Claims

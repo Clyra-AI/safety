@@ -48,11 +48,15 @@ Run a reproducible multi-target Wrkr campaign, generate aggregate and appendix a
 
 ## 2) Create Immutable Run
 
-1. Generate run scaffold:
+1. Preflight (no writes):
+   - `pipelines/sprawl/run.sh --run-id sprawl-<timestamp> --dry-run`
+2. Generate run scaffold:
    - `pipelines/sprawl/run.sh --run-id sprawl-<timestamp>`
-2. Capture run metadata in:
+3. If interrupted, resume same run ID:
+   - `pipelines/sprawl/run.sh --run-id sprawl-<timestamp> --resume`
+4. Capture run metadata in:
    - `runs/tool-sprawl/<run_id>/artifacts/run-manifest.json`
-3. Record:
+5. Record:
    - Wrkr version
    - commit SHA(s) of this repo and Wrkr repo used
    - scan window start timestamp

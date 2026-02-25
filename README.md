@@ -49,6 +49,16 @@ See report-specific methodology:
 - `schemas/`: schema contracts
 - `citations/`: source logs for timeline and regulatory claims
 
+## Run Semantics
+
+Run scaffolds are immutable by default:
+
+- preview only: `pipelines/*/run.sh --run-id <id> --dry-run`
+- create run: `pipelines/*/run.sh --run-id <id>`
+- continue existing run: `pipelines/*/run.sh --run-id <id> --resume`
+
+If a run ID already exists, `run.sh` fails fast unless `--resume` is explicitly provided.
+
 ## Validation and Publish Gates
 
 Readiness checks:

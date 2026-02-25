@@ -46,11 +46,15 @@ Run a full isolated OpenClaw experiment with two matched lanes (ungoverned vs go
 
 ## 2) Create Immutable Run
 
-1. Scaffold run:
+1. Preflight (no writes):
+   - `pipelines/openclaw/run.sh --run-id openclaw-<timestamp> --dry-run`
+2. Scaffold run:
    - `pipelines/openclaw/run.sh --run-id openclaw-<timestamp>`
-2. Confirm structure:
+3. If interrupted, resume same run ID:
+   - `pipelines/openclaw/run.sh --run-id openclaw-<timestamp> --resume`
+4. Confirm structure:
    - `runs/openclaw/<run_id>/{config,raw,derived,artifacts}`
-3. Record in run manifest:
+5. Record in run manifest:
    - OpenClaw commit/tag from `internal/openclaw_repo.md`
    - Gait commit/tag
    - Wrkr commit/tag (for pre-scan)
