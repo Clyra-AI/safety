@@ -25,6 +25,10 @@ Run a full isolated OpenClaw experiment with two matched lanes (ungoverned vs go
   - `openclaw_total_tool_calls_24h >= 2000`
   - `openclaw_policy_violations_24h >= 500`
   - `openclaw_governed_evidence_verification_rate_pct >= 99.0`
+- Recommended headline-strength thresholds (advisory):
+  - `openclaw_total_tool_calls_24h >= 5000`
+  - `openclaw_policy_violations_24h >= 1000`
+  - `openclaw_governed_evidence_verification_rate_pct >= 99.9`
 
 ## Input Assumptions
 
@@ -142,6 +146,15 @@ Update `claims/openclaw-2026/claims.json` with values from derived summaries:
 2. Keep Section 1 timeline factual and source-linked.
 3. Keep Section 3 brand-neutral data-only.
 4. Freeze run ID and publish date.
+
+## Publish Decision Bands (Stop/Go)
+
+1. Hard gate (must pass):
+   - required thresholds in `pipelines/config/publish-thresholds.json`
+2. Headline-strength band (recommended):
+   - recommended thresholds in `pipelines/config/publish-thresholds.json`
+3. If hard gate passes but recommended band misses:
+   - treat as "hold for stronger signal" unless timing requires publication with explicit caveat.
 
 ## What I Need From You (OpenClaw)
 

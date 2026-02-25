@@ -16,7 +16,7 @@ Methodology engine: Wrkr OSS deterministic campaign pipeline
 - Secondary headline metrics:
   - `Average unknown/untracked AI tools per organization`
   - `% orgs with production-write AI exposure (only when policy configured)`
-  - `% orgs with Article 15 transparency gaps`
+  - `% orgs with Article 50 transparency gap proxy`
 - Canonical claims ledger: `claims/ai-tool-sprawl-q1-2026/claims.json`
 
 ## 1) Core Thesis and Messaging Stack
@@ -63,7 +63,7 @@ Template:
 |---|---:|---|---|
 | AI tools discovered across sample | TBD | `...` | `...` |
 | Unapproved-to-approved ratio | TBD | `...` | `...` |
-| Orgs with transparency gap (Article 15) | TBD | `...` | `...` |
+| Orgs with transparency gap (Article 50 proxy) | TBD | `...` | `...` |
 | Additional high-signal stat | TBD | `...` | `...` |
 
 Narrative constraints:
@@ -153,7 +153,7 @@ Key ratio:
 Goal: map findings to concrete compliance deadlines and control gaps.
 
 Required coverage:
-- EU AI Act Articles 9, 12, 14, 15
+- EU AI Act Articles 9, 12, 14, 15, 50
 - SOC 2 AI-relevant controls
 - Colorado AI Act
 - Texas TRAIGA
@@ -163,8 +163,9 @@ Template table:
 
 | Regulation | Control / Article | Gap prevalence | Evidence basis |
 |---|---|---:|---|
-| EU AI Act | Article 15 (Transparency) | TBD | TBD |
+| EU AI Act | Article 50 (Transparency Obligations) | TBD | TBD |
 | EU AI Act | Article 12 (Record Keeping) | TBD | TBD |
+| EU AI Act | Article 15 (Accuracy/Robustness/Cybersecurity) | TBD | TBD |
 | TBD | TBD | TBD | TBD |
 
 ## Section 7: Case studies (anonymized)

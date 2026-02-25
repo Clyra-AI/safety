@@ -12,4 +12,5 @@ Use this file to pin legal/regulatory references used in Section 6.
 
 | Regulation | Article/Control | Source URL | Effective date | Enforcement date | Notes |
 |---|---|---|---|---|---|
-| EU AI Act | Article 15 | TBD | TBD | 2026-08-02 | TBD |
+| EU AI Act | Article 50 (Transparency Obligations) | TBD | TBD | 2026-08-02 | Canonical transparency citation for this report |
+| EU AI Act | Article 15 (Accuracy, Robustness, Cybersecurity) | TBD | TBD | 2026-08-02 | Use only for robustness/cybersecurity claims |

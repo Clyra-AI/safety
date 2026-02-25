@@ -22,6 +22,10 @@ Run a reproducible multi-target Wrkr campaign, generate aggregate and appendix a
   - `sprawl_unapproved_to_approved_ratio >= 2.5`
   - `sprawl_avg_unknown_tools_per_org >= 1.5`
   - `sprawl_orgs_scanned >= 500`
+- Recommended headline-strength thresholds (advisory):
+  - `sprawl_unapproved_to_approved_ratio >= 4.0`
+  - `sprawl_avg_unknown_tools_per_org >= 3.0`
+  - `sprawl_article50_gap_prevalence_pct >= 30.0`
 
 ## Input Assumptions
 
@@ -108,7 +112,7 @@ At minimum:
 
 - `sprawl_unapproved_to_approved_ratio`
 - `sprawl_avg_unknown_tools_per_org`
-- `sprawl_article15_gap_prevalence_pct`
+- `sprawl_article50_gap_prevalence_pct`
 
 ## 8) Run Publish Gates
 
@@ -133,6 +137,15 @@ At minimum:
 1. Fill `report.pdf` and summary artifacts from validated values only.
 2. Ensure all Section 1 numbers map to claims entries.
 3. Freeze run ID and publish date.
+
+## Publish Decision Bands (Stop/Go)
+
+1. Hard gate (must pass):
+   - required thresholds in `pipelines/config/publish-thresholds.json`
+2. Headline-strength band (recommended):
+   - recommended thresholds in `pipelines/config/publish-thresholds.json`
+3. If hard gate passes but recommended band misses:
+   - treat as "hold for stronger signal" unless timing requires publication with explicit caveat.
 
 ## What I Need From You (Sprawl)
 

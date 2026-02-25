@@ -15,10 +15,15 @@ Threshold config shape:
     "<report-id>": {
       "required_claim_thresholds": {
         "<claim-id>": { "op": ">=", "value": 100 }
+      },
+      "recommended_claim_thresholds": {
+        "<claim-id>": { "op": ">=", "value": 200 }
       }
     }
   }
 }
+
+Note: this gate enforces only `required_claim_thresholds`.
 EOF
 }
 

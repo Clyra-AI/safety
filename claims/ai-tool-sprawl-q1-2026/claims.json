@@ -17,11 +17,11 @@
       "query": "jq '.campaign.metrics.unapproved_to_approved_ratio'"
     },
     {
-      "id": "sprawl_article15_gap_prevalence_pct",
-      "headline": "Organizations with Article 15 transparency gap",
+      "id": "sprawl_article50_gap_prevalence_pct",
+      "headline": "Organizations with Article 50 transparency gap proxy",
       "value": "TBD",
       "artifact_path": "runs/tool-sprawl/<run_id>/agg/campaign-summary.json",
-      "query": "jq '.campaign.metrics.article15_gap_prevalence_pct'"
+      "query": "jq '.campaign.metrics.article50_gap_prevalence_pct'"
     },
     {
       "id": "sprawl_orgs_scanned",

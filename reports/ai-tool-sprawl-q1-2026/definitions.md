@@ -1,8 +1,8 @@
 # AI Tool Sprawl Q1 2026 Definitions (Locked for This Cycle)
 
 Status: draft lock candidate  
-Version: `v1`  
-Effective date: `2026-02-24`
+Version: `v2`  
+Effective date: `2026-02-25`
 
 This file defines canonical classifications and formulas for the Q1 2026 sprawl report.
 If changed, bump version and rerun campaign metrics.
@@ -36,7 +36,7 @@ A tool contributes to production-write exposure only when:
 
 If policy is not configured, production-write claims are omitted.
 
-## Transparency gap (EU AI Act Article 15 proxy)
+## Transparency gap (EU AI Act Article 50 proxy)
 
 An organization is flagged with transparency gap when campaign evidence indicates inability to provide baseline AI system/tool inventory and traceable usage evidence for discovered tooling.
 
@@ -61,11 +61,11 @@ Definition:
 
 ## Supporting metric
 
-`sprawl_article15_gap_prevalence_pct`
+`sprawl_article50_gap_prevalence_pct`
 
 Definition:
 
-- percentage of scanned organizations flagged with Article 15 transparency gap proxy.
+- percentage of scanned organizations flagged with Article 50 transparency gap proxy.
 
 ## Scope Definitions
 
