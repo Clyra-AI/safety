@@ -1,10 +1,14 @@
 # OpenClaw 2026 Report Package
 
-This directory contains the published report package and reproducibility assets.
+Status: in progress
+
+This directory contains the OpenClaw report package scaffolding and reproducibility assets.
+Publish-ready artifacts are assembled after a finalized run and claim freeze.
 
 Expected outputs:
 
 - `report.pdf`
+- `methodology-one-pager.md` (or PDF equivalent)
 - `methodology.md`
 - `definitions.md`
 - `study-protocol.md`

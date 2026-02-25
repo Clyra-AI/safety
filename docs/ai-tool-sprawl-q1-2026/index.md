@@ -12,12 +12,16 @@ Cross-organization measurement of AI tool inventory, approval posture, privilege
 
 ## Artifacts
 
-- Report PDF: `reports/ai-tool-sprawl-q1-2026/report.pdf`
-- Executive summary: `reports/ai-tool-sprawl-q1-2026/executive-summary.pdf`
+Available now:
 - Methodology: `reports/ai-tool-sprawl-q1-2026/methodology.md`
 - Definitions: `reports/ai-tool-sprawl-q1-2026/definitions.md`
 - Study protocol: `reports/ai-tool-sprawl-q1-2026/study-protocol.md`
 - Data dictionary: `reports/ai-tool-sprawl-q1-2026/data/README.md`
+
+Generated at publication:
+- Report PDF: `reports/ai-tool-sprawl-q1-2026/report.pdf`
+- Executive summary: `reports/ai-tool-sprawl-q1-2026/executive-summary.pdf`
+- Methodology one-pager: `reports/ai-tool-sprawl-q1-2026/methodology-one-pager.md` (or PDF equivalent)
 
 ## Tools used
 

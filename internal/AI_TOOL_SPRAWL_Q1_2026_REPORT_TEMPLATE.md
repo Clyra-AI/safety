@@ -250,7 +250,7 @@ Template index:
 
 - Report PDF (`reports/ai-tool-sprawl-q1-2026/report.pdf`)
 - Executive summary PDF (`reports/ai-tool-sprawl-q1-2026/executive-summary.pdf`)
-- Methodology one-pager
+- Methodology one-pager (`reports/ai-tool-sprawl-q1-2026/methodology-one-pager.md` or PDF equivalent)
 - Full anonymized dataset (CSV/JSON)
 - 5-7 social stat graphics
 - EU AI Act readiness checklist (one page)
