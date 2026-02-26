@@ -472,15 +472,26 @@ while :; do
           if [[ -n "${gait_output}" ]] && jq -e '.' >/dev/null 2>&1 <<<"${gait_output}"; then
             verdict="$(jq -r '.verdict // "block"' <<<"${gait_output}")"
             reason_code="$(jq -r '(.reason_codes[0] // .error // empty)' <<<"${gait_output}")"
+
+            case "${verdict}" in
+              allow|block|require_approval)
+                ;;
+              deny|reject)
+                verdict="block"
+                ;;
+              *)
+                verdict="block"
+                ;;
+            esac
+
             if [[ -z "${reason_code}" || "${reason_code}" == "null" ]]; then
               if [[ "${verdict}" == "allow" ]]; then
                 reason_code="matched_rule_allow_live"
+              elif [[ "${verdict}" == "require_approval" ]]; then
+                reason_code="approval_required"
               else
                 reason_code="gait_policy_block"
               fi
-            fi
-            if [[ "${verdict}" != "allow" ]]; then
-              verdict="block"
             fi
           else
             verdict="block"

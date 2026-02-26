@@ -123,6 +123,22 @@ run_wrkr() {
   esac
 }
 
+wrkr_runtime_supports_scan() {
+  local runtime="$1"
+  case "${runtime}" in
+    unavailable)
+      return 1
+      ;;
+    go-run:*)
+      local repo="${runtime#go-run:}"
+      (cd "${repo}" && go run ./cmd/wrkr scan --help >/dev/null 2>&1)
+      ;;
+    *)
+      "${runtime}" scan --help >/dev/null 2>&1
+      ;;
+  esac
+}
+
 run_gait() {
   case "${GAIT_RUNTIME}" in
     unavailable)
@@ -138,12 +154,26 @@ run_gait() {
 }
 
 detect_runtimes() {
+  local wrkr_candidates=()
   if [[ -n "${WRKR_BIN:-}" && -x "${WRKR_BIN}" ]]; then
-    WRKR_RUNTIME="${WRKR_BIN}"
-  elif command -v wrkr >/dev/null 2>&1; then
-    WRKR_RUNTIME="$(command -v wrkr)"
-  elif [[ -f "${WRKR_REPO_PATH}/cmd/wrkr/main.go" ]] && command -v go >/dev/null 2>&1; then
-    WRKR_RUNTIME="go-run:${WRKR_REPO_PATH}"
+    wrkr_candidates+=("${WRKR_BIN}")
+  fi
+  if command -v wrkr >/dev/null 2>&1; then
+    wrkr_candidates+=("$(command -v wrkr)")
+  fi
+  if [[ -f "${WRKR_REPO_PATH}/cmd/wrkr/main.go" ]] && command -v go >/dev/null 2>&1; then
+    wrkr_candidates+=("go-run:${WRKR_REPO_PATH}")
+  fi
+
+  for candidate in "${wrkr_candidates[@]}"; do
+    if wrkr_runtime_supports_scan "${candidate}"; then
+      WRKR_RUNTIME="${candidate}"
+      break
+    fi
+  done
+
+  if [[ "${WRKR_RUNTIME}" == "unavailable" && "${#wrkr_candidates[@]}" -gt 0 ]]; then
+    WRKR_RUNTIME="${wrkr_candidates[0]}"
   fi
 
   if [[ -n "${GAIT_BIN:-}" && -x "${GAIT_BIN}" ]]; then
@@ -429,17 +459,27 @@ assert_runtime_budget
 check_disk_quota "${RUN_DIR}"
 
 wrkr_scan_out="${RUN_DIR}/raw/wrkr/wrkr-scan.json"
-if run_wrkr scan --path "${RUN_DIR}/config" --json > "${wrkr_scan_out}" 2>/dev/null; then
+wrkr_scan_state="${RUN_DIR}/raw/wrkr/wrkr-state.json"
+wrkr_scan_err="${RUN_DIR}/raw/wrkr/wrkr-scan.err.log"
+if run_wrkr scan --path "${RUN_DIR}/config" --state "${wrkr_scan_state}" --json > "${wrkr_scan_out}" 2>"${wrkr_scan_err}"; then
   echo "[openclaw-run] wrkr pre-scan completed"
 else
+  wrkr_scan_note="Wrkr runtime unavailable or scan failed; synthetic pre-scan placeholder generated."
+  if [[ -s "${wrkr_scan_err}" ]]; then
+    wrkr_scan_note="$(head -n 3 "${wrkr_scan_err}" | tr '\n' ' ' | tr -s '[:space:]')"
+  fi
   jq -n \
     --arg generated_at "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
-    --arg note "Wrkr runtime unavailable or scan failed; synthetic pre-scan placeholder generated." \
+    --arg note "${wrkr_scan_note}" \
+    --arg wrkr_runtime "${WRKR_RUNTIME}" \
+    --arg stderr_path "runs/openclaw/${RUN_ID}/raw/wrkr/wrkr-scan.err.log" \
     '{
       schema_version: "v1",
       status: "synthetic-preflight",
       generated_at: $generated_at,
       note: $note,
+      runtime: $wrkr_runtime,
+      stderr_path: $stderr_path,
       findings: []
     }' > "${wrkr_scan_out}"
   echo "[openclaw-run] wrkr pre-scan fallback artifact written"
