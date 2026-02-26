@@ -1,55 +1,46 @@
-version: "v1"
-policy_id: "openclaw-research-v1"
-description: >
-  Research policy baseline for governed OpenClaw lane used by pipeline defaults.
-
-default_verdict: "block"
+schema_id: gait.gate.policy
+schema_version: 1.0.0
+default_verdict: block
 
 fail_closed:
   enabled: true
-  required_fields:
-    - targets
-    - arg_provenance
-  reason_code: "fail_closed_missing_required_fields"
+  required_fields: [targets, arg_provenance]
 
 rules:
-  - id: "allow-safe-read"
+  - name: allow-safe-read
+    priority: 30
+    effect: allow
     match:
-      tool: "tool.read"
-    verdict: "allow"
-    reason_codes:
-      - "matched_rule_allow_safe_read"
+      tool_names: [tool.read]
+    reason_codes: [matched_rule_allow_safe_read]
 
-  - id: "require-approval-write"
+  - name: require-approval-write
+    priority: 20
+    effect: require_approval
+    min_approvals: 1
     match:
-      tool: "tool.write"
-      target_kind: "path"
-    verdict: "require_approval"
-    reason_codes:
-      - "approval_required_for_write"
+      tool_names: [tool.write]
+      target_kinds: [path]
+    reason_codes: [approval_required_for_write]
 
-  - id: "block-network-egress-write"
+  - name: block-network-egress-write
+    priority: 12
+    effect: block
     match:
-      tool: "tool.write"
-      target_kind_in:
-        - "url"
-        - "host"
-    verdict: "block"
-    reason_codes:
-      - "blocked_network_egress"
+      tool_names: [tool.write]
+      target_kinds: [host, url, bucket]
+    reason_codes: [blocked_network_egress]
 
-  - id: "block-destructive-delete"
+  - name: block-destructive-delete
+    priority: 10
+    effect: block
     match:
-      tool: "tool.delete"
-    verdict: "block"
-    reason_codes:
-      - "blocked_delete"
+      tool_names: [tool.delete]
+    reason_codes: [blocked_delete]
 
-  - id: "block-destructive-shell"
+  - name: block-destructive-shell
+    priority: 11
+    effect: block
     match:
-      tool: "tool.exec"
-      arg_regex_any:
-        - "rm\\s+-rf"
-    verdict: "block"
-    reason_codes:
-      - "blocked_destructive_shell"
+      tool_names: [tool.exec]
+    reason_codes: [blocked_destructive_shell]

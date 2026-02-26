@@ -75,6 +75,8 @@ Goal: establish factual context without editorializing.
 Hard constraints:
 - Maximum three paragraphs.
 - Include timeline facts only.
+- External threat-intel statistics are allowed only in a clearly labeled context box, never as timeline facts.
+- Any external context statistic must be logged in `citations/threat-context-sources.md` as `context-only`.
 
 Required facts to cover:
 - OpenClaw rise and adoption scale.
@@ -93,6 +95,18 @@ Timeline table:
 | Date | Event | Verifiable source link |
 |---|---|---|
 | TBD | TBD | TBD |
+
+Optional context box (outside timeline paragraphs):
+
+| Context statistic (external) | Value | Source log entry |
+|---|---:|---|
+| Vulnerability exploitation incident growth | TBD | `citations/threat-context-sources.md` |
+| Unauthenticated exploitability share | TBD | `citations/threat-context-sources.md` |
+| Supply-chain compromise trend | TBD | `citations/threat-context-sources.md` |
+
+Context box rule:
+- These lines provide industry framing only.
+- None of these values may be used as OpenClaw report evidence claims.
 
 ## Section 2: What we tested (methodology)
 

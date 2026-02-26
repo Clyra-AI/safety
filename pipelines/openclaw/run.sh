@@ -5,6 +5,7 @@ usage() {
   cat <<'USAGE'
 Usage:
   run.sh [--run-id <id>] [--resume] [--dry-run] [--execution synthetic|container] [--workload synthetic|live]
+         [--parallel-lanes]
          [--lane-duration-sec <n>] [--window-hours <n>] [--max-runtime-sec <n>] [--max-run-disk-mb <n>]
          [--detector-list <csv>] [--egress-allowlist <path>]
 
@@ -25,6 +26,7 @@ RESUME=0
 DRY_RUN=0
 EXECUTION_MODE="synthetic"
 WORKLOAD_MODE="synthetic"
+PARALLEL_LANES=0
 LANE_DURATION_SEC="600"
 WINDOW_HOURS="24"
 MAX_RUNTIME_SEC="1800"
@@ -305,6 +307,10 @@ while [[ $# -gt 0 ]]; do
       WORKLOAD_MODE="${2:-}"
       shift 2
       ;;
+    --parallel-lanes)
+      PARALLEL_LANES=1
+      shift
+      ;;
     --lane-duration-sec)
       LANE_DURATION_SEC="${2:-}"
       shift 2
@@ -386,6 +392,7 @@ if [[ "${DRY_RUN}" -eq 1 ]]; then
   echo "[openclaw-run] dry-run mode"
   echo "[openclaw-run] run_id=${RUN_ID}"
   echo "[openclaw-run] mode=${MODE} execution=${EXECUTION_MODE} workload=${WORKLOAD_MODE}"
+  echo "[openclaw-run] parallel_lanes=${PARALLEL_LANES}"
   echo "[openclaw-run] run_dir=${RUN_DIR}"
   echo "[openclaw-run] wrkr_runtime=${WRKR_RUNTIME}"
   echo "[openclaw-run] gait_runtime=${GAIT_RUNTIME}"
@@ -452,7 +459,7 @@ if [[ "${EXECUTION_MODE}" == "container" ]]; then
     RUN_ID="${RUN_ID}" \
     OPENCLAW_WORKLOAD_MODE="${WORKLOAD_MODE}" \
     LANE_DURATION_SEC="${LANE_DURATION_SEC}" \
-    docker compose up --build --abort-on-container-exit --exit-code-from openclaw-governed
+    docker compose up --build
   )
 
   (
@@ -460,20 +467,50 @@ if [[ "${EXECUTION_MODE}" == "container" ]]; then
     docker compose down --remove-orphans >/dev/null 2>&1 || true
   )
 else
-  "${REPO_ROOT}/pipelines/openclaw/execute_lane.sh" \
-    --lane ungoverned \
-    --run-id "${RUN_ID}" \
-    --repo-root "${REPO_ROOT}" \
-    --workload "${WORKLOAD_MODE}" \
-    --duration-sec "${LANE_DURATION_SEC}"
+  if [[ "${PARALLEL_LANES}" -eq 1 ]]; then
+    lane_ungoverned_status=0
+    lane_governed_status=0
 
-  "${REPO_ROOT}/pipelines/openclaw/execute_lane.sh" \
-    --lane governed \
-    --run-id "${RUN_ID}" \
-    --repo-root "${REPO_ROOT}" \
-    --workload "${WORKLOAD_MODE}" \
-    --duration-sec "${LANE_DURATION_SEC}" \
-    --policy "reports/openclaw-2026/container-config/gait-policies/openclaw-research-v1.yaml"
+    "${REPO_ROOT}/pipelines/openclaw/execute_lane.sh" \
+      --lane ungoverned \
+      --run-id "${RUN_ID}" \
+      --repo-root "${REPO_ROOT}" \
+      --workload "${WORKLOAD_MODE}" \
+      --duration-sec "${LANE_DURATION_SEC}" &
+    lane_ungoverned_pid=$!
+
+    "${REPO_ROOT}/pipelines/openclaw/execute_lane.sh" \
+      --lane governed \
+      --run-id "${RUN_ID}" \
+      --repo-root "${REPO_ROOT}" \
+      --workload "${WORKLOAD_MODE}" \
+      --duration-sec "${LANE_DURATION_SEC}" \
+      --policy "reports/openclaw-2026/container-config/gait-policies/openclaw-research-v1.yaml" &
+    lane_governed_pid=$!
+
+    wait "${lane_ungoverned_pid}" || lane_ungoverned_status=$?
+    wait "${lane_governed_pid}" || lane_governed_status=$?
+
+    if [[ "${lane_ungoverned_status}" -ne 0 || "${lane_governed_status}" -ne 0 ]]; then
+      echo "[openclaw-run] lane execution failed (ungoverned=${lane_ungoverned_status}, governed=${lane_governed_status})" >&2
+      exit 1
+    fi
+  else
+    "${REPO_ROOT}/pipelines/openclaw/execute_lane.sh" \
+      --lane ungoverned \
+      --run-id "${RUN_ID}" \
+      --repo-root "${REPO_ROOT}" \
+      --workload "${WORKLOAD_MODE}" \
+      --duration-sec "${LANE_DURATION_SEC}"
+
+    "${REPO_ROOT}/pipelines/openclaw/execute_lane.sh" \
+      --lane governed \
+      --run-id "${RUN_ID}" \
+      --repo-root "${REPO_ROOT}" \
+      --workload "${WORKLOAD_MODE}" \
+      --duration-sec "${LANE_DURATION_SEC}" \
+      --policy "reports/openclaw-2026/container-config/gait-policies/openclaw-research-v1.yaml"
+  fi
 fi
 
 assert_runtime_budget
@@ -591,6 +628,7 @@ jq -n \
   --arg mode "${MODE}" \
   --arg execution_mode "${EXECUTION_MODE}" \
   --arg workload_mode "${WORKLOAD_MODE}" \
+  --argjson parallel_lanes "$(if [[ "${PARALLEL_LANES}" -eq 1 ]]; then echo "true"; else echo "false"; fi)" \
   --argjson lane_duration_sec "${LANE_DURATION_SEC}" \
   --argjson window_hours "${WINDOW_HOURS}" \
   --arg repo_sha "${REPO_SHA}" \
@@ -630,6 +668,7 @@ jq -n \
     mode: $mode,
     execution_mode: $execution_mode,
     workload_mode: $workload_mode,
+    parallel_lanes: $parallel_lanes,
     measurement_window: {
       window_hours: $window_hours,
       lane_duration_sec: $lane_duration_sec

@@ -200,6 +200,10 @@ Regulatory claims:
 
 - `citations/sprawl-regulatory-sources.md`
 
+Threat-landscape context claims:
+
+- `citations/threat-context-sources.md`
+
 No timeline or regulatory statement should appear in a final report without a logged source.
 Context/news anecdotes may explain relevance but are not accepted as numeric-claim evidence.
 

@@ -74,6 +74,8 @@ If a section claim cannot be tied to an artifact and query, delete the claim.
 ## Section 1: Headline findings
 
 Goal: one-page opening with 3-5 standalone numbers.
+Hard constraint:
+- External threat-intel numbers may appear only as labeled context and must be logged in `citations/threat-context-sources.md` as `context-only`.
 
 Template:
 
@@ -87,6 +89,7 @@ Template:
 Narrative constraints:
 - No caveats on this page.
 - Numbers first, methods deferred to Section 2.
+- If a context callout is used, separate it visually from measured campaign numbers.
 
 ## Section 2: Methodology
 
@@ -233,6 +236,9 @@ Use max seven recommendations:
 5. Least-privilege at tool boundary.
 6. Evidence trails by default.
 7. Integrate with AppSec/GRC workflows.
+
+Required alignment note:
+- If citing external guidance such as "continuously discover and test", map it directly to concrete Wrkr campaign mechanics (`pipelines/sprawl/run.sh`, scheduled reruns, deterministic diffing), not generic advice.
 
 Closing line template:
 

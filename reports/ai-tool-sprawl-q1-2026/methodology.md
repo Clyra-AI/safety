@@ -15,6 +15,12 @@ Follow the deterministic campaign runbook and guardrails.
 
 For this report, "deterministic" means the same target list, repository commit SHAs, Wrkr version, detector set, policy inputs, and command sequence produce the same aggregate outputs.
 
+## External context boundary
+
+- External threat-intel statistics may frame urgency but do not contribute to measured sprawl claim values.
+- Any such statistic must be explicitly labeled context-only in manuscript text.
+- Every context statistic must be entered in `citations/threat-context-sources.md` with source URL, publication date, and `Use=context-only`.
+
 ## Claim validation
 
 See `/claims/ai-tool-sprawl-q1-2026/claims.json`.

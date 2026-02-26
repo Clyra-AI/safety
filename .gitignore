@@ -2,6 +2,9 @@
 .DS_Store
 
 # Generated local outputs (kept out of git history)
+runs/openclaw/.active-live-run
+runs/openclaw/*.tmux.exit
+runs/openclaw/openclaw-*/
 runs/openclaw/*/raw/
 runs/openclaw/*/derived/
 runs/tool-sprawl/*/states/
