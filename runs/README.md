@@ -9,10 +9,15 @@ Layout:
 
 Run semantics:
 
-- Use `pipelines/openclaw/run.sh --run-id <id> --dry-run` or `pipelines/sprawl/run.sh --run-id <id> --dry-run` to preview actions without writing files.
+- `pipelines/openclaw/run.sh --run-id <id> --dry-run` and `pipelines/sprawl/run.sh --run-id <id> --dry-run` preview actions only.
 - First creation uses `pipelines/*/run.sh --run-id <id>`.
 - Existing run IDs fail fast by default.
-- Use `--resume` to continue an existing run ID without overwriting prior scaffolding artifacts.
+- Use `--resume` to continue an existing run ID without overwriting prior scaffold artifacts.
+
+Execution behavior:
+
+- OpenClaw run script executes lane workloads, writes raw and derived summaries, and emits claim/repro metadata artifacts.
+- Sprawl run script executes campaign scans (Wrkr or deterministic synthetic fallback), writes aggregate/appendix outputs, and emits claim/repro metadata artifacts.
 
 Large generated directories are ignored by default in `.gitignore` (`raw`, `derived`, `states`, `scans`, `agg`, `appendix`).
 

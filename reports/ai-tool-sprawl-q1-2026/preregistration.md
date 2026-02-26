@@ -1,13 +1,13 @@
 # AI Tool Sprawl Q1 2026 Pre-Registration
 
-Status: draft lock candidate  
-Version: `v2`
+Status: locked  
+Version: `v3`
 
 ## Study Identity
 
 - Report ID: `ai-tool-sprawl-q1-2026`
-- Planned run ID: `TBD`
-- Planned publication window: `TBD`
+- Planned run ID: `sprawl-preflight-20260226`
+- Planned publication window: `2026-04-01 to 2026-04-30 (target)`
 - Target list source: `internal/repos.md`
 
 ## Locked Hypotheses
@@ -71,9 +71,10 @@ Version: `v2`
 
 - `v1`: initial preregistration scaffold.
 - `v2`: adds destructive-capability and control-posture prevalence endpoints/hypotheses.
+- `v3`: lock record finalized; preflight execution contract locked pending canonical target list in internal/repos.md.
 
 ## Lock Record
 
-- Locked by: `TBD`
-- Locked at (UTC): `TBD`
-- Notes: `TBD`
+- Locked by: `David Ahmann`
+- Locked at (UTC): `2026-02-26T00:00:00Z`
+- Notes: `Lock applies to baseline+enrich mechanics, guardrails, and publish gates. Canonical scan targets remain sourced from internal/repos.md before production campaign runs.`

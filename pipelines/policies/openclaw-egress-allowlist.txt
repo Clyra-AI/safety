@@ -1,0 +1,4 @@
+# OpenClaw lab egress allowlist
+#
+# Canonical OpenClaw runs use an internal-only Docker network and do not permit outbound egress.
+# Keep this file empty unless a specific host is approved for a bounded test.

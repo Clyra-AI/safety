@@ -1,8 +1,7 @@
 version: "v1"
 policy_id: "openclaw-research-v1"
 description: >
-  Research policy baseline for governed OpenClaw lane.
-  Replace with a schema-valid Gait policy before execution.
+  Research policy baseline for governed OpenClaw lane used by pipeline defaults.
 
 default_verdict: "block"
 

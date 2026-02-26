@@ -1,6 +1,6 @@
 # OpenClaw 24-Hour Container Reproduction Setup
 
-This folder contains the exact runtime configuration used for the governed vs ungoverned comparison.
+This folder contains the runtime configuration used for governed vs ungoverned comparison lanes.
 
 ## Files
 
@@ -11,6 +11,16 @@ This folder contains the exact runtime configuration used for the governed vs un
 
 ## Usage
 
-Populate this folder with the locked configuration from the run manifest, then execute via the pipeline scripts in `pipelines/openclaw/`.
+Run through the OpenClaw pipeline script from repository root:
 
-The compose model defines two lanes (`openclaw-ungoverned`, `openclaw-governed`) on an internal network with dropped capabilities and no-new-privileges enabled.
+- dry-run: `pipelines/openclaw/run.sh --run-id <id> --dry-run`
+- synthetic execution: `pipelines/openclaw/run.sh --run-id <id> --execution synthetic --workload synthetic`
+- container execution: `pipelines/openclaw/run.sh --run-id <id> --execution container --workload synthetic`
+
+`docker-compose.yml` now executes both lanes through `pipelines/openclaw/execute_lane.sh` with:
+
+- internal-only lab network (`internal: true`)
+- dropped Linux capabilities
+- `no-new-privileges`
+- read-only root filesystem + tmpfs scratch
+- CPU/memory/pid resource caps

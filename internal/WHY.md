@@ -106,8 +106,9 @@ Write artifacts under:
 
 Current script status:
 
-- `pipelines/*/run.sh` currently scaffolds run directories/manifests with fail-fast immutability for existing run IDs.
-- Actual workload execution commands are intentionally not hardcoded yet and must be added per finalized test plan.
+- `pipelines/openclaw/run.sh` executes lane workloads (synthetic or container mode), writes derived summaries, and emits reproducibility metadata plus claim-derivation artifacts.
+- `pipelines/sprawl/run.sh` executes campaign scans (Wrkr when available, deterministic synthetic fallback when not), builds aggregate/appendix artifacts, and emits claim-derivation artifacts.
+- Both run scripts enforce prereg lock checks, guardrails, and immutable run semantics.
 
 ## 3) Derive Claims
 

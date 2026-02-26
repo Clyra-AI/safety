@@ -113,7 +113,11 @@ For each repo in `internal/repos.md`:
 
 ## 7) Compute and Set Claim Values
 
-Update `claims/ai-tool-sprawl-q1-2026/claims.json` with real values from:
+First derive all claims automatically (no manual counting):
+
+- `pipelines/common/derive_claim_values.sh --claims claims/ai-tool-sprawl-q1-2026/claims.json --run-id <run_id> --output runs/tool-sprawl/<run_id>/artifacts/claim-values.json --strict`
+
+Then, only when promoting a publication run, update `claims/ai-tool-sprawl-q1-2026/claims.json` from derived values in:
 
 - `runs/tool-sprawl/<run_id>/agg/campaign-summary.json`
 

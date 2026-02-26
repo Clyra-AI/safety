@@ -1,4 +1,3 @@
-version: "3.9"
 services:
   openclaw-ungoverned:
     build:
@@ -8,13 +7,28 @@ services:
       - ../../..:/workspace:ro
       - ../../../runs:/workspace/runs
     working_dir: /workspace
-    command: ["bash", "-lc", "echo 'Populate ungoverned lane command in pipelines/openclaw/run.sh'"]
+    command:
+      [
+        "bash",
+        "-lc",
+        "/workspace/pipelines/openclaw/execute_lane.sh --lane ungoverned --run-id ${RUN_ID} --repo-root /workspace --workload ${OPENCLAW_WORKLOAD_MODE:-synthetic} --duration-sec ${LANE_DURATION_SEC:-600}"
+      ]
+    environment:
+      - RUN_ID=${RUN_ID}
+      - OPENCLAW_WORKLOAD_MODE=${OPENCLAW_WORKLOAD_MODE:-synthetic}
+      - LANE_DURATION_SEC=${LANE_DURATION_SEC:-600}
     networks:
       - openclaw_lab
     security_opt:
       - no-new-privileges:true
     cap_drop:
       - ALL
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=64m
+    pids_limit: 128
+    mem_limit: 512m
+    cpus: "1.0"
 
   openclaw-governed:
     build:
@@ -24,13 +38,28 @@ services:
       - ../../..:/workspace:ro
       - ../../../runs:/workspace/runs
     working_dir: /workspace
-    command: ["bash", "-lc", "echo 'Populate governed lane command in pipelines/openclaw/run.sh'"]
+    command:
+      [
+        "bash",
+        "-lc",
+        "/workspace/pipelines/openclaw/execute_lane.sh --lane governed --run-id ${RUN_ID} --repo-root /workspace --workload ${OPENCLAW_WORKLOAD_MODE:-synthetic} --duration-sec ${LANE_DURATION_SEC:-600} --policy reports/openclaw-2026/container-config/gait-policies/openclaw-research-v1.yaml"
+      ]
+    environment:
+      - RUN_ID=${RUN_ID}
+      - OPENCLAW_WORKLOAD_MODE=${OPENCLAW_WORKLOAD_MODE:-synthetic}
+      - LANE_DURATION_SEC=${LANE_DURATION_SEC:-600}
     networks:
       - openclaw_lab
     security_opt:
       - no-new-privileges:true
     cap_drop:
       - ALL
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=64m
+    pids_limit: 128
+    mem_limit: 512m
+    cpus: "1.0"
 
 networks:
   openclaw_lab:

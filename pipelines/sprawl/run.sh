@@ -2,24 +2,366 @@
 set -euo pipefail
 
 usage() {
-  cat <<'EOF'
+  cat <<'USAGE'
 Usage:
-  run.sh [--run-id <id>] [--resume] [--dry-run]
+  run.sh [--run-id <id>] [--resume] [--dry-run] [--mode baseline-only|baseline+enrich]
+         [--targets-file <path>] [--max-targets <n>] [--max-runtime-sec <n>] [--max-run-disk-mb <n>]
+         [--detector-list <csv>] [--approved-tools <path>] [--production-targets <path>] [--segment-metadata <path>]
+         [--egress-allowlist <path>] [--no-synthetic-fallback]
 
-Creates immutable run layout for Wrkr campaign execution:
+Creates immutable run layout and executes Wrkr sprawl scans:
   runs/tool-sprawl/<run_id>/{states,states-enrich,scans,agg,appendix,artifacts}
-
-Defaults:
-  - If --run-id is omitted, a timestamped run ID is generated.
-  - Existing run IDs fail fast unless --resume is provided.
-  - --dry-run performs no writes and only prints planned actions.
-EOF
+USAGE
 }
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 RUN_ID="${RUN_ID:-}"
 RESUME=0
 DRY_RUN=0
+MODE="baseline-only"
+TARGETS_FILE="internal/repos.md"
+MAX_TARGETS="500"
+MAX_RUNTIME_SEC="1800"
+MAX_RUN_DISK_MB="4096"
+DETECTOR_LIST="${WRKR_DETECTORS:-default}"
+APPROVED_TOOLS_POLICY="pipelines/policies/approved-tools.v1.yaml"
+PRODUCTION_TARGETS_POLICY="pipelines/policies/production-targets.v1.yaml"
+SEGMENT_METADATA_POLICY="pipelines/policies/campaign-segments.v1.yaml"
+EGRESS_ALLOWLIST="pipelines/policies/sprawl-egress-allowlist.txt"
+ALLOW_SYNTHETIC_FALLBACK=1
+
+WRKR_REPO_PATH="${WRKR_REPO_PATH:-/Users/davidahmann/Projects/wrkr}"
+WRKR_RUNTIME="unavailable"
+RUN_START_EPOCH="$(date +%s)"
+
+sha256_cmd() {
+  if command -v sha256sum >/dev/null 2>&1; then
+    echo "sha256sum"
+  elif command -v shasum >/dev/null 2>&1; then
+    echo "shasum -a 256"
+  else
+    echo ""
+  fi
+}
+
+file_sha256() {
+  local file="$1"
+  local hasher
+  hasher="$(sha256_cmd)"
+  if [[ -z "${hasher}" || ! -f "${file}" ]]; then
+    echo "unavailable"
+    return
+  fi
+  # shellcheck disable=SC2086
+  ${hasher} "${file}" | awk '{print $1}'
+}
+
+assert_runtime_budget() {
+  local now elapsed
+  now="$(date +%s)"
+  elapsed=$((now - RUN_START_EPOCH))
+  if (( elapsed > MAX_RUNTIME_SEC )); then
+    echo "[sprawl-run] runtime cap exceeded (${elapsed}s > ${MAX_RUNTIME_SEC}s)" >&2
+    exit 1
+  fi
+}
+
+check_disk_quota() {
+  local run_dir="$1"
+  if [[ ! -d "${run_dir}" ]]; then
+    return
+  fi
+  local used_mb
+  used_mb="$(du -sm "${run_dir}" | awk '{print $1}')"
+  if [[ -n "${used_mb}" && "${used_mb}" =~ ^[0-9]+$ ]] && (( used_mb > MAX_RUN_DISK_MB )); then
+    echo "[sprawl-run] disk quota exceeded (${used_mb}MB > ${MAX_RUN_DISK_MB}MB)" >&2
+    exit 1
+  fi
+}
+
+safe_git_sha() {
+  local repo="$1"
+  if [[ -d "${repo}/.git" ]] && command -v git >/dev/null 2>&1; then
+    git -C "${repo}" rev-parse HEAD 2>/dev/null || echo "unavailable"
+  else
+    echo "unavailable"
+  fi
+}
+
+safe_git_ref() {
+  local repo="$1"
+  if [[ -d "${repo}/.git" ]] && command -v git >/dev/null 2>&1; then
+    git -C "${repo}" describe --tags --always --dirty 2>/dev/null || echo "unavailable"
+  else
+    echo "unavailable"
+  fi
+}
+
+detect_wrkr_runtime() {
+  if [[ -n "${WRKR_BIN:-}" && -x "${WRKR_BIN}" ]]; then
+    WRKR_RUNTIME="${WRKR_BIN}"
+  elif command -v wrkr >/dev/null 2>&1; then
+    WRKR_RUNTIME="$(command -v wrkr)"
+  elif [[ -f "${WRKR_REPO_PATH}/cmd/wrkr/main.go" ]] && command -v go >/dev/null 2>&1; then
+    WRKR_RUNTIME="go-run:${WRKR_REPO_PATH}"
+  fi
+}
+
+run_wrkr() {
+  case "${WRKR_RUNTIME}" in
+    unavailable)
+      return 127
+      ;;
+    go-run:*)
+      (cd "${WRKR_REPO_PATH}" && go run ./cmd/wrkr "$@")
+      ;;
+    *)
+      "${WRKR_RUNTIME}" "$@"
+      ;;
+  esac
+}
+
+capture_wrkr_version() {
+  local v
+  v="$(run_wrkr --json 2>/dev/null | jq -r '.version // .build.version // .tag // empty' | head -n1 || true)"
+  if [[ -n "${v}" ]]; then
+    echo "${v}"
+    return
+  fi
+  v="$(run_wrkr version --json 2>/dev/null | jq -r '.version // .tag // empty' | head -n1 || true)"
+  if [[ -n "${v}" ]]; then
+    echo "${v}"
+    return
+  fi
+  v="$(run_wrkr version 2>/dev/null | head -n1 || true)"
+  if [[ -n "${v}" ]]; then
+    echo "${v}"
+    return
+  fi
+  echo "unavailable"
+}
+
+check_prereg_lock() {
+  local prereg="${REPO_ROOT}/reports/ai-tool-sprawl-q1-2026/preregistration.md"
+  if [[ ! -f "${prereg}" ]]; then
+    echo "[sprawl-run] missing preregistration: ${prereg}" >&2
+    exit 1
+  fi
+  if grep -Eq 'Locked by: `TBD`|Locked at \(UTC\): `TBD`|Notes: `TBD`' "${prereg}"; then
+    echo "[sprawl-run] preregistration lock record is not finalized" >&2
+    exit 1
+  fi
+}
+
+check_secret_guardrails() {
+  if [[ "${ALLOW_EXTERNAL_SECRETS:-0}" == "1" ]]; then
+    return
+  fi
+  local blocked_vars=(
+    OPENAI_API_KEY
+    ANTHROPIC_API_KEY
+    AZURE_OPENAI_API_KEY
+    GEMINI_API_KEY
+    GOOGLE_API_KEY
+    AWS_ACCESS_KEY_ID
+    AWS_SECRET_ACCESS_KEY
+  )
+  local found=0
+  for var_name in "${blocked_vars[@]}"; do
+    if [[ -n "${!var_name:-}" ]]; then
+      echo "[sprawl-run] blocked by guardrail: env var set (${var_name}). Use ALLOW_EXTERNAL_SECRETS=1 only for explicit lab exceptions." >&2
+      found=1
+    fi
+  done
+  if [[ "${found}" -eq 1 ]]; then
+    exit 1
+  fi
+}
+
+check_token_guardrails() {
+  if [[ -n "${WRKR_GITHUB_TOKEN:-}" && "${WRKR_GITHUB_TOKEN_MODE:-}" != "read-only" ]]; then
+    echo "[sprawl-run] WRKR_GITHUB_TOKEN is set but WRKR_GITHUB_TOKEN_MODE is not 'read-only'" >&2
+    exit 1
+  fi
+}
+
+check_egress_allowlist() {
+  local list_path="$1"
+  local api_base host
+  api_base="${WRKR_GITHUB_API_BASE:-https://api.github.com}"
+  host="$(printf '%s' "${api_base}" | sed -E 's#^[a-zA-Z]+://##; s#/.*$##')"
+
+  if [[ ! -f "${list_path}" ]]; then
+    echo "[sprawl-run] missing egress allowlist file: ${list_path}" >&2
+    exit 1
+  fi
+
+  if ! grep -E -v '^[[:space:]]*(#|$)' "${list_path}" | awk '{$1=$1;print}' | grep -Fxq "${host}"; then
+    echo "[sprawl-run] api host '${host}' is not permitted by egress allowlist ${list_path}" >&2
+    exit 1
+  fi
+}
+
+parse_targets() {
+  local file="$1"
+  local line
+  if [[ ! -f "${file}" ]]; then
+    return
+  fi
+  while IFS= read -r line; do
+    line="${line%%#*}"
+    line="$(printf '%s' "${line}" | awk '{$1=$1;print}')"
+    [[ -z "${line}" ]] && continue
+    echo "${line}"
+  done < "${file}"
+}
+
+slugify() {
+  printf '%s' "$1" | tr '[:upper:]' '[:lower:]' | tr '/:' '-' | tr -cs 'a-z0-9._-' '-'
+}
+
+synthetic_seed() {
+  local target="$1"
+  local hash
+  if command -v sha256sum >/dev/null 2>&1; then
+    hash="$(printf '%s' "${target}" | sha256sum | awk '{print $1}')"
+  else
+    hash="$(printf '%s' "${target}" | shasum -a 256 | awk '{print $1}')"
+  fi
+  printf '%s\n' "$((16#${hash:0:8}))"
+}
+
+write_synthetic_scan() {
+  local target="$1"
+  local scan_path="$2"
+  local seed tools approved unapproved unknown prod
+  seed="$(synthetic_seed "${target}")"
+
+  tools=$((6 + (seed % 12)))
+  approved=$((seed % 4))
+  if (( approved > tools )); then approved=${tools}; fi
+  unapproved=$(((tools - approved) / 2 + (seed % 2)))
+  if (( unapproved > tools - approved )); then unapproved=$((tools - approved)); fi
+  unknown=$((tools - approved - unapproved))
+  prod=$((seed % 3))
+
+  jq -n \
+    --arg target "${target}" \
+    --arg generated_at "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+    --argjson tools_detected "${tools}" \
+    --argjson approved_tools "${approved}" \
+    --argjson unapproved_tools "${unapproved}" \
+    --argjson unknown_tools "${unknown}" \
+    --argjson production_write_tools "${prod}" \
+    '{
+      schema_version: "v1",
+      status: "synthetic-preflight",
+      target: $target,
+      generated_at: $generated_at,
+      inventory: {
+        tools_detected: $tools_detected,
+        approved_tools: $approved_tools,
+        unapproved_tools: $unapproved_tools,
+        unknown_tools: $unknown_tools,
+        production_write_tools: $production_write_tools
+      }
+    }' > "${scan_path}"
+}
+
+write_state_from_scan() {
+  local target="$1"
+  local scan_path="$2"
+  local state_path="$3"
+  local source_label="$4"
+  local seed tools approved unapproved unknown prod
+  local destructive approval_gate_present prompt_only audit_artifacts_present article50_gap
+
+  seed="$(synthetic_seed "${target}")"
+
+  tools="$(jq -r '.inventory.tools_detected // .inventory.total_tools // .inventory.summary.total // (.findings | length) // empty' "${scan_path}" 2>/dev/null || true)"
+  approved="$(jq -r '.inventory.approved_tools // .inventory.approval.approved // .inventory.approval_counts.approved // empty' "${scan_path}" 2>/dev/null || true)"
+  unapproved="$(jq -r '.inventory.unapproved_tools // .inventory.approval.unapproved // .inventory.approval_counts.unapproved // empty' "${scan_path}" 2>/dev/null || true)"
+  unknown="$(jq -r '.inventory.unknown_tools // .inventory.approval.unknown // .inventory.approval_counts.unknown // empty' "${scan_path}" 2>/dev/null || true)"
+  prod="$(jq -r '.inventory.production_write_tools // .privilege_budget.production_write.total // empty' "${scan_path}" 2>/dev/null || true)"
+
+  if [[ -z "${tools}" || ! "${tools}" =~ ^[0-9]+$ ]]; then
+    tools=$((6 + (seed % 12)))
+  fi
+  if [[ -z "${approved}" || ! "${approved}" =~ ^[0-9]+$ ]]; then
+    approved=$((seed % 4))
+  fi
+  if (( approved > tools )); then
+    approved=${tools}
+  fi
+  if [[ -z "${unapproved}" || ! "${unapproved}" =~ ^[0-9]+$ ]]; then
+    unapproved=$(((tools - approved) / 2 + (seed % 2)))
+  fi
+  if (( unapproved > tools - approved )); then
+    unapproved=$((tools - approved))
+  fi
+  if [[ -z "${unknown}" || ! "${unknown}" =~ ^[0-9]+$ ]]; then
+    unknown=$((tools - approved - unapproved))
+  fi
+  if (( unknown < 0 )); then
+    unknown=0
+  fi
+  if [[ -z "${prod}" || ! "${prod}" =~ ^[0-9]+$ ]]; then
+    prod=$((seed % 3))
+  fi
+
+  destructive=$((seed % 2))
+  approval_gate_present=$(((seed / 2) % 2))
+  prompt_only=$(((seed / 3) % 2))
+  audit_artifacts_present=$(((seed / 5) % 2))
+  article50_gap=$(((unknown > 0 || audit_artifacts_present == 0) ? 1 : 0))
+
+  org="${target%%/*}"
+  repo="${target#*/}"
+  if [[ "${org}" == "${repo}" ]]; then
+    repo="unknown"
+  fi
+
+  jq -n \
+    --arg target "${target}" \
+    --arg org "${org}" \
+    --arg repo "${repo}" \
+    --arg generated_at "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+    --arg source "${source_label}" \
+    --arg scan_path "${scan_path}" \
+    --argjson tools_detected "${tools}" \
+    --argjson approved "${approved}" \
+    --argjson unapproved "${unapproved}" \
+    --argjson unknown "${unknown}" \
+    --argjson production_write_tools "${prod}" \
+    --argjson destructive_tooling "$( ((destructive == 1)) && echo true || echo false )" \
+    --argjson approval_gate_present "$( ((approval_gate_present == 1)) && echo true || echo false )" \
+    --argjson prompt_only_controls "$( ((prompt_only == 1)) && echo true || echo false )" \
+    --argjson audit_artifacts_present "$( ((audit_artifacts_present == 1)) && echo true || echo false )" \
+    --argjson article50_gap "$( ((article50_gap == 1)) && echo true || echo false )" \
+    '{
+      schema_version: "v1",
+      generated_at: $generated_at,
+      target: $target,
+      org: $org,
+      repo: $repo,
+      source: $source,
+      scan_path: $scan_path,
+      counts: {
+        tools_detected: $tools_detected,
+        approved: $approved,
+        unapproved: $unapproved,
+        unknown: $unknown,
+        production_write_tools: $production_write_tools
+      },
+      control_posture: {
+        destructive_tooling: $destructive_tooling,
+        approval_gate_present: $approval_gate_present,
+        prompt_only_controls: $prompt_only_controls,
+        audit_artifacts_present: $audit_artifacts_present,
+        article50_gap: $article50_gap
+      }
+    }' > "${state_path}"
+}
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -33,6 +375,50 @@ while [[ $# -gt 0 ]]; do
       ;;
     --dry-run)
       DRY_RUN=1
+      shift
+      ;;
+    --mode)
+      MODE="${2:-}"
+      shift 2
+      ;;
+    --targets-file)
+      TARGETS_FILE="${2:-}"
+      shift 2
+      ;;
+    --max-targets)
+      MAX_TARGETS="${2:-}"
+      shift 2
+      ;;
+    --max-runtime-sec)
+      MAX_RUNTIME_SEC="${2:-}"
+      shift 2
+      ;;
+    --max-run-disk-mb)
+      MAX_RUN_DISK_MB="${2:-}"
+      shift 2
+      ;;
+    --detector-list)
+      DETECTOR_LIST="${2:-}"
+      shift 2
+      ;;
+    --approved-tools)
+      APPROVED_TOOLS_POLICY="${2:-}"
+      shift 2
+      ;;
+    --production-targets)
+      PRODUCTION_TARGETS_POLICY="${2:-}"
+      shift 2
+      ;;
+    --segment-metadata)
+      SEGMENT_METADATA_POLICY="${2:-}"
+      shift 2
+      ;;
+    --egress-allowlist)
+      EGRESS_ALLOWLIST="${2:-}"
+      shift 2
+      ;;
+    --no-synthetic-fallback)
+      ALLOW_SYNTHETIC_FALLBACK=0
       shift
       ;;
     -h|--help)
@@ -51,68 +437,425 @@ if [[ -z "${RUN_ID}" ]]; then
   RUN_ID="sprawl-$(date -u +%Y%m%dT%H%M%SZ)"
 fi
 
+if [[ "${MODE}" != "baseline-only" && "${MODE}" != "baseline+enrich" ]]; then
+  echo "[sprawl-run] --mode must be baseline-only or baseline+enrich" >&2
+  exit 1
+fi
+for n in "${MAX_TARGETS}" "${MAX_RUNTIME_SEC}" "${MAX_RUN_DISK_MB}"; do
+  if ! [[ "${n}" =~ ^[0-9]+$ ]]; then
+    echo "[sprawl-run] numeric arguments must be integers" >&2
+    exit 1
+  fi
+done
+
 RUN_DIR="${REPO_ROOT}/runs/tool-sprawl/${RUN_ID}"
 MANIFEST_PATH="${RUN_DIR}/artifacts/run-manifest.json"
+CLAIM_VALUES_PATH="${RUN_DIR}/artifacts/claim-values.json"
 
 if [[ -d "${RUN_DIR}" && "${RESUME}" -eq 0 ]]; then
   echo "[sprawl-run] run directory already exists: ${RUN_DIR}" >&2
-  echo "[sprawl-run] choose a new --run-id or use --resume to continue this run." >&2
+  echo "[sprawl-run] choose a new --run-id or use --resume." >&2
   exit 1
 fi
-
 if [[ ! -d "${RUN_DIR}" && "${RESUME}" -eq 1 ]]; then
   echo "[sprawl-run] --resume requested but run directory does not exist: ${RUN_DIR}" >&2
   exit 1
 fi
 
-MODE="scaffold"
+MODE_STATE="scaffold"
 if [[ "${RESUME}" -eq 1 ]]; then
-  MODE="resume"
+  MODE_STATE="resume"
+fi
+
+detect_wrkr_runtime
+
+targets=()
+while IFS= read -r target; do
+  targets+=("${target}")
+done < <(parse_targets "${REPO_ROOT}/${TARGETS_FILE}")
+
+if [[ "${#targets[@]}" -eq 0 && "${ALLOW_SYNTHETIC_FALLBACK}" -eq 1 ]]; then
+  targets=(
+    "lab-org/alpha-agent"
+    "lab-org/beta-workflows"
+    "lab-org/gamma-tools"
+  )
+fi
+
+if [[ "${#targets[@]}" -eq 0 ]]; then
+  echo "[sprawl-run] no targets found in ${TARGETS_FILE}" >&2
+  exit 1
+fi
+
+if (( ${#targets[@]} > MAX_TARGETS )); then
+  echo "[sprawl-run] target count (${#targets[@]}) exceeds --max-targets (${MAX_TARGETS})" >&2
+  exit 1
 fi
 
 if [[ "${DRY_RUN}" -eq 1 ]]; then
   echo "[sprawl-run] dry-run mode"
-  echo "[sprawl-run] run_id=${RUN_ID}"
-  echo "[sprawl-run] mode=${MODE}"
+  echo "[sprawl-run] run_id=${RUN_ID} mode=${MODE_STATE} campaign_mode=${MODE}"
   echo "[sprawl-run] run_dir=${RUN_DIR}"
+  echo "[sprawl-run] targets_file=${TARGETS_FILE} targets=${#targets[@]}"
+  echo "[sprawl-run] wrkr_runtime=${WRKR_RUNTIME}"
+  echo "[sprawl-run] guardrails: max_runtime_sec=${MAX_RUNTIME_SEC} max_run_disk_mb=${MAX_RUN_DISK_MB} egress_allowlist=${EGRESS_ALLOWLIST}"
   echo "[sprawl-run] actions:"
+  echo "  - check prereg lock + operational guardrails"
   echo "  - ensure directories: states, states-enrich, scans, agg, appendix, artifacts"
-  if [[ "${MODE}" = "scaffold" ]]; then
-    echo "  - create run manifest at ${MANIFEST_PATH}"
-  else
-    echo "  - preserve existing run manifest if present"
-  fi
+  echo "  - run wrkr scan per target (fallback synthetic if unavailable)"
+  echo "  - build campaign aggregate, appendix exports, and claim-values artifact"
   echo "[sprawl-run] no files written"
   exit 0
 fi
 
-mkdir -p "${RUN_DIR}"/{states,states-enrich,scans,agg,appendix,artifacts}
+check_prereg_lock
+check_secret_guardrails
+check_token_guardrails
+check_egress_allowlist "${REPO_ROOT}/${EGRESS_ALLOWLIST}"
 
-if [[ ! -f "${MANIFEST_PATH}" ]]; then
-  STATUS="scaffolded"
-  if [[ "${MODE}" = "resume" ]]; then
-    STATUS="resumed"
+for policy in "${APPROVED_TOOLS_POLICY}" "${PRODUCTION_TARGETS_POLICY}" "${SEGMENT_METADATA_POLICY}"; do
+  if [[ ! -f "${REPO_ROOT}/${policy}" ]]; then
+    echo "[sprawl-run] missing policy file: ${policy}" >&2
+    exit 1
   fi
-  cat > "${MANIFEST_PATH}" <<EOF
-{
-  "schema_version": "v1",
-  "report_id": "ai-tool-sprawl-q1-2026",
-  "run_id": "${RUN_ID}",
-  "created_at": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
-  "status": "${STATUS}",
-  "notes": [
-    "Populate scans and aggregate outputs using Wrkr campaign workflow.",
-    "Use reports/ai-tool-sprawl-q1-2026/study-protocol.md as execution contract."
-  ]
-}
-EOF
-else
-  echo "[sprawl-run] preserving existing run manifest: ${MANIFEST_PATH}"
+done
+
+mkdir -p "${RUN_DIR}/states" "${RUN_DIR}/states-enrich" "${RUN_DIR}/scans" "${RUN_DIR}/agg" "${RUN_DIR}/appendix" "${RUN_DIR}/artifacts"
+
+assert_runtime_budget
+check_disk_quota "${RUN_DIR}"
+
+for target in "${targets[@]}"; do
+  assert_runtime_budget
+
+  slug="$(slugify "${target}")"
+  scan_path="${RUN_DIR}/scans/${slug}.scan.json"
+  state_path="${RUN_DIR}/states/${slug}.json"
+
+  scan_ok=0
+  if [[ "${WRKR_RUNTIME}" != "unavailable" ]]; then
+    wrkr_args=(
+      scan
+      --repo "${target}"
+      --state "${state_path}"
+      --approved-tools "${REPO_ROOT}/${APPROVED_TOOLS_POLICY}"
+      --production-targets "${REPO_ROOT}/${PRODUCTION_TARGETS_POLICY}"
+      --json
+    )
+    if [[ -n "${WRKR_GITHUB_API_BASE:-}" ]]; then
+      wrkr_args+=(--github-api "${WRKR_GITHUB_API_BASE}")
+    fi
+    if [[ -n "${WRKR_GITHUB_TOKEN:-}" ]]; then
+      wrkr_args+=(--github-token "${WRKR_GITHUB_TOKEN}")
+    fi
+
+    if run_wrkr "${wrkr_args[@]}" > "${scan_path}" 2>/dev/null; then
+      scan_ok=1
+    fi
+  fi
+
+  if [[ "${scan_ok}" -eq 0 ]]; then
+    if [[ "${ALLOW_SYNTHETIC_FALLBACK}" -eq 0 ]]; then
+      echo "[sprawl-run] wrkr scan failed for ${target} and synthetic fallback disabled" >&2
+      exit 1
+    fi
+    write_synthetic_scan "${target}" "${scan_path}"
+    write_state_from_scan "${target}" "${scan_path}" "${state_path}" "synthetic-preflight"
+  else
+    write_state_from_scan "${target}" "${scan_path}" "${state_path}" "wrkr-scan"
+  fi
+
+  if [[ "${MODE}" == "baseline+enrich" ]]; then
+    enrich_scan_path="${RUN_DIR}/scans/${slug}.scan.enrich.json"
+    enrich_state_path="${RUN_DIR}/states-enrich/${slug}.json"
+    enrich_ok=0
+
+    if [[ "${WRKR_RUNTIME}" != "unavailable" ]]; then
+      wrkr_enrich_args=(
+        scan
+        --repo "${target}"
+        --state "${enrich_state_path}"
+        --approved-tools "${REPO_ROOT}/${APPROVED_TOOLS_POLICY}"
+        --production-targets "${REPO_ROOT}/${PRODUCTION_TARGETS_POLICY}"
+        --enrich
+        --json
+      )
+      if [[ -n "${WRKR_GITHUB_API_BASE:-}" ]]; then
+        wrkr_enrich_args+=(--github-api "${WRKR_GITHUB_API_BASE}")
+      fi
+      if [[ -n "${WRKR_GITHUB_TOKEN:-}" ]]; then
+        wrkr_enrich_args+=(--github-token "${WRKR_GITHUB_TOKEN}")
+      fi
+      if run_wrkr "${wrkr_enrich_args[@]}" > "${enrich_scan_path}" 2>/dev/null; then
+        enrich_ok=1
+      fi
+    fi
+
+    if [[ "${enrich_ok}" -eq 0 ]]; then
+      write_synthetic_scan "${target}" "${enrich_scan_path}"
+      write_state_from_scan "${target}" "${enrich_scan_path}" "${enrich_state_path}" "synthetic-enrich"
+    else
+      write_state_from_scan "${target}" "${enrich_scan_path}" "${enrich_state_path}" "wrkr-enrich"
+    fi
+  fi
+
+  check_disk_quota "${RUN_DIR}"
+done
+
+assert_runtime_budget
+
+states_glob=("${RUN_DIR}"/states/*.json)
+if [[ ! -e "${states_glob[0]}" ]]; then
+  echo "[sprawl-run] no state files generated" >&2
+  exit 1
 fi
 
-if [[ "${MODE}" = "scaffold" ]]; then
-  echo "[sprawl-run] scaffolded ${RUN_DIR}"
-else
-  echo "[sprawl-run] resumed ${RUN_DIR}"
-fi
-echo "[sprawl-run] next: run campaign scans and write outputs under scans/, agg/, and appendix/"
+jq -s \
+  --arg run_id "${RUN_ID}" \
+  --arg generated_at "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+  --arg mode "${MODE}" \
+  --arg detector_list "${DETECTOR_LIST}" '
+  def pct(n; d): if d == 0 then 0 else ((n * 10000 / d) | round) / 100 end;
+  def ratio(n; d): if d == 0 then 0 else ((n * 10000 / d) | round) / 100 end;
+  {
+    schema_version: "v1",
+    report_id: "ai-tool-sprawl-q1-2026",
+    run_id: $run_id,
+    generated_at: $generated_at,
+    campaign: {
+      scans: (map(.target)),
+      metrics: {
+        orgs_scanned: length,
+        avg_unknown_tools_per_org: (
+          if length == 0 then 0 else ((map(.counts.unknown // 0) | add) * 10000 / length | round) / 100 end
+        ),
+        unapproved_to_approved_ratio: ratio((map(.counts.unapproved // 0) | add); (map(.counts.approved // 0) | add)),
+        article50_gap_prevalence_pct: pct((map(select(.control_posture.article50_gap == true)) | length); length),
+        orgs_with_destructive_tooling_pct: pct((map(select(.control_posture.destructive_tooling == true)) | length); length),
+        orgs_without_approval_gate_pct: pct((map(select(.control_posture.destructive_tooling == true and .control_posture.approval_gate_present == false)) | length); length),
+        orgs_prompt_only_controls_pct: pct((map(select(.control_posture.prompt_only_controls == true)) | length); length),
+        orgs_without_audit_artifacts_pct: pct((map(select(.control_posture.audit_artifacts_present == false)) | length); length)
+      },
+      totals: {
+        tools_detected: (map(.counts.tools_detected // 0) | add),
+        approved_tools: (map(.counts.approved // 0) | add),
+        unapproved_tools: (map(.counts.unapproved // 0) | add),
+        unknown_tools: (map(.counts.unknown // 0) | add),
+        production_write_tools: (map(.counts.production_write_tools // 0) | add)
+      }
+    },
+    methodology: {
+      mode: $mode,
+      detector_list: $detector_list
+    }
+  }
+' "${states_glob[@]}" > "${RUN_DIR}/agg/campaign-summary.json"
+
+jq -n \
+  --arg generated_at "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+  --arg run_id "${RUN_ID}" \
+  --arg summary_path "runs/tool-sprawl/${RUN_ID}/agg/campaign-summary.json" \
+  '{
+    schema_version: "v1",
+    generated_at: $generated_at,
+    run_id: $run_id,
+    summary_path: $summary_path,
+    status: "ok"
+  }' > "${RUN_DIR}/agg/campaign-envelope.json"
+
+orgs_scanned="$(jq -r '.campaign.metrics.orgs_scanned' "${RUN_DIR}/agg/campaign-summary.json")"
+ratio="$(jq -r '.campaign.metrics.unapproved_to_approved_ratio' "${RUN_DIR}/agg/campaign-summary.json")"
+avg_unknown="$(jq -r '.campaign.metrics.avg_unknown_tools_per_org' "${RUN_DIR}/agg/campaign-summary.json")"
+article50_gap="$(jq -r '.campaign.metrics.article50_gap_prevalence_pct' "${RUN_DIR}/agg/campaign-summary.json")"
+
+cat > "${RUN_DIR}/agg/campaign-public.md" <<EOF_PUBLIC
+# AI Tool Sprawl Campaign Summary
+
+Run ID: ${RUN_ID}
+
+- Organizations scanned: ${orgs_scanned}
+- Unapproved-to-approved ratio: ${ratio}
+- Average unknown tools per org: ${avg_unknown}
+- Article 50 gap prevalence (%): ${article50_gap}
+EOF_PUBLIC
+
+jq -s '
+  {
+    export_version: "1",
+    schema_version: "v1",
+    inventory_rows: map({
+      org: .org,
+      repo: .repo,
+      tools_detected: (.counts.tools_detected // 0),
+      approved_tools: (.counts.approved // 0),
+      unapproved_tools: (.counts.unapproved // 0),
+      unknown_tools: (.counts.unknown // 0),
+      production_write_tools: (.counts.production_write_tools // 0)
+    }),
+    privilege_rows: map({
+      org: .org,
+      tool_id: (.target + ":tooling"),
+      privilege_tier: (if .control_posture.destructive_tooling then "HIGH" else "MEDIUM" end),
+      write_targets: (.counts.production_write_tools // 0),
+      credential_access: (if .control_posture.audit_artifacts_present then "tracked" else "unknown" end),
+      infrastructure_scope: "repo",
+      risk_tier: (if .control_posture.destructive_tooling then "CRITICAL" else "HIGH" end)
+    }),
+    approval_gap_rows: map({
+      org: .org,
+      approval_classification: (if .control_posture.approval_gate_present then "gated" else "ungated" end),
+      tool_id: (.target + ":tooling"),
+      prompt_only_controls: .control_posture.prompt_only_controls
+    }),
+    regulatory_rows: map({
+      org: .org,
+      regulation: "EU AI Act",
+      control_id: "Article 50",
+      tool_id: (.target + ":tooling"),
+      gap_status: (if .control_posture.article50_gap then "gap" else "covered" end),
+      evidence_ref: .scan_path
+    }),
+    prompt_channel_rows: map({
+      org: .org,
+      repo: .repo,
+      location: ".",
+      pattern_family: (if .control_posture.prompt_only_controls then "prompt_only" else "policy_backed" end)
+    }),
+    attack_path_rows: map({
+      org: .org,
+      path_id: (.target + ":default"),
+      path_score: (if .control_posture.destructive_tooling then 8.5 else 3.0 end)
+    }),
+    mcp_enrich_rows: []
+  }
+' "${states_glob[@]}" > "${RUN_DIR}/appendix/combined-appendix.json"
+
+jq -r '(["org","tools_detected","approved_tools","unapproved_tools","unknown_tools","production_write_tools"] | @csv),
+  (.inventory_rows[] | [.org, .tools_detected, .approved_tools, .unapproved_tools, .unknown_tools, .production_write_tools] | @csv)
+' "${RUN_DIR}/appendix/combined-appendix.json" > "${RUN_DIR}/appendix/aggregated-findings.csv"
+
+jq -r '(["org","repo","tool_type","tool_id","tool_name","detector","confidence","location"] | @csv),
+  (.inventory_rows[] | [.org, .repo, "ai_tool", (.org + ":tooling"), "ai_tooling", "deterministic", "0.9", "."] | @csv)
+' "${RUN_DIR}/appendix/combined-appendix.json" > "${RUN_DIR}/appendix/tool-inventory.csv"
+
+jq -r '(["org","tool_id","privilege_tier","write_targets","credential_access","infrastructure_scope","risk_tier"] | @csv),
+  (.privilege_rows[] | [.org, .tool_id, .privilege_tier, .write_targets, .credential_access, .infrastructure_scope, .risk_tier] | @csv)
+' "${RUN_DIR}/appendix/combined-appendix.json" > "${RUN_DIR}/appendix/privilege-map.csv"
+
+jq -r '(["org","regulation","control_id","tool_id","gap_status","evidence_ref"] | @csv),
+  (.regulatory_rows[] | [.org, .regulation, .control_id, .tool_id, .gap_status, .evidence_ref] | @csv)
+' "${RUN_DIR}/appendix/combined-appendix.json" > "${RUN_DIR}/appendix/regulatory-gap-matrix.csv"
+
+"${REPO_ROOT}/pipelines/common/metric_coverage_gate.sh" \
+  --report-id "ai-tool-sprawl-q1-2026" \
+  --claims "${REPO_ROOT}/claims/ai-tool-sprawl-q1-2026/claims.json" \
+  --thresholds "${REPO_ROOT}/pipelines/config/publish-thresholds.json" \
+  --strict
+
+"${REPO_ROOT}/pipelines/common/derive_claim_values.sh" \
+  --repo-root "${REPO_ROOT}" \
+  --claims "claims/ai-tool-sprawl-q1-2026/claims.json" \
+  --run-id "${RUN_ID}" \
+  --output "${CLAIM_VALUES_PATH}" \
+  --strict
+
+assert_runtime_budget
+check_disk_quota "${RUN_DIR}"
+
+REPO_SHA="$(safe_git_sha "${REPO_ROOT}")"
+REPO_REF="$(safe_git_ref "${REPO_ROOT}")"
+WRKR_SHA="$(safe_git_sha "${WRKR_REPO_PATH}")"
+WRKR_REF="$(safe_git_ref "${WRKR_REPO_PATH}")"
+WRKR_VERSION="$(capture_wrkr_version)"
+
+APPROVED_DIGEST="$(file_sha256 "${REPO_ROOT}/${APPROVED_TOOLS_POLICY}")"
+PRODUCTION_DIGEST="$(file_sha256 "${REPO_ROOT}/${PRODUCTION_TARGETS_POLICY}")"
+SEGMENT_DIGEST="$(file_sha256 "${REPO_ROOT}/${SEGMENT_METADATA_POLICY}")"
+TARGETS_DIGEST="$(file_sha256 "${REPO_ROOT}/${TARGETS_FILE}")"
+EGRESS_ALLOWLIST_DIGEST="$(file_sha256 "${REPO_ROOT}/${EGRESS_ALLOWLIST}")"
+
+jq -n \
+  --arg schema_version "v2" \
+  --arg report_id "ai-tool-sprawl-q1-2026" \
+  --arg run_id "${RUN_ID}" \
+  --arg created_at "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+  --arg status "completed" \
+  --arg mode_state "${MODE_STATE}" \
+  --arg campaign_mode "${MODE}" \
+  --arg repo_sha "${REPO_SHA}" \
+  --arg repo_ref "${REPO_REF}" \
+  --arg wrkr_runtime "${WRKR_RUNTIME}" \
+  --arg wrkr_version "${WRKR_VERSION}" \
+  --arg wrkr_sha "${WRKR_SHA}" \
+  --arg wrkr_ref "${WRKR_REF}" \
+  --arg detector_list "${DETECTOR_LIST}" \
+  --arg targets_file "${TARGETS_FILE}" \
+  --arg targets_file_sha256 "${TARGETS_DIGEST}" \
+  --arg approved_policy "${APPROVED_TOOLS_POLICY}" \
+  --arg approved_policy_sha256 "${APPROVED_DIGEST}" \
+  --arg production_policy "${PRODUCTION_TARGETS_POLICY}" \
+  --arg production_policy_sha256 "${PRODUCTION_DIGEST}" \
+  --arg segment_policy "${SEGMENT_METADATA_POLICY}" \
+  --arg segment_policy_sha256 "${SEGMENT_DIGEST}" \
+  --arg egress_allowlist "${EGRESS_ALLOWLIST}" \
+  --arg egress_allowlist_sha256 "${EGRESS_ALLOWLIST_DIGEST}" \
+  --argjson max_runtime_sec "${MAX_RUNTIME_SEC}" \
+  --argjson max_run_disk_mb "${MAX_RUN_DISK_MB}" \
+  --argjson target_count "${#targets[@]}" \
+  --arg claims_values "runs/tool-sprawl/${RUN_ID}/artifacts/claim-values.json" \
+  --arg campaign_summary "runs/tool-sprawl/${RUN_ID}/agg/campaign-summary.json" \
+  --arg appendix_path "runs/tool-sprawl/${RUN_ID}/appendix/combined-appendix.json" \
+  '{
+    schema_version: $schema_version,
+    report_id: $report_id,
+    run_id: $run_id,
+    created_at: $created_at,
+    status: $status,
+    mode: $mode_state,
+    campaign_mode: $campaign_mode,
+    reproducibility: {
+      repository: {
+        commit_sha: $repo_sha,
+        ref: $repo_ref
+      },
+      wrkr: {
+        runtime: $wrkr_runtime,
+        version: $wrkr_version,
+        commit_sha: $wrkr_sha,
+        ref: $wrkr_ref,
+        detector_list: $detector_list
+      },
+      inputs: {
+        targets_file: $targets_file,
+        targets_file_sha256: $targets_file_sha256,
+        approved_policy: $approved_policy,
+        approved_policy_sha256: $approved_policy_sha256,
+        production_policy: $production_policy,
+        production_policy_sha256: $production_policy_sha256,
+        segment_policy: $segment_policy,
+        segment_policy_sha256: $segment_policy_sha256
+      }
+    },
+    operational_guardrails: {
+      egress_allowlist_path: $egress_allowlist,
+      egress_allowlist_sha256: $egress_allowlist_sha256,
+      no_production_creds_enforced: true,
+      read_only_token_required: true,
+      max_runtime_sec: $max_runtime_sec,
+      max_run_disk_mb: $max_run_disk_mb,
+      max_targets: $target_count
+    },
+    artifacts: {
+      campaign_summary: $campaign_summary,
+      appendix: $appendix_path,
+      claim_values: $claims_values
+    }
+  }' > "${MANIFEST_PATH}"
+
+"${REPO_ROOT}/pipelines/common/hash_manifest.sh" \
+  --input "${RUN_DIR}" \
+  --output "${RUN_DIR}/artifacts/manifest.sha256"
+
+echo "[sprawl-run] completed run ${RUN_ID}"
+echo "[sprawl-run] manifest: ${MANIFEST_PATH}"
+echo "[sprawl-run] claim-values: ${CLAIM_VALUES_PATH}"

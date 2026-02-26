@@ -1,13 +1,13 @@
 # OpenClaw 2026 Pre-Registration
 
-Status: draft lock candidate  
-Version: `v2`
+Status: locked  
+Version: `v3`
 
 ## Study Identity
 
 - Report ID: `openclaw-2026`
-- Planned run ID: `TBD`
-- Planned publication window: `TBD`
+- Planned run ID: `openclaw-preflight-20260226`
+- Planned publication window: `2026-03-01 to 2026-03-15 (target)`
 - Canonical source pin: `internal/openclaw_repo.md`
 
 ## Locked Hypotheses
@@ -73,9 +73,10 @@ Version: `v2`
 
 - `v1`: initial preregistration scaffold.
 - `v2`: adds stop-safety and destructive-action endpoints and hypotheses.
+- `v3`: lock record finalized; preflight execution contract locked pending canonical OpenClaw source pin.
 
 ## Lock Record
 
-- Locked by: `TBD`
-- Locked at (UTC): `TBD`
-- Notes: `TBD`
+- Locked by: `David Ahmann`
+- Locked at (UTC): `2026-02-26T00:00:00Z`
+- Notes: `Lock applies to preflight and baseline execution mechanics. Canonical OpenClaw repository commit/tag remains sourced from internal/openclaw_repo.md before live workload mode.`

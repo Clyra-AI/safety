@@ -58,11 +58,16 @@ Pre-registration controls:
 
 ## Run Semantics
 
-Run scaffolds are immutable by default:
+Run IDs are immutable by default:
 
 - preview only: `pipelines/*/run.sh --run-id <id> --dry-run`
 - create run: `pipelines/*/run.sh --run-id <id>`
 - continue existing run: `pipelines/*/run.sh --run-id <id> --resume`
+
+Execution behavior:
+
+- OpenClaw: `pipelines/openclaw/run.sh` executes dual lanes, derives summaries, writes claim-value artifacts, and emits reproducibility metadata.
+- Sprawl: `pipelines/sprawl/run.sh` executes campaign scans, builds aggregate/appendix artifacts, writes claim-value artifacts, and emits reproducibility metadata.
 
 If a run ID already exists, `run.sh` fails fast unless `--resume` is explicitly provided.
 
@@ -83,6 +88,8 @@ Common gates:
 - `pipelines/common/claim_gates.sh`
 - `pipelines/common/citation_gates.sh`
 - `pipelines/common/threshold_gate.sh`
+- `pipelines/common/metric_coverage_gate.sh`
+- `pipelines/common/derive_claim_values.sh`
 - `pipelines/common/hash_manifest.sh`
 
 In strict mode, unresolved `TBD` markers in citation logs fail validation.

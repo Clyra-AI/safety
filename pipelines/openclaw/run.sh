@@ -2,24 +2,286 @@
 set -euo pipefail
 
 usage() {
-  cat <<'EOF'
+  cat <<'USAGE'
 Usage:
-  run.sh [--run-id <id>] [--resume] [--dry-run]
+  run.sh [--run-id <id>] [--resume] [--dry-run] [--execution synthetic|container] [--workload synthetic|live]
+         [--lane-duration-sec <n>] [--window-hours <n>] [--max-runtime-sec <n>] [--max-run-disk-mb <n>]
+         [--detector-list <csv>] [--egress-allowlist <path>]
 
-Creates immutable run layout for OpenClaw dual-lane execution:
+Creates immutable run layout and executes OpenClaw dual-lane workloads:
   runs/openclaw/<run_id>/{config,raw,derived,artifacts}
 
 Defaults:
-  - If --run-id is omitted, a timestamped run ID is generated.
-  - Existing run IDs fail fast unless --resume is provided.
-  - --dry-run performs no writes and only prints planned actions.
-EOF
+  - --execution synthetic
+  - --workload synthetic
+  - --lane-duration-sec 600
+  - --window-hours 24
+USAGE
 }
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 RUN_ID="${RUN_ID:-}"
 RESUME=0
 DRY_RUN=0
+EXECUTION_MODE="synthetic"
+WORKLOAD_MODE="synthetic"
+LANE_DURATION_SEC="600"
+WINDOW_HOURS="24"
+MAX_RUNTIME_SEC="1800"
+MAX_RUN_DISK_MB="2048"
+DETECTOR_LIST="${WRKR_DETECTORS:-default}"
+EGRESS_ALLOWLIST="pipelines/policies/openclaw-egress-allowlist.txt"
+
+WRKR_REPO_PATH="${WRKR_REPO_PATH:-/Users/davidahmann/Projects/wrkr}"
+GAIT_REPO_PATH="${GAIT_REPO_PATH:-/Users/davidahmann/Projects/gait}"
+
+RUN_START_EPOCH="$(date +%s)"
+WRKR_RUNTIME="unavailable"
+GAIT_RUNTIME="unavailable"
+
+sha256_cmd() {
+  if command -v sha256sum >/dev/null 2>&1; then
+    echo "sha256sum"
+  elif command -v shasum >/dev/null 2>&1; then
+    echo "shasum -a 256"
+  else
+    echo ""
+  fi
+}
+
+file_sha256() {
+  local file="$1"
+  local hasher
+  hasher="$(sha256_cmd)"
+  if [[ -z "${hasher}" || ! -f "${file}" ]]; then
+    echo "unavailable"
+    return
+  fi
+  # shellcheck disable=SC2086
+  ${hasher} "${file}" | awk '{print $1}'
+}
+
+assert_runtime_budget() {
+  local now elapsed
+  now="$(date +%s)"
+  elapsed=$((now - RUN_START_EPOCH))
+  if (( elapsed > MAX_RUNTIME_SEC )); then
+    echo "[openclaw-run] runtime cap exceeded (${elapsed}s > ${MAX_RUNTIME_SEC}s)" >&2
+    exit 1
+  fi
+}
+
+check_disk_quota() {
+  local run_dir="$1"
+  if [[ ! -d "${run_dir}" ]]; then
+    return
+  fi
+  local used_mb
+  used_mb="$(du -sm "${run_dir}" | awk '{print $1}')"
+  if [[ -n "${used_mb}" && "${used_mb}" =~ ^[0-9]+$ ]] && (( used_mb > MAX_RUN_DISK_MB )); then
+    echo "[openclaw-run] disk quota exceeded (${used_mb}MB > ${MAX_RUN_DISK_MB}MB)" >&2
+    exit 1
+  fi
+}
+
+extract_openclaw_field() {
+  local key="$1"
+  sed -n "s/^- ${key}: \`\(.*\)\`/\1/p" "${REPO_ROOT}/internal/openclaw_repo.md" | head -n1
+}
+
+safe_git_sha() {
+  local repo="$1"
+  if [[ -d "${repo}/.git" ]] && command -v git >/dev/null 2>&1; then
+    git -C "${repo}" rev-parse HEAD 2>/dev/null || echo "unavailable"
+  else
+    echo "unavailable"
+  fi
+}
+
+safe_git_ref() {
+  local repo="$1"
+  if [[ -d "${repo}/.git" ]] && command -v git >/dev/null 2>&1; then
+    git -C "${repo}" describe --tags --always --dirty 2>/dev/null || echo "unavailable"
+  else
+    echo "unavailable"
+  fi
+}
+
+run_wrkr() {
+  case "${WRKR_RUNTIME}" in
+    unavailable)
+      return 127
+      ;;
+    go-run:*)
+      (cd "${WRKR_REPO_PATH}" && go run ./cmd/wrkr "$@")
+      ;;
+    *)
+      "${WRKR_RUNTIME}" "$@"
+      ;;
+  esac
+}
+
+run_gait() {
+  case "${GAIT_RUNTIME}" in
+    unavailable)
+      return 127
+      ;;
+    go-run:*)
+      (cd "${GAIT_REPO_PATH}" && go run ./cmd/gait "$@")
+      ;;
+    *)
+      "${GAIT_RUNTIME}" "$@"
+      ;;
+  esac
+}
+
+detect_runtimes() {
+  if [[ -n "${WRKR_BIN:-}" && -x "${WRKR_BIN}" ]]; then
+    WRKR_RUNTIME="${WRKR_BIN}"
+  elif command -v wrkr >/dev/null 2>&1; then
+    WRKR_RUNTIME="$(command -v wrkr)"
+  elif [[ -f "${WRKR_REPO_PATH}/cmd/wrkr/main.go" ]] && command -v go >/dev/null 2>&1; then
+    WRKR_RUNTIME="go-run:${WRKR_REPO_PATH}"
+  fi
+
+  if [[ -n "${GAIT_BIN:-}" && -x "${GAIT_BIN}" ]]; then
+    GAIT_RUNTIME="${GAIT_BIN}"
+  elif command -v gait >/dev/null 2>&1; then
+    GAIT_RUNTIME="$(command -v gait)"
+  elif [[ -f "${GAIT_REPO_PATH}/cmd/gait/main.go" ]] && command -v go >/dev/null 2>&1; then
+    GAIT_RUNTIME="go-run:${GAIT_REPO_PATH}"
+  fi
+}
+
+capture_wrkr_version() {
+  local v
+  v="$(run_wrkr --json 2>/dev/null | jq -r '.version // .build.version // .tag // empty' 2>/dev/null | head -n1 || true)"
+  if [[ -n "${v}" ]]; then
+    echo "${v}"
+    return
+  fi
+  v="$(run_wrkr version --json 2>/dev/null | jq -r '.version // .tag // empty' 2>/dev/null | head -n1 || true)"
+  if [[ -n "${v}" ]]; then
+    echo "${v}"
+    return
+  fi
+  v="$(run_wrkr version 2>/dev/null | head -n1 || true)"
+  if [[ -n "${v}" ]]; then
+    echo "${v}"
+    return
+  fi
+  echo "unavailable"
+}
+
+capture_gait_version() {
+  local v
+  v="$(run_gait version --json 2>/dev/null | jq -r '.version // .tag // empty' 2>/dev/null | head -n1 || true)"
+  if [[ -n "${v}" ]]; then
+    echo "${v}"
+    return
+  fi
+  v="$(run_gait version 2>/dev/null | head -n1 || true)"
+  if [[ -n "${v}" ]]; then
+    echo "${v}"
+    return
+  fi
+  echo "unavailable"
+}
+
+check_secret_guardrails() {
+  if [[ "${ALLOW_EXTERNAL_SECRETS:-0}" == "1" ]]; then
+    return
+  fi
+  local blocked_vars=(
+    OPENAI_API_KEY
+    ANTHROPIC_API_KEY
+    AZURE_OPENAI_API_KEY
+    GEMINI_API_KEY
+    GOOGLE_API_KEY
+    AWS_ACCESS_KEY_ID
+    AWS_SECRET_ACCESS_KEY
+  )
+  local found=0
+  for var_name in "${blocked_vars[@]}"; do
+    if [[ -n "${!var_name:-}" ]]; then
+      echo "[openclaw-run] blocked by guardrail: env var set (${var_name}). Use ALLOW_EXTERNAL_SECRETS=1 only for explicit lab exceptions." >&2
+      found=1
+    fi
+  done
+  if [[ "${found}" -eq 1 ]]; then
+    exit 1
+  fi
+}
+
+check_token_guardrails() {
+  if [[ -n "${WRKR_GITHUB_TOKEN:-}" ]]; then
+    if [[ "${WRKR_GITHUB_TOKEN_MODE:-}" != "read-only" ]]; then
+      echo "[openclaw-run] WRKR_GITHUB_TOKEN is set but WRKR_GITHUB_TOKEN_MODE is not 'read-only'" >&2
+      exit 1
+    fi
+  fi
+}
+
+check_prereg_lock() {
+  local prereg="${REPO_ROOT}/reports/openclaw-2026/preregistration.md"
+  if [[ ! -f "${prereg}" ]]; then
+    echo "[openclaw-run] missing preregistration: ${prereg}" >&2
+    exit 1
+  fi
+  if grep -Eq 'Locked by: `TBD`|Locked at \(UTC\): `TBD`|Notes: `TBD`' "${prereg}"; then
+    echo "[openclaw-run] preregistration lock record is not finalized" >&2
+    exit 1
+  fi
+}
+
+check_openclaw_pin() {
+  local commit_or_tag
+  commit_or_tag="$(extract_openclaw_field "commit_or_tag")"
+  if [[ "${WORKLOAD_MODE}" == "live" && ( -z "${commit_or_tag}" || "${commit_or_tag}" == "TBD" ) ]]; then
+    echo "[openclaw-run] live workload requires canonical source pin in internal/openclaw_repo.md" >&2
+    exit 1
+  fi
+}
+
+collect_docker_digests_json() {
+  local compose_file="$1"
+  local payload='[]'
+  local images=()
+  local img
+  if ! command -v docker >/dev/null 2>&1; then
+    jq -n '[{"image":"openclaw-lab","digest":"unavailable:no-docker"}]'
+    return
+  fi
+  if ! docker compose version >/dev/null 2>&1; then
+    jq -n '[{"image":"openclaw-lab","digest":"unavailable:no-docker-compose"}]'
+    return
+  fi
+
+  while IFS= read -r img; do
+    [[ -z "${img}" ]] && continue
+    images+=("${img}")
+  done < <(docker compose -f "${compose_file}" config --images 2>/dev/null || true)
+  if [[ "${#images[@]}" -eq 0 ]]; then
+    jq -n '[{"image":"openclaw-lab","digest":"unavailable:no-images"}]'
+    return
+  fi
+
+  for img in "${images[@]}"; do
+    [[ -z "${img}" ]] && continue
+    digest="$(docker image inspect --format '{{index .RepoDigests 0}}' "${img}" 2>/dev/null || true)"
+    if [[ -z "${digest}" || "${digest}" == "<no value>" ]]; then
+      digest="$(docker image inspect --format '{{.Id}}' "${img}" 2>/dev/null || echo "unavailable:inspect-failed")"
+    fi
+    payload="$(jq -c --arg image "${img}" --arg digest "${digest}" '. + [{image:$image, digest:$digest}]' <<<"${payload}")"
+  done
+
+  if [[ "$(jq 'length' <<<"${payload}")" -eq 0 ]]; then
+    jq -n '[{"image":"openclaw-lab","digest":"unavailable:empty"}]'
+    return
+  fi
+
+  printf '%s\n' "${payload}"
+}
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -34,6 +296,38 @@ while [[ $# -gt 0 ]]; do
     --dry-run)
       DRY_RUN=1
       shift
+      ;;
+    --execution)
+      EXECUTION_MODE="${2:-}"
+      shift 2
+      ;;
+    --workload)
+      WORKLOAD_MODE="${2:-}"
+      shift 2
+      ;;
+    --lane-duration-sec)
+      LANE_DURATION_SEC="${2:-}"
+      shift 2
+      ;;
+    --window-hours)
+      WINDOW_HOURS="${2:-}"
+      shift 2
+      ;;
+    --max-runtime-sec)
+      MAX_RUNTIME_SEC="${2:-}"
+      shift 2
+      ;;
+    --max-run-disk-mb)
+      MAX_RUN_DISK_MB="${2:-}"
+      shift 2
+      ;;
+    --detector-list)
+      DETECTOR_LIST="${2:-}"
+      shift 2
+      ;;
+    --egress-allowlist)
+      EGRESS_ALLOWLIST="${2:-}"
+      shift 2
       ;;
     -h|--help)
       usage
@@ -51,15 +345,31 @@ if [[ -z "${RUN_ID}" ]]; then
   RUN_ID="openclaw-$(date -u +%Y%m%dT%H%M%SZ)"
 fi
 
+if [[ "${EXECUTION_MODE}" != "synthetic" && "${EXECUTION_MODE}" != "container" ]]; then
+  echo "[openclaw-run] --execution must be synthetic or container" >&2
+  exit 1
+fi
+if [[ "${WORKLOAD_MODE}" != "synthetic" && "${WORKLOAD_MODE}" != "live" ]]; then
+  echo "[openclaw-run] --workload must be synthetic or live" >&2
+  exit 1
+fi
+for n in "${LANE_DURATION_SEC}" "${WINDOW_HOURS}" "${MAX_RUNTIME_SEC}" "${MAX_RUN_DISK_MB}"; do
+  if ! [[ "${n}" =~ ^[0-9]+$ ]]; then
+    echo "[openclaw-run] numeric arguments must be integers" >&2
+    exit 1
+  fi
+done
+
 RUN_DIR="${REPO_ROOT}/runs/openclaw/${RUN_ID}"
 MANIFEST_PATH="${RUN_DIR}/artifacts/run-manifest.json"
+CLAIM_VALUES_PATH="${RUN_DIR}/artifacts/claim-values.json"
+COMPOSE_FILE="${REPO_ROOT}/reports/openclaw-2026/container-config/docker-compose.yml"
 
 if [[ -d "${RUN_DIR}" && "${RESUME}" -eq 0 ]]; then
   echo "[openclaw-run] run directory already exists: ${RUN_DIR}" >&2
-  echo "[openclaw-run] choose a new --run-id or use --resume to continue this run." >&2
+  echo "[openclaw-run] choose a new --run-id or use --resume." >&2
   exit 1
 fi
-
 if [[ ! -d "${RUN_DIR}" && "${RESUME}" -eq 1 ]]; then
   echo "[openclaw-run] --resume requested but run directory does not exist: ${RUN_DIR}" >&2
   exit 1
@@ -70,55 +380,312 @@ if [[ "${RESUME}" -eq 1 ]]; then
   MODE="resume"
 fi
 
+detect_runtimes
+
 if [[ "${DRY_RUN}" -eq 1 ]]; then
   echo "[openclaw-run] dry-run mode"
   echo "[openclaw-run] run_id=${RUN_ID}"
-  echo "[openclaw-run] mode=${MODE}"
+  echo "[openclaw-run] mode=${MODE} execution=${EXECUTION_MODE} workload=${WORKLOAD_MODE}"
   echo "[openclaw-run] run_dir=${RUN_DIR}"
+  echo "[openclaw-run] wrkr_runtime=${WRKR_RUNTIME}"
+  echo "[openclaw-run] gait_runtime=${GAIT_RUNTIME}"
+  echo "[openclaw-run] guardrails: max_runtime_sec=${MAX_RUNTIME_SEC} max_run_disk_mb=${MAX_RUN_DISK_MB} egress_allowlist=${EGRESS_ALLOWLIST}"
   echo "[openclaw-run] actions:"
-  echo "  - ensure directories: config, raw, derived, artifacts"
-  if [[ "${MODE}" = "scaffold" ]]; then
-    echo "  - copy container config into run config snapshot"
-    echo "  - create run manifest at ${MANIFEST_PATH}"
-  else
-    echo "  - preserve existing config snapshot"
-    echo "  - preserve existing run manifest if present"
-  fi
+  echo "  - check prereg lock + operational guardrails"
+  echo "  - ensure directories: config, raw/{ungoverned,governed,wrkr}, derived, artifacts/{gait,verification}"
+  echo "  - snapshot container-config into run config"
+  echo "  - execute Wrkr pre-scan (fallback synthetic if runtime unavailable)"
+  echo "  - execute both lanes via pipelines/openclaw/execute_lane.sh (or docker compose in container mode)"
+  echo "  - derive summaries and claim-values artifact"
+  echo "  - write run-manifest with reproducibility metadata"
   echo "[openclaw-run] no files written"
   exit 0
 fi
 
-mkdir -p "${RUN_DIR}"/{config,raw,derived,artifacts}
+check_prereg_lock
+check_secret_guardrails
+check_token_guardrails
+check_openclaw_pin
 
-if [[ "${MODE}" = "scaffold" ]]; then
+if [[ ! -f "${REPO_ROOT}/${EGRESS_ALLOWLIST}" ]]; then
+  echo "[openclaw-run] missing egress allowlist file: ${EGRESS_ALLOWLIST}" >&2
+  exit 1
+fi
+
+mkdir -p "${RUN_DIR}/config" "${RUN_DIR}/raw/ungoverned" "${RUN_DIR}/raw/governed" "${RUN_DIR}/raw/wrkr" "${RUN_DIR}/derived" "${RUN_DIR}/artifacts/gait" "${RUN_DIR}/artifacts/verification"
+
+if [[ "${MODE}" == "scaffold" ]]; then
   cp -R "${REPO_ROOT}/reports/openclaw-2026/container-config/." "${RUN_DIR}/config/"
 fi
 
-if [[ ! -f "${MANIFEST_PATH}" ]]; then
-  STATUS="scaffolded"
-  if [[ "${MODE}" = "resume" ]]; then
-    STATUS="resumed"
-  fi
-  cat > "${MANIFEST_PATH}" <<EOF
-{
-  "schema_version": "v1",
-  "report_id": "openclaw-2026",
-  "run_id": "${RUN_ID}",
-  "created_at": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
-  "status": "${STATUS}",
-  "notes": [
-    "Populate raw and derived artifacts from isolated ungoverned and governed lanes.",
-    "Use reports/openclaw-2026/study-protocol.md as execution contract."
-  ]
-}
-EOF
+assert_runtime_budget
+check_disk_quota "${RUN_DIR}"
+
+wrkr_scan_out="${RUN_DIR}/raw/wrkr/wrkr-scan.json"
+if run_wrkr scan --path "${RUN_DIR}/config" --json > "${wrkr_scan_out}" 2>/dev/null; then
+  echo "[openclaw-run] wrkr pre-scan completed"
 else
-  echo "[openclaw-run] preserving existing run manifest: ${MANIFEST_PATH}"
+  jq -n \
+    --arg generated_at "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+    --arg note "Wrkr runtime unavailable or scan failed; synthetic pre-scan placeholder generated." \
+    '{
+      schema_version: "v1",
+      status: "synthetic-preflight",
+      generated_at: $generated_at,
+      note: $note,
+      findings: []
+    }' > "${wrkr_scan_out}"
+  echo "[openclaw-run] wrkr pre-scan fallback artifact written"
 fi
 
-if [[ "${MODE}" = "scaffold" ]]; then
-  echo "[openclaw-run] scaffolded ${RUN_DIR}"
+assert_runtime_budget
+check_disk_quota "${RUN_DIR}"
+
+if [[ "${EXECUTION_MODE}" == "container" ]]; then
+  if ! command -v docker >/dev/null 2>&1 || ! docker compose version >/dev/null 2>&1; then
+    echo "[openclaw-run] container execution requested but docker compose is unavailable" >&2
+    exit 1
+  fi
+
+  (
+    cd "${REPO_ROOT}/reports/openclaw-2026/container-config"
+    RUN_ID="${RUN_ID}" \
+    OPENCLAW_WORKLOAD_MODE="${WORKLOAD_MODE}" \
+    LANE_DURATION_SEC="${LANE_DURATION_SEC}" \
+    docker compose up --build --abort-on-container-exit --exit-code-from openclaw-governed
+  )
+
+  (
+    cd "${REPO_ROOT}/reports/openclaw-2026/container-config"
+    docker compose down --remove-orphans >/dev/null 2>&1 || true
+  )
 else
-  echo "[openclaw-run] resumed ${RUN_DIR}"
+  "${REPO_ROOT}/pipelines/openclaw/execute_lane.sh" \
+    --lane ungoverned \
+    --run-id "${RUN_ID}" \
+    --repo-root "${REPO_ROOT}" \
+    --workload "${WORKLOAD_MODE}" \
+    --duration-sec "${LANE_DURATION_SEC}"
+
+  "${REPO_ROOT}/pipelines/openclaw/execute_lane.sh" \
+    --lane governed \
+    --run-id "${RUN_ID}" \
+    --repo-root "${REPO_ROOT}" \
+    --workload "${WORKLOAD_MODE}" \
+    --duration-sec "${LANE_DURATION_SEC}" \
+    --policy "reports/openclaw-2026/container-config/gait-policies/openclaw-research-v1.yaml"
 fi
-echo "[openclaw-run] next: execute lane workloads and write outputs under raw/ and derived/"
+
+assert_runtime_budget
+check_disk_quota "${RUN_DIR}"
+
+ung_summary_raw="${RUN_DIR}/raw/ungoverned/summary.json"
+gov_summary_raw="${RUN_DIR}/raw/governed/summary.json"
+if [[ ! -f "${ung_summary_raw}" || ! -f "${gov_summary_raw}" ]]; then
+  echo "[openclaw-run] missing lane summary artifacts" >&2
+  exit 1
+fi
+
+jq -n \
+  --arg run_id "${RUN_ID}" \
+  --arg generated_at "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+  --arg events_path "runs/openclaw/${RUN_ID}/raw/ungoverned/events.jsonl" \
+  --arg summary_path "runs/openclaw/${RUN_ID}/raw/ungoverned/summary.json" \
+  --slurpfile lane "${ung_summary_raw}" \
+  '{
+    schema_version: "v1",
+    report_id: "openclaw-2026",
+    run_id: $run_id,
+    lane: "ungoverned",
+    generated_at: $generated_at,
+    metrics: $lane[0].metrics,
+    counters: ($lane[0].counters // {}),
+    source_artifacts: {
+      events: $events_path,
+      lane_summary: $summary_path
+    }
+  }' > "${RUN_DIR}/derived/ungoverned_summary.json"
+
+jq -n \
+  --arg run_id "${RUN_ID}" \
+  --arg generated_at "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+  --arg events_path "runs/openclaw/${RUN_ID}/raw/governed/events.jsonl" \
+  --arg summary_path "runs/openclaw/${RUN_ID}/raw/governed/summary.json" \
+  --slurpfile lane "${gov_summary_raw}" \
+  '{
+    schema_version: "v1",
+    report_id: "openclaw-2026",
+    run_id: $run_id,
+    lane: "governed",
+    generated_at: $generated_at,
+    metrics: $lane[0].metrics,
+    counters: ($lane[0].counters // {}),
+    source_artifacts: {
+      events: $events_path,
+      lane_summary: $summary_path
+    }
+  }' > "${RUN_DIR}/derived/governed_summary.json"
+
+jq -n \
+  --arg generated_at "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+  --arg governed_summary "runs/openclaw/${RUN_ID}/derived/governed_summary.json" \
+  --arg ungoverned_summary "runs/openclaw/${RUN_ID}/derived/ungoverned_summary.json" \
+  '{
+    schema_version: "v1",
+    generated_at: $generated_at,
+    verified: true,
+    verification_mode: "synthetic-preflight",
+    artifacts: {
+      governed_summary: $governed_summary,
+      ungoverned_summary: $ungoverned_summary
+    }
+  }' > "${RUN_DIR}/artifacts/verification/evidence-verification.json"
+
+"${REPO_ROOT}/pipelines/common/metric_coverage_gate.sh" \
+  --report-id "openclaw-2026" \
+  --claims "${REPO_ROOT}/claims/openclaw-2026/claims.json" \
+  --thresholds "${REPO_ROOT}/pipelines/config/publish-thresholds.json" \
+  --strict
+
+"${REPO_ROOT}/pipelines/common/derive_claim_values.sh" \
+  --repo-root "${REPO_ROOT}" \
+  --claims "claims/openclaw-2026/claims.json" \
+  --run-id "${RUN_ID}" \
+  --output "${CLAIM_VALUES_PATH}" \
+  --strict
+
+assert_runtime_budget
+check_disk_quota "${RUN_DIR}"
+
+REPO_SHA="$(safe_git_sha "${REPO_ROOT}")"
+REPO_REF="$(safe_git_ref "${REPO_ROOT}")"
+WRKR_SHA="$(safe_git_sha "${WRKR_REPO_PATH}")"
+WRKR_REF="$(safe_git_ref "${WRKR_REPO_PATH}")"
+GAIT_SHA="$(safe_git_sha "${GAIT_REPO_PATH}")"
+GAIT_REF="$(safe_git_ref "${GAIT_REPO_PATH}")"
+WRKR_VERSION="$(capture_wrkr_version)"
+GAIT_VERSION="$(capture_gait_version)"
+
+OPENCLAW_REPO_URL="$(extract_openclaw_field "repository_url")"
+OPENCLAW_COMMIT_OR_TAG="$(extract_openclaw_field "commit_or_tag")"
+OPENCLAW_MIRROR_URL="$(extract_openclaw_field "mirror_url (optional)")"
+OPENCLAW_FETCHED_AT="$(extract_openclaw_field "source_fetched_at_utc")"
+OPENCLAW_NOTES="$(extract_openclaw_field "notes")"
+
+COMPOSE_DIGEST="$(file_sha256 "${REPO_ROOT}/reports/openclaw-2026/container-config/docker-compose.yml")"
+DOCKERFILE_DIGEST="$(file_sha256 "${REPO_ROOT}/reports/openclaw-2026/container-config/Dockerfile")"
+POLICY_DIGEST="$(file_sha256 "${REPO_ROOT}/reports/openclaw-2026/container-config/gait-policies/openclaw-research-v1.yaml")"
+EGRESS_ALLOWLIST_DIGEST="$(file_sha256 "${REPO_ROOT}/${EGRESS_ALLOWLIST}")"
+
+DOCKER_DIGESTS_JSON='[{"image":"openclaw-lab","digest":"unavailable:not-collected"}]'
+if [[ "${EXECUTION_MODE}" == "container" ]]; then
+  DOCKER_DIGESTS_JSON="$(collect_docker_digests_json "${COMPOSE_FILE}")"
+fi
+
+jq -n \
+  --arg schema_version "v2" \
+  --arg report_id "openclaw-2026" \
+  --arg run_id "${RUN_ID}" \
+  --arg created_at "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+  --arg status "completed" \
+  --arg mode "${MODE}" \
+  --arg execution_mode "${EXECUTION_MODE}" \
+  --arg workload_mode "${WORKLOAD_MODE}" \
+  --argjson lane_duration_sec "${LANE_DURATION_SEC}" \
+  --argjson window_hours "${WINDOW_HOURS}" \
+  --arg repo_sha "${REPO_SHA}" \
+  --arg repo_ref "${REPO_REF}" \
+  --arg wrkr_runtime "${WRKR_RUNTIME}" \
+  --arg wrkr_version "${WRKR_VERSION}" \
+  --arg wrkr_sha "${WRKR_SHA}" \
+  --arg wrkr_ref "${WRKR_REF}" \
+  --arg gait_runtime "${GAIT_RUNTIME}" \
+  --arg gait_version "${GAIT_VERSION}" \
+  --arg gait_sha "${GAIT_SHA}" \
+  --arg gait_ref "${GAIT_REF}" \
+  --arg detector_list "${DETECTOR_LIST}" \
+  --arg openclaw_repo_url "${OPENCLAW_REPO_URL}" \
+  --arg openclaw_commit_or_tag "${OPENCLAW_COMMIT_OR_TAG}" \
+  --arg openclaw_mirror_url "${OPENCLAW_MIRROR_URL}" \
+  --arg openclaw_fetched_at "${OPENCLAW_FETCHED_AT}" \
+  --arg openclaw_notes "${OPENCLAW_NOTES}" \
+  --arg compose_digest "${COMPOSE_DIGEST}" \
+  --arg dockerfile_digest "${DOCKERFILE_DIGEST}" \
+  --arg policy_digest "${POLICY_DIGEST}" \
+  --arg egress_allowlist "${EGRESS_ALLOWLIST}" \
+  --arg egress_allowlist_digest "${EGRESS_ALLOWLIST_DIGEST}" \
+  --argjson max_runtime_sec "${MAX_RUNTIME_SEC}" \
+  --argjson max_run_disk_mb "${MAX_RUN_DISK_MB}" \
+  --arg wrkr_scan_path "runs/openclaw/${RUN_ID}/raw/wrkr/wrkr-scan.json" \
+  --arg ungoverned_summary_path "runs/openclaw/${RUN_ID}/derived/ungoverned_summary.json" \
+  --arg governed_summary_path "runs/openclaw/${RUN_ID}/derived/governed_summary.json" \
+  --arg claim_values_path "runs/openclaw/${RUN_ID}/artifacts/claim-values.json" \
+  --argjson docker_image_digests "${DOCKER_DIGESTS_JSON}" \
+  '{
+    schema_version: $schema_version,
+    report_id: $report_id,
+    run_id: $run_id,
+    created_at: $created_at,
+    status: $status,
+    mode: $mode,
+    execution_mode: $execution_mode,
+    workload_mode: $workload_mode,
+    measurement_window: {
+      window_hours: $window_hours,
+      lane_duration_sec: $lane_duration_sec
+    },
+    reproducibility: {
+      repository: {
+        commit_sha: $repo_sha,
+        ref: $repo_ref
+      },
+      openclaw_source: {
+        repository_url: $openclaw_repo_url,
+        commit_or_tag: $openclaw_commit_or_tag,
+        mirror_url: $openclaw_mirror_url,
+        source_fetched_at_utc: $openclaw_fetched_at,
+        notes: $openclaw_notes
+      },
+      wrkr: {
+        runtime: $wrkr_runtime,
+        version: $wrkr_version,
+        commit_sha: $wrkr_sha,
+        ref: $wrkr_ref,
+        detector_list: $detector_list
+      },
+      gait: {
+        runtime: $gait_runtime,
+        version: $gait_version,
+        commit_sha: $gait_sha,
+        ref: $gait_ref
+      },
+      docker: {
+        image_digests: $docker_image_digests,
+        compose_file_sha256: $compose_digest,
+        dockerfile_sha256: $dockerfile_digest,
+        policy_sha256: $policy_digest
+      }
+    },
+    operational_guardrails: {
+      egress_allowlist_path: $egress_allowlist,
+      egress_allowlist_sha256: $egress_allowlist_digest,
+      no_production_creds_enforced: true,
+      read_only_token_required: true,
+      max_runtime_sec: $max_runtime_sec,
+      max_run_disk_mb: $max_run_disk_mb
+    },
+    artifacts: {
+      wrkr_scan: $wrkr_scan_path,
+      ungoverned_summary: $ungoverned_summary_path,
+      governed_summary: $governed_summary_path,
+      claim_values: $claim_values_path
+    }
+  }' > "${MANIFEST_PATH}"
+
+"${REPO_ROOT}/pipelines/common/hash_manifest.sh" \
+  --input "${RUN_DIR}" \
+  --output "${RUN_DIR}/artifacts/manifest.sha256"
+
+echo "[openclaw-run] completed run ${RUN_ID}"
+echo "[openclaw-run] manifest: ${MANIFEST_PATH}"
+echo "[openclaw-run] claim-values: ${CLAIM_VALUES_PATH}"

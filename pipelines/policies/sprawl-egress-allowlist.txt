@@ -1,0 +1,6 @@
+# Sprawl campaign egress allowlist (hostnames only)
+# Comments and blank lines are ignored.
+
+api.github.com
+github.com
+raw.githubusercontent.com

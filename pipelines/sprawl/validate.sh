@@ -2,19 +2,20 @@
 set -euo pipefail
 
 usage() {
-  cat <<'EOF'
+  cat <<'USAGE'
 Usage:
   validate.sh [--run-id <id>] [--strict]
 
 Validates sprawl report readiness:
   - required report protocol/definition files exist
   - preregistration and citation controls exist
+  - claim/threshold mapping coverage is complete
   - claims ledger structure and query reproducibility
   - citation gate (TBD markers fail in strict mode)
   - optional run artifact layout when --run-id is provided
   - headline threshold gate when run claims are finalized
   - deterministic SHA-256 manifest generation for run artifacts
-EOF
+USAGE
 }
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
@@ -53,6 +54,8 @@ required_files=(
   "claims/ai-tool-sprawl-q1-2026/claims.json"
   "citations/sprawl-regulatory-sources.md"
   "pipelines/config/publish-thresholds.json"
+  "pipelines/common/metric_coverage_gate.sh"
+  "pipelines/common/derive_claim_values.sh"
 )
 
 for rel in "${required_files[@]}"; do
@@ -66,6 +69,16 @@ if [[ "${FAILURES}" -gt 0 ]]; then
   echo "[sprawl-validate] required-file failures=${FAILURES}" >&2
   exit 1
 fi
+
+coverage_args=(
+  --report-id "ai-tool-sprawl-q1-2026"
+  --claims "${REPO_ROOT}/claims/ai-tool-sprawl-q1-2026/claims.json"
+  --thresholds "${REPO_ROOT}/pipelines/config/publish-thresholds.json"
+)
+if [[ "${STRICT}" -eq 1 ]]; then
+  coverage_args+=(--strict)
+fi
+"${REPO_ROOT}/pipelines/common/metric_coverage_gate.sh" "${coverage_args[@]}"
 
 claim_args=(
   --repo-root "${REPO_ROOT}"
@@ -96,6 +109,24 @@ if [[ -n "${RUN_ID}" ]]; then
     fi
   done
 
+  if [[ -d "${run_dir}" ]]; then
+    derive_args=(
+      --repo-root "${REPO_ROOT}"
+      --claims "claims/ai-tool-sprawl-q1-2026/claims.json"
+      --run-id "${RUN_ID}"
+      --output "${run_dir}/artifacts/claim-values.json"
+    )
+    if [[ "${STRICT}" -eq 1 ]]; then
+      derive_args+=(--strict)
+    fi
+    "${REPO_ROOT}/pipelines/common/derive_claim_values.sh" "${derive_args[@]}"
+
+    mkdir -p "${run_dir}/artifacts"
+    "${REPO_ROOT}/pipelines/common/hash_manifest.sh" \
+      --input "${run_dir}" \
+      --output "${run_dir}/artifacts/manifest.sha256"
+  fi
+
   threshold_args=(
     --report-id "ai-tool-sprawl-q1-2026"
     --claims "${REPO_ROOT}/claims/ai-tool-sprawl-q1-2026/claims.json"
@@ -114,13 +145,6 @@ if [[ -n "${RUN_ID}" ]]; then
       threshold_args+=(--strict)
     fi
     "${REPO_ROOT}/pipelines/common/threshold_gate.sh" "${threshold_args[@]}"
-  fi
-
-  if [[ -d "${run_dir}" ]]; then
-    mkdir -p "${run_dir}/artifacts"
-    "${REPO_ROOT}/pipelines/common/hash_manifest.sh" \
-      --input "${run_dir}" \
-      --output "${run_dir}/artifacts/manifest.sha256"
   fi
 fi
 

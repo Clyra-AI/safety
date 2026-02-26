@@ -11,6 +11,7 @@ Current defaults:
   - required:
     - `openclaw_total_tool_calls_24h >= 2000`
     - `openclaw_policy_violations_24h >= 500`
+    - `openclaw_sensitive_access_without_approval >= 25`
     - `openclaw_governed_evidence_verification_rate_pct >= 99.0`
     - `openclaw_destructive_attempts_24h >= 50`
     - `openclaw_ignored_stop_rate_pct >= 1.0`
@@ -19,6 +20,7 @@ Current defaults:
   - recommended:
     - `openclaw_total_tool_calls_24h >= 5000`
     - `openclaw_policy_violations_24h >= 1000`
+    - `openclaw_sensitive_access_without_approval >= 100`
     - `openclaw_governed_evidence_verification_rate_pct >= 99.9`
     - `openclaw_destructive_attempts_24h >= 200`
     - `openclaw_ignored_stop_rate_pct >= 5.0`
@@ -45,6 +47,7 @@ Notes:
 - Thresholds are policy controls, not scientific conclusions.
 - Update thresholds only with explicit rationale in commit message.
 - Required threshold checks run through `pipelines/common/threshold_gate.sh`.
+- Coverage checks for claim IDs and threshold IDs run through `pipelines/common/metric_coverage_gate.sh`.
 - Recommended thresholds are advisory and currently reviewed manually in report planning.
 - In non-strict validation mode, threshold checks are skipped until claim values are finalized (not `TBD`).
 - In strict mode, unresolved claim values fail validation.
