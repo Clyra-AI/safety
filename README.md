@@ -42,6 +42,7 @@ Pre-registration controls:
 
 - [`reports/openclaw-2026/preregistration.md`](reports/openclaw-2026/preregistration.md)
 - [`reports/ai-tool-sprawl-q1-2026/preregistration.md`](reports/ai-tool-sprawl-q1-2026/preregistration.md)
+- [`internal/headline_rubric.md`](internal/headline_rubric.md) (headline selection and scoring contract)
 
 ## Repository Structure
 

@@ -17,6 +17,9 @@ Publishing model: reproducible research artifact (report + data + methodology + 
   - `TBD total tool calls attempted in 24h`
   - `TBD sensitive-access actions without approval path (ungoverned baseline)`
   - `TBD governed distribution: allow / block / require_approval`
+  - `TBD ignored stop-command rate under context pressure`
+  - `TBD destructive attempts in 24h and governed block-rate`
+  - `TBD stop-signal to halt p95 latency`
 - Canonical claims ledger: `claims/openclaw-2026/claims.json`
 
 ## 0.1) Headline Integrity Block (Required)
@@ -28,6 +31,10 @@ Populate for every headline used in the manuscript.
 | `openclaw_policy_violations_24h` | TBD | `openclaw_total_tool_calls_24h` | `TBD` | `runs/openclaw/<run_id>/derived/governed_summary.json` | `jq '.metrics.blocked_calls'` |
 | `openclaw_total_tool_calls_24h` | TBD | `24h window` | `TBD` | `runs/openclaw/<run_id>/derived/governed_summary.json` | `jq '.metrics.total_calls'` |
 | `openclaw_sensitive_access_without_approval` | TBD | `24h window` | `TBD` | `runs/openclaw/<run_id>/derived/ungoverned_summary.json` | `jq '.metrics.sensitive_access_without_approval'` |
+| `openclaw_ignored_stop_rate_pct` | TBD | `valid stop signals` | `TBD` | `runs/openclaw/<run_id>/derived/ungoverned_summary.json` | `jq '.metrics.ignored_stop_rate_pct'` |
+| `openclaw_destructive_attempts_24h` | TBD | `24h window` | `TBD` | `runs/openclaw/<run_id>/derived/ungoverned_summary.json` | `jq '.metrics.destructive_attempts_24h'` |
+| `openclaw_governed_destructive_block_rate_pct` | TBD | `governed destructive attempts` | `TBD` | `runs/openclaw/<run_id>/derived/governed_summary.json` | `jq '.metrics.destructive_block_rate_pct'` |
+| `openclaw_stop_to_halt_p95_sec` | TBD | `valid stop events` | `TBD` | `runs/openclaw/<run_id>/derived/governed_summary.json` | `jq '.metrics.stop_to_halt_p95_sec'` |
 
 ## 1) Core Thesis and Messaging Stack
 
@@ -123,6 +130,9 @@ Required outputs:
   - financial actions
 - Count and examples of enterprise-policy violations.
 - Sensitive data access events with no approval mechanism.
+- Stop-safety behavior under context pressure:
+  - ignored stop-command rate
+  - destructive attempts after stop signal
 
 Core table template:
 
@@ -150,6 +160,7 @@ Required outputs:
 - Block reasons by explicit policy rule/reason code.
 - Signed evidence summary (packs/traces verified).
 - Side-by-side comparison with Section 3.
+- Stop-to-halt latency distribution (include p95).
 
 Comparison table template:
 

@@ -29,6 +29,34 @@
       "value": "TBD",
       "artifact_path": "runs/tool-sprawl/<run_id>/agg/campaign-summary.json",
       "query": "jq '.campaign.metrics.orgs_scanned // .campaign.metrics.organizations_scanned // (.campaign.scans | length)'"
+    },
+    {
+      "id": "sprawl_orgs_with_destructive_tooling_pct",
+      "headline": "Organizations with destructive-capable AI tooling percent",
+      "value": "TBD",
+      "artifact_path": "runs/tool-sprawl/<run_id>/agg/campaign-summary.json",
+      "query": "jq '.campaign.metrics.orgs_with_destructive_tooling_pct'"
+    },
+    {
+      "id": "sprawl_orgs_without_approval_gate_pct",
+      "headline": "Organizations without approval-gated execution percent",
+      "value": "TBD",
+      "artifact_path": "runs/tool-sprawl/<run_id>/agg/campaign-summary.json",
+      "query": "jq '.campaign.metrics.orgs_without_approval_gate_pct'"
+    },
+    {
+      "id": "sprawl_orgs_prompt_only_controls_pct",
+      "headline": "Organizations relying on prompt-only controls percent",
+      "value": "TBD",
+      "artifact_path": "runs/tool-sprawl/<run_id>/agg/campaign-summary.json",
+      "query": "jq '.campaign.metrics.orgs_prompt_only_controls_pct'"
+    },
+    {
+      "id": "sprawl_orgs_without_audit_artifacts_pct",
+      "headline": "Organizations without auditable decision artifacts percent",
+      "value": "TBD",
+      "artifact_path": "runs/tool-sprawl/<run_id>/agg/campaign-summary.json",
+      "query": "jq '.campaign.metrics.orgs_without_audit_artifacts_pct'"
     }
   ]
 }

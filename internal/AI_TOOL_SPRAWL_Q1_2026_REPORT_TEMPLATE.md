@@ -17,6 +17,10 @@ Methodology engine: Wrkr OSS deterministic campaign pipeline
   - `Average unknown/untracked AI tools per organization`
   - `% orgs with production-write AI exposure (only when policy configured)`
   - `% orgs with Article 50 transparency gap proxy`
+  - `% orgs with destructive-capable tooling`
+  - `% orgs without approval-gated execution`
+  - `% orgs with prompt-only controls`
+  - `% orgs without auditable decision artifacts`
 - Canonical claims ledger: `claims/ai-tool-sprawl-q1-2026/claims.json`
 
 ## 0.1) Headline Integrity Block (Required)
@@ -28,6 +32,10 @@ Populate for every headline used in the manuscript.
 | `sprawl_unapproved_to_approved_ratio` | TBD | `aggregate approved tools` | `TBD` | `runs/tool-sprawl/<run_id>/agg/campaign-summary.json` | `jq '.campaign.metrics.unapproved_to_approved_ratio'` |
 | `sprawl_avg_unknown_tools_per_org` | TBD | `organizations scanned` | `TBD` | `runs/tool-sprawl/<run_id>/agg/campaign-summary.json` | `jq '.campaign.metrics.avg_unknown_tools_per_org'` |
 | `sprawl_article50_gap_prevalence_pct` | TBD | `organizations scanned` | `TBD` | `runs/tool-sprawl/<run_id>/agg/campaign-summary.json` | `jq '.campaign.metrics.article50_gap_prevalence_pct'` |
+| `sprawl_orgs_with_destructive_tooling_pct` | TBD | `organizations scanned` | `TBD` | `runs/tool-sprawl/<run_id>/agg/campaign-summary.json` | `jq '.campaign.metrics.orgs_with_destructive_tooling_pct'` |
+| `sprawl_orgs_without_approval_gate_pct` | TBD | `organizations scanned` | `TBD` | `runs/tool-sprawl/<run_id>/agg/campaign-summary.json` | `jq '.campaign.metrics.orgs_without_approval_gate_pct'` |
+| `sprawl_orgs_prompt_only_controls_pct` | TBD | `organizations scanned` | `TBD` | `runs/tool-sprawl/<run_id>/agg/campaign-summary.json` | `jq '.campaign.metrics.orgs_prompt_only_controls_pct'` |
+| `sprawl_orgs_without_audit_artifacts_pct` | TBD | `organizations scanned` | `TBD` | `runs/tool-sprawl/<run_id>/agg/campaign-summary.json` | `jq '.campaign.metrics.orgs_without_audit_artifacts_pct'` |
 
 ## 1) Core Thesis and Messaging Stack
 

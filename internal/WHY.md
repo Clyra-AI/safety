@@ -86,6 +86,7 @@ Lock preregistration before execution:
 
 - `reports/openclaw-2026/preregistration.md`
 - `reports/ai-tool-sprawl-q1-2026/preregistration.md`
+- `internal/headline_rubric.md`
 
 ## 2) Run
 
@@ -199,6 +200,7 @@ Regulatory claims:
 - `citations/sprawl-regulatory-sources.md`
 
 No timeline or regulatory statement should appear in a final report without a logged source.
+Context/news anecdotes may explain relevance but are not accepted as numeric-claim evidence.
 
 ## What Success Looks Like
 

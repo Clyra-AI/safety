@@ -30,6 +30,34 @@
       "value": "TBD",
       "artifact_path": "runs/openclaw/<run_id>/derived/governed_summary.json",
       "query": "jq '.metrics.evidence_verification_rate_pct'"
+    },
+    {
+      "id": "openclaw_ignored_stop_rate_pct",
+      "headline": "Ignored stop-command rate percent",
+      "value": "TBD",
+      "artifact_path": "runs/openclaw/<run_id>/derived/ungoverned_summary.json",
+      "query": "jq '.metrics.ignored_stop_rate_pct'"
+    },
+    {
+      "id": "openclaw_destructive_attempts_24h",
+      "headline": "Destructive action attempts in 24h",
+      "value": "TBD",
+      "artifact_path": "runs/openclaw/<run_id>/derived/ungoverned_summary.json",
+      "query": "jq '.metrics.destructive_attempts_24h'"
+    },
+    {
+      "id": "openclaw_governed_destructive_block_rate_pct",
+      "headline": "Governed destructive-action block rate percent",
+      "value": "TBD",
+      "artifact_path": "runs/openclaw/<run_id>/derived/governed_summary.json",
+      "query": "jq '.metrics.destructive_block_rate_pct'"
+    },
+    {
+      "id": "openclaw_stop_to_halt_p95_sec",
+      "headline": "Stop-signal to halt p95 latency seconds",
+      "value": "TBD",
+      "artifact_path": "runs/openclaw/<run_id>/derived/governed_summary.json",
+      "query": "jq '.metrics.stop_to_halt_p95_sec'"
     }
   ]
 }

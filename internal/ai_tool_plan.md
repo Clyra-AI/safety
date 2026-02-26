@@ -23,10 +23,16 @@ Run a reproducible multi-target Wrkr campaign, generate aggregate and appendix a
   - `sprawl_unapproved_to_approved_ratio >= 2.5`
   - `sprawl_avg_unknown_tools_per_org >= 1.5`
   - `sprawl_orgs_scanned >= 500`
+  - `sprawl_orgs_with_destructive_tooling_pct >= 15.0`
+  - `sprawl_orgs_without_approval_gate_pct >= 10.0`
 - Recommended headline-strength thresholds (advisory):
   - `sprawl_unapproved_to_approved_ratio >= 4.0`
   - `sprawl_avg_unknown_tools_per_org >= 3.0`
   - `sprawl_article50_gap_prevalence_pct >= 30.0`
+  - `sprawl_orgs_with_destructive_tooling_pct >= 30.0`
+  - `sprawl_orgs_without_approval_gate_pct >= 20.0`
+  - `sprawl_orgs_prompt_only_controls_pct >= 25.0`
+  - `sprawl_orgs_without_audit_artifacts_pct >= 30.0`
 
 ## Input Assumptions
 
@@ -116,6 +122,10 @@ At minimum:
 - `sprawl_unapproved_to_approved_ratio`
 - `sprawl_avg_unknown_tools_per_org`
 - `sprawl_article50_gap_prevalence_pct`
+- `sprawl_orgs_with_destructive_tooling_pct`
+- `sprawl_orgs_without_approval_gate_pct`
+- `sprawl_orgs_prompt_only_controls_pct`
+- `sprawl_orgs_without_audit_artifacts_pct`
 
 ## 8) Run Publish Gates
 

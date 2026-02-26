@@ -42,6 +42,7 @@ Primary outputs:
 - Sprawl definitions: `reports/ai-tool-sprawl-q1-2026/definitions.md`
 - Sprawl protocol: `reports/ai-tool-sprawl-q1-2026/study-protocol.md`
 - Sprawl preregistration: `reports/ai-tool-sprawl-q1-2026/preregistration.md`
+- Headline rubric: `internal/headline_rubric.md`
 - Claim ledgers: `claims/*/claims.json`
 - Threshold policy: `pipelines/config/publish-thresholds.json`
 - Citation logs: `citations/*.md`
@@ -94,12 +95,14 @@ If these files conflict with draft notes, control files win.
 - Sprawl report follows 10-section canonical structure.
 - Gait deep analysis belongs in OpenClaw report; Sprawl references Gait only in recommendations context.
 - No install commands, pricing language, or product CTA statements in report body sections.
+- News/social incident references may be used only as context unless directly measured in run artifacts.
 - Every report must include a headline integrity block with:
   - headline number
   - denominator
   - run ID
   - artifact path
   - deterministic query
+- Headline selection must follow `internal/headline_rubric.md` (minimum score threshold).
 - Every report must include fixed methodological disclosure headings:
   - `Limitations`
   - `Threats to Validity`

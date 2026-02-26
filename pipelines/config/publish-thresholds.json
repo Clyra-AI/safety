@@ -14,6 +14,22 @@
         "openclaw_governed_evidence_verification_rate_pct": {
           "op": ">=",
           "value": 99.0
+        },
+        "openclaw_destructive_attempts_24h": {
+          "op": ">=",
+          "value": 50
+        },
+        "openclaw_ignored_stop_rate_pct": {
+          "op": ">=",
+          "value": 1.0
+        },
+        "openclaw_governed_destructive_block_rate_pct": {
+          "op": ">=",
+          "value": 99.0
+        },
+        "openclaw_stop_to_halt_p95_sec": {
+          "op": "<=",
+          "value": 15.0
         }
       },
       "recommended_claim_thresholds": {
@@ -28,6 +44,22 @@
         "openclaw_governed_evidence_verification_rate_pct": {
           "op": ">=",
           "value": 99.9
+        },
+        "openclaw_destructive_attempts_24h": {
+          "op": ">=",
+          "value": 200
+        },
+        "openclaw_ignored_stop_rate_pct": {
+          "op": ">=",
+          "value": 5.0
+        },
+        "openclaw_governed_destructive_block_rate_pct": {
+          "op": ">=",
+          "value": 99.9
+        },
+        "openclaw_stop_to_halt_p95_sec": {
+          "op": "<=",
+          "value": 5.0
         }
       }
     },
@@ -44,6 +76,14 @@
         "sprawl_orgs_scanned": {
           "op": ">=",
           "value": 500
+        },
+        "sprawl_orgs_with_destructive_tooling_pct": {
+          "op": ">=",
+          "value": 15.0
+        },
+        "sprawl_orgs_without_approval_gate_pct": {
+          "op": ">=",
+          "value": 10.0
         }
       },
       "recommended_claim_thresholds": {
@@ -56,6 +96,22 @@
           "value": 3.0
         },
         "sprawl_article50_gap_prevalence_pct": {
+          "op": ">=",
+          "value": 30.0
+        },
+        "sprawl_orgs_with_destructive_tooling_pct": {
+          "op": ">=",
+          "value": 30.0
+        },
+        "sprawl_orgs_without_approval_gate_pct": {
+          "op": ">=",
+          "value": 20.0
+        },
+        "sprawl_orgs_prompt_only_controls_pct": {
+          "op": ">=",
+          "value": 25.0
+        },
+        "sprawl_orgs_without_audit_artifacts_pct": {
           "op": ">=",
           "value": 30.0
         }

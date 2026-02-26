@@ -1,7 +1,7 @@
 # AI Tool Sprawl Q1 2026 Study Protocol
 
 Status: execution protocol  
-Version: `v1`  
+Version: `v2`  
 Objective: produce a reproducible multi-organization AI tool sprawl measurement baseline.
 
 ## 1) Campaign Design
@@ -30,6 +30,11 @@ Objective: produce a reproducible multi-organization AI tool sprawl measurement 
 - appendix matrix exports (JSON/CSV)
 - anonymized case-study inputs
 - claims ledger values and query mapping
+- organization-level control posture derivations:
+  - destructive-capable tooling prevalence
+  - approval-gate absence prevalence
+  - prompt-only control prevalence
+  - missing audit-artifact prevalence
 
 ## 5) Reproducibility Contract
 
@@ -51,6 +56,7 @@ Publish only when:
 - deterministic rerun check passes for baseline aggregate
 - enrich claims (if any) include provenance and are labeled time-sensitive
 - production-write claims are published only when production targets are intentionally populated and validated
+- control-posture prevalence claims are mapped to deterministic derivations in aggregate artifacts
 
 ## 7) Threats to Validity (Must Be Reported)
 
