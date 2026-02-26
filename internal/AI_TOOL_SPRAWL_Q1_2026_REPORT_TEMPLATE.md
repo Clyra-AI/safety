@@ -19,6 +19,16 @@ Methodology engine: Wrkr OSS deterministic campaign pipeline
   - `% orgs with Article 50 transparency gap proxy`
 - Canonical claims ledger: `claims/ai-tool-sprawl-q1-2026/claims.json`
 
+## 0.1) Headline Integrity Block (Required)
+
+Populate for every headline used in the manuscript.
+
+| Claim ID | Headline number | Denominator | Run ID | Artifact path | Query |
+|---|---:|---|---|---|---|
+| `sprawl_unapproved_to_approved_ratio` | TBD | `aggregate approved tools` | `TBD` | `runs/tool-sprawl/<run_id>/agg/campaign-summary.json` | `jq '.campaign.metrics.unapproved_to_approved_ratio'` |
+| `sprawl_avg_unknown_tools_per_org` | TBD | `organizations scanned` | `TBD` | `runs/tool-sprawl/<run_id>/agg/campaign-summary.json` | `jq '.campaign.metrics.avg_unknown_tools_per_org'` |
+| `sprawl_article50_gap_prevalence_pct` | TBD | `organizations scanned` | `TBD` | `runs/tool-sprawl/<run_id>/agg/campaign-summary.json` | `jq '.campaign.metrics.article50_gap_prevalence_pct'` |
+
 ## 1) Core Thesis and Messaging Stack
 
 Core thesis: AI governance gaps are measurable now, not hypothetical future risk.
@@ -245,6 +255,24 @@ Template index:
 | Privilege map | `...` | `v1` |
 | Approval gap | `...` | `v1` |
 | Regulatory matrix | `...` | `v1` |
+
+## Mandatory Methodological Disclosures (Fixed Headings)
+
+### Limitations
+
+`TBD`
+
+### Threats to Validity
+
+`TBD`
+
+### Residual Risk
+
+`TBD`
+
+### Reproducibility Notes
+
+`TBD`
 
 ## 5) Asset Package Checklist
 

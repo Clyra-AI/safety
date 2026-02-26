@@ -12,6 +12,7 @@ Expected outputs:
 - `methodology.md`
 - `definitions.md`
 - `study-protocol.md`
+- `preregistration.md`
 - `container-config/`
 - `data/`
 - `assets/headline-stats/`

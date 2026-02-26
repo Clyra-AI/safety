@@ -13,6 +13,7 @@ Run a reproducible multi-target Wrkr campaign, generate aggregate and appendix a
 - Canonical claim lane: baseline deterministic scan outputs.
 - Supplemental lane: enrich-enabled outputs (time-sensitive, explicitly labeled with `as_of`).
 - Target list file: `internal/repos.md`
+- Preregistration file: `reports/ai-tool-sprawl-q1-2026/preregistration.md`
 - Approved-tools policy: `pipelines/policies/approved-tools.v1.yaml`
 - Production-targets policy: `pipelines/policies/production-targets.v1.yaml`
 - Segment metadata (optional): `pipelines/policies/campaign-segments.v1.yaml`
@@ -41,11 +42,13 @@ Run a reproducible multi-target Wrkr campaign, generate aggregate and appendix a
 
 1. Ensure toolchain is available:
    - `wrkr`, `jq`, `bash`
-2. Confirm required policy/config inputs exist:
+2. Confirm preregistration lock fields are set:
+   - `reports/ai-tool-sprawl-q1-2026/preregistration.md`
+3. Confirm required policy/config inputs exist:
    - `pipelines/policies/approved-tools.v1.yaml`
    - `pipelines/policies/production-targets.v1.yaml` (required for production-write claims)
    - `pipelines/policies/campaign-segments.v1.yaml` (optional)
-3. Confirm report controls are present:
+4. Confirm report controls are present:
    - `reports/ai-tool-sprawl-q1-2026/definitions.md`
    - `reports/ai-tool-sprawl-q1-2026/study-protocol.md`
    - `claims/ai-tool-sprawl-q1-2026/claims.json`

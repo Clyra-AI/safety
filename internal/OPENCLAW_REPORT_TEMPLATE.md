@@ -19,6 +19,16 @@ Publishing model: reproducible research artifact (report + data + methodology + 
   - `TBD governed distribution: allow / block / require_approval`
 - Canonical claims ledger: `claims/openclaw-2026/claims.json`
 
+## 0.1) Headline Integrity Block (Required)
+
+Populate for every headline used in the manuscript.
+
+| Claim ID | Headline number | Denominator | Run ID | Artifact path | Query |
+|---|---:|---|---|---|---|
+| `openclaw_policy_violations_24h` | TBD | `openclaw_total_tool_calls_24h` | `TBD` | `runs/openclaw/<run_id>/derived/governed_summary.json` | `jq '.metrics.blocked_calls'` |
+| `openclaw_total_tool_calls_24h` | TBD | `24h window` | `TBD` | `runs/openclaw/<run_id>/derived/governed_summary.json` | `jq '.metrics.total_calls'` |
+| `openclaw_sensitive_access_without_approval` | TBD | `24h window` | `TBD` | `runs/openclaw/<run_id>/derived/ungoverned_summary.json` | `jq '.metrics.sensitive_access_without_approval'` |
+
 ## 1) Core Thesis and Messaging Stack
 
 Core thesis: The largest consumer AI agent deployment in history had no inventory, no policy enforcement, no evidence trail, and no granular control. The fallback was a kill switch.
@@ -190,13 +200,29 @@ Each lesson template:
 - Evidence from this run: `TBD`
 - Action implication: `TBD`
 
-Methodological limitations paragraph (required): `TBD`
-
 ## Closing line (single sentence)
 
 Template:
 
 `The tools used in this analysis are open source: Wrkr (https://github.com/Clyra-AI/wrkr) and Gait (https://github.com/Clyra-AI/gait).`
+
+## Mandatory Methodological Disclosures (Fixed Headings)
+
+### Limitations
+
+`TBD`
+
+### Threats to Validity
+
+`TBD`
+
+### Residual Risk
+
+`TBD`
+
+### Reproducibility Notes
+
+`TBD`
 
 ## 5) Asset Package Checklist
 

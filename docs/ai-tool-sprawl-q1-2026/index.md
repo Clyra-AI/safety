@@ -16,6 +16,7 @@ Available now:
 - Methodology: `reports/ai-tool-sprawl-q1-2026/methodology.md`
 - Definitions: `reports/ai-tool-sprawl-q1-2026/definitions.md`
 - Study protocol: `reports/ai-tool-sprawl-q1-2026/study-protocol.md`
+- Pre-registration: `reports/ai-tool-sprawl-q1-2026/preregistration.md`
 - Data dictionary: `reports/ai-tool-sprawl-q1-2026/data/README.md`
 
 Generated at publication:

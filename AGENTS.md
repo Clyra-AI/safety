@@ -19,6 +19,7 @@ Primary outputs:
 2. Independent research tone.
 - No hype language.
 - No claims without evidence.
+- No product CTA language in report body sections.
 - Explicit limitations and threats-to-validity sections are mandatory.
 
 3. Deterministic first.
@@ -37,8 +38,10 @@ Primary outputs:
 - Strategic context: `internal/WHY.md`
 - OpenClaw definitions: `reports/openclaw-2026/definitions.md`
 - OpenClaw protocol: `reports/openclaw-2026/study-protocol.md`
+- OpenClaw preregistration: `reports/openclaw-2026/preregistration.md`
 - Sprawl definitions: `reports/ai-tool-sprawl-q1-2026/definitions.md`
 - Sprawl protocol: `reports/ai-tool-sprawl-q1-2026/study-protocol.md`
+- Sprawl preregistration: `reports/ai-tool-sprawl-q1-2026/preregistration.md`
 - Claim ledgers: `claims/*/claims.json`
 - Threshold policy: `pipelines/config/publish-thresholds.json`
 - Citation logs: `citations/*.md`
@@ -50,10 +53,11 @@ If these files conflict with draft notes, control files win.
 ## A) Before execution
 
 1. Confirm definitions and protocol version.
-2. Confirm citation logs exist for timeline/regulatory assertions.
-3. Preflight run scaffold with `pipelines/*/run.sh --run-id <id> --dry-run`.
-4. Create immutable run scaffold with `pipelines/*/run.sh --run-id <id>` (or `--resume` only for existing IDs).
-5. If workload commands are not yet implemented in `pipelines/*/run.sh`, add them before claiming execution results.
+2. Confirm preregistration file exists and lock fields are set for the planned run.
+3. Confirm citation logs exist for timeline/regulatory assertions.
+4. Preflight run scaffold with `pipelines/*/run.sh --run-id <id> --dry-run`.
+5. Create immutable run scaffold with `pipelines/*/run.sh --run-id <id>` (or `--resume` only for existing IDs).
+6. If workload commands are not yet implemented in `pipelines/*/run.sh`, add them before claiming execution results.
 
 ## B) During execution
 
@@ -89,6 +93,18 @@ If these files conflict with draft notes, control files win.
 - OpenClaw Section 3 is brand-neutral data section (no product messaging).
 - Sprawl report follows 10-section canonical structure.
 - Gait deep analysis belongs in OpenClaw report; Sprawl references Gait only in recommendations context.
+- No install commands, pricing language, or product CTA statements in report body sections.
+- Every report must include a headline integrity block with:
+  - headline number
+  - denominator
+  - run ID
+  - artifact path
+  - deterministic query
+- Every report must include fixed methodological disclosure headings:
+  - `Limitations`
+  - `Threats to Validity`
+  - `Residual Risk`
+  - `Reproducibility Notes`
 
 ## Change Control
 

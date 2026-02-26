@@ -16,6 +16,7 @@ Available now:
 - Methodology: `reports/openclaw-2026/methodology.md`
 - Definitions: `reports/openclaw-2026/definitions.md`
 - Study protocol: `reports/openclaw-2026/study-protocol.md`
+- Pre-registration: `reports/openclaw-2026/preregistration.md`
 - Data dictionary: `reports/openclaw-2026/data/README.md`
 - Reproduction config: `reports/openclaw-2026/container-config/README.md`
 

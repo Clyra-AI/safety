@@ -8,7 +8,9 @@ Usage:
 
 Validates OpenClaw report readiness:
   - required report protocol/definition files exist
+  - preregistration and citation controls exist
   - claims ledger structure and query reproducibility
+  - citation gate (TBD markers fail in strict mode)
   - optional run artifact layout when --run-id is provided
   - headline threshold gate when run claims are finalized
   - deterministic SHA-256 manifest generation for run artifacts
@@ -47,7 +49,9 @@ required_files=(
   "reports/openclaw-2026/definitions.md"
   "reports/openclaw-2026/study-protocol.md"
   "reports/openclaw-2026/methodology.md"
+  "reports/openclaw-2026/preregistration.md"
   "claims/openclaw-2026/claims.json"
+  "citations/openclaw-timeline-sources.md"
   "pipelines/config/publish-thresholds.json"
 )
 
@@ -74,6 +78,14 @@ if [[ "${STRICT}" -eq 1 ]]; then
   claim_args+=(--strict)
 fi
 "${REPO_ROOT}/pipelines/common/claim_gates.sh" "${claim_args[@]}"
+
+citation_args=(
+  --citations "${REPO_ROOT}/citations/openclaw-timeline-sources.md"
+)
+if [[ "${STRICT}" -eq 1 ]]; then
+  citation_args+=(--strict)
+fi
+"${REPO_ROOT}/pipelines/common/citation_gates.sh" "${citation_args[@]}"
 
 if [[ -n "${RUN_ID}" ]]; then
   run_dir="${REPO_ROOT}/runs/openclaw/${RUN_ID}"

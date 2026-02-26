@@ -14,6 +14,7 @@ Run a full isolated OpenClaw experiment with two matched lanes (ungoverned vs go
 - Canonical headline source: live isolated runtime lane.
 - Supplemental control lane: synthetic envelope replay/comparison.
 - Canonical source pin file: `internal/openclaw_repo.md`
+- Preregistration file: `reports/openclaw-2026/preregistration.md`
 - Governed policy file set path: `reports/openclaw-2026/container-config/gait-policies/`
 - Default governed policy file: `reports/openclaw-2026/container-config/gait-policies/openclaw-research-v1.yaml`
 - Recommended default run window (UTC):
@@ -41,11 +42,13 @@ Run a full isolated OpenClaw experiment with two matched lanes (ungoverned vs go
 
 1. Confirm isolation controls:
    - `reports/openclaw-2026/container-config/ISOLATION_REQUIREMENTS.md`
-2. Enforce:
+2. Confirm preregistration lock fields are set:
+   - `reports/openclaw-2026/preregistration.md`
+3. Enforce:
    - no production credentials
    - no customer/private data
    - bounded side effects only
-3. Verify dual-lane container config is current:
+4. Verify dual-lane container config is current:
    - `reports/openclaw-2026/container-config/docker-compose.yml`
 
 ## 2) Create Immutable Run

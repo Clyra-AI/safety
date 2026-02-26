@@ -13,5 +13,6 @@ Expected outputs:
 - `methodology.md`
 - `definitions.md`
 - `study-protocol.md`
+- `preregistration.md`
 - `data/`
 - `assets/headline-stats/`

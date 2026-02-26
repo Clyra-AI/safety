@@ -82,6 +82,11 @@ Lock protocol before execution:
 - `reports/openclaw-2026/study-protocol.md`
 - `reports/ai-tool-sprawl-q1-2026/study-protocol.md`
 
+Lock preregistration before execution:
+
+- `reports/openclaw-2026/preregistration.md`
+- `reports/ai-tool-sprawl-q1-2026/preregistration.md`
+
 ## 2) Run
 
 Create immutable run scaffolds:
@@ -131,6 +136,7 @@ Strict publish readiness (hard fail on unresolved placeholders):
 Validation includes:
 
 - claims gate
+- citation gate
 - threshold gate
 - hash manifest generation
 

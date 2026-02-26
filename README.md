@@ -38,6 +38,11 @@ See report-specific methodology:
 - [`reports/openclaw-2026/methodology.md`](reports/openclaw-2026/methodology.md)
 - [`reports/ai-tool-sprawl-q1-2026/methodology.md`](reports/ai-tool-sprawl-q1-2026/methodology.md)
 
+Pre-registration controls:
+
+- [`reports/openclaw-2026/preregistration.md`](reports/openclaw-2026/preregistration.md)
+- [`reports/ai-tool-sprawl-q1-2026/preregistration.md`](reports/ai-tool-sprawl-q1-2026/preregistration.md)
+
 ## Repository Structure
 
 - `AGENTS.md`: operating rules and quality bar for AI agents in this repository
@@ -74,8 +79,11 @@ Strict publish readiness:
 Common gates:
 
 - `pipelines/common/claim_gates.sh`
+- `pipelines/common/citation_gates.sh`
 - `pipelines/common/threshold_gate.sh`
 - `pipelines/common/hash_manifest.sh`
+
+In strict mode, unresolved `TBD` markers in citation logs fail validation.
 
 ## Contributing
 
