@@ -17,6 +17,8 @@ Available now:
 - Definitions: `reports/openclaw-2026/definitions.md`
 - Study protocol: `reports/openclaw-2026/study-protocol.md`
 - Pre-registration: `reports/openclaw-2026/preregistration.md`
+- Manuscript source: `reports/openclaw-2026/manuscript/`
+- Press assets source: `reports/openclaw-2026/press-pack/`
 - Data dictionary: `reports/openclaw-2026/data/README.md`
 - Reproduction config: `reports/openclaw-2026/container-config/README.md`
 

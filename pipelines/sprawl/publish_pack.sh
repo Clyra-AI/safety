@@ -6,7 +6,9 @@ usage() {
 Usage:
   publish_pack.sh --run-id <id> [--output <dir>]
 
-Assembles a publication bundle for the AI Tool Sprawl report.
+Assembles dual publication bundles for the AI Tool Sprawl report:
+  - research-pack
+  - press-pack
 EOF
 }
 
@@ -56,6 +58,8 @@ required_paths=(
   "reports/ai-tool-sprawl-q1-2026/definitions.md"
   "reports/ai-tool-sprawl-q1-2026/study-protocol.md"
   "reports/ai-tool-sprawl-q1-2026/methodology.md"
+  "reports/ai-tool-sprawl-q1-2026/manuscript"
+  "reports/ai-tool-sprawl-q1-2026/press-pack"
   "reports/ai-tool-sprawl-q1-2026/data"
   "claims/ai-tool-sprawl-q1-2026/claims.json"
   "citations/sprawl-regulatory-sources.md"
@@ -68,22 +72,30 @@ for rel in "${required_paths[@]}"; do
   fi
 done
 
-mkdir -p "${OUTPUT_DIR}/report-package"
-cp -R "${REPO_ROOT}/reports/ai-tool-sprawl-q1-2026/." "${OUTPUT_DIR}/report-package/"
-cp "${REPO_ROOT}/claims/ai-tool-sprawl-q1-2026/claims.json" "${OUTPUT_DIR}/claims.json"
-cp "${REPO_ROOT}/citations/sprawl-regulatory-sources.md" "${OUTPUT_DIR}/regulatory-sources.md"
+RESEARCH_DIR="${OUTPUT_DIR}/research-pack"
+PRESS_DIR="${OUTPUT_DIR}/press-pack"
+
+mkdir -p "${RESEARCH_DIR}/report-package"
+cp -R "${REPO_ROOT}/reports/ai-tool-sprawl-q1-2026/." "${RESEARCH_DIR}/report-package/"
+cp "${REPO_ROOT}/claims/ai-tool-sprawl-q1-2026/claims.json" "${RESEARCH_DIR}/claims.json"
+cp "${REPO_ROOT}/citations/sprawl-regulatory-sources.md" "${RESEARCH_DIR}/regulatory-sources.md"
+
+mkdir -p "${PRESS_DIR}"
+cp -R "${REPO_ROOT}/reports/ai-tool-sprawl-q1-2026/press-pack/." "${PRESS_DIR}/"
+cp "${REPO_ROOT}/claims/ai-tool-sprawl-q1-2026/claims.json" "${PRESS_DIR}/claims.json"
 
 if [[ -f "${RUN_DIR}/artifacts/run-manifest.json" ]]; then
-  cp "${RUN_DIR}/artifacts/run-manifest.json" "${OUTPUT_DIR}/run-manifest.json"
+  cp "${RUN_DIR}/artifacts/run-manifest.json" "${RESEARCH_DIR}/run-manifest.json"
+  cp "${RUN_DIR}/artifacts/run-manifest.json" "${PRESS_DIR}/run-manifest.json"
 fi
 if [[ -f "${RUN_DIR}/artifacts/manifest.sha256" ]]; then
-  cp "${RUN_DIR}/artifacts/manifest.sha256" "${OUTPUT_DIR}/run-manifest.sha256"
+  cp "${RUN_DIR}/artifacts/manifest.sha256" "${RESEARCH_DIR}/run-manifest.sha256"
 fi
 if [[ -f "${RUN_DIR}/agg/campaign-summary.json" ]]; then
-  cp "${RUN_DIR}/agg/campaign-summary.json" "${OUTPUT_DIR}/campaign-summary.json"
+  cp "${RUN_DIR}/agg/campaign-summary.json" "${RESEARCH_DIR}/campaign-summary.json"
 fi
 if [[ -f "${RUN_DIR}/appendix/combined-appendix.json" ]]; then
-  cp "${RUN_DIR}/appendix/combined-appendix.json" "${OUTPUT_DIR}/combined-appendix.json"
+  cp "${RUN_DIR}/appendix/combined-appendix.json" "${RESEARCH_DIR}/combined-appendix.json"
 fi
 
 cat > "${OUTPUT_DIR}/publish-manifest.json" <<EOF
@@ -93,13 +105,10 @@ cat > "${OUTPUT_DIR}/publish-manifest.json" <<EOF
   "run_id": "${RUN_ID}",
   "generated_at": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
   "contents": [
-    "report-package/",
-    "claims.json",
-    "regulatory-sources.md",
-    "run-manifest.json (if present)",
-    "run-manifest.sha256 (if present)",
-    "campaign-summary.json (if present)",
-    "combined-appendix.json (if present)"
+    "research-pack/",
+    "press-pack/",
+    "research-pack/campaign-summary.json (if present)",
+    "research-pack/combined-appendix.json (if present)"
   ]
 }
 EOF

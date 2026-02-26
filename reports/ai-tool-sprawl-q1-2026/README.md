@@ -14,5 +14,7 @@ Expected outputs:
 - `definitions.md`
 - `study-protocol.md`
 - `preregistration.md`
+- `manuscript/`
+- `press-pack/`
 - `data/`
 - `assets/headline-stats/`

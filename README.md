@@ -47,6 +47,7 @@ Pre-registration controls:
 ## Repository Structure
 
 - `AGENTS.md`: operating rules and quality bar for AI agents in this repository
+- `CITATION.cff`: citation metadata for researchers and analysts
 - `docs/`: GitHub Pages index and per-report pages
 - `reports/`: report packages, definitions, protocols, data dictionaries
 - `runs/`: immutable run outputs keyed by report and run ID
@@ -85,6 +86,35 @@ Common gates:
 - `pipelines/common/hash_manifest.sh`
 
 In strict mode, unresolved `TBD` markers in citation logs fail validation.
+
+## Output Formats
+
+Each report is published in two formats:
+
+- `research-pack`: full technical package (report source, methodology, claims, citations, run artifacts)
+- `press-pack`: media-friendly package (media brief, methods-at-a-glance, stat-card copy)
+
+`pipelines/*/publish_pack.sh` builds both under:
+
+- `runs/<report-scope>/<run_id>/artifacts/publish-pack/research-pack/`
+- `runs/<report-scope>/<run_id>/artifacts/publish-pack/press-pack/`
+
+## Manuscript Build Policy
+
+Canonical manuscript source lives under each report's `manuscript/` directory.  
+Preferred source format is Markdown or LaTeX.
+
+Recommended deterministic build commands (examples):
+
+- Markdown to PDF with Pandoc:
+  - `pandoc reports/<report-id>/manuscript/report.md -o reports/<report-id>/report.pdf`
+- LaTeX to PDF with latexmk:
+  - `latexmk -pdf -interaction=nonstopmode reports/<report-id>/manuscript/report.tex`
+
+Build output paths:
+
+- `reports/openclaw-2026/report.pdf`
+- `reports/ai-tool-sprawl-q1-2026/report.pdf`
 
 ## Contributing
 

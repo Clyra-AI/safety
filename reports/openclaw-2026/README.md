@@ -13,6 +13,8 @@ Expected outputs:
 - `definitions.md`
 - `study-protocol.md`
 - `preregistration.md`
+- `manuscript/`
+- `press-pack/`
 - `container-config/`
 - `data/`
 - `assets/headline-stats/`

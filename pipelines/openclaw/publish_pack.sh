@@ -6,7 +6,9 @@ usage() {
 Usage:
   publish_pack.sh --run-id <id> [--output <dir>]
 
-Assembles a publication bundle for the OpenClaw report.
+Assembles dual publication bundles for the OpenClaw report:
+  - research-pack
+  - press-pack
 EOF
 }
 
@@ -56,6 +58,8 @@ required_paths=(
   "reports/openclaw-2026/definitions.md"
   "reports/openclaw-2026/study-protocol.md"
   "reports/openclaw-2026/methodology.md"
+  "reports/openclaw-2026/manuscript"
+  "reports/openclaw-2026/press-pack"
   "reports/openclaw-2026/container-config"
   "reports/openclaw-2026/data"
   "claims/openclaw-2026/claims.json"
@@ -69,20 +73,28 @@ for rel in "${required_paths[@]}"; do
   fi
 done
 
-mkdir -p "${OUTPUT_DIR}/report-package"
-cp -R "${REPO_ROOT}/reports/openclaw-2026/." "${OUTPUT_DIR}/report-package/"
-cp "${REPO_ROOT}/claims/openclaw-2026/claims.json" "${OUTPUT_DIR}/claims.json"
-cp "${REPO_ROOT}/citations/openclaw-timeline-sources.md" "${OUTPUT_DIR}/timeline-sources.md"
+RESEARCH_DIR="${OUTPUT_DIR}/research-pack"
+PRESS_DIR="${OUTPUT_DIR}/press-pack"
+
+mkdir -p "${RESEARCH_DIR}/report-package"
+cp -R "${REPO_ROOT}/reports/openclaw-2026/." "${RESEARCH_DIR}/report-package/"
+cp "${REPO_ROOT}/claims/openclaw-2026/claims.json" "${RESEARCH_DIR}/claims.json"
+cp "${REPO_ROOT}/citations/openclaw-timeline-sources.md" "${RESEARCH_DIR}/timeline-sources.md"
+
+mkdir -p "${PRESS_DIR}"
+cp -R "${REPO_ROOT}/reports/openclaw-2026/press-pack/." "${PRESS_DIR}/"
+cp "${REPO_ROOT}/claims/openclaw-2026/claims.json" "${PRESS_DIR}/claims.json"
 
 if [[ -f "${RUN_DIR}/artifacts/run-manifest.json" ]]; then
-  cp "${RUN_DIR}/artifacts/run-manifest.json" "${OUTPUT_DIR}/run-manifest.json"
+  cp "${RUN_DIR}/artifacts/run-manifest.json" "${RESEARCH_DIR}/run-manifest.json"
+  cp "${RUN_DIR}/artifacts/run-manifest.json" "${PRESS_DIR}/run-manifest.json"
 fi
 if [[ -f "${RUN_DIR}/artifacts/manifest.sha256" ]]; then
-  cp "${RUN_DIR}/artifacts/manifest.sha256" "${OUTPUT_DIR}/run-manifest.sha256"
+  cp "${RUN_DIR}/artifacts/manifest.sha256" "${RESEARCH_DIR}/run-manifest.sha256"
 fi
 if [[ -d "${RUN_DIR}/derived" ]]; then
-  mkdir -p "${OUTPUT_DIR}/run-derived"
-  cp -R "${RUN_DIR}/derived/." "${OUTPUT_DIR}/run-derived/"
+  mkdir -p "${RESEARCH_DIR}/run-derived"
+  cp -R "${RUN_DIR}/derived/." "${RESEARCH_DIR}/run-derived/"
 fi
 
 cat > "${OUTPUT_DIR}/publish-manifest.json" <<EOF
@@ -92,12 +104,9 @@ cat > "${OUTPUT_DIR}/publish-manifest.json" <<EOF
   "run_id": "${RUN_ID}",
   "generated_at": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
   "contents": [
-    "report-package/",
-    "claims.json",
-    "timeline-sources.md",
-    "run-manifest.json (if present)",
-    "run-manifest.sha256 (if present)",
-    "run-derived/ (if present)"
+    "research-pack/",
+    "press-pack/",
+    "research-pack/run-derived/ (if present)"
   ]
 }
 EOF

@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "If you use this research repository, please cite it using this metadata."
+title: "Clyra AI Safety Initiative Research"
+type: software
+authors:
+  - family-names: "Clyra"
+    given-names: "AI"
+repository-code: "https://github.com/Clyra-AI/safety"
+license: "MIT"
+keywords:
+  - ai-governance
+  - ai-agent-security
+  - reproducible-research
+  - tool-sprawl
+  - policy-enforcement
+abstract: "Reproducible AI governance research artifacts, methodology, and datasets for OpenClaw case-study and AI tool sprawl measurement reports."
