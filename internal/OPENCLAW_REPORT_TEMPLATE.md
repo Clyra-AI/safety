@@ -28,7 +28,7 @@ Populate for every headline used in the manuscript.
 
 | Claim ID | Headline number | Denominator | Run ID | Artifact path | Query |
 |---|---:|---|---|---|---|
-| `openclaw_policy_violations_24h` | TBD | `openclaw_total_tool_calls_24h` | `TBD` | `runs/openclaw/<run_id>/derived/governed_summary.json` | `jq '.metrics.blocked_calls'` |
+| `openclaw_policy_violations_24h` | TBD | `openclaw_total_tool_calls_24h` | `TBD` | `runs/openclaw/<run_id>/derived/governed_summary.json` | `jq '.metrics.blocked_calls + (.counters.require_approval_count // 0)'` |
 | `openclaw_total_tool_calls_24h` | TBD | `24h window` | `TBD` | `runs/openclaw/<run_id>/derived/governed_summary.json` | `jq '.metrics.total_calls'` |
 | `openclaw_sensitive_access_without_approval` | TBD | `24h window` | `TBD` | `runs/openclaw/<run_id>/derived/ungoverned_summary.json` | `jq '.metrics.sensitive_access_without_approval'` |
 | `openclaw_ignored_stop_rate_pct` | TBD | `valid stop signals` | `TBD` | `runs/openclaw/<run_id>/derived/ungoverned_summary.json` | `jq '.metrics.ignored_stop_rate_pct'` |

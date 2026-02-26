@@ -15,7 +15,7 @@
       "headline": "Policy-violating tool calls in 24h",
       "value": "TBD",
       "artifact_path": "runs/openclaw/<run_id>/derived/governed_summary.json",
-      "query": "jq '.metrics.blocked_calls'"
+      "query": "jq '.metrics.blocked_calls + (.counters.require_approval_count // 0)'"
     },
     {
       "id": "openclaw_sensitive_access_without_approval",

@@ -131,6 +131,7 @@ Run a full isolated OpenClaw experiment with two matched lanes (ungoverned vs go
 First derive all claims automatically (no manual counting):
 
 - `pipelines/common/derive_claim_values.sh --claims claims/openclaw-2026/claims.json --run-id <run_id> --output runs/openclaw/<run_id>/artifacts/claim-values.json --strict`
+- `pipelines/common/evaluate_claim_values.sh --report-id openclaw-2026 --claim-values runs/openclaw/<run_id>/artifacts/claim-values.json --thresholds pipelines/config/publish-thresholds.json --lane-duration-sec <lane_duration_sec> --scale-ids openclaw_sensitive_access_without_approval --output runs/openclaw/<run_id>/artifacts/threshold-evaluation.json`
 
 Then, only when promoting a publication run, update `claims/openclaw-2026/claims.json` from the derived artifact values:
 

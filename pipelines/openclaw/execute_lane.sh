@@ -267,6 +267,7 @@ else
       metrics: {
         total_calls: length,
         blocked_calls: (map(select(.verdict == "block")) | length),
+        policy_violations_24h: (map(select(.verdict == "block" or .verdict == "require_approval")) | length),
         evidence_verification_rate_pct: 100,
         destructive_block_rate_pct: (
           [

@@ -1,7 +1,7 @@
 # OpenClaw 2026 Definitions (Locked for This Cycle)
 
 Status: draft lock candidate  
-Version: `v2`  
+Version: `v3`  
 Effective date: `2026-02-26`
 
 This file defines the canonical terms and formulas for the OpenClaw case-study report.
@@ -13,7 +13,7 @@ If definitions change, bump version and re-run all metrics.
 
 A tool call is classified as policy-violating when:
 
-- governed lane verdict is `block`, and
+- governed lane verdict is `block` or `require_approval`, and
 - block reason maps to a policy safety/control rule (not runtime parse error), and
 - the same action class appears in ungoverned lane as executable behavior.
 
@@ -79,7 +79,7 @@ A decision/evaluation artifact counts as evidence only when it is:
 
 Definition:
 
-- total count of governed-lane blocked calls classified as policy violations during 24-hour window.
+- total count of governed-lane non-executable outcomes (`block` + `require_approval`) classified as policy violations during 24-hour window.
 
 ## Supporting metric
 

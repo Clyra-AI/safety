@@ -399,6 +399,7 @@ done
 RUN_DIR="${REPO_ROOT}/runs/openclaw/${RUN_ID}"
 MANIFEST_PATH="${RUN_DIR}/artifacts/run-manifest.json"
 CLAIM_VALUES_PATH="${RUN_DIR}/artifacts/claim-values.json"
+THRESHOLD_EVAL_PATH="${RUN_DIR}/artifacts/threshold-evaluation.json"
 COMPOSE_FILE="${REPO_ROOT}/reports/openclaw-2026/container-config/docker-compose.yml"
 
 if [[ -d "${RUN_DIR}" && "${RESUME}" -eq 0 ]]; then
@@ -433,7 +434,7 @@ if [[ "${DRY_RUN}" -eq 1 ]]; then
   echo "  - snapshot container-config into run config"
   echo "  - execute Wrkr pre-scan (fallback synthetic if runtime unavailable)"
   echo "  - execute both lanes via pipelines/openclaw/execute_lane.sh (or docker compose in container mode)"
-  echo "  - derive summaries and claim-values artifact"
+  echo "  - derive summaries, claim-values artifact, and threshold evaluation"
   echo "  - write run-manifest with reproducibility metadata"
   echo "[openclaw-run] no files written"
   exit 0
@@ -631,6 +632,14 @@ jq -n \
   --output "${CLAIM_VALUES_PATH}" \
   --strict
 
+"${REPO_ROOT}/pipelines/common/evaluate_claim_values.sh" \
+  --report-id "openclaw-2026" \
+  --claim-values "${CLAIM_VALUES_PATH}" \
+  --thresholds "${REPO_ROOT}/pipelines/config/publish-thresholds.json" \
+  --lane-duration-sec "${LANE_DURATION_SEC}" \
+  --scale-ids "openclaw_sensitive_access_without_approval" \
+  --output "${THRESHOLD_EVAL_PATH}"
+
 assert_runtime_budget
 check_disk_quota "${RUN_DIR}"
 
@@ -698,6 +707,7 @@ jq -n \
   --arg ungoverned_summary_path "runs/openclaw/${RUN_ID}/derived/ungoverned_summary.json" \
   --arg governed_summary_path "runs/openclaw/${RUN_ID}/derived/governed_summary.json" \
   --arg claim_values_path "runs/openclaw/${RUN_ID}/artifacts/claim-values.json" \
+  --arg threshold_evaluation_path "runs/openclaw/${RUN_ID}/artifacts/threshold-evaluation.json" \
   --argjson docker_image_digests "${DOCKER_DIGESTS_JSON}" \
   '{
     schema_version: $schema_version,
@@ -757,7 +767,8 @@ jq -n \
       wrkr_scan: $wrkr_scan_path,
       ungoverned_summary: $ungoverned_summary_path,
       governed_summary: $governed_summary_path,
-      claim_values: $claim_values_path
+      claim_values: $claim_values_path,
+      threshold_evaluation: $threshold_evaluation_path
     }
   }' > "${MANIFEST_PATH}"
 
@@ -768,3 +779,4 @@ jq -n \
 echo "[openclaw-run] completed run ${RUN_ID}"
 echo "[openclaw-run] manifest: ${MANIFEST_PATH}"
 echo "[openclaw-run] claim-values: ${CLAIM_VALUES_PATH}"
+echo "[openclaw-run] threshold-evaluation: ${THRESHOLD_EVAL_PATH}"

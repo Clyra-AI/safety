@@ -56,6 +56,7 @@ required_files=(
   "pipelines/config/publish-thresholds.json"
   "pipelines/common/metric_coverage_gate.sh"
   "pipelines/common/derive_claim_values.sh"
+  "pipelines/common/evaluate_claim_values.sh"
 )
 
 for rel in "${required_files[@]}"; do
@@ -120,6 +121,17 @@ if [[ -n "${RUN_ID}" ]]; then
       derive_args+=(--strict)
     fi
     "${REPO_ROOT}/pipelines/common/derive_claim_values.sh" "${derive_args[@]}"
+
+    lane_duration_sec="$(jq -r '.measurement_window.lane_duration_sec // empty' "${run_dir}/artifacts/run-manifest.json" 2>/dev/null || true)"
+    if [[ -n "${lane_duration_sec}" ]]; then
+      "${REPO_ROOT}/pipelines/common/evaluate_claim_values.sh" \
+        --report-id "openclaw-2026" \
+        --claim-values "${run_dir}/artifacts/claim-values.json" \
+        --thresholds "${REPO_ROOT}/pipelines/config/publish-thresholds.json" \
+        --lane-duration-sec "${lane_duration_sec}" \
+        --scale-ids "openclaw_sensitive_access_without_approval" \
+        --output "${run_dir}/artifacts/threshold-evaluation.json"
+    fi
 
     mkdir -p "${run_dir}/artifacts"
     "${REPO_ROOT}/pipelines/common/hash_manifest.sh" \

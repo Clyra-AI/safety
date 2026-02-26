@@ -47,6 +47,7 @@ Notes:
 - Thresholds are policy controls, not scientific conclusions.
 - Update thresholds only with explicit rationale in commit message.
 - Required threshold checks run through `pipelines/common/threshold_gate.sh`.
+- Run-level projected threshold evaluation (including sub-24h scaling) runs through `pipelines/common/evaluate_claim_values.sh`.
 - Coverage checks for claim IDs and threshold IDs run through `pipelines/common/metric_coverage_gate.sh`.
 - Recommended thresholds are advisory and currently reviewed manually in report planning.
 - In non-strict validation mode, threshold checks are skipped until claim values are finalized (not `TBD`).
