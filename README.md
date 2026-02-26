@@ -107,9 +107,14 @@ Preferred source format is Markdown or LaTeX.
 Recommended deterministic build commands (examples):
 
 - Markdown to PDF with Pandoc:
-  - `pandoc reports/<report-id>/manuscript/report.md -o reports/<report-id>/report.pdf`
+  - `pandoc reports/<report-id>/manuscript/report.md --pdf-engine=xelatex --include-in-header=reports/<report-id>/manuscript/pdf-header.tex -V geometry:margin=1in -o reports/<report-id>/report.pdf`
 - LaTeX to PDF with latexmk:
   - `latexmk -pdf -interaction=nonstopmode reports/<report-id>/manuscript/report.tex`
+
+Header policy:
+
+- Use report-local `manuscript/pdf-header.tex` for portable font/code-block styling.
+- Avoid machine-specific fonts in header files (for example `Helvetica Neue`, `Menlo`).
 
 Build output paths:
 

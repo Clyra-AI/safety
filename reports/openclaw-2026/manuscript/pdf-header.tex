@@ -1,0 +1,55 @@
+% Portable PDF header for Pandoc + XeLaTeX builds
+% Emphasis: readable code blocks, breakable long lines, cross-platform fonts.
+
+\usepackage{xcolor}
+\usepackage{framed}
+\usepackage{etoolbox}
+\usepackage{fontspec}
+\usepackage{newunicodechar}
+\usepackage{parskip}
+\usepackage{fancyvrb}
+\usepackage{fvextra}
+
+% Shaded code block background
+\definecolor{shadecolor}{RGB}{245,245,245}
+
+% Allow long code lines to wrap
+\fvset{
+  breaklines=true,
+  breakanywhere=true,
+  fontsize=\small
+}
+
+% Handle Pandoc Shaded environment without forcing non-breakable minipages
+\makeatletter
+\@ifundefined{Shaded}{%
+  \newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}%
+}{}
+\makeatother
+
+% Portable font selection (avoid machine-specific dependencies)
+% Set only when the font exists; otherwise keep engine defaults.
+\IfFontExistsTF{TeX Gyre Heros}{%
+  \setmainfont{TeX Gyre Heros}
+}{%
+  \IfFontExistsTF{Helvetica}{%
+    \setmainfont{Helvetica}
+  }{}%
+}
+\IfFontExistsTF{DejaVu Sans Mono}{%
+  \setmonofont{DejaVu Sans Mono}[Scale=0.88]
+}{%
+  \IfFontExistsTF{Menlo}{%
+    \setmonofont{Menlo}[Scale=0.88]
+  }{%
+    \IfFontExistsTF{Courier New}{%
+      \setmonofont{Courier New}[Scale=0.88]
+    }{}%
+  }%
+}
+
+% Unicode fallback for common arrow symbol
+\newunicodechar{→}{\ensuremath{\rightarrow}}
+
+% Paragraph spacing
+\setlength{\parskip}{0.5em}
