@@ -1,7 +1,7 @@
 # OpenClaw 2026 Study Protocol
 
 Status: execution protocol  
-Version: `v2`  
+Version: `v3`  
 Objective: produce reproducible, side-by-side ungoverned vs governed 24-hour tool-action evidence.
 
 ## 1) Experimental Design
@@ -73,13 +73,26 @@ During run:
 
 - call-level decision/event outputs for both lanes.
 - governed trace/runpack outputs.
+- scenario semantic fields on each tool call (`scenario_id`, `business_action`, `resource_type`, `resource_id`, `risk_tier`, `policy_expected`).
 
 After run:
 
 - normalized summaries for both lanes.
+- scenario summary artifact (`runs/openclaw/<run_id>/derived/scenario_summary.json`).
+- anecdote extract artifact (`runs/openclaw/<run_id>/artifacts/anecdotes.json`).
 - claim derivation outputs.
 - verification outputs for governed evidence.
 - stop-safety derivations (`ignored_stop_rate_pct`, `stop_to_halt_p95_sec`, destructive-after-stop checks).
+
+Required scenario coverage:
+
+- `inbox_cleanup`
+- `drive_sharing`
+- `finance_ops`
+- `secrets_handling`
+- `ops_command`
+
+Coverage must be present in both lanes; missing scenarios fail validation.
 
 ## 6) Reproduction Contract
 
@@ -109,6 +122,7 @@ Publish only when:
 - reproducibility manifest generated
 - all headline claims tie to artifact + query
 - stop-safety claim derivations are present for required segments
+- scenario-summary coverage shows no missing required scenarios in either lane
 - timeline section language remains sourced factual chronology (no intent attribution)
 
 If gates fail, report is delayed.

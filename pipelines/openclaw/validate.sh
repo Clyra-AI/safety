@@ -110,6 +110,22 @@ if [[ -n "${RUN_ID}" ]]; then
     fi
   done
 
+  required_run_files=(
+    "raw/ungoverned/events.jsonl"
+    "raw/governed/events.jsonl"
+    "derived/ungoverned_summary.json"
+    "derived/governed_summary.json"
+    "derived/scenario_summary.json"
+    "artifacts/anecdotes.json"
+    "artifacts/run-manifest.json"
+  )
+  for rel in "${required_run_files[@]}"; do
+    if [[ ! -f "${run_dir}/${rel}" ]]; then
+      echo "[openclaw-validate] missing run artifact: runs/openclaw/${RUN_ID}/${rel}" >&2
+      FAILURES=$((FAILURES + 1))
+    fi
+  done
+
   if [[ -d "${run_dir}" ]]; then
     derive_args=(
       --repo-root "${REPO_ROOT}"
@@ -137,6 +153,18 @@ if [[ -n "${RUN_ID}" ]]; then
     "${REPO_ROOT}/pipelines/common/hash_manifest.sh" \
       --input "${run_dir}" \
       --output "${run_dir}/artifacts/manifest.sha256"
+
+    if [[ -f "${run_dir}/derived/scenario_summary.json" ]]; then
+      if ! jq -e '
+        (.coverage.ungoverned_missing | type) == "array"
+        and (.coverage.governed_missing | type) == "array"
+        and ((.coverage.ungoverned_missing | length) == 0)
+        and ((.coverage.governed_missing | length) == 0)
+      ' "${run_dir}/derived/scenario_summary.json" >/dev/null; then
+        echo "[openclaw-validate] scenario coverage incomplete for run ${RUN_ID}" >&2
+        FAILURES=$((FAILURES + 1))
+      fi
+    fi
   fi
 
   threshold_args=(

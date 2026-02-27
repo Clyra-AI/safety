@@ -157,23 +157,29 @@ check_secret_guardrails() {
   if [[ "${ALLOW_EXTERNAL_SECRETS:-0}" == "1" ]]; then
     return
   fi
-  local blocked_vars=(
-    OPENAI_API_KEY
-    ANTHROPIC_API_KEY
-    AZURE_OPENAI_API_KEY
-    GEMINI_API_KEY
-    GOOGLE_API_KEY
-    AWS_ACCESS_KEY_ID
-    AWS_SECRET_ACCESS_KEY
-  )
-  local found=0
-  for var_name in "${blocked_vars[@]}"; do
-    if [[ -n "${!var_name:-}" ]]; then
-      echo "[sprawl-run] blocked by guardrail: env var set (${var_name}). Use ALLOW_EXTERNAL_SECRETS=1 only for explicit lab exceptions." >&2
-      found=1
+  local found_model_keys=0
+  local found_cloud_keys=0
+  local matched=()
+  local var_name value
+  while IFS='=' read -r var_name value; do
+    [[ -z "${value}" ]] && continue
+    if [[ "${var_name}" =~ _API_KEY$ ]]; then
+      matched+=("${var_name}")
+      found_model_keys=1
+      continue
     fi
-  done
-  if [[ "${found}" -eq 1 ]]; then
+    if [[ "${var_name}" == "AWS_ACCESS_KEY_ID" || "${var_name}" == "AWS_SECRET_ACCESS_KEY" ]]; then
+      matched+=("${var_name}")
+      found_cloud_keys=1
+    fi
+  done < <(env)
+
+  if (( found_model_keys == 1 || found_cloud_keys == 1 )); then
+    if (( found_model_keys == 1 )); then
+      echo "[sprawl-run] blocked by guardrail: external_model_api_key_present (${matched[*]}). Use ALLOW_EXTERNAL_SECRETS=1 only for explicit lab exceptions." >&2
+    else
+      echo "[sprawl-run] blocked by guardrail: external_cloud_credential_present (${matched[*]}). Use ALLOW_EXTERNAL_SECRETS=1 only for explicit lab exceptions." >&2
+    fi
     exit 1
   fi
 }

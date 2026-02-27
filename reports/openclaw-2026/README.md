@@ -18,3 +18,5 @@ Expected outputs:
 - `container-config/`
 - `data/`
 - `assets/headline-stats/`
+- `runs/openclaw/<run_id>/derived/scenario_summary.json`
+- `runs/openclaw/<run_id>/artifacts/anecdotes.json`

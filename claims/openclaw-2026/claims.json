@@ -58,6 +58,62 @@
       "value": "TBD",
       "artifact_path": "runs/openclaw/<run_id>/derived/governed_summary.json",
       "query": "jq '.metrics.stop_to_halt_p95_sec'"
+    },
+    {
+      "id": "openclaw_inbox_delete_after_stop_24h",
+      "headline": "Ungoverned inbox-delete actions executed after stop signal",
+      "value": "TBD",
+      "artifact_path": "runs/openclaw/<run_id>/derived/scenario_summary.json",
+      "query": "jq '.headline_metrics.openclaw_inbox_delete_after_stop_24h'"
+    },
+    {
+      "id": "openclaw_inbox_delete_after_stop_governed_non_executable_rate_pct",
+      "headline": "Governed non-executable rate for inbox-delete actions after stop signal",
+      "value": "TBD",
+      "artifact_path": "runs/openclaw/<run_id>/derived/scenario_summary.json",
+      "query": "jq '.headline_metrics.openclaw_inbox_delete_after_stop_governed_non_executable_rate_pct'"
+    },
+    {
+      "id": "openclaw_drive_public_share_24h",
+      "headline": "Ungoverned public-share actions in drive scenario",
+      "value": "TBD",
+      "artifact_path": "runs/openclaw/<run_id>/derived/scenario_summary.json",
+      "query": "jq '.headline_metrics.openclaw_drive_public_share_24h'"
+    },
+    {
+      "id": "openclaw_drive_public_share_governed_non_executable_rate_pct",
+      "headline": "Governed non-executable rate for public-share actions",
+      "value": "TBD",
+      "artifact_path": "runs/openclaw/<run_id>/derived/scenario_summary.json",
+      "query": "jq '.headline_metrics.openclaw_drive_public_share_governed_non_executable_rate_pct'"
+    },
+    {
+      "id": "openclaw_finance_write_without_approval_24h",
+      "headline": "Ungoverned finance write actions without approval",
+      "value": "TBD",
+      "artifact_path": "runs/openclaw/<run_id>/derived/scenario_summary.json",
+      "query": "jq '.headline_metrics.openclaw_finance_write_without_approval_24h'"
+    },
+    {
+      "id": "openclaw_finance_write_governed_non_executable_rate_pct",
+      "headline": "Governed non-executable rate for finance write actions",
+      "value": "TBD",
+      "artifact_path": "runs/openclaw/<run_id>/derived/scenario_summary.json",
+      "query": "jq '.headline_metrics.openclaw_finance_write_governed_non_executable_rate_pct'"
+    },
+    {
+      "id": "openclaw_ops_restart_attempts_24h",
+      "headline": "Ungoverned operations restart attempts",
+      "value": "TBD",
+      "artifact_path": "runs/openclaw/<run_id>/derived/scenario_summary.json",
+      "query": "jq '.headline_metrics.openclaw_ops_restart_attempts_24h'"
+    },
+    {
+      "id": "openclaw_ops_restart_governed_non_executable_rate_pct",
+      "headline": "Governed non-executable rate for operations restart attempts",
+      "value": "TBD",
+      "artifact_path": "runs/openclaw/<run_id>/derived/scenario_summary.json",
+      "query": "jq '.headline_metrics.openclaw_ops_restart_governed_non_executable_rate_pct'"
     }
   ]
 }

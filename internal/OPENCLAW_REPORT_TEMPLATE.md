@@ -35,6 +35,14 @@ Populate for every headline used in the manuscript.
 | `openclaw_destructive_attempts_24h` | TBD | `24h window` | `TBD` | `runs/openclaw/<run_id>/derived/ungoverned_summary.json` | `jq '.metrics.destructive_attempts_24h'` |
 | `openclaw_governed_destructive_block_rate_pct` | TBD | `governed destructive attempts` | `TBD` | `runs/openclaw/<run_id>/derived/governed_summary.json` | `jq '.metrics.destructive_block_rate_pct'` |
 | `openclaw_stop_to_halt_p95_sec` | TBD | `valid stop events` | `TBD` | `runs/openclaw/<run_id>/derived/governed_summary.json` | `jq '.metrics.stop_to_halt_p95_sec'` |
+| `openclaw_inbox_delete_after_stop_24h` | TBD | `24h window` | `TBD` | `runs/openclaw/<run_id>/derived/scenario_summary.json` | `jq '.headline_metrics.openclaw_inbox_delete_after_stop_24h'` |
+| `openclaw_inbox_delete_after_stop_governed_non_executable_rate_pct` | TBD | `governed inbox-delete post-stop attempts` | `TBD` | `runs/openclaw/<run_id>/derived/scenario_summary.json` | `jq '.headline_metrics.openclaw_inbox_delete_after_stop_governed_non_executable_rate_pct'` |
+| `openclaw_drive_public_share_24h` | TBD | `24h window` | `TBD` | `runs/openclaw/<run_id>/derived/scenario_summary.json` | `jq '.headline_metrics.openclaw_drive_public_share_24h'` |
+| `openclaw_drive_public_share_governed_non_executable_rate_pct` | TBD | `governed public-share attempts` | `TBD` | `runs/openclaw/<run_id>/derived/scenario_summary.json` | `jq '.headline_metrics.openclaw_drive_public_share_governed_non_executable_rate_pct'` |
+| `openclaw_finance_write_without_approval_24h` | TBD | `24h window` | `TBD` | `runs/openclaw/<run_id>/derived/scenario_summary.json` | `jq '.headline_metrics.openclaw_finance_write_without_approval_24h'` |
+| `openclaw_finance_write_governed_non_executable_rate_pct` | TBD | `governed finance-write attempts` | `TBD` | `runs/openclaw/<run_id>/derived/scenario_summary.json` | `jq '.headline_metrics.openclaw_finance_write_governed_non_executable_rate_pct'` |
+| `openclaw_ops_restart_attempts_24h` | TBD | `24h window` | `TBD` | `runs/openclaw/<run_id>/derived/scenario_summary.json` | `jq '.headline_metrics.openclaw_ops_restart_attempts_24h'` |
+| `openclaw_ops_restart_governed_non_executable_rate_pct` | TBD | `governed ops-restart attempts` | `TBD` | `runs/openclaw/<run_id>/derived/scenario_summary.json` | `jq '.headline_metrics.openclaw_ops_restart_governed_non_executable_rate_pct'` |
 
 ## 1) Core Thesis and Messaging Stack
 
@@ -164,6 +172,22 @@ Action-type breakdown template:
 | External API/network | TBD | TBD | TBD |
 | Messaging | TBD | TBD | TBD |
 | Financial | TBD | TBD | TBD |
+
+Scenario incident table (required for real-world resonance):
+
+| Scenario | Ungoverned attempted | Ungoverned post-stop executed | Governed non-executable rate | Artifact source |
+|---|---:|---:|---:|---|
+| Inbox cleanup (`delete_email`) | TBD | TBD | TBD | `runs/openclaw/<run_id>/derived/scenario_summary.json` |
+| Drive sharing (`share_doc_public`) | TBD | TBD | TBD | `runs/openclaw/<run_id>/derived/scenario_summary.json` |
+| Finance ops (`approve_payment`) | TBD | TBD | TBD | `runs/openclaw/<run_id>/derived/scenario_summary.json` |
+| Secrets handling (`export_secret_index`) | TBD | TBD | TBD | `runs/openclaw/<run_id>/derived/scenario_summary.json` |
+| Ops command (`restart_service`) | TBD | TBD | TBD | `runs/openclaw/<run_id>/derived/scenario_summary.json` |
+
+Concrete anecdote examples (required):
+
+- Source: `runs/openclaw/<run_id>/artifacts/anecdotes.json`
+- Include timestamp, lane, action label, and governed reason code where applicable.
+- Do not include examples that cannot be traced to this artifact.
 
 ## Section 4: Governed behavior (same workload under Gait enforcement)
 

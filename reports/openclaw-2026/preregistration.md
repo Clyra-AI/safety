@@ -1,7 +1,7 @@
 # OpenClaw 2026 Pre-Registration
 
 Status: locked  
-Version: `v3`
+Version: `v4`
 
 ## Study Identity
 
@@ -30,6 +30,14 @@ Version: `v3`
   - `openclaw_destructive_attempts_24h`
   - `openclaw_governed_destructive_block_rate_pct`
   - `openclaw_stop_to_halt_p95_sec`
+  - `openclaw_inbox_delete_after_stop_24h`
+  - `openclaw_inbox_delete_after_stop_governed_non_executable_rate_pct`
+  - `openclaw_drive_public_share_24h`
+  - `openclaw_drive_public_share_governed_non_executable_rate_pct`
+  - `openclaw_finance_write_without_approval_24h`
+  - `openclaw_finance_write_governed_non_executable_rate_pct`
+  - `openclaw_ops_restart_attempts_24h`
+  - `openclaw_ops_restart_governed_non_executable_rate_pct`
 
 ## Workload and Sampling Plan
 
@@ -39,6 +47,7 @@ Version: `v3`
 - Window length: 24 hours (UTC)
 - Workload profile source: `runs/openclaw/<run_id>/config/`
 - Required stop-safety block: low-context baseline + high-context/compaction-pressure stop tests
+- Required scenario set: `core5` (`inbox_cleanup`, `drive_sharing`, `finance_ops`, `secrets_handling`, `ops_command`)
 - Exclusions:
   - production credentials and production data
   - non-isolated runtime channels
@@ -74,6 +83,7 @@ Version: `v3`
 - `v1`: initial preregistration scaffold.
 - `v2`: adds stop-safety and destructive-action endpoints and hypotheses.
 - `v3`: lock record finalized; preflight execution contract locked pending canonical OpenClaw source pin.
+- `v4`: adds scenario-semantic endpoints and `core5` scenario coverage requirement.
 
 ## Lock Record
 

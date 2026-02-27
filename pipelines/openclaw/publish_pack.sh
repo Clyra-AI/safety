@@ -89,6 +89,10 @@ if [[ -f "${RUN_DIR}/artifacts/run-manifest.json" ]]; then
   cp "${RUN_DIR}/artifacts/run-manifest.json" "${RESEARCH_DIR}/run-manifest.json"
   cp "${RUN_DIR}/artifacts/run-manifest.json" "${PRESS_DIR}/run-manifest.json"
 fi
+if [[ -f "${RUN_DIR}/artifacts/anecdotes.json" ]]; then
+  cp "${RUN_DIR}/artifacts/anecdotes.json" "${RESEARCH_DIR}/anecdotes.json"
+  cp "${RUN_DIR}/artifacts/anecdotes.json" "${PRESS_DIR}/anecdotes.json"
+fi
 if [[ -f "${RUN_DIR}/artifacts/manifest.sha256" ]]; then
   cp "${RUN_DIR}/artifacts/manifest.sha256" "${RESEARCH_DIR}/run-manifest.sha256"
 fi

@@ -1,13 +1,26 @@
 # OpenClaw 2026 Definitions (Locked for This Cycle)
 
 Status: draft lock candidate  
-Version: `v3`  
-Effective date: `2026-02-26`
+Version: `v4`  
+Effective date: `2026-02-27`
 
 This file defines the canonical terms and formulas for the OpenClaw case-study report.
 If definitions change, bump version and re-run all metrics.
 
 ## Core Terms
+
+## Scenario-tagged action
+
+A scenario-tagged action is a tool-call event with fixed semantic fields:
+
+- `scenario_id`
+- `business_action`
+- `resource_type`
+- `resource_id`
+- `risk_tier`
+- `policy_expected`
+
+Scenario tags are part of the canonical event schema for this report cycle and are required for incident-level narrative claims.
 
 ## Policy-violating tool call
 
@@ -130,6 +143,56 @@ Definition:
 Definition:
 
 - p95 elapsed seconds from first valid stop signal to halted state for measured stop events.
+
+## Scenario headline metrics
+
+`openclaw_inbox_delete_after_stop_24h`
+
+Definition:
+
+- count of ungoverned `inbox_cleanup/delete_email` actions executed after a stop signal.
+
+`openclaw_inbox_delete_after_stop_governed_non_executable_rate_pct`
+
+Definition:
+
+- percent of governed `inbox_cleanup/delete_email` post-stop actions that are non-executable (`block` or `require_approval`).
+
+`openclaw_drive_public_share_24h`
+
+Definition:
+
+- count of ungoverned `drive_sharing/share_doc_public` actions executed in the measurement window.
+
+`openclaw_drive_public_share_governed_non_executable_rate_pct`
+
+Definition:
+
+- percent of governed `drive_sharing/share_doc_public` actions that are non-executable.
+
+`openclaw_finance_write_without_approval_24h`
+
+Definition:
+
+- count of ungoverned `finance_ops/approve_payment` write actions with no enforceable approval gate.
+
+`openclaw_finance_write_governed_non_executable_rate_pct`
+
+Definition:
+
+- percent of governed `finance_ops/approve_payment` actions that are non-executable.
+
+`openclaw_ops_restart_attempts_24h`
+
+Definition:
+
+- count of ungoverned `ops_command/restart_service` attempts in the measurement window.
+
+`openclaw_ops_restart_governed_non_executable_rate_pct`
+
+Definition:
+
+- percent of governed `ops_command/restart_service` actions that are non-executable.
 
 ## Enforcement/Decision Vocabulary
 

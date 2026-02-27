@@ -27,6 +27,7 @@ services:
       - GAIT_REPO_PATH=/gait
       - OPENCLAW_OLLAMA_BASE_URL=http://host.docker.internal:11434
       - OPENCLAW_MODEL_ID=${OPENCLAW_MODEL_ID:-llama3.2:latest}
+      - OPENCLAW_SCENARIO_SET=${OPENCLAW_SCENARIO_SET:-core5}
     extra_hosts:
       - "host.docker.internal:host-gateway"
     networks:
@@ -70,6 +71,7 @@ services:
       - GAIT_REPO_PATH=/gait
       - OPENCLAW_OLLAMA_BASE_URL=http://host.docker.internal:11434
       - OPENCLAW_MODEL_ID=${OPENCLAW_MODEL_ID:-llama3.2:latest}
+      - OPENCLAW_SCENARIO_SET=${OPENCLAW_SCENARIO_SET:-core5}
     extra_hosts:
       - "host.docker.internal:host-gateway"
     networks:
