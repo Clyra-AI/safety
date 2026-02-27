@@ -23,7 +23,7 @@ Run a full isolated OpenClaw experiment with two matched lanes (ungoverned vs go
 - Default legal/comms posture: sourced factual timeline only; no intent attribution; no legal conclusion language.
 - Publish threshold policy: `pipelines/config/publish-thresholds.json`
 - Current headline thresholds:
-  - `openclaw_total_tool_calls_24h >= 2000`
+  - `openclaw_total_tool_calls_24h >= 1000`
   - `openclaw_policy_violations_24h >= 500`
   - `openclaw_sensitive_access_without_approval >= 25`
   - `openclaw_governed_evidence_verification_rate_pct >= 99.0`

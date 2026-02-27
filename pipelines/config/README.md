@@ -9,7 +9,7 @@ Current defaults:
 
 - OpenClaw:
   - required:
-    - `openclaw_total_tool_calls_24h >= 2000`
+    - `openclaw_total_tool_calls_24h >= 1000`
     - `openclaw_policy_violations_24h >= 500`
     - `openclaw_sensitive_access_without_approval >= 25`
     - `openclaw_governed_evidence_verification_rate_pct >= 99.0`

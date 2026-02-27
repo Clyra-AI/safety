@@ -36,6 +36,7 @@ EGRESS_ALLOWLIST="pipelines/policies/openclaw-egress-allowlist.txt"
 
 WRKR_REPO_PATH="${WRKR_REPO_PATH:-/Users/davidahmann/Projects/wrkr}"
 GAIT_REPO_PATH="${GAIT_REPO_PATH:-/Users/davidahmann/Projects/gait}"
+OPENCLAW_REPO_PATH="${OPENCLAW_REPO_PATH:-/Users/davidahmann/Projects/agent-ecosystem/openclaw}"
 
 RUN_START_EPOCH="$(date +%s)"
 WRKR_RUNTIME="unavailable"
@@ -61,6 +62,11 @@ file_sha256() {
   fi
   # shellcheck disable=SC2086
   ${hasher} "${file}" | awk '{print $1}'
+}
+
+is_number() {
+  local value="$1"
+  [[ "${value}" =~ ^-?[0-9]+([.][0-9]+)?$ ]]
 }
 
 assert_runtime_budget() {
@@ -462,7 +468,18 @@ check_disk_quota "${RUN_DIR}"
 wrkr_scan_out="${RUN_DIR}/raw/wrkr/wrkr-scan.json"
 wrkr_scan_state="${RUN_DIR}/raw/wrkr/wrkr-state.json"
 wrkr_scan_err="${RUN_DIR}/raw/wrkr/wrkr-scan.err.log"
-if run_wrkr scan --path "${RUN_DIR}/config" --state "${wrkr_scan_state}" --json > "${wrkr_scan_out}" 2>"${wrkr_scan_err}"; then
+wrkr_scan_target="${WRKR_SCAN_TARGET:-}"
+if [[ -z "${wrkr_scan_target}" ]]; then
+  if [[ -d "${OPENCLAW_REPO_PATH}" ]]; then
+    wrkr_scan_target="${OPENCLAW_REPO_PATH}"
+  else
+    wrkr_scan_target="${RUN_DIR}/config"
+  fi
+fi
+if [[ ! -d "${wrkr_scan_target}" ]]; then
+  wrkr_scan_target="${RUN_DIR}/config"
+fi
+if run_wrkr scan --path "${wrkr_scan_target}" --state "${wrkr_scan_state}" --json > "${wrkr_scan_out}" 2>"${wrkr_scan_err}"; then
   echo "[openclaw-run] wrkr pre-scan completed"
 else
   wrkr_scan_note="Wrkr runtime unavailable or scan failed; synthetic pre-scan placeholder generated."
@@ -473,6 +490,7 @@ else
     --arg generated_at "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
     --arg note "${wrkr_scan_note}" \
     --arg wrkr_runtime "${WRKR_RUNTIME}" \
+    --arg scan_target "${wrkr_scan_target}" \
     --arg stderr_path "runs/openclaw/${RUN_ID}/raw/wrkr/wrkr-scan.err.log" \
     '{
       schema_version: "v1",
@@ -480,6 +498,7 @@ else
       generated_at: $generated_at,
       note: $note,
       runtime: $wrkr_runtime,
+      scan_target: $scan_target,
       stderr_path: $stderr_path,
       findings: []
     }' > "${wrkr_scan_out}"
@@ -604,18 +623,52 @@ jq -n \
     }
   }' > "${RUN_DIR}/derived/governed_summary.json"
 
+gov_total_calls="$(jq -r '.metrics.total_calls // 0' "${RUN_DIR}/derived/governed_summary.json")"
+gov_evidence_rate="$(jq -r '.metrics.evidence_verification_rate_pct // 0' "${RUN_DIR}/derived/governed_summary.json")"
+gov_trace_total="$(jq -r '.counters.trace_files_total // 0' "${RUN_DIR}/derived/governed_summary.json")"
+gov_trace_verified="$(jq -r '.counters.trace_files_verified // 0' "${RUN_DIR}/derived/governed_summary.json")"
+
+if ! is_number "${gov_total_calls}"; then gov_total_calls="0"; fi
+if ! is_number "${gov_evidence_rate}"; then gov_evidence_rate="0"; fi
+if ! is_number "${gov_trace_total}"; then gov_trace_total="0"; fi
+if ! is_number "${gov_trace_verified}"; then gov_trace_verified="0"; fi
+
+verification_mode="trace-verification-v1"
+if [[ "${WORKLOAD_MODE}" == "synthetic" ]]; then
+  verification_mode="synthetic-envelope-v1"
+fi
+
+verified_flag="false"
+if awk "BEGIN{exit !(${gov_evidence_rate} >= 99)}"; then
+  verified_flag="true"
+fi
+
 jq -n \
   --arg generated_at "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
   --arg governed_summary "runs/openclaw/${RUN_ID}/derived/governed_summary.json" \
   --arg ungoverned_summary "runs/openclaw/${RUN_ID}/derived/ungoverned_summary.json" \
+  --arg governed_trace_dir "runs/openclaw/${RUN_ID}/artifacts/gait/governed" \
+  --arg verification_mode "${verification_mode}" \
+  --argjson total_calls "${gov_total_calls}" \
+  --argjson trace_files_total "${gov_trace_total}" \
+  --argjson trace_files_verified "${gov_trace_verified}" \
+  --argjson evidence_verification_rate_pct "${gov_evidence_rate}" \
+  --argjson verified "${verified_flag}" \
   '{
-    schema_version: "v1",
+    schema_version: "v2",
     generated_at: $generated_at,
-    verified: true,
-    verification_mode: "synthetic-preflight",
+    verified: $verified,
+    verification_mode: $verification_mode,
+    summary: {
+      governed_total_calls: $total_calls,
+      evidence_verification_rate_pct: $evidence_verification_rate_pct,
+      trace_files_total: $trace_files_total,
+      trace_files_verified: $trace_files_verified
+    },
     artifacts: {
       governed_summary: $governed_summary,
-      ungoverned_summary: $ungoverned_summary
+      ungoverned_summary: $ungoverned_summary,
+      governed_trace_dir: $governed_trace_dir
     }
   }' > "${RUN_DIR}/artifacts/verification/evidence-verification.json"
 
@@ -686,6 +739,7 @@ jq -n \
   --arg wrkr_version "${WRKR_VERSION}" \
   --arg wrkr_sha "${WRKR_SHA}" \
   --arg wrkr_ref "${WRKR_REF}" \
+  --arg wrkr_scan_target "${wrkr_scan_target}" \
   --arg gait_runtime "${GAIT_RUNTIME}" \
   --arg gait_version "${GAIT_VERSION}" \
   --arg gait_sha "${GAIT_SHA}" \
@@ -706,6 +760,7 @@ jq -n \
   --arg wrkr_scan_path "runs/openclaw/${RUN_ID}/raw/wrkr/wrkr-scan.json" \
   --arg ungoverned_summary_path "runs/openclaw/${RUN_ID}/derived/ungoverned_summary.json" \
   --arg governed_summary_path "runs/openclaw/${RUN_ID}/derived/governed_summary.json" \
+  --arg evidence_verification_path "runs/openclaw/${RUN_ID}/artifacts/verification/evidence-verification.json" \
   --arg claim_values_path "runs/openclaw/${RUN_ID}/artifacts/claim-values.json" \
   --arg threshold_evaluation_path "runs/openclaw/${RUN_ID}/artifacts/threshold-evaluation.json" \
   --argjson docker_image_digests "${DOCKER_DIGESTS_JSON}" \
@@ -740,6 +795,7 @@ jq -n \
         version: $wrkr_version,
         commit_sha: $wrkr_sha,
         ref: $wrkr_ref,
+        scan_target_path: $wrkr_scan_target,
         detector_list: $detector_list
       },
       gait: {
@@ -767,6 +823,7 @@ jq -n \
       wrkr_scan: $wrkr_scan_path,
       ungoverned_summary: $ungoverned_summary_path,
       governed_summary: $governed_summary_path,
+      evidence_verification: $evidence_verification_path,
       claim_values: $claim_values_path,
       threshold_evaluation: $threshold_evaluation_path
     }

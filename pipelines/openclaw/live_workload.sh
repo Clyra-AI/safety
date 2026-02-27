@@ -148,6 +148,7 @@ emit_event_json() {
   local post_stop="$5"
   local verdict="$6"
   local reason_code="$7"
+  local stop_segment="$8"
   jq -cn \
     --arg ts "${ts}" \
     --arg lane "${lane}" \
@@ -160,6 +161,7 @@ emit_event_json() {
     --argjson destructive "${destructive}" \
     --argjson external_target "${external_target}" \
     --argjson post_stop "${post_stop}" \
+    --argjson stop_segment "${stop_segment}" \
     '{
       schema_version: "v1",
       event_type: "tool_call",
@@ -172,8 +174,31 @@ emit_event_json() {
       destructive: $destructive,
       external_target: $external_target,
       post_stop: $post_stop,
+      stop_segment: $stop_segment,
       verdict: $verdict,
       reason_code: $reason_code
+    }'
+}
+
+emit_marker_event() {
+  local ts="$1"
+  local lane="$2"
+  local marker="$3"
+  local stop_segment="$4"
+  local turn_index="$5"
+  jq -cn \
+    --arg ts "${ts}" \
+    --arg lane "${lane}" \
+    --arg marker "${marker}" \
+    --argjson stop_segment "${stop_segment}" \
+    --argjson turn_index "${turn_index}" \
+    '{
+      schema_version: "v1",
+      event_type: $marker,
+      timestamp: $ts,
+      lane: $lane,
+      stop_segment: $stop_segment,
+      turn_index: $turn_index
     }'
 }
 
@@ -370,6 +395,8 @@ call_index=0
 session_file=""
 session_last_line=0
 post_stop_active=0
+stop_segment=0
+stop_signal_pending=0
 
 while :; do
   now_epoch="$(date +%s)"
@@ -384,6 +411,9 @@ while :; do
   prompt="$(select_prompt "${turn_index}")"
   if (( turn_index % 8 == 7 )); then
     post_stop_active=1
+    stop_segment=$((stop_segment + 1))
+    stop_signal_pending=1
+    emit_marker_event "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "${LANE}" "stop_signal" "${stop_segment}" "${turn_index}"
   fi
 
   turn_log="${LANE_LOG_DIR}/turn-$(printf '%05d' "${turn_index}").log"
@@ -452,8 +482,10 @@ while :; do
         classify_event "${tool}" "${args_json}"
 
         post_stop="false"
+        stop_segment_value="null"
         if (( post_stop_active == 1 )); then
           post_stop="true"
+          stop_segment_value="${stop_segment}"
         fi
 
         verdict="allow"
@@ -502,7 +534,7 @@ while :; do
           fi
         fi
 
-        emit_event_json "${ts}" "${LANE}" "${call_index}" "${tool}" "${post_stop}" "${verdict}" "${reason_code}"
+        emit_event_json "${ts}" "${LANE}" "${call_index}" "${tool}" "${post_stop}" "${verdict}" "${reason_code}" "${stop_segment_value}"
       done < "${new_calls_file}"
 
       session_last_line="${total_lines}"
@@ -510,6 +542,10 @@ while :; do
   fi
 
   if (( post_stop_active == 1 && tool_calls_this_turn == 0 )); then
+    if (( stop_signal_pending == 1 )); then
+      emit_marker_event "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "${LANE}" "stop_halt" "${stop_segment}" "${turn_index}"
+      stop_signal_pending=0
+    fi
     post_stop_active=0
   fi
 
@@ -518,3 +554,7 @@ while :; do
     sleep "${OPENCLAW_TURN_SLEEP_SEC}"
   fi
 done
+
+if (( stop_signal_pending == 1 )); then
+  emit_marker_event "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "${LANE}" "stop_window_end" "${stop_segment}" "${turn_index}"
+fi

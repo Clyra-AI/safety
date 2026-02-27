@@ -100,6 +100,7 @@ result_json="$({
     --arg claim_values_path "${CLAIM_VALUES}" \
     --arg thresholds_path "${THRESHOLDS}" \
     --arg generated_at "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+    --arg lane_duration_sec_input "${LANE_DURATION_SEC}" \
     --argjson scale_factor "${SCALE_FACTOR}" \
     --argjson scale_ids "${SCALE_IDS_JSON}" \
     --slurpfile cv "${CLAIM_VALUES}" \
@@ -171,7 +172,13 @@ result_json="$({
         claim_values_path: $claim_values_path,
         thresholds_path: $thresholds_path,
         scaling: {
-          lane_duration_sec: (if $scale_factor == 1 then null else (86400 / $scale_factor) end),
+          lane_duration_sec: (
+            if $lane_duration_sec_input == "" then
+              null
+            else
+              ($lane_duration_sec_input | tonumber)
+            end
+          ),
           scale_factor_to_24h: $scale_factor,
           additional_scaled_claim_ids: $scale_ids
         },
