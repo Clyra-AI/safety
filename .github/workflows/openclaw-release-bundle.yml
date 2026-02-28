@@ -1,0 +1,55 @@
+name: OpenClaw Release Bundle
+
+on:
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: "Run ID under reports/openclaw-2026/data/runs/<run_id>"
+        required: true
+        type: string
+
+jobs:
+  bundle:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Verify promoted run folder
+        shell: bash
+        run: |
+          set -euo pipefail
+          RUN_ID="${{ inputs.run_id }}"
+          DIR="reports/openclaw-2026/data/runs/${RUN_ID}"
+          if [[ ! -d "${DIR}" ]]; then
+            echo "Missing promoted run directory: ${DIR}" >&2
+            exit 1
+          fi
+
+      - name: Refresh manifest hash
+        shell: bash
+        run: |
+          set -euo pipefail
+          RUN_ID="${{ inputs.run_id }}"
+          DIR="reports/openclaw-2026/data/runs/${RUN_ID}"
+          pipelines/common/hash_manifest.sh --input "${DIR}" --output "${DIR}/bundle.sha256"
+
+      - name: Build canonical bundle
+        shell: bash
+        run: |
+          set -euo pipefail
+          RUN_ID="${{ inputs.run_id }}"
+          OUT_DIR="dist/openclaw/${RUN_ID}"
+          mkdir -p "${OUT_DIR}"
+          tar -czf "${OUT_DIR}/openclaw-${RUN_ID}-canonical.tar.gz" -C reports/openclaw-2026/data/runs "${RUN_ID}"
+          if command -v sha256sum >/dev/null 2>&1; then
+            sha256sum "${OUT_DIR}/openclaw-${RUN_ID}-canonical.tar.gz" > "${OUT_DIR}/openclaw-${RUN_ID}-canonical.tar.gz.sha256"
+          else
+            shasum -a 256 "${OUT_DIR}/openclaw-${RUN_ID}-canonical.tar.gz" > "${OUT_DIR}/openclaw-${RUN_ID}-canonical.tar.gz.sha256"
+          fi
+
+      - name: Upload bundle artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: openclaw-${{ inputs.run_id }}-canonical
+          path: dist/openclaw/${{ inputs.run_id }}

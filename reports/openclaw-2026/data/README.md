@@ -13,3 +13,22 @@
 - Replace placeholders with machine-generated outputs only.
 - Keep field names stable across revisions.
 - These files are publish-ready exports derived from `runs/openclaw/<run_id>/derived/` and `runs/openclaw/<run_id>/artifacts/` artifacts.
+
+## Canonical promoted run artifacts
+
+Promoted, git-trackable reproducibility sets are stored at:
+
+- `reports/openclaw-2026/data/runs/<run_id>/`
+
+Each promoted run directory contains:
+
+- `run-manifest.json`
+- `claim-values.json`
+- `threshold-evaluation.json`
+- `evidence-verification.json`
+- `anecdotes.json`
+- `scenario-summary.json`
+- `wrkr-scan.json`
+- `run-tree-manifest.sha256`
+- `bundle.sha256`
+- `promoted-artifacts.json`

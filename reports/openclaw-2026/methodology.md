@@ -60,3 +60,29 @@ Scenario artifacts:
 
 - `runs/openclaw/<run_id>/derived/scenario_summary.json`
 - `runs/openclaw/<run_id>/artifacts/anecdotes.json`
+
+## Promotion and release workflow
+
+Promote canonical, git-trackable artifacts:
+
+```bash
+pipelines/openclaw/promote_run_artifacts.sh --run-id <run_id>
+```
+
+Canonical promoted path:
+
+- `reports/openclaw-2026/data/runs/<run_id>/`
+
+Optional full raw archive for release asset upload:
+
+```bash
+pipelines/openclaw/promote_run_artifacts.sh \
+  --run-id <run_id> \
+  --raw-archive-out runs/openclaw/<run_id>/artifacts/openclaw-<run_id>-full-run.tar.gz
+```
+
+Build publication bundles:
+
+```bash
+pipelines/openclaw/publish_pack.sh --run-id <run_id> --include-raw-archive
+```

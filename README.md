@@ -107,6 +107,30 @@ Each report is published in two formats:
 - `runs/<report-scope>/<run_id>/artifacts/publish-pack/research-pack/`
 - `runs/<report-scope>/<run_id>/artifacts/publish-pack/press-pack/`
 
+## Artifact Promotion
+
+Run directories are intentionally ignored in git by default.
+After a clean run, promote only canonical reproducibility artifacts into a tracked path:
+
+- `pipelines/openclaw/promote_run_artifacts.sh --run-id <run_id>`
+
+Default destination:
+
+- `reports/openclaw-2026/data/runs/<run_id>/`
+
+Optional full raw archive (for release upload):
+
+- `pipelines/openclaw/promote_run_artifacts.sh --run-id <run_id> --raw-archive-out runs/openclaw/<run_id>/artifacts/openclaw-<run_id>-full-run.tar.gz`
+
+Packaged research/press bundles can include a full raw archive:
+
+- `pipelines/openclaw/publish_pack.sh --run-id <run_id> --include-raw-archive`
+
+Release CI:
+
+- GitHub Actions workflow: `.github/workflows/openclaw-release-bundle.yml`
+- Trigger manually with `run_id` after promoted artifacts are committed.
+
 ## Manuscript Build Policy
 
 Canonical manuscript source lives under each report's `manuscript/` directory.  
