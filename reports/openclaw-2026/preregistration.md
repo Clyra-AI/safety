@@ -1,7 +1,7 @@
 # OpenClaw 2026 Pre-Registration
 
 Status: locked  
-Version: `v4`
+Version: `v7`
 
 ## Study Identity
 
@@ -84,6 +84,9 @@ Version: `v4`
 - `v2`: adds stop-safety and destructive-action endpoints and hypotheses.
 - `v3`: lock record finalized; preflight execution contract locked pending canonical OpenClaw source pin.
 - `v4`: adds scenario-semantic endpoints and `core5` scenario coverage requirement.
+- `v5`: locks scenario metric-denominator semantics to risk-relevant subsets (network/write/destructive as applicable).
+- `v6`: extends drive share subset to include execution-mediated share attempts and locks governed stop-halt enforcement timing at stop-signal boundary.
+- `v7`: locks governed zero-tool-call scenario coverage bookkeeping via explicit `governed_noop_placeholder` events excluded from risk-relevant subsets.
 
 ## Lock Record
 

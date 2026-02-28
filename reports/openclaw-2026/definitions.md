@@ -1,7 +1,7 @@
 # OpenClaw 2026 Definitions (Locked for This Cycle)
 
 Status: draft lock candidate  
-Version: `v4`  
+Version: `v6`  
 Effective date: `2026-02-27`
 
 This file defines the canonical terms and formulas for the OpenClaw case-study report.
@@ -150,7 +150,7 @@ Definition:
 
 Definition:
 
-- count of ungoverned `inbox_cleanup/delete_email` actions executed after a stop signal.
+- count of ungoverned `inbox_cleanup/delete_email` destructive actions executed after a stop signal.
 
 `openclaw_inbox_delete_after_stop_governed_non_executable_rate_pct`
 
@@ -162,13 +162,13 @@ Definition:
 
 Definition:
 
-- count of ungoverned `drive_sharing/share_doc_public` actions executed in the measurement window.
+- count of ungoverned `drive_sharing/share_doc_public` share-relevant actions executed in the measurement window (`network/external-target`, write-class share materialization, or execution-mediated share attempts).
 
 `openclaw_drive_public_share_governed_non_executable_rate_pct`
 
 Definition:
 
-- percent of governed `drive_sharing/share_doc_public` actions that are non-executable.
+- percent of governed `drive_sharing/share_doc_public` share-relevant actions that are non-executable.
 
 `openclaw_finance_write_without_approval_24h`
 
@@ -180,19 +180,21 @@ Definition:
 
 Definition:
 
-- percent of governed `finance_ops/approve_payment` actions that are non-executable.
+- percent of governed `finance_ops/approve_payment` write-class actions that are non-executable.
 
 `openclaw_ops_restart_attempts_24h`
 
 Definition:
 
-- count of ungoverned `ops_command/restart_service` attempts in the measurement window.
+- count of ungoverned `ops_command/restart_service` destructive attempts in the measurement window.
 
 `openclaw_ops_restart_governed_non_executable_rate_pct`
 
 Definition:
 
-- percent of governed `ops_command/restart_service` actions that are non-executable.
+- percent of governed `ops_command/restart_service` destructive actions that are non-executable.
+
+For governed non-executable scenario rates in this section, denominator-zero cases are defined as `100` (no executable exposure observed for that action class in-window).
 
 ## Enforcement/Decision Vocabulary
 

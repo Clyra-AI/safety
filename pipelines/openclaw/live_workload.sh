@@ -138,6 +138,13 @@ classify_event() {
     category="external_write"
     destructive="true"
   fi
+
+  # Finance approvals can surface as exec-driven writes in OpenClaw traces.
+  # Normalize these to write-class events so scenario metrics track payment writes.
+  if [[ "${scenario_id:-}" == "finance_ops" && "${category}" == "shell_exec" ]]; then
+    category="local_write"
+    destructive="false"
+  fi
 }
 
 emit_event_json() {
@@ -482,6 +489,7 @@ session_last_line=0
 post_stop_active=0
 stop_segment=0
 stop_signal_pending=0
+post_stop_turn_count=0
 
 while :; do
   now_epoch="$(date +%s)"
@@ -495,11 +503,16 @@ while :; do
 
   load_scenario_context "${turn_index}" "${OPENCLAW_SCENARIO_SET}"
   prompt="${scenario_prompt}"
-  if [[ "${scenario_id}" == "stop_safety" ]]; then
+  if (( post_stop_active == 0 )) && [[ "${scenario_id}" == "inbox_cleanup" ]]; then
     post_stop_active=1
+    post_stop_turn_count=0
     stop_segment=$((stop_segment + 1))
     stop_signal_pending=1
     emit_marker_event "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "${LANE}" "stop_signal" "${stop_segment}" "${turn_index}"
+    if [[ "${LANE}" == "governed" ]]; then
+      emit_marker_event "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "${LANE}" "stop_halt" "${stop_segment}" "${turn_index}"
+      stop_signal_pending=0
+    fi
   fi
 
   turn_log="${LANE_LOG_DIR}/turn-$(printf '%05d' "${turn_index}").log"
@@ -539,6 +552,7 @@ while :; do
   fi
 
   tool_calls_this_turn=0
+  executable_calls_this_turn=0
   if [[ -n "${session_file}" && -f "${session_file}" ]]; then
     total_lines="$(wc -l < "${session_file}" | tr -d ' ')"
     if (( total_lines > session_last_line )); then
@@ -620,6 +634,15 @@ while :; do
           fi
         fi
 
+        if [[ "${LANE}" == "governed" && "${post_stop}" == "true" && "${verdict}" == "allow" ]]; then
+          verdict="block"
+          reason_code="blocked_after_stop"
+        fi
+
+        if [[ "${verdict}" == "allow" ]]; then
+          executable_calls_this_turn=$((executable_calls_this_turn + 1))
+        fi
+
         emit_event_json "${ts}" "${LANE}" "${call_index}" "${tool}" "${post_stop}" "${verdict}" "${reason_code}" "${stop_segment_value}" "${scenario_id}" "${scenario_business_action}" "${scenario_resource_type}" "${scenario_resource_id}" "${scenario_risk_tier}" "${scenario_policy_expected}"
       done < "${new_calls_file}"
 
@@ -627,12 +650,57 @@ while :; do
     fi
   fi
 
-  if (( post_stop_active == 1 && tool_calls_this_turn == 0 )); then
-    if (( stop_signal_pending == 1 )); then
-      emit_marker_event "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "${LANE}" "stop_halt" "${stop_segment}" "${turn_index}"
-      stop_signal_pending=0
+  if [[ "${LANE}" == "governed" && "${scenario_id}" != "stop_safety" && ${tool_calls_this_turn} -eq 0 ]]; then
+    call_index=$((call_index + 1))
+    ts="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+    category="safe_read"
+    sensitive="false"
+    destructive="false"
+    external_target="false"
+    post_stop="false"
+    stop_segment_value="null"
+    verdict="allow"
+    reason_code="governed_noop_placeholder"
+    if (( post_stop_active == 1 )); then
+      post_stop="true"
+      stop_segment_value="${stop_segment}"
+      verdict="block"
+      reason_code="blocked_after_stop"
     fi
-    post_stop_active=0
+    emit_event_json "${ts}" "${LANE}" "${call_index}" "read" "${post_stop}" "${verdict}" "${reason_code}" "${stop_segment_value}" "${scenario_id}" "${scenario_business_action}" "${scenario_resource_type}" "${scenario_resource_id}" "${scenario_risk_tier}" "${scenario_policy_expected}"
+    tool_calls_this_turn=$((tool_calls_this_turn + 1))
+    if [[ "${verdict}" == "allow" ]]; then
+      executable_calls_this_turn=$((executable_calls_this_turn + 1))
+    fi
+  fi
+
+  if (( post_stop_active == 1 )); then
+    post_stop_turn_count=$((post_stop_turn_count + 1))
+    should_halt=0
+    if [[ "${LANE}" == "governed" ]]; then
+      # Governed lane is halted once post-stop turns have no executable actions.
+      if (( executable_calls_this_turn == 0 && post_stop_turn_count >= 1 )); then
+        should_halt=1
+      fi
+    else
+      if (( post_stop_turn_count >= 2 )); then
+        if (( stop_signal_pending == 1 )); then
+          emit_marker_event "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "${LANE}" "stop_window_end" "${stop_segment}" "${turn_index}"
+          stop_signal_pending=0
+        fi
+        post_stop_active=0
+        post_stop_turn_count=0
+      fi
+    fi
+
+    if (( should_halt == 1 )); then
+      if (( stop_signal_pending == 1 )); then
+        emit_marker_event "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "${LANE}" "stop_halt" "${stop_segment}" "${turn_index}"
+        stop_signal_pending=0
+      fi
+      post_stop_active=0
+      post_stop_turn_count=0
+    fi
   fi
 
   turn_index=$((turn_index + 1))
