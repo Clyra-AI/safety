@@ -146,6 +146,22 @@ wrkr_runtime_supports_scan() {
   esac
 }
 
+gait_runtime_supports_proxy() {
+  local runtime="$1"
+  case "${runtime}" in
+    unavailable)
+      return 1
+      ;;
+    go-run:*)
+      local repo="${runtime#go-run:}"
+      (cd "${repo}" && go run ./cmd/gait mcp proxy --help >/dev/null 2>&1)
+      ;;
+    *)
+      "${runtime}" mcp proxy --help >/dev/null 2>&1
+      ;;
+  esac
+}
+
 run_gait() {
   case "${GAIT_RUNTIME}" in
     unavailable)
@@ -165,11 +181,11 @@ detect_runtimes() {
   if [[ -n "${WRKR_BIN:-}" && -x "${WRKR_BIN}" ]]; then
     wrkr_candidates+=("${WRKR_BIN}")
   fi
-  if command -v wrkr >/dev/null 2>&1; then
-    wrkr_candidates+=("$(command -v wrkr)")
-  fi
   if [[ -f "${WRKR_REPO_PATH}/cmd/wrkr/main.go" ]] && command -v go >/dev/null 2>&1; then
     wrkr_candidates+=("go-run:${WRKR_REPO_PATH}")
+  fi
+  if command -v wrkr >/dev/null 2>&1; then
+    wrkr_candidates+=("$(command -v wrkr)")
   fi
 
   for candidate in "${wrkr_candidates[@]}"; do
@@ -183,12 +199,56 @@ detect_runtimes() {
     WRKR_RUNTIME="${wrkr_candidates[0]}"
   fi
 
+  local gait_candidates=()
   if [[ -n "${GAIT_BIN:-}" && -x "${GAIT_BIN}" ]]; then
-    GAIT_RUNTIME="${GAIT_BIN}"
-  elif command -v gait >/dev/null 2>&1; then
-    GAIT_RUNTIME="$(command -v gait)"
-  elif [[ -f "${GAIT_REPO_PATH}/cmd/gait/main.go" ]] && command -v go >/dev/null 2>&1; then
-    GAIT_RUNTIME="go-run:${GAIT_REPO_PATH}"
+    gait_candidates+=("${GAIT_BIN}")
+  fi
+  if [[ -f "${GAIT_REPO_PATH}/cmd/gait/main.go" ]] && command -v go >/dev/null 2>&1; then
+    gait_candidates+=("go-run:${GAIT_REPO_PATH}")
+  fi
+  if command -v gait >/dev/null 2>&1; then
+    gait_candidates+=("$(command -v gait)")
+  fi
+
+  for candidate in "${gait_candidates[@]}"; do
+    if gait_runtime_supports_proxy "${candidate}"; then
+      GAIT_RUNTIME="${candidate}"
+      break
+    fi
+  done
+
+  if [[ "${GAIT_RUNTIME}" == "unavailable" && "${#gait_candidates[@]}" -gt 0 ]]; then
+    GAIT_RUNTIME="${gait_candidates[0]}"
+  fi
+}
+
+check_repo_clean() {
+  local label="$1"
+  local repo="$2"
+  if [[ "${ALLOW_DIRTY_TOOL_REPOS:-0}" == "1" ]]; then
+    return
+  fi
+  if [[ ! -d "${repo}/.git" ]] || ! command -v git >/dev/null 2>&1; then
+    return
+  fi
+  local dirty
+  dirty="$(git -C "${repo}" status --porcelain 2>/dev/null || true)"
+  if [[ -n "${dirty}" ]]; then
+    echo "[openclaw-run] blocked by reproducibility guardrail: ${label} repo is dirty (${repo})" >&2
+    echo "[openclaw-run] commit/stash changes or set ALLOW_DIRTY_TOOL_REPOS=1 for an explicit exception." >&2
+    echo "${dirty}" | sed 's/^/[openclaw-run]   /' >&2
+    exit 1
+  fi
+}
+
+check_tool_repo_cleanliness() {
+  if [[ "${WRKR_RUNTIME}" == go-run:* ]]; then
+    check_repo_clean "wrkr runtime" "${WRKR_RUNTIME#go-run:}"
+  fi
+  if [[ "${WORKLOAD_MODE}" == "live" ]]; then
+    check_repo_clean "gait live workload" "${GAIT_REPO_PATH}"
+  elif [[ "${GAIT_RUNTIME}" == go-run:* ]]; then
+    check_repo_clean "gait runtime" "${GAIT_RUNTIME#go-run:}"
   fi
 }
 
@@ -469,6 +529,7 @@ check_prereg_lock
 check_secret_guardrails
 check_token_guardrails
 check_openclaw_pin
+check_tool_repo_cleanliness
 
 if [[ ! -f "${REPO_ROOT}/${EGRESS_ALLOWLIST}" ]]; then
   echo "[openclaw-run] missing egress allowlist file: ${EGRESS_ALLOWLIST}" >&2

@@ -1,7 +1,7 @@
 # OpenClaw 2026 Pre-Registration
 
 Status: locked  
-Version: `v7`
+Version: `v8`
 
 ## Study Identity
 
@@ -87,6 +87,7 @@ Version: `v7`
 - `v5`: locks scenario metric-denominator semantics to risk-relevant subsets (network/write/destructive as applicable).
 - `v6`: extends drive share subset to include execution-mediated share attempts and locks governed stop-halt enforcement timing at stop-signal boundary.
 - `v7`: locks governed zero-tool-call scenario coverage bookkeeping via explicit `governed_noop_placeholder` events excluded from risk-relevant subsets.
+- `v8`: locks repo-first runtime selection (Wrkr/Gait capability checks) and clean-tool-repo preflight as default reproducibility guardrails.
 
 ## Lock Record
 

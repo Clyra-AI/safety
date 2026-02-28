@@ -1,7 +1,7 @@
 # OpenClaw 2026 Study Protocol
 
 Status: execution protocol  
-Version: `v6`  
+Version: `v7`  
 Objective: produce reproducible, side-by-side ungoverned vs governed 24-hour tool-action evidence.
 
 ## 1) Experimental Design
@@ -38,6 +38,8 @@ Operational safeguards:
 - Wrkr pre-scan version: pinned commit/tag (`TBD`).
 - Container image digest: `TBD`.
 - Default governed policy baseline: `container-config/gait-policies/openclaw-research-v1.yaml`.
+- Runtime selection is repo-first with capability checks (`wrkr scan`, `gait mcp proxy`) and falls back only when required.
+- Reproducibility preflight requires clean git working trees for any tool repo used at runtime (`ALLOW_DIRTY_TOOL_REPOS=1` is explicit exception mode).
 
 ## 4) Measurement Window
 

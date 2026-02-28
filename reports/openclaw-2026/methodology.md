@@ -20,6 +20,7 @@ Deterministic query contract:
 - the same scan against the same repo at the same commit yields the same claim query result
 - run metadata must pin Wrkr/Gait commit SHA, detector list, container digests, and UTC run window
 - run metadata must pin scenario set (`core5`) and include scenario summary + anecdote artifacts
+- tool repos used at runtime must be clean at run start (dirty working trees are blocked unless `ALLOW_DIRTY_TOOL_REPOS=1` is explicitly set)
 
 ## External context boundary
 
