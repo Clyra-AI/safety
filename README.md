@@ -1,4 +1,4 @@
-# Clyra AI Safety Initiative
+# Clyra AI Safety Initiative (CAISI)
 
 Independent, reproducible research on AI governance gaps in enterprise and open-source environments.
 
