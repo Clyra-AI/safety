@@ -17,6 +17,9 @@ Defaults:
   - --workload synthetic
   - --lane-duration-sec 600
   - --window-hours 24
+
+Environment:
+  - AUTO_BOOTSTRAP_TOOLS=1 (optional, clones pinned tool repos from tooling lock into third_party/)
 USAGE
 }
 
@@ -35,9 +38,12 @@ DETECTOR_LIST="${WRKR_DETECTORS:-default}"
 EGRESS_ALLOWLIST="pipelines/policies/openclaw-egress-allowlist.txt"
 OPENCLAW_SCENARIO_SET="${OPENCLAW_SCENARIO_SET:-core5}"
 
-WRKR_REPO_PATH="${WRKR_REPO_PATH:-/Users/davidahmann/Projects/wrkr}"
-GAIT_REPO_PATH="${GAIT_REPO_PATH:-/Users/davidahmann/Projects/gait}"
-OPENCLAW_REPO_PATH="${OPENCLAW_REPO_PATH:-/Users/davidahmann/Projects/agent-ecosystem/openclaw}"
+WRKR_REPO_PATH="${WRKR_REPO_PATH:-${REPO_ROOT}/third_party/wrkr}"
+GAIT_REPO_PATH="${GAIT_REPO_PATH:-${REPO_ROOT}/third_party/gait}"
+OPENCLAW_REPO_PATH="${OPENCLAW_REPO_PATH:-${REPO_ROOT}/third_party/openclaw}"
+TOOLS_ROOT="${TOOLS_ROOT:-${REPO_ROOT}/third_party}"
+TOOLS_LOCK_FILE="${TOOLS_LOCK_FILE:-${REPO_ROOT}/pipelines/openclaw/tooling.lock.json}"
+AUTO_BOOTSTRAP_TOOLS="${AUTO_BOOTSTRAP_TOOLS:-0}"
 
 RUN_START_EPOCH="$(date +%s)"
 WRKR_RUNTIME="unavailable"
@@ -174,6 +180,28 @@ run_gait() {
       "${GAIT_RUNTIME}" "$@"
       ;;
   esac
+}
+
+maybe_bootstrap_tool_repos() {
+  if [[ "${DRY_RUN}" -eq 1 ]]; then
+    return
+  fi
+  if [[ "${AUTO_BOOTSTRAP_TOOLS}" != "1" ]]; then
+    return
+  fi
+
+  if [[ -d "${WRKR_REPO_PATH}" && -d "${GAIT_REPO_PATH}" && -d "${OPENCLAW_REPO_PATH}" ]]; then
+    return
+  fi
+
+  local bootstrap_script="${REPO_ROOT}/pipelines/openclaw/bootstrap_tools.sh"
+  if [[ ! -x "${bootstrap_script}" ]]; then
+    echo "[openclaw-run] bootstrap requested but missing executable script: ${bootstrap_script}" >&2
+    exit 1
+  fi
+
+  echo "[openclaw-run] bootstrapping pinned tool repositories from ${TOOLS_LOCK_FILE}"
+  "${bootstrap_script}" --lock "${TOOLS_LOCK_FILE}" --root "${TOOLS_ROOT}"
 }
 
 detect_runtimes() {
@@ -500,6 +528,7 @@ if [[ "${RESUME}" -eq 1 ]]; then
   MODE="resume"
 fi
 
+maybe_bootstrap_tool_repos
 detect_runtimes
 
 if [[ "${DRY_RUN}" -eq 1 ]]; then
@@ -511,8 +540,14 @@ if [[ "${DRY_RUN}" -eq 1 ]]; then
   echo "[openclaw-run] run_dir=${RUN_DIR}"
   echo "[openclaw-run] wrkr_runtime=${WRKR_RUNTIME}"
   echo "[openclaw-run] gait_runtime=${GAIT_RUNTIME}"
+  echo "[openclaw-run] wrkr_repo_path=${WRKR_REPO_PATH}"
+  echo "[openclaw-run] gait_repo_path=${GAIT_REPO_PATH}"
+  echo "[openclaw-run] openclaw_repo_path=${OPENCLAW_REPO_PATH}"
+  echo "[openclaw-run] tools_lock_file=${TOOLS_LOCK_FILE}"
+  echo "[openclaw-run] auto_bootstrap_tools=${AUTO_BOOTSTRAP_TOOLS}"
   echo "[openclaw-run] guardrails: max_runtime_sec=${MAX_RUNTIME_SEC} max_run_disk_mb=${MAX_RUN_DISK_MB} egress_allowlist=${EGRESS_ALLOWLIST}"
   echo "[openclaw-run] actions:"
+  echo "  - optional tool bootstrap from tooling lock (AUTO_BOOTSTRAP_TOOLS=1)"
   echo "  - check prereg lock + operational guardrails"
   echo "  - ensure directories: config, raw/{ungoverned,governed,wrkr}, derived, artifacts/{gait,verification}"
   echo "  - snapshot container-config into run config"
@@ -593,6 +628,16 @@ if [[ "${EXECUTION_MODE}" == "container" ]]; then
     echo "[openclaw-run] container execution requested but docker compose is unavailable" >&2
     exit 1
   fi
+  if [[ ! -d "${OPENCLAW_REPO_PATH}" ]]; then
+    echo "[openclaw-run] missing OPENCLAW_REPO_PATH for container run: ${OPENCLAW_REPO_PATH}" >&2
+    echo "[openclaw-run] run with AUTO_BOOTSTRAP_TOOLS=1 or set OPENCLAW_REPO_PATH explicitly." >&2
+    exit 1
+  fi
+  if [[ ! -d "${GAIT_REPO_PATH}" ]]; then
+    echo "[openclaw-run] missing GAIT_REPO_PATH for container run: ${GAIT_REPO_PATH}" >&2
+    echo "[openclaw-run] run with AUTO_BOOTSTRAP_TOOLS=1 or set GAIT_REPO_PATH explicitly." >&2
+    exit 1
+  fi
 
   (
     cd "${REPO_ROOT}/reports/openclaw-2026/container-config"
@@ -600,6 +645,8 @@ if [[ "${EXECUTION_MODE}" == "container" ]]; then
     OPENCLAW_WORKLOAD_MODE="${WORKLOAD_MODE}" \
     LANE_DURATION_SEC="${LANE_DURATION_SEC}" \
     OPENCLAW_SCENARIO_SET="${OPENCLAW_SCENARIO_SET}" \
+    HOST_OPENCLAW_REPO_PATH="${OPENCLAW_REPO_PATH}" \
+    HOST_GAIT_REPO_PATH="${GAIT_REPO_PATH}" \
     docker compose up --build
   )
 

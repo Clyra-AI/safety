@@ -94,12 +94,15 @@ The canonical publication run (`openclaw-live-24h-20260228T143341Z`) executed fo
 pipelines/openclaw/run.sh --run-id <id> --dry-run
 
 # Canonical live run
+env -u OPENAI_API_KEY -u ANTHROPIC_API_KEY -u GEMINI_API_KEY \
 pipelines/openclaw/run.sh \
   --run-id <id> \
   --execution container \
   --workload live \
   --scenario-set core5 \
-  --lane-duration-sec 86400
+  --lane-duration-sec 86400 \
+  --max-runtime-sec 172800 \
+  --max-run-disk-mb 65536
 
 # Validation gates
 pipelines/openclaw/validate.sh --run-id <id>
@@ -113,6 +116,8 @@ pipelines/openclaw/validate.sh --run-id <id> --strict
 - Scenario summary (`scenario_summary.json`)
 - Evidence verification artifact
 - Claim derivation and threshold evaluation artifacts
+
+Calibration note: sub-24h smoke and 30-minute runs are used for pipeline/runtime validation only. Headline claims in this manuscript remain tied to the canonical 24-hour run ID listed above.
 
 ## 3) Ungoverned Behavior
 
@@ -185,7 +190,8 @@ Figure 1. Governed decision outcomes in the 24-hour run: `allow=970`, `block=127
 
 - Governed trace files verified: `2584 / 2584`
 - Computed evidence verification rate: `99.96%`
-- One governed bookkeeping event (`reason_code=governed_noop_placeholder`, `call_index=952`) is included in call totals but does not emit a trace file by design.
+- Canonical run artifacts include one governed decision without a matching verified trace; this is documented in the verification artifact for that run.
+- Current live pipeline behavior does not emit governed placeholder events.
 - Verification artifact: `artifacts/verification/evidence-verification.json` under run base path.
 
 ## 5) Wrkr Discovery Scan (Pre-Test)

@@ -6,8 +6,9 @@ services:
     volumes:
       - ../../..:/workspace:ro
       - ../../../runs:/workspace/runs
-      - /Users/davidahmann/Projects/agent-ecosystem/openclaw:/openclaw:ro
-      - /Users/davidahmann/Projects/gait:/gait:ro
+      - ../../../.runtime-cache:/runtime-cache
+      - ${HOST_OPENCLAW_REPO_PATH:-../../../third_party/openclaw}:/openclaw:ro
+      - ${HOST_GAIT_REPO_PATH:-../../../third_party/gait}:/gait:ro
     working_dir: /workspace
     command:
       [
@@ -28,6 +29,7 @@ services:
       - OPENCLAW_OLLAMA_BASE_URL=http://host.docker.internal:11434
       - OPENCLAW_MODEL_ID=${OPENCLAW_MODEL_ID:-llama3.2:latest}
       - OPENCLAW_SCENARIO_SET=${OPENCLAW_SCENARIO_SET:-core5}
+      - OPENCLAW_RUNTIME_CACHE_ROOT=/runtime-cache/openclaw-live
     extra_hosts:
       - "host.docker.internal:host-gateway"
     networks:
@@ -50,8 +52,9 @@ services:
     volumes:
       - ../../..:/workspace:ro
       - ../../../runs:/workspace/runs
-      - /Users/davidahmann/Projects/agent-ecosystem/openclaw:/openclaw:ro
-      - /Users/davidahmann/Projects/gait:/gait:ro
+      - ../../../.runtime-cache:/runtime-cache
+      - ${HOST_OPENCLAW_REPO_PATH:-../../../third_party/openclaw}:/openclaw:ro
+      - ${HOST_GAIT_REPO_PATH:-../../../third_party/gait}:/gait:ro
     working_dir: /workspace
     command:
       [
@@ -72,6 +75,7 @@ services:
       - OPENCLAW_OLLAMA_BASE_URL=http://host.docker.internal:11434
       - OPENCLAW_MODEL_ID=${OPENCLAW_MODEL_ID:-llama3.2:latest}
       - OPENCLAW_SCENARIO_SET=${OPENCLAW_SCENARIO_SET:-core5}
+      - OPENCLAW_RUNTIME_CACHE_ROOT=/runtime-cache/openclaw-live
     extra_hosts:
       - "host.docker.internal:host-gateway"
     networks:

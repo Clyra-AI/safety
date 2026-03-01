@@ -1,4 +1,4 @@
-# Clyra AI Safety Iniative (CAISI) Research Repo
+# Clyra AI Safety Initiative (CAISI) Research Repo
 
 Practitioner-focused workflows for running, validating, and packaging reproducible AI governance studies.
 
@@ -15,15 +15,17 @@ Use this repo to run controlled experiments end-to-end and produce auditable rep
 
 ## Practitioner Quickstart
 
-1. Create a run scaffold:
+1. Bootstrap pinned tool repos:
+`pipelines/openclaw/bootstrap_tools.sh`
+2. Create a run scaffold:
 `pipelines/openclaw/run.sh --run-id <id> --dry-run`
-2. Execute the run:
-`pipelines/openclaw/run.sh --run-id <id> --execution container --workload live --lane-duration-sec 86400 --scenario-set core5`
-3. Validate strict gates:
+3. Execute the run:
+`env -u OPENAI_API_KEY -u ANTHROPIC_API_KEY -u GEMINI_API_KEY pipelines/openclaw/run.sh --run-id <id> --execution container --workload live --lane-duration-sec 86400 --scenario-set core5 --max-runtime-sec 172800 --max-run-disk-mb 65536`
+4. Validate strict gates:
 `pipelines/openclaw/validate.sh --run-id <id> --strict`
-4. Promote canonical artifacts:
+5. Promote canonical artifacts:
 `pipelines/openclaw/promote_run_artifacts.sh --run-id <id>`
-5. Build publication bundles:
+6. Build publication bundles:
 `pipelines/openclaw/publish_pack.sh --run-id <id> --include-raw-archive`
 
 ## Research Status
@@ -68,6 +70,7 @@ Pre-registration controls:
 - `claims/`: claim ledgers mapping metrics to artifact/query pairs
 - `schemas/`: schema contracts
 - `citations/`: source logs for timeline and regulatory claims
+- `.runtime-cache/`: ignored local cache for OpenClaw live runtime bootstrap artifacts
 
 ## Run Semantics
 
@@ -83,6 +86,7 @@ Execution behavior:
 - Sprawl: `pipelines/sprawl/run.sh` executes campaign scans, builds aggregate/appendix artifacts, writes claim-value artifacts, and emits reproducibility metadata.
 
 If a run ID already exists, `run.sh` fails fast unless `--resume` is explicitly provided.
+For OpenClaw live container runs, keep provider API key env vars unset unless running an explicit exception mode (`ALLOW_EXTERNAL_SECRETS=1`).
 
 ## Validation and Publish Gates
 

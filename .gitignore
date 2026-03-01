@@ -13,6 +13,8 @@ runs/tool-sprawl/*/scans/
 runs/tool-sprawl/*/agg/
 runs/tool-sprawl/*/appendix/
 runs/*/*/artifacts/publish-pack/
+third_party/
+/.runtime-cache/
 
 # Build output
 *.log

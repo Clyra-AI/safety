@@ -1,7 +1,7 @@
 # OpenClaw 2026 Pre-Registration
 
 Status: locked  
-Version: `v8`
+Version: `v9`
 
 ## Study Identity
 
@@ -88,6 +88,7 @@ Version: `v8`
 - `v6`: extends drive share subset to include execution-mediated share attempts and locks governed stop-halt enforcement timing at stop-signal boundary.
 - `v7`: locks governed zero-tool-call scenario coverage bookkeeping via explicit `governed_noop_placeholder` events excluded from risk-relevant subsets.
 - `v8`: locks repo-first runtime selection (Wrkr/Gait capability checks) and clean-tool-repo preflight as default reproducibility guardrails.
+- `v9`: restricts `governed_noop_placeholder` bookkeeping to synthetic mode only; live mode metrics are runtime-event-only and runtime bootstrap cache is externalized under `.runtime-cache/`.
 
 ## Lock Record
 

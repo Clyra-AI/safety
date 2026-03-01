@@ -1,0 +1,20 @@
+{
+  "schema_version": "v1",
+  "tools": [
+    {
+      "name": "wrkr",
+      "repository": "https://github.com/Clyra-AI/wrkr.git",
+      "commit": "2b0efd6edc63856b9b21bcfa8136528c98e57202"
+    },
+    {
+      "name": "gait",
+      "repository": "https://github.com/Clyra-AI/gait.git",
+      "commit": "74d75038e4195d651666af32139e1e35b8927664"
+    },
+    {
+      "name": "openclaw",
+      "repository": "https://github.com/openclaw/openclaw.git",
+      "commit": "452a8c9db9f92de44b31bc47d06641e604519a54"
+    }
+  ]
+}

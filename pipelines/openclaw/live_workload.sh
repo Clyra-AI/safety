@@ -394,6 +394,69 @@ docs-indexer
 EOF
 }
 
+prepare_openclaw_runtime() {
+  local source_rev lock_hash source_fingerprint runtime_key
+  local pnpm_store_dir pnpm_home_dir pnpm_cache_dir corepack_home_dir bootstrap_log
+  runtime_key="unknown"
+  OPENCLAW_RUNTIME_ROOT=""
+  OPENCLAW_RUNTIME_REPO="${OPENCLAW_RUNTIME_ROOT}/repo"
+  OPENCLAW_RUNTIME_READY="${OPENCLAW_RUNTIME_ROOT}/.ready"
+  OPENCLAW_EXEC_CWD="${OPENCLAW_RUNTIME_REPO}"
+
+  source_rev="$(git -C "${OPENCLAW_REPO_PATH}" rev-parse HEAD 2>/dev/null || echo "unknown")"
+  lock_hash="$(sha256sum "${OPENCLAW_REPO_PATH}/pnpm-lock.yaml" 2>/dev/null | awk '{print $1}')"
+  if [[ -z "${lock_hash}" ]]; then
+    lock_hash="nolock"
+  fi
+  runtime_key="${source_rev}-${lock_hash}"
+  OPENCLAW_RUNTIME_ROOT="${OPENCLAW_RUNTIME_CACHE_ROOT}/${runtime_key}/${LANE}"
+  OPENCLAW_RUNTIME_REPO="${OPENCLAW_RUNTIME_ROOT}/repo"
+  OPENCLAW_RUNTIME_READY="${OPENCLAW_RUNTIME_ROOT}/.ready"
+  OPENCLAW_EXEC_CWD="${OPENCLAW_RUNTIME_REPO}"
+  source_fingerprint="${source_rev}:${lock_hash}"
+
+  if [[ -f "${OPENCLAW_RUNTIME_READY}" && -f "${OPENCLAW_RUNTIME_REPO}/dist/entry.js" ]]; then
+    if [[ "$(cat "${OPENCLAW_RUNTIME_READY}")" == "${source_fingerprint}" ]]; then
+      return
+    fi
+  fi
+
+  rm -rf "${OPENCLAW_RUNTIME_ROOT}"
+  mkdir -p "${OPENCLAW_RUNTIME_REPO}"
+
+  (
+    cd "${OPENCLAW_REPO_PATH}"
+    tar --exclude='.git' -cf - .
+  ) | (
+    cd "${OPENCLAW_RUNTIME_REPO}"
+    tar -xf -
+  )
+
+  pnpm_store_dir="${OPENCLAW_RUNTIME_CACHE_ROOT}/pnpm-store"
+  pnpm_home_dir="${OPENCLAW_RUNTIME_CACHE_ROOT}/pnpm-home/${LANE}"
+  pnpm_cache_dir="${OPENCLAW_RUNTIME_CACHE_ROOT}/pnpm-cache/${LANE}"
+  corepack_home_dir="${OPENCLAW_RUNTIME_CACHE_ROOT}/corepack/${LANE}"
+  bootstrap_log="${OPENCLAW_RUNTIME_ROOT}/bootstrap.log"
+  mkdir -p "${pnpm_store_dir}" "${pnpm_home_dir}" "${pnpm_cache_dir}" "${corepack_home_dir}"
+
+  (
+    cd "${OPENCLAW_RUNTIME_REPO}"
+    export HOME="${pnpm_home_dir}"
+    export XDG_CACHE_HOME="${pnpm_cache_dir}"
+    export COREPACK_HOME="${corepack_home_dir}"
+    corepack enable
+    corepack prepare pnpm@10.8.0 --activate
+    pnpm install --frozen-lockfile --ignore-scripts --store-dir "${pnpm_store_dir}"
+    pnpm exec tsdown --no-clean
+  ) > "${bootstrap_log}" 2>&1 || {
+    echo "[openclaw-live] runtime bootstrap failed for lane=${LANE}. See ${bootstrap_log}" >&2
+    tail -n 40 "${bootstrap_log}" >&2 || true
+    return 1
+  }
+
+  printf '%s\n' "${source_fingerprint}" > "${OPENCLAW_RUNTIME_READY}"
+}
+
 REPO_ROOT="${REPO_ROOT:-$(pwd)}"
 LANE="${OPENCLAW_LANE:-}"
 RUN_ID="${OPENCLAW_RUN_ID:-}"
@@ -408,6 +471,7 @@ OPENCLAW_TURN_TIMEOUT_SEC="${OPENCLAW_TURN_TIMEOUT_SEC:-180}"
 OPENCLAW_TURN_SLEEP_SEC="${OPENCLAW_TURN_SLEEP_SEC:-0}"
 OPENCLAW_MAX_TURNS="${OPENCLAW_MAX_TURNS:-0}"
 OPENCLAW_SCENARIO_SET="${OPENCLAW_SCENARIO_SET:-core5}"
+OPENCLAW_RUNTIME_CACHE_ROOT="${OPENCLAW_RUNTIME_CACHE_ROOT:-/runtime-cache/openclaw-live}"
 TURN_TIMEOUT_BIN="$(pick_timeout_bin)"
 
 if [[ "${LANE}" != "ungoverned" && "${LANE}" != "governed" ]]; then
@@ -448,6 +512,7 @@ export TMPDIR GOCACHE GOMODCACHE
 
 mkdir -p "${STATE_DIR}" "${WORKSPACE_DIR}" "${LANE_LOG_DIR}" "${GAIT_TRACE_DIR}" "${TMP_DIR}" "${TMPDIR}" "${GOCACHE}" "${GOMODCACHE}"
 seed_workspace
+prepare_openclaw_runtime
 
 cat > "${CONFIG_PATH}" <<EOF
 {
@@ -518,7 +583,7 @@ while :; do
   turn_log="${LANE_LOG_DIR}/turn-$(printf '%05d' "${turn_index}").log"
   if [[ -n "${TURN_TIMEOUT_BIN}" ]]; then
     (
-      cd "${OPENCLAW_REPO_PATH}"
+      cd "${OPENCLAW_EXEC_CWD}"
       "${TURN_TIMEOUT_BIN}" --signal=TERM "${OPENCLAW_TURN_TIMEOUT_SEC}s" \
         env -u OLLAMA_API_KEY \
           OPENCLAW_STATE_DIR="${STATE_DIR}" \
@@ -532,7 +597,7 @@ while :; do
     ) > "${turn_log}" 2>&1 || true
   else
     (
-      cd "${OPENCLAW_REPO_PATH}"
+      cd "${OPENCLAW_EXEC_CWD}"
       env -u OLLAMA_API_KEY \
         OPENCLAW_STATE_DIR="${STATE_DIR}" \
         OPENCLAW_CONFIG_PATH="${CONFIG_PATH}" \
@@ -650,7 +715,7 @@ while :; do
     fi
   fi
 
-  if [[ "${LANE}" == "governed" && "${scenario_id}" != "stop_safety" && ${tool_calls_this_turn} -eq 0 ]]; then
+  if [[ "${LANE}" == "governed" && "${scenario_id}" != "stop_safety" && "${WORKLOAD_MODE:-live}" != "live" && ${tool_calls_this_turn} -eq 0 ]]; then
     call_index=$((call_index + 1))
     ts="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
     category="safe_read"

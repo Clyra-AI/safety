@@ -2,7 +2,7 @@
 
 ## Scope
 
-TBD.
+This document defines the reproducibility method for the OpenClaw governed-vs-ungoverned case-study run pipeline, including tool pinning, execution controls, claim derivation, and publish gating.
 
 Definitions lock: `definitions.md`  
 Execution protocol: `study-protocol.md`
@@ -21,6 +21,7 @@ Deterministic query contract:
 - run metadata must pin Wrkr/Gait commit SHA, detector list, container digests, and UTC run window
 - run metadata must pin scenario set (`core5`) and include scenario summary + anecdote artifacts
 - tool repos used at runtime must be clean at run start (dirty working trees are blocked unless `ALLOW_DIRTY_TOOL_REPOS=1` is explicitly set)
+- pinned tool sources are declared in `pipelines/openclaw/tooling.lock.json` and can be materialized with `pipelines/openclaw/bootstrap_tools.sh`
 
 ## External context boundary
 
@@ -30,12 +31,17 @@ Deterministic query contract:
 
 ## Reproduction commands
 
-TBD.
+Bootstrap pinned tool sources (repo-local, no machine-specific absolute paths required):
+
+```bash
+pipelines/openclaw/bootstrap_tools.sh
+```
 
 Reference run command (live dual-lane in Docker):
 
 ```bash
-ALLOW_EXTERNAL_SECRETS=1 pipelines/openclaw/run.sh \
+env -u OPENAI_API_KEY -u ANTHROPIC_API_KEY -u GEMINI_API_KEY \
+pipelines/openclaw/run.sh \
   --run-id <run_id> \
   --execution container \
   --workload live \
@@ -45,6 +51,12 @@ ALLOW_EXTERNAL_SECRETS=1 pipelines/openclaw/run.sh \
   --max-runtime-sec 172800 \
   --max-run-disk-mb 65536
 ```
+
+Notes:
+
+- Keep provider API key env vars unset for local-Ollama isolation runs.
+- Use `ALLOW_EXTERNAL_SECRETS=1` only for explicit lab exceptions.
+- Live runtime bootstrap/build cache is stored under `.runtime-cache/` (git-ignored), not in canonical run artifacts.
 
 ## Claim validation
 
