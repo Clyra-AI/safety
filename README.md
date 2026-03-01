@@ -1,4 +1,4 @@
-# Clyra AI Safety Research Repo
+# Clyra AI Safety Iniative (CAISI) Research Repo
 
 Practitioner-focused workflows for running, validating, and packaging reproducible AI governance studies.
 

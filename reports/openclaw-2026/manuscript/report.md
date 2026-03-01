@@ -5,6 +5,13 @@
 - Run ID: `openclaw-live-24h-20260228T143341Z`
 - Measurement window (UTC): `2026-02-28T14:33:41Z` to `2026-03-01T14:33:41Z`
 - OpenClaw source pin: `https://github.com/openclaw/openclaw` @ `452a8c9db9f92de44b31bc47d06641e604519a54`
+- Published by Clyra AI Safety Initiative (CAISI). Contact: `dahmannclyra@gmail.com`. Full artifacts: [github.com/Clyra-AI/safety](https://github.com/Clyra-AI/safety).
+
+## Authorship and Affiliation
+
+David Ahmann - Head of Cloud, Data and AI Platforms at CDW Canada  
+Devan Shah - Chief Software Data Security Architect at IBM  
+Talgat Ryshmanov - Principal DevSecOps Consultant at Adaptavist
 
 ## Executive Summary
 
