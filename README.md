@@ -1,17 +1,30 @@
-# Clyra AI Safety Initiative (CAISI)
+# Clyra AI Safety Research Repo
 
-Independent, reproducible research on AI governance gaps in enterprise and open-source environments.
+Practitioner-focused workflows for running, validating, and packaging reproducible AI governance studies.
 
 ## What This Is
 
-This repository contains the methodology, source artifacts, and validation workflows for each Clyra AI Safety Initiative report.  
+This repository contains execution pipelines, source artifacts, and validation gates for reproducible governance reports.  
 Every headline finding is expected to map to:
 
 - a versioned artifact
 - a deterministic query in the claims ledger
 - a reproducible execution path in `pipelines/`
 
-The intent is simple: clone it, rerun it, verify it.
+Use this repo to run controlled experiments end-to-end and produce auditable report artifacts.
+
+## Practitioner Quickstart
+
+1. Create a run scaffold:
+`pipelines/openclaw/run.sh --run-id <id> --dry-run`
+2. Execute the run:
+`pipelines/openclaw/run.sh --run-id <id> --execution container --workload live --lane-duration-sec 86400 --scenario-set core5`
+3. Validate strict gates:
+`pipelines/openclaw/validate.sh --run-id <id> --strict`
+4. Promote canonical artifacts:
+`pipelines/openclaw/promote_run_artifacts.sh --run-id <id>`
+5. Build publication bundles:
+`pipelines/openclaw/publish_pack.sh --run-id <id> --include-raw-archive`
 
 ## Research Status
 
@@ -19,7 +32,7 @@ Reports are currently in progress (not yet published from this repo):
 
 | Report | Status | Report Folder |
 |---|---|---|
-| 1.5 Million Agents, Zero Governance: The OpenClaw Case Study | Release candidate (artifact-complete) | [`reports/openclaw-2026/`](reports/openclaw-2026/) |
+| 100% Ignored Stop Rate: A Governed Evaluation of OpenClaw Agent Behavior | Release candidate (artifact-complete) | [`reports/openclaw-2026/`](reports/openclaw-2026/) |
 | The State of AI Tool Sprawl, Q1 2026 | In progress | [`reports/ai-tool-sprawl-q1-2026/`](reports/ai-tool-sprawl-q1-2026/) |
 
 ## Methodology

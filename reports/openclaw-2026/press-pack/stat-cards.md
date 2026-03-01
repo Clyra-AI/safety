@@ -34,8 +34,7 @@ Status: release candidate
 - Artifact/query reference: `runs/openclaw/openclaw-live-24h-20260228T143341Z/derived/governed_summary.json` with `jq '.metrics.destructive_block_rate_pct'`
 
 ## Visual Asset
-- File: `reports/openclaw-2026/assets/headline-stats/destructive_actions_lane_comparison.png`
-- Caption: `Ungoverned destructive actions executed: 497. Governed destructive actions executed: 0.`
+- File: `reports/openclaw-2026/assets/headline-stats/governed_decision_outcomes_24h.png`
+- Caption: `Governed decision outcomes in 24h: allow 970, block 1278, require approval 337.`
 - Source metrics:
-  - `runs/openclaw/openclaw-live-24h-20260228T143341Z/derived/ungoverned_summary.json` (`.metrics.destructive_attempts_24h`)
-  - `runs/openclaw/openclaw-live-24h-20260228T143341Z/derived/governed_summary.json` (`.metrics.destructive_block_rate_pct = 100`)
+  - `runs/openclaw/openclaw-live-24h-20260228T143341Z/derived/governed_summary.json` (`.counters.allow_count`, `.counters.block_count`, `.counters.require_approval_count`)

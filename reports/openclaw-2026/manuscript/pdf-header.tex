@@ -9,6 +9,8 @@
 \usepackage{parskip}
 \usepackage{fancyvrb}
 \usepackage{fvextra}
+\usepackage{xurl}
+\IfFileExists{microtype.sty}{\usepackage{microtype}}{}
 
 % Shaded code block background
 \definecolor{shadecolor}{RGB}{245,245,245}
@@ -17,7 +19,7 @@
 \fvset{
   breaklines=true,
   breakanywhere=true,
-  fontsize=\small
+  fontsize=\footnotesize
 }
 
 % Handle Pandoc Shaded environment without forcing non-breakable minipages
@@ -53,3 +55,7 @@
 
 % Paragraph spacing
 \setlength{\parskip}{0.5em}
+
+% Prefer line wrapping over overflow in narrow table/list contexts.
+\setlength{\emergencystretch}{3em}
+\sloppy
