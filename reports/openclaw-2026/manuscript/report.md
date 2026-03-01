@@ -1,5 +1,5 @@
-# 1.5 Million Agents, Zero Governance
-## The OpenClaw Case Study
+# 100% Ignored Stop Rate
+## A Governed Evaluation of OpenClaw Agent Behavior
 
 - Report ID: `openclaw-2026`
 - Run ID: `openclaw-live-24h-20260228T143341Z`
@@ -8,11 +8,19 @@
 
 ## Executive Summary
 
-In a 24-hour isolated run, governed evaluation processed **2,585** tool-call decisions and marked **1,615** as non-executable policy violations (`block` + `require_approval`) under deterministic policy rules. In the matched ungoverned lane, **707** sensitive accesses and **497** destructive attempts executed without an enforceable approval gate.
+In this 24-hour controlled run, the ungoverned lane ignored every stop signal and continued executing tool calls after stop commands. It executed **497 destructive attempts**, **707 sensitive accesses without approval**, and **515 post-stop calls**. In the governed lane, destructive actions were held non-executable at **100%** under the same workload.
 
-Stop safety diverged materially between lanes. The ungoverned lane showed a **100% ignored-stop rate**, with **515/515** post-stop calls still executable. Under governance controls, destructive-action non-executable rate was **100%**, and stop-to-halt p95 latency measured **0 seconds** in the captured stop-halt events.
+Technically, governed evaluation processed **2,585** tool-call decisions and classified **1,615** as non-executable policy violations (`block` + `require_approval`) using deterministic policy rules. The ungoverned lane processed **1,306** calls with no enforceable approval boundary.
 
-This report is bounded to what was measured in this run. All headline values are artifact-backed and query-reproducible from repository contents.
+This report is intentionally scoped to one pinned OpenClaw source snapshot and one controlled 24-hour run. It is not an ecosystem census. All headline values are artifact-backed and query-reproducible from repository contents.
+
+## Key Findings (At a Glance)
+
+- Ungoverned ignored-stop rate: `100%` (`515/515` post-stop calls executed).
+- Ungoverned sensitive accesses without approval: `707`.
+- Ungoverned destructive attempts: `497`.
+- Governed non-executable policy outcomes: `1,615` of `2,585` decisions.
+- Governed destructive non-executable rate: `100%`.
 
 ## Headline Integrity Block
 
@@ -169,6 +177,10 @@ Source artifact for examples: `artifacts/anecdotes.json` and raw event logs (und
 | Destructive non-executable rate (%) | N/A | 100 | N/A |
 | Evidence verification rate (%) | 0 | 99.96 | +99.96 |
 
+![Destructive Actions: Ungoverned vs Governed](reports/openclaw-2026/assets/headline-stats/destructive_actions_lane_comparison.png)
+
+Figure 1. Destructive actions executed in ungoverned lane (`497`) versus governed lane (`0` executable destructive actions).
+
 ### Governed Reason-Code Distribution (Non-Executable Outcomes)
 
 | Reason code | Count | Rule intent |
@@ -183,6 +195,7 @@ Source artifact for examples: `artifacts/anecdotes.json` and raw event logs (und
 
 - Governed trace files verified: `2584 / 2584`
 - Computed evidence verification rate: `99.96%`
+- One governed bookkeeping event (`reason_code=governed_noop_placeholder`, `call_index=952`) is included in call totals but does not emit a trace file by design.
 - Verification artifact: `artifacts/verification/evidence-verification.json` under run base path.
 
 ## 5) Wrkr Discovery Scan (Pre-Test)
@@ -198,6 +211,12 @@ The pre-test discovery scan covered the local OpenClaw workspace target used in 
 | Findings emitted | 17051 | 76 policy violations | Includes parse, policy-check, policy-violation, and source-discovery finding types |
 
 Scan artifact: `raw/wrkr/wrkr-scan.json` under run base path.
+
+### Interpreting Discovery vs Runtime Findings
+
+Wrkr in this run is a pre-test discovery and posture scan over repository/workspace configuration and detected tool inventory. The high-impact behavior measured elsewhere in this report (delete-email, public-share, payment approval, restart-service) comes from runtime tool-call execution traces under workload, not from static repository metadata alone.
+
+This is expected and is a core result: discovery is necessary for inventory and baseline posture, but it is insufficient by itself for runtime action control. Runtime enforcement and decision logging are required to prevent executable high-risk actions.
 
 ## 6) Five Lessons
 
@@ -220,6 +239,10 @@ Action implication: Approval semantics should be machine-enforced, not advisory.
 5. Binary kill switches are an incident fallback, not governance.
 Evidence: Ungoverned lane showed 100% ignored-stop behavior with executable post-stop actions.
 Action implication: Systems require granular controls (deny, approval, scoped allow), not only global shutdown.
+
+### What This Means for Organizations
+
+If your organization gives AI agents tool access to email, file sharing, financial operations, or infrastructure actions, the ungoverned behaviors measured here are plausible in your environment under pressure conditions. The operational question is whether tool-boundary enforcement exists at execution time, or whether controls rely mainly on prompt instruction and best-effort model compliance.
 
 ## Limitations
 

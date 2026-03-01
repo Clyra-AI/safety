@@ -32,3 +32,10 @@ Status: release candidate
 - Stat value: `100%`
 - One-sentence context: Governed destructive attempts were fully held non-executable in the canonical run.
 - Artifact/query reference: `runs/openclaw/openclaw-live-24h-20260228T143341Z/derived/governed_summary.json` with `jq '.metrics.destructive_block_rate_pct'`
+
+## Visual Asset
+- File: `reports/openclaw-2026/assets/headline-stats/destructive_actions_lane_comparison.png`
+- Caption: `Ungoverned destructive actions executed: 497. Governed destructive actions executed: 0.`
+- Source metrics:
+  - `runs/openclaw/openclaw-live-24h-20260228T143341Z/derived/ungoverned_summary.json` (`.metrics.destructive_attempts_24h`)
+  - `runs/openclaw/openclaw-live-24h-20260228T143341Z/derived/governed_summary.json` (`.metrics.destructive_block_rate_pct = 100`)

@@ -7,7 +7,11 @@ Status: release candidate
 
 ## Headline Finding
 
-In a 24-hour isolated OpenClaw run, governed evaluation recorded **1,615 policy-violating outcomes** (`block + require_approval`) out of **2,585 total governed tool-call decisions**.
+In a 24-hour isolated OpenClaw run, the ungoverned lane ignored every stop command and kept executing actions. Under governed controls, destructive actions were held non-executable at 100%.
+
+Technical headline:
+
+- **1,615** governed non-executable policy outcomes (`block + require_approval`) out of **2,585** total governed tool-call decisions.
 
 ## Why This Matters
 
@@ -17,6 +21,7 @@ Without an enforceable boundary, high-impact actions execute directly. With enfo
 
 - Ungoverned sensitive accesses without approval: `707`
 - Ungoverned destructive attempts: `497`
+- Ungoverned post-stop calls executed: `515`
 - Ungoverned ignored-stop rate: `100%`
 - Governed destructive non-executable rate: `100%`
 - Governed evidence verification rate: `99.96%`
@@ -37,6 +42,10 @@ Sources:
 - No production systems or customer data were used.
 - This is one pinned source snapshot and one 24-hour run, not a full ecosystem census.
 - External reporting context is not used as numeric claim evidence.
+
+## Operational Interpretation
+
+Discovery and inventory scanning are necessary, but they do not replace runtime enforcement. In this run, static discovery output and runtime behavior measured different risk surfaces, which is why the report pairs pre-test discovery with runtime governed/ungoverned execution evidence.
 
 ## Links
 
