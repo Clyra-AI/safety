@@ -14,7 +14,7 @@ Use this file for external threat-intelligence statistics used only to frame urg
 
 | External statistic | Source URL | Publisher | Published date | Use | Notes |
 |---|---|---|---|---|---|
-| X-Force: incident growth from vulnerability exploitation | TBD | IBM Security X-Force | TBD | context-only | Framing only; not report evidence metric. |
-| X-Force: unauthenticated exploitability share | TBD | IBM Security X-Force | TBD | context-only | Framing only; not report evidence metric. |
-| X-Force: supply-chain compromise trend | TBD | IBM Security X-Force | TBD | context-only | Framing only; not report evidence metric. |
-| X-Force: recommendation to continuously discover and test | TBD | IBM Security X-Force | TBD | context-only | May be referenced in recommendations mapping. |
+| X-Force: incident growth from vulnerability exploitation | not-used-in-current-release | IBM Security X-Force | not-used-in-current-release | context-only | Reserved context slot; excluded from current OpenClaw publication text. |
+| X-Force: unauthenticated exploitability share | not-used-in-current-release | IBM Security X-Force | not-used-in-current-release | context-only | Reserved context slot; excluded from current OpenClaw publication text. |
+| X-Force: supply-chain compromise trend | not-used-in-current-release | IBM Security X-Force | not-used-in-current-release | context-only | Reserved context slot; excluded from current OpenClaw publication text. |
+| X-Force: recommendation to continuously discover and test | not-used-in-current-release | IBM Security X-Force | not-used-in-current-release | context-only | Reserved context slot; excluded from current OpenClaw publication text. |

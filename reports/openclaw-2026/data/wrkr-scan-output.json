@@ -1,5 +1,50 @@
 {
   "schema_version": "v1",
-  "status": "placeholder",
-  "note": "Replace with generated Wrkr scan output."
+  "report_id": "openclaw-2026",
+  "run_id": "openclaw-live-24h-20260228T143341Z",
+  "artifact_path": "reports/openclaw-2026/data/runs/openclaw-live-24h-20260228T143341Z/wrkr-scan.json",
+  "source_artifact": "runs/openclaw/openclaw-live-24h-20260228T143341Z/raw/wrkr/wrkr-scan.json",
+  "artifact_sha256": "8044e18b1b297fd5d7861a7898b20a3caa8326e5986eb6c6e91baf3026896d3e",
+  "status": "ok",
+  "target": {
+    "mode": "path",
+    "value": "/Users/davidahmann/Projects/agent-ecosystem/openclaw"
+  },
+  "inventory_summary": {
+    "total_tools": 17,
+    "high_risk": 0,
+    "medium_risk": 0,
+    "low_risk": 17
+  },
+  "privilege_budget": {
+    "total_tools": 17,
+    "write_capable_tools": 0,
+    "credential_access_tools": 0,
+    "exec_capable_tools": 0,
+    "production_write": {
+      "configured": false,
+      "status": "not_configured",
+      "count": null
+    }
+  },
+  "finding_type_counts": [
+    {
+      "type": "parse_error",
+      "count": 16686
+    },
+    {
+      "type": "policy_check",
+      "count": 272
+    },
+    {
+      "type": "policy_violation",
+      "count": 76
+    },
+    {
+      "type": "source_discovery",
+      "count": 17
+    }
+  ],
+  "total_findings": 17051,
+  "notes": "Full scan artifact retained under reports/openclaw-2026/data/runs/<run_id>/wrkr-scan.json."
 }

@@ -18,6 +18,7 @@ RUN_ID=""
 DEST_DIR=""
 RAW_ARCHIVE_OUT=""
 FORCE=0
+RAW_ARCHIVE_EXCLUDE_PATTERN=""
 
 file_sha256() {
   local file="$1"
@@ -117,6 +118,9 @@ if [[ -n "${RAW_ARCHIVE_OUT}" ]]; then
     raw_archive_path="${REPO_ROOT}/${raw_archive_path}"
   fi
   mkdir -p "$(dirname "${raw_archive_path}")"
+  if [[ "${raw_archive_path}" == "${RUN_DIR}/"* ]]; then
+    RAW_ARCHIVE_EXCLUDE_PATTERN="${RUN_ID}/${raw_archive_path#${RUN_DIR}/}"
+  fi
   tar_items=()
   for rel in config raw derived artifacts; do
     if [[ -e "${RUN_DIR}/${rel}" ]]; then
@@ -129,7 +133,11 @@ if [[ -n "${RAW_ARCHIVE_OUT}" ]]; then
   fi
   (
     cd "${REPO_ROOT}/runs/openclaw"
-    tar --exclude="${RUN_ID}/artifacts/publish-pack" -czf "${raw_archive_path}" "${tar_items[@]}"
+    if [[ -n "${RAW_ARCHIVE_EXCLUDE_PATTERN}" ]]; then
+      tar --exclude="${RUN_ID}/artifacts/publish-pack" --exclude="${RAW_ARCHIVE_EXCLUDE_PATTERN}" -czf "${raw_archive_path}" "${tar_items[@]}"
+    else
+      tar --exclude="${RUN_ID}/artifacts/publish-pack" -czf "${raw_archive_path}" "${tar_items[@]}"
+    fi
   )
   raw_archive_sha="$(file_sha256 "${raw_archive_path}")"
   raw_archive_rel="${raw_archive_path#${REPO_ROOT}/}"

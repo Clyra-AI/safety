@@ -1,22 +1,27 @@
 # OpenClaw 2026 Report Package
 
-Status: in progress
+Status: release candidate (artifact-complete)
 
-This directory contains the OpenClaw report package scaffolding and reproducibility assets.
-Publish-ready artifacts are assembled after a finalized run and claim freeze.
+Canonical publication run:
 
-Expected outputs:
+- `openclaw-live-24h-20260228T143341Z`
 
-- `report.pdf`
-- `methodology-one-pager.md` (or PDF equivalent)
+This directory contains the OpenClaw report manuscript, methods, containerized reproducibility setup, and promoted reproducibility artifacts for the canonical run.
+
+Primary outputs:
+
+- `manuscript/report.md`
+- `report.pdf` (build target)
+- `methodology-one-pager.md`
 - `methodology.md`
 - `definitions.md`
 - `study-protocol.md`
 - `preregistration.md`
-- `manuscript/`
 - `press-pack/`
 - `container-config/`
 - `data/`
 - `assets/headline-stats/`
-- `runs/openclaw/<run_id>/derived/scenario_summary.json`
-- `runs/openclaw/<run_id>/artifacts/anecdotes.json`
+
+Canonical promoted artifact set:
+
+- `reports/openclaw-2026/data/runs/openclaw-live-24h-20260228T143341Z/`

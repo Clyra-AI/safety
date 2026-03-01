@@ -1,0 +1,17 @@
+{
+  "schema_version": "v2",
+  "generated_at": "2026-03-01T14:35:21Z",
+  "verified": true,
+  "verification_mode": "trace-verification-v1",
+  "summary": {
+    "governed_total_calls": 2585,
+    "evidence_verification_rate_pct": 99.96,
+    "trace_files_total": 2584,
+    "trace_files_verified": 2584
+  },
+  "artifacts": {
+    "governed_summary": "runs/openclaw/openclaw-live-24h-20260228T143341Z/derived/governed_summary.json",
+    "ungoverned_summary": "runs/openclaw/openclaw-live-24h-20260228T143341Z/derived/ungoverned_summary.json",
+    "governed_trace_dir": "runs/openclaw/openclaw-live-24h-20260228T143341Z/artifacts/gait/governed"
+  }
+}

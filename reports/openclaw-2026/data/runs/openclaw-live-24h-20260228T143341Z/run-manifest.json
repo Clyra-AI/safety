@@ -1,0 +1,76 @@
+{
+  "schema_version": "v2",
+  "report_id": "openclaw-2026",
+  "run_id": "openclaw-live-24h-20260228T143341Z",
+  "created_at": "2026-03-01T14:35:27Z",
+  "status": "completed",
+  "mode": "scaffold",
+  "execution_mode": "container",
+  "workload_mode": "live",
+  "scenario_set": "core5",
+  "parallel_lanes": false,
+  "measurement_window": {
+    "window_hours": 24,
+    "lane_duration_sec": 86400
+  },
+  "reproducibility": {
+    "repository": {
+      "commit_sha": "71cb0c7516657ec86302a67ae00efdd5cfb50ec8",
+      "ref": "71cb0c7"
+    },
+    "openclaw_source": {
+      "repository_url": "https://github.com/openclaw/openclaw",
+      "commit_or_tag": "452a8c9db9f92de44b31bc47d06641e604519a54",
+      "mirror_url": "TBD",
+      "source_fetched_at_utc": "2026-02-26T12:30:00Z",
+      "notes": "Canonical source pin for OpenClaw case-study runs. Use dual-lane execution (ungoverned + governed) with matched workload profile; set lane duration and window per run objective (pilot or 24h publication run)."
+    },
+    "wrkr": {
+      "runtime": "go-run:/Users/davidahmann/Projects/wrkr",
+      "version": "unavailable",
+      "commit_sha": "2b0efd6edc63856b9b21bcfa8136528c98e57202",
+      "ref": "2b0efd6",
+      "scan_target_path": "/Users/davidahmann/Projects/agent-ecosystem/openclaw",
+      "detector_list": "default"
+    },
+    "gait": {
+      "runtime": "go-run:/Users/davidahmann/Projects/gait",
+      "version": "gait 0.0.0-dev",
+      "commit_sha": "74d75038e4195d651666af32139e1e35b8927664",
+      "ref": "v1.3.1"
+    },
+    "docker": {
+      "image_digests": [
+        {
+          "image": "container-config-openclaw-ungoverned",
+          "digest": "container-config-openclaw-ungoverned@sha256:4ce630d5b6c55adce996d3e4e78c73da7287529a4ca716c2ccdab0cddfdcc40e"
+        },
+        {
+          "image": "container-config-openclaw-governed",
+          "digest": "container-config-openclaw-governed@sha256:552e56ed05173b8dabd4768970ea8becfab486dd4ba22f9f63c55066ab76c08a"
+        }
+      ],
+      "compose_file_sha256": "49deedea8ec9d1f1afb0365366b180cb286e267e4244b76973c22c045d945e18",
+      "dockerfile_sha256": "b6240f6ee993d040527c4f9a250bd42da05181949bf0c12861ebfc99e2f6350c",
+      "policy_sha256": "8f70c1ce2d72b41d4e2e130c0890bb71e674000efaaf44ba55cde84a99715a93"
+    }
+  },
+  "operational_guardrails": {
+    "egress_allowlist_path": "pipelines/policies/openclaw-egress-allowlist.txt",
+    "egress_allowlist_sha256": "48e7423528e9581309d7497bb7d6bb638aa0793ddeadf8c45eac74aeae23fbc7",
+    "no_production_creds_enforced": true,
+    "read_only_token_required": true,
+    "max_runtime_sec": 172800,
+    "max_run_disk_mb": 131072
+  },
+  "artifacts": {
+    "wrkr_scan": "runs/openclaw/openclaw-live-24h-20260228T143341Z/raw/wrkr/wrkr-scan.json",
+    "ungoverned_summary": "runs/openclaw/openclaw-live-24h-20260228T143341Z/derived/ungoverned_summary.json",
+    "governed_summary": "runs/openclaw/openclaw-live-24h-20260228T143341Z/derived/governed_summary.json",
+    "scenario_summary": "runs/openclaw/openclaw-live-24h-20260228T143341Z/derived/scenario_summary.json",
+    "anecdotes": "runs/openclaw/openclaw-live-24h-20260228T143341Z/artifacts/anecdotes.json",
+    "evidence_verification": "runs/openclaw/openclaw-live-24h-20260228T143341Z/artifacts/verification/evidence-verification.json",
+    "claim_values": "runs/openclaw/openclaw-live-24h-20260228T143341Z/artifacts/claim-values.json",
+    "threshold_evaluation": "runs/openclaw/openclaw-live-24h-20260228T143341Z/artifacts/threshold-evaluation.json"
+  }
+}

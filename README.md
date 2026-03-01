@@ -19,7 +19,7 @@ Reports are currently in progress (not yet published from this repo):
 
 | Report | Status | Report Folder |
 |---|---|---|
-| 1.5 Million Agents, Zero Governance: The OpenClaw Case Study | In progress | [`reports/openclaw-2026/`](reports/openclaw-2026/) |
+| 1.5 Million Agents, Zero Governance: The OpenClaw Case Study | Release candidate (artifact-complete) | [`reports/openclaw-2026/`](reports/openclaw-2026/) |
 | The State of AI Tool Sprawl, Q1 2026 | In progress | [`reports/ai-tool-sprawl-q1-2026/`](reports/ai-tool-sprawl-q1-2026/) |
 
 ## Methodology

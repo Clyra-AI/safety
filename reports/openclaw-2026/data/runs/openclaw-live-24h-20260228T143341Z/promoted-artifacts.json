@@ -1,0 +1,22 @@
+{
+  "schema_version": "v1",
+  "report_id": "openclaw-2026",
+  "run_id": "openclaw-live-24h-20260228T143341Z",
+  "promoted_at": "2026-03-01T15:08:35Z",
+  "source_run_dir": "runs/openclaw/openclaw-live-24h-20260228T143341Z",
+  "destination_dir": "reports/openclaw-2026/data/runs/openclaw-live-24h-20260228T143341Z",
+  "files": [
+    "run-manifest.json",
+    "claim-values.json",
+    "threshold-evaluation.json",
+    "evidence-verification.json",
+    "anecdotes.json",
+    "run-tree-manifest.sha256",
+    "scenario-summary.json",
+    "wrkr-scan.json"
+  ],
+  "raw_archive": {
+    "path": "runs/openclaw/openclaw-live-24h-20260228T143341Z/artifacts/openclaw-live-24h-20260228T143341Z-full-run.tar.gz",
+    "sha256": "9585c459defb103faf16145ca9e2708c9df907a822c8d729540b6a2c8206b7c7"
+  }
+}

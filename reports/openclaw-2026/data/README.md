@@ -2,23 +2,29 @@
 
 ## Files
 
-- `ungoverned-24h.json`: raw/derived summary for ungoverned run.
-- `governed-24h.json`: raw/derived summary for governed run.
-- `wrkr-scan-output.json`: discovery scan artifact for the environment under test.
-- `scenario-summary-24h.json`: per-scenario governed vs ungoverned action outcomes.
-- `anecdotes-24h.json`: concrete incident examples extracted from run events.
+- `ungoverned-24h.json`: derived summary for ungoverned lane (`openclaw-live-24h-20260228T143341Z`).
+- `governed-24h.json`: derived summary for governed lane (`openclaw-live-24h-20260228T143341Z`).
+- `wrkr-scan-output.json`: pre-test Wrkr discovery summary with pointer to full scan artifact.
+- `scenario-summary-24h.json`: per-scenario governed vs ungoverned outcomes.
+- `anecdotes-24h.json`: incident examples extracted from run events.
 
 ## Notes
 
-- Replace placeholders with machine-generated outputs only.
-- Keep field names stable across revisions.
-- These files are publish-ready exports derived from `runs/openclaw/<run_id>/derived/` and `runs/openclaw/<run_id>/artifacts/` artifacts.
+- These files are machine-generated exports from the canonical run.
+- Field names and metric IDs are locked by `reports/openclaw-2026/definitions.md`.
+- Claim values are derived via deterministic queries defined in `claims/openclaw-2026/claims.json`.
 
 ## Canonical promoted run artifacts
 
 Promoted, git-trackable reproducibility sets are stored at:
 
 - `reports/openclaw-2026/data/runs/<run_id>/`
+
+Canonical run in this release:
+
+- `reports/openclaw-2026/data/runs/openclaw-live-24h-20260228T143341Z/`
+
+The full Wrkr scan JSON is retained in the promoted run directory to avoid duplicate large artifacts in root-level data files.
 
 Each promoted run directory contains:
 
@@ -32,3 +38,5 @@ Each promoted run directory contains:
 - `run-tree-manifest.sha256`
 - `bundle.sha256`
 - `promoted-artifacts.json`
+
+For this canonical run, required threshold gate result is `16/16` passed.
