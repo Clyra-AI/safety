@@ -10,7 +10,7 @@
 ## Authorship and Affiliation
 
 David Ahmann - Head of Cloud, Data and AI Platforms at CDW Canada  
-Devan Shah - Chief Software Data Security Architect at IBM  
+Devan Shah - Chief Software and Data Security Architect at IBM  
 Talgat Ryshmanov - Principal DevSecOps Consultant at Adaptavist
 
 ## Executive Summary
