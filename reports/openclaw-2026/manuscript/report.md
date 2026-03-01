@@ -44,24 +44,22 @@ All headline claims in this report map to one immutable run.
 
 ### Artifact + Deterministic Query Map
 
-| Key | Artifact path (under base path) | Deterministic query |
-|---|---|---|
-| H1 | `derived/governed_summary.json` | `jq '.metrics.blocked_calls + (.counters.require_approval_count // 0)'` |
-| H2 | `derived/governed_summary.json` | `jq '.metrics.total_calls'` |
-| H3 | `derived/ungoverned_summary.json` | `jq '.metrics.sensitive_access_without_approval'` |
-| H4 | `derived/governed_summary.json` | `jq '.metrics.evidence_verification_rate_pct'` |
-| H5 | `derived/ungoverned_summary.json` | `jq '.metrics.ignored_stop_rate_pct'` |
-| H6 | `derived/ungoverned_summary.json` | `jq '.metrics.destructive_attempts_24h'` |
-| H7 | `derived/governed_summary.json` | `jq '.metrics.destructive_block_rate_pct'` |
-| H8 | `derived/governed_summary.json` | `jq '.metrics.stop_to_halt_p95_sec'` |
-| H9 | `derived/scenario_summary.json` | `jq '.headline_metrics.openclaw_inbox_delete_after_stop_24h'` |
-| H10 | `derived/scenario_summary.json` | `jq '.headline_metrics.openclaw_inbox_delete_after_stop_governed_non_executable_rate_pct'` |
-| H11 | `derived/scenario_summary.json` | `jq '.headline_metrics.openclaw_drive_public_share_24h'` |
-| H12 | `derived/scenario_summary.json` | `jq '.headline_metrics.openclaw_drive_public_share_governed_non_executable_rate_pct'` |
-| H13 | `derived/scenario_summary.json` | `jq '.headline_metrics.openclaw_finance_write_without_approval_24h'` |
-| H14 | `derived/scenario_summary.json` | `jq '.headline_metrics.openclaw_finance_write_governed_non_executable_rate_pct'` |
-| H15 | `derived/scenario_summary.json` | `jq '.headline_metrics.openclaw_ops_restart_attempts_24h'` |
-| H16 | `derived/scenario_summary.json` | `jq '.headline_metrics.openclaw_ops_restart_governed_non_executable_rate_pct'` |
+- `H1` (`openclaw_policy_violations_24h`): artifact `derived/governed_summary.json`; query `jq '.metrics.blocked_calls + (.counters.require_approval_count // 0)'`.
+- `H2` (`openclaw_total_tool_calls_24h`): artifact `derived/governed_summary.json`; query `jq '.metrics.total_calls'`.
+- `H3` (`openclaw_sensitive_access_without_approval`): artifact `derived/ungoverned_summary.json`; query `jq '.metrics.sensitive_access_without_approval'`.
+- `H4` (`openclaw_governed_evidence_verification_rate_pct`): artifact `derived/governed_summary.json`; query `jq '.metrics.evidence_verification_rate_pct'`.
+- `H5` (`openclaw_ignored_stop_rate_pct`): artifact `derived/ungoverned_summary.json`; query `jq '.metrics.ignored_stop_rate_pct'`.
+- `H6` (`openclaw_destructive_attempts_24h`): artifact `derived/ungoverned_summary.json`; query `jq '.metrics.destructive_attempts_24h'`.
+- `H7` (`openclaw_governed_destructive_block_rate_pct`): artifact `derived/governed_summary.json`; query `jq '.metrics.destructive_block_rate_pct'`.
+- `H8` (`openclaw_stop_to_halt_p95_sec`): artifact `derived/governed_summary.json`; query `jq '.metrics.stop_to_halt_p95_sec'`.
+- `H9` (`openclaw_inbox_delete_after_stop_24h`): artifact `derived/scenario_summary.json`; query `jq '.headline_metrics.openclaw_inbox_delete_after_stop_24h'`.
+- `H10` (`openclaw_inbox_delete_after_stop_governed_non_executable_rate_pct`): artifact `derived/scenario_summary.json`; query `jq '.headline_metrics.openclaw_inbox_delete_after_stop_governed_non_executable_rate_pct'`.
+- `H11` (`openclaw_drive_public_share_24h`): artifact `derived/scenario_summary.json`; query `jq '.headline_metrics.openclaw_drive_public_share_24h'`.
+- `H12` (`openclaw_drive_public_share_governed_non_executable_rate_pct`): artifact `derived/scenario_summary.json`; query `jq '.headline_metrics.openclaw_drive_public_share_governed_non_executable_rate_pct'`.
+- `H13` (`openclaw_finance_write_without_approval_24h`): artifact `derived/scenario_summary.json`; query `jq '.headline_metrics.openclaw_finance_write_without_approval_24h'`.
+- `H14` (`openclaw_finance_write_governed_non_executable_rate_pct`): artifact `derived/scenario_summary.json`; query `jq '.headline_metrics.openclaw_finance_write_governed_non_executable_rate_pct'`.
+- `H15` (`openclaw_ops_restart_attempts_24h`): artifact `derived/scenario_summary.json`; query `jq '.headline_metrics.openclaw_ops_restart_attempts_24h'`.
+- `H16` (`openclaw_ops_restart_governed_non_executable_rate_pct`): artifact `derived/scenario_summary.json`; query `jq '.headline_metrics.openclaw_ops_restart_governed_non_executable_rate_pct'`.
 
 Claim IDs and canonical query definitions are locked in `claims/openclaw-2026/claims.json`.
 
