@@ -14,6 +14,7 @@
 
 % Shaded code block background
 \definecolor{shadecolor}{RGB}{245,245,245}
+\definecolor{linkblue}{RGB}{0,88,190}
 
 % Allow long code lines to wrap
 \fvset{
@@ -59,3 +60,12 @@
 % Prefer line wrapping over overflow in narrow table/list contexts.
 \setlength{\emergencystretch}{3em}
 \sloppy
+
+% Force visible hyperlink styling in generated PDFs.
+\AtBeginDocument{%
+  \hypersetup{%
+    linkcolor=linkblue,
+    urlcolor=linkblue,
+    citecolor=linkblue
+  }%
+}
