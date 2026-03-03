@@ -9,6 +9,7 @@ Objective: produce a reproducible multi-organization AI tool sprawl measurement 
 - Canonical campaign mode: deterministic baseline scan.
 - Supplemental enrich mode: separate run with explicit provenance (`as_of`, `source`), never merged into baseline headline claims.
 - Sample target: `TBD` organizations (minimum publish threshold may apply).
+- Runtime pinning: prefer repo-pinned Wrkr runtime (`go run` from `WRKR_REPO_PATH`) over ambient PATH binary unless an explicit `WRKR_BIN` override is supplied.
 
 ## 2) Sampling Rules
 
@@ -26,6 +27,11 @@ Objective: produce a reproducible multi-organization AI tool sprawl measurement 
 ## 4) Required Outputs
 
 - per-target scan JSON artifacts
+- per-target stderr logs for clone and scan failures (when present)
+- per-target derived state JSON with segmented counts:
+  - headline scope (non-`source_repo`)
+  - raw scope (includes `source_repo`)
+- per-target provenance source label (`wrkr-scan-clone` or `wrkr-scan-repo-fallback`)
 - campaign aggregate artifact
 - appendix matrix exports (JSON/CSV)
 - anonymized case-study inputs
@@ -44,7 +50,10 @@ Third-party reproduction must be possible from:
 - pinned Wrkr version
 - input lists and policy files
 - generated campaign and appendix artifacts
+- deterministic scope filter (`tool_type != "source_repo"`) used for headline metrics
 - claim and threshold gates
+- resume semantics that skip only already-valid JSON scan/state pairs (invalid/zero-byte artifacts are recomputed)
+- clone-mode resilience: if Git clone repeatedly fails (for example GitHub transient 5xx), runner falls back to deterministic `--repo` scan for that target and records fallback provenance in state
 
 ## 6) Publication Guardrails
 

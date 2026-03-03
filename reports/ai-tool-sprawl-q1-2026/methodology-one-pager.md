@@ -9,8 +9,11 @@ Required content:
 - study objective and campaign scan window
 - canonical target-list source (`internal/repos.md`)
 - deterministic baseline vs enrich separation
+- headline scope filter (`tool_type != "source_repo"`) and segmented raw-count disclosure
 - exact Wrkr version, commit SHA, and detector list
+- runtime selection rule (repo-pinned Wrkr preferred; PATH binary used only when compatible or explicitly overridden)
 - policy inputs used (`approved-tools`, `production-targets`, optional segments)
 - reproduction command sequence
 - artifact map (scans, aggregate, appendix, claims)
+- per-target provenance labels (`wrkr-scan-clone` vs `wrkr-scan-repo-fallback`) and fallback criteria
 - limitations and known threats to validity

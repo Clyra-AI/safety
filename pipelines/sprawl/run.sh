@@ -10,7 +10,7 @@ Usage:
          [--egress-allowlist <path>] [--scan-source repo|clone] [--clone-root <path>] [--no-synthetic-fallback]
 
 Creates immutable run layout and executes Wrkr sprawl scans:
-  runs/tool-sprawl/<run_id>/{states,states-enrich,scans,agg,appendix,artifacts}
+  runs/tool-sprawl/<run_id>/{wrkr-state,wrkr-state-enrich,states,states-enrich,scans,agg,appendix,artifacts}
 USAGE
 }
 
@@ -32,7 +32,7 @@ SCAN_SOURCE="${SCAN_SOURCE:-repo}"
 CLONE_ROOT="${CLONE_ROOT:-}"
 ALLOW_SYNTHETIC_FALLBACK=1
 
-WRKR_REPO_PATH="${WRKR_REPO_PATH:-/Users/davidahmann/Projects/wrkr}"
+WRKR_REPO_PATH="${WRKR_REPO_PATH:-${REPO_ROOT}/third_party/wrkr}"
 WRKR_RUNTIME="unavailable"
 RUN_START_EPOCH="$(date +%s)"
 
@@ -99,13 +99,84 @@ safe_git_ref() {
   fi
 }
 
+normalize_path_ref() {
+  local path="$1"
+  if [[ -z "${path}" ]]; then
+    printf '%s\n' "${path}"
+    return
+  fi
+  if [[ "${path}" == "${REPO_ROOT}" ]]; then
+    printf '.\n'
+    return
+  fi
+  if [[ "${path}" == "${REPO_ROOT}/"* ]]; then
+    printf '%s\n' "${path#${REPO_ROOT}/}"
+    return
+  fi
+  if [[ "${path}" == /* ]]; then
+    printf 'external:%s\n' "${path##*/}"
+    return
+  fi
+  printf '%s\n' "${path}"
+}
+
+normalize_runtime_ref() {
+  local runtime="$1"
+  if [[ "${runtime}" == go-run:* ]]; then
+    printf 'go-run:%s\n' "$(normalize_path_ref "${runtime#go-run:}")"
+    return
+  fi
+  if [[ "${runtime}" == /* ]]; then
+    normalize_path_ref "${runtime}"
+    return
+  fi
+  printf '%s\n' "${runtime}"
+}
+
+is_valid_json_file() {
+  local file="$1"
+  [[ -s "${file}" ]] || return 1
+  jq -e . "${file}" >/dev/null 2>&1
+}
+
+clone_repo_with_retry() {
+  local target="$1"
+  local source_path="$2"
+  local err_path="$3"
+  local attempt
+  mkdir -p "$(dirname "${source_path}")"
+  for attempt in 1 2 3 4 5; do
+    if [[ -d "${source_path}/.git" ]]; then
+      return 0
+    fi
+    rm -rf "${source_path}"
+    : > "${err_path}"
+    if git clone --quiet --depth 1 "https://github.com/${target}.git" "${source_path}" >/dev/null 2>"${err_path}"; then
+      if [[ ! -s "${err_path}" ]]; then
+        rm -f "${err_path}"
+      fi
+      return 0
+    fi
+    sleep $((attempt * 2))
+  done
+  return 1
+}
+
 detect_wrkr_runtime() {
   if [[ -n "${WRKR_BIN:-}" && -x "${WRKR_BIN}" ]]; then
     WRKR_RUNTIME="${WRKR_BIN}"
-  elif command -v wrkr >/dev/null 2>&1; then
-    WRKR_RUNTIME="$(command -v wrkr)"
   elif [[ -f "${WRKR_REPO_PATH}/cmd/wrkr/main.go" ]] && command -v go >/dev/null 2>&1; then
     WRKR_RUNTIME="go-run:${WRKR_REPO_PATH}"
+  elif command -v wrkr >/dev/null 2>&1; then
+    WRKR_RUNTIME="$(command -v wrkr)"
+  fi
+
+  if [[ "${WRKR_RUNTIME}" != "unavailable" ]] && ! run_wrkr scan --help >/dev/null 2>&1; then
+    if [[ -f "${WRKR_REPO_PATH}/cmd/wrkr/main.go" ]] && command -v go >/dev/null 2>&1; then
+      WRKR_RUNTIME="go-run:${WRKR_REPO_PATH}"
+    else
+      WRKR_RUNTIME="unavailable"
+    fi
   fi
 }
 
@@ -281,72 +352,90 @@ write_state_from_scan() {
   local scan_path="$2"
   local state_path="$3"
   local source_label="$4"
-  local seed tools approved unapproved unknown prod
-  local destructive approval_gate_present prompt_only audit_artifacts_present article50_gap
-
-  seed="$(synthetic_seed "${target}")"
-
-  tools="$(jq -r '.inventory.tools_detected // .inventory.total_tools // .inventory.summary.total // (.findings | length) // empty' "${scan_path}" 2>/dev/null || true)"
-  approved="$(jq -r '.inventory.approved_tools // .inventory.approval.approved // .inventory.approval_counts.approved // empty' "${scan_path}" 2>/dev/null || true)"
-  unapproved="$(jq -r '.inventory.unapproved_tools // .inventory.approval.unapproved // .inventory.approval_counts.unapproved // empty' "${scan_path}" 2>/dev/null || true)"
-  unknown="$(jq -r '.inventory.unknown_tools // .inventory.approval.unknown // .inventory.approval_counts.unknown // empty' "${scan_path}" 2>/dev/null || true)"
-  prod="$(jq -r '.inventory.production_write_tools // .privilege_budget.production_write.total // empty' "${scan_path}" 2>/dev/null || true)"
-
-  if [[ -z "${tools}" || ! "${tools}" =~ ^[0-9]+$ ]]; then
-    tools=$((6 + (seed % 12)))
-  fi
-  if [[ -z "${approved}" || ! "${approved}" =~ ^[0-9]+$ ]]; then
-    approved=$((seed % 4))
-  fi
-  if (( approved > tools )); then
-    approved=${tools}
-  fi
-  if [[ -z "${unapproved}" || ! "${unapproved}" =~ ^[0-9]+$ ]]; then
-    unapproved=$(((tools - approved) / 2 + (seed % 2)))
-  fi
-  if (( unapproved > tools - approved )); then
-    unapproved=$((tools - approved))
-  fi
-  if [[ -z "${unknown}" || ! "${unknown}" =~ ^[0-9]+$ ]]; then
-    unknown=$((tools - approved - unapproved))
-  fi
-  if (( unknown < 0 )); then
-    unknown=0
-  fi
-  if [[ -z "${prod}" || ! "${prod}" =~ ^[0-9]+$ ]]; then
-    prod=$((seed % 3))
-  fi
-
-  destructive=$((seed % 2))
-  approval_gate_present=$(((seed / 2) % 2))
-  prompt_only=$(((seed / 3) % 2))
-  audit_artifacts_present=$(((seed / 5) % 2))
-  article50_gap=$(((unknown > 0 || audit_artifacts_present == 0) ? 1 : 0))
-
+  local org repo
   org="${target%%/*}"
   repo="${target#*/}"
   if [[ "${org}" == "${repo}" ]]; then
     repo="unknown"
   fi
 
-  jq -n \
+  jq -n --slurpfile scan "${scan_path}" \
     --arg target "${target}" \
     --arg org "${org}" \
     --arg repo "${repo}" \
     --arg generated_at "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
     --arg source "${source_label}" \
     --arg scan_path "${scan_path}" \
-    --argjson tools_detected "${tools}" \
-    --argjson approved "${approved}" \
-    --argjson unapproved "${unapproved}" \
-    --argjson unknown "${unknown}" \
-    --argjson production_write_tools "${prod}" \
-    --argjson destructive_tooling "$( ((destructive == 1)) && echo true || echo false )" \
-    --argjson approval_gate_present "$( ((approval_gate_present == 1)) && echo true || echo false )" \
-    --argjson prompt_only_controls "$( ((prompt_only == 1)) && echo true || echo false )" \
-    --argjson audit_artifacts_present "$( ((audit_artifacts_present == 1)) && echo true || echo false )" \
-    --argjson article50_gap "$( ((article50_gap == 1)) && echo true || echo false )" \
-    '{
+    '
+      ($scan[0] // {}) as $s |
+      ($s.inventory.tools // []) as $tools |
+      ($tools | map(select((.tool_type // "") != "source_repo"))) as $scoped |
+      ($s.profile.failing_rules // []) as $failing_rules |
+
+      def to_num($v):
+        if ($v | type) == "number" then $v
+        elif ($v | type) == "string" and ($v | test("^[0-9]+$")) then ($v | tonumber)
+        else 0 end;
+
+      def risky:
+        ((.permission_surface.write // false) == true)
+        or ((.permission_surface.admin // false) == true)
+        or (((.permissions // []) | index("proc.exec")) != null);
+
+      def has_fail($rule): (($failing_rules | index($rule)) != null);
+
+      ($tools | length) as $tool_array_len |
+      (if $tool_array_len > 0
+        then $tool_array_len
+        else to_num($s.inventory.tools_detected // $s.inventory.total_tools // $s.inventory.summary.total // 0)
+       end) as $raw_total |
+      (if $tool_array_len > 0
+        then ($tools | map(select((.approval_classification // "unknown") == "approved")) | length)
+        else to_num($s.inventory.approved_tools // $s.inventory.approval.approved // $s.inventory.approval_counts.approved // 0)
+       end) as $raw_approved |
+      (if $tool_array_len > 0
+        then ($tools | map(select((.approval_classification // "unknown") == "unapproved")) | length)
+        else to_num($s.inventory.unapproved_tools // $s.inventory.approval.unapproved // $s.inventory.approval_counts.unapproved // 0)
+       end) as $raw_unapproved |
+      (if $tool_array_len > 0
+        then ($tools | map(select((.approval_classification // "unknown") != "approved" and (.approval_classification // "unknown") != "unapproved")) | length)
+        else to_num($s.inventory.unknown_tools // $s.inventory.approval.unknown // $s.inventory.approval_counts.unknown // 0)
+       end) as $raw_unknown |
+      (if $tool_array_len > 0
+        then ($tools | map(select((.tool_type // "") == "source_repo")) | length)
+        else 0
+       end) as $source_repo_tools |
+
+      (if $tool_array_len > 0 then ($scoped | length) else $raw_total end) as $scoped_total |
+      (if $tool_array_len > 0
+        then ($scoped | map(select((.approval_classification // "unknown") == "approved")) | length)
+        else $raw_approved
+       end) as $scoped_approved |
+      (if $tool_array_len > 0
+        then ($scoped | map(select((.approval_classification // "unknown") == "unapproved")) | length)
+        else $raw_unapproved
+       end) as $scoped_unapproved |
+      (if $tool_array_len > 0
+        then ($scoped | map(select((.approval_classification // "unknown") != "approved" and (.approval_classification // "unknown") != "unapproved")) | length)
+        else $raw_unknown
+       end) as $scoped_unknown |
+
+      ($scoped | map(select(risky))) as $risky_scoped |
+      (($scoped | map(select((.tool_type // "") == "prompt_channel")) | length) > 0 or has_fail("WRKR-016")) as $prompt_only_controls |
+      (((has_fail("WRKR-003") or has_fail("WRKR-008")) | not)) as $audit_artifacts_present |
+      (($risky_scoped | length) > 0) as $destructive_tooling |
+      (if ($risky_scoped | length) == 0
+        then false
+        else (($risky_scoped | map(select((.approval_classification // "unknown") == "approved")) | length) == ($risky_scoped | length))
+       end) as $approval_gate_present |
+      ((($s.privilege_budget.production_write.configured // false) == true)
+        and (($s.privilege_budget.production_write.count // null) != null)
+       | if . then to_num($s.privilege_budget.production_write.count) else 0 end) as $production_write_tools |
+      (if $scoped_total == 0
+        then false
+        else ($scoped_unknown > 0 or $scoped_unapproved > 0 or ($audit_artifacts_present | not))
+       end) as $article50_gap |
+      {
       schema_version: "v1",
       generated_at: $generated_at,
       target: $target,
@@ -355,11 +444,27 @@ write_state_from_scan() {
       source: $source,
       scan_path: $scan_path,
       counts: {
-        tools_detected: $tools_detected,
-        approved: $approved,
-        unapproved: $unapproved,
-        unknown: $unknown,
+        tools_detected: $scoped_total,
+        approved: $scoped_approved,
+        unapproved: $scoped_unapproved,
+        unknown: $scoped_unknown,
         production_write_tools: $production_write_tools
+      },
+      segments: {
+        headline_scope: "exclude_source_repo",
+        source_repo_tools: $source_repo_tools,
+        raw_counts: {
+          tools_detected: $raw_total,
+          approved: $raw_approved,
+          unapproved: $raw_unapproved,
+          unknown: $raw_unknown
+        },
+        scoped_counts: {
+          tools_detected: $scoped_total,
+          approved: $scoped_approved,
+          unapproved: $scoped_unapproved,
+          unknown: $scoped_unknown
+        }
       },
       control_posture: {
         destructive_tooling: $destructive_tooling,
@@ -482,17 +587,22 @@ if [[ ! -d "${RUN_DIR}" && "${RESUME}" -eq 1 ]]; then
   exit 1
 fi
 
-MODE_STATE="scaffold"
+MODE_STATE="run"
 if [[ "${RESUME}" -eq 1 ]]; then
   MODE_STATE="resume"
 fi
 
 detect_wrkr_runtime
 
+TARGETS_FILE_PATH="${TARGETS_FILE}"
+if [[ "${TARGETS_FILE_PATH}" != /* ]]; then
+  TARGETS_FILE_PATH="${REPO_ROOT}/${TARGETS_FILE_PATH}"
+fi
+
 targets=()
 while IFS= read -r target; do
   targets+=("${target}")
-done < <(parse_targets "${REPO_ROOT}/${TARGETS_FILE}")
+done < <(parse_targets "${TARGETS_FILE_PATH}")
 
 if [[ "${#targets[@]}" -eq 0 && "${ALLOW_SYNTHETIC_FALLBACK}" -eq 1 ]]; then
   targets=(
@@ -523,7 +633,7 @@ if [[ "${DRY_RUN}" -eq 1 ]]; then
   echo "[sprawl-run] guardrails: max_runtime_sec=${MAX_RUNTIME_SEC} max_run_disk_mb=${MAX_RUN_DISK_MB} egress_allowlist=${EGRESS_ALLOWLIST}"
   echo "[sprawl-run] actions:"
   echo "  - check prereg lock + operational guardrails"
-  echo "  - ensure directories: states, states-enrich, scans, agg, appendix, artifacts"
+  echo "  - ensure directories: wrkr-state, wrkr-state-enrich, states, states-enrich, scans, agg, appendix, artifacts"
   echo "  - run wrkr scan per target (fallback synthetic if unavailable)"
   echo "  - build campaign aggregate, appendix exports, and claim-values artifact"
   echo "[sprawl-run] no files written"
@@ -542,7 +652,7 @@ for policy in "${APPROVED_TOOLS_POLICY}" "${PRODUCTION_TARGETS_POLICY}" "${SEGME
   fi
 done
 
-mkdir -p "${RUN_DIR}/states" "${RUN_DIR}/states-enrich" "${RUN_DIR}/scans" "${RUN_DIR}/agg" "${RUN_DIR}/appendix" "${RUN_DIR}/artifacts"
+mkdir -p "${RUN_DIR}/wrkr-state" "${RUN_DIR}/wrkr-state-enrich" "${RUN_DIR}/states" "${RUN_DIR}/states-enrich" "${RUN_DIR}/scans" "${RUN_DIR}/agg" "${RUN_DIR}/appendix" "${RUN_DIR}/artifacts"
 if [[ "${SCAN_SOURCE}" == "clone" ]]; then
   if [[ -z "${CLONE_ROOT}" ]]; then
     CLONE_ROOT="${RUN_DIR}/sources"
@@ -560,24 +670,49 @@ for target in "${targets[@]}"; do
 
   slug="$(slugify "${target}")"
   scan_path="${RUN_DIR}/scans/${slug}.scan.json"
+  scan_err_path="${RUN_DIR}/scans/${slug}.scan.stderr.log"
+  wrkr_state_path="${RUN_DIR}/wrkr-state/${slug}.json"
   state_path="${RUN_DIR}/states/${slug}.json"
-  source_path=""
-  if [[ "${SCAN_SOURCE}" == "clone" ]]; then
-    source_path="${CLONE_ROOT}/${slug}"
-    if [[ ! -d "${source_path}/.git" ]]; then
-      if ! git clone --depth 1 "https://github.com/${target}.git" "${source_path}" >/dev/null 2>&1; then
-        if [[ "${ALLOW_SYNTHETIC_FALLBACK}" -eq 0 ]]; then
-          echo "[sprawl-run] clone failed for ${target} and synthetic fallback disabled" >&2
-          exit 1
-        fi
-      fi
+  scan_source_for_target="${SCAN_SOURCE}"
+  needs_baseline_scan=1
+  if [[ "${RESUME}" -eq 1 ]] && is_valid_json_file "${scan_path}" && is_valid_json_file "${state_path}"; then
+    needs_baseline_scan=0
+  fi
+
+  needs_enrich_scan=0
+  if [[ "${MODE}" == "baseline+enrich" ]]; then
+    enrich_scan_path="${RUN_DIR}/scans/${slug}.scan.enrich.json"
+    enrich_state_path="${RUN_DIR}/states-enrich/${slug}.json"
+    needs_enrich_scan=1
+    if [[ "${RESUME}" -eq 1 ]] && is_valid_json_file "${enrich_scan_path}" && is_valid_json_file "${enrich_state_path}"; then
+      needs_enrich_scan=0
     fi
   fi
 
-  scan_ok=0
-  if [[ "${WRKR_RUNTIME}" != "unavailable" ]]; then
-    wrkr_args=(scan --state "${state_path}" --approved-tools "${REPO_ROOT}/${APPROVED_TOOLS_POLICY}" --production-targets "${REPO_ROOT}/${PRODUCTION_TARGETS_POLICY}" --json)
-    if [[ "${SCAN_SOURCE}" == "clone" ]]; then
+  source_path=""
+  if [[ "${SCAN_SOURCE}" == "clone" && ( "${needs_baseline_scan}" -eq 1 || "${needs_enrich_scan}" -eq 1 ) ]]; then
+    source_path="${CLONE_ROOT}/${slug}"
+    clone_err_path="${RUN_DIR}/scans/${slug}.clone.stderr.log"
+    if ! clone_repo_with_retry "${target}" "${source_path}" "${clone_err_path}"; then
+      echo "[sprawl-run] clone failed for ${target}; falling back to --repo scan mode for this target" >&2
+      echo "[sprawl-run] clone stderr log: ${clone_err_path}" >&2
+      if [[ -s "${clone_err_path}" ]]; then
+        echo "[sprawl-run] last clone stderr lines:" >&2
+        tail -n 20 "${clone_err_path}" >&2
+      fi
+      scan_source_for_target="repo"
+    fi
+  elif [[ "${SCAN_SOURCE}" == "clone" ]]; then
+    source_path="${CLONE_ROOT}/${slug}"
+  fi
+
+  scan_ok=1
+  if [[ "${needs_baseline_scan}" -eq 1 ]]; then
+    scan_ok=0
+  fi
+  if [[ "${WRKR_RUNTIME}" != "unavailable" && "${needs_baseline_scan}" -eq 1 ]]; then
+    wrkr_args=(scan --state "${wrkr_state_path}" --approved-tools "${REPO_ROOT}/${APPROVED_TOOLS_POLICY}" --production-targets "${REPO_ROOT}/${PRODUCTION_TARGETS_POLICY}" --json)
+    if [[ "${scan_source_for_target}" == "clone" ]]; then
       wrkr_args+=(--path "${source_path}")
     else
       wrkr_args+=(--repo "${target}")
@@ -589,30 +724,53 @@ for target in "${targets[@]}"; do
       fi
     fi
 
-    if run_wrkr "${wrkr_args[@]}" > "${scan_path}" 2>/dev/null; then
-      scan_ok=1
-    fi
+    for attempt in 1 2 3; do
+      : > "${scan_err_path}"
+      if run_wrkr "${wrkr_args[@]}" > "${scan_path}" 2>"${scan_err_path}" && is_valid_json_file "${scan_path}"; then
+        if [[ ! -s "${scan_err_path}" ]]; then
+          rm -f "${scan_err_path}"
+        fi
+        scan_ok=1
+        break
+      fi
+      rm -f "${scan_path}" "${wrkr_state_path}"
+      sleep $((attempt * 2))
+    done
   fi
 
-  if [[ "${scan_ok}" -eq 0 ]]; then
+  if [[ "${scan_ok}" -eq 0 && "${needs_baseline_scan}" -eq 1 ]]; then
     if [[ "${ALLOW_SYNTHETIC_FALLBACK}" -eq 0 ]]; then
       echo "[sprawl-run] wrkr scan failed for ${target} and synthetic fallback disabled" >&2
+      echo "[sprawl-run] stderr log: ${scan_err_path}" >&2
+      if [[ -s "${scan_err_path}" ]]; then
+        echo "[sprawl-run] last wrkr stderr lines:" >&2
+        tail -n 40 "${scan_err_path}" >&2
+      fi
       exit 1
     fi
     write_synthetic_scan "${target}" "${scan_path}"
     write_state_from_scan "${target}" "${scan_path}" "${state_path}" "synthetic-preflight"
-  else
-    write_state_from_scan "${target}" "${scan_path}" "${state_path}" "wrkr-scan"
+  elif [[ "${needs_baseline_scan}" -eq 1 ]]; then
+    if [[ "${scan_source_for_target}" == "clone" ]]; then
+      write_state_from_scan "${target}" "${scan_path}" "${state_path}" "wrkr-scan-clone"
+    else
+      write_state_from_scan "${target}" "${scan_path}" "${state_path}" "wrkr-scan-repo-fallback"
+    fi
   fi
 
   if [[ "${MODE}" == "baseline+enrich" ]]; then
     enrich_scan_path="${RUN_DIR}/scans/${slug}.scan.enrich.json"
+    enrich_scan_err_path="${RUN_DIR}/scans/${slug}.scan.enrich.stderr.log"
+    wrkr_enrich_state_path="${RUN_DIR}/wrkr-state-enrich/${slug}.json"
     enrich_state_path="${RUN_DIR}/states-enrich/${slug}.json"
-    enrich_ok=0
+    enrich_ok=1
+    if [[ "${needs_enrich_scan}" -eq 1 ]]; then
+      enrich_ok=0
+    fi
 
-    if [[ "${WRKR_RUNTIME}" != "unavailable" ]]; then
-      wrkr_enrich_args=(scan --state "${enrich_state_path}" --approved-tools "${REPO_ROOT}/${APPROVED_TOOLS_POLICY}" --production-targets "${REPO_ROOT}/${PRODUCTION_TARGETS_POLICY}" --enrich --json)
-      if [[ "${SCAN_SOURCE}" == "clone" ]]; then
+    if [[ "${WRKR_RUNTIME}" != "unavailable" && "${needs_enrich_scan}" -eq 1 ]]; then
+      wrkr_enrich_args=(scan --state "${wrkr_enrich_state_path}" --approved-tools "${REPO_ROOT}/${APPROVED_TOOLS_POLICY}" --production-targets "${REPO_ROOT}/${PRODUCTION_TARGETS_POLICY}" --enrich --json)
+      if [[ "${scan_source_for_target}" == "clone" ]]; then
         wrkr_enrich_args+=(--path "${source_path}")
       else
         wrkr_enrich_args+=(--repo "${target}")
@@ -623,16 +781,38 @@ for target in "${targets[@]}"; do
           wrkr_enrich_args+=(--github-token "${WRKR_GITHUB_TOKEN}")
         fi
       fi
-      if run_wrkr "${wrkr_enrich_args[@]}" > "${enrich_scan_path}" 2>/dev/null; then
-        enrich_ok=1
-      fi
+      for attempt in 1 2 3; do
+        : > "${enrich_scan_err_path}"
+        if run_wrkr "${wrkr_enrich_args[@]}" > "${enrich_scan_path}" 2>"${enrich_scan_err_path}" && is_valid_json_file "${enrich_scan_path}"; then
+          if [[ ! -s "${enrich_scan_err_path}" ]]; then
+            rm -f "${enrich_scan_err_path}"
+          fi
+          enrich_ok=1
+          break
+        fi
+        rm -f "${enrich_scan_path}" "${wrkr_enrich_state_path}"
+        sleep $((attempt * 2))
+      done
     fi
 
-    if [[ "${enrich_ok}" -eq 0 ]]; then
+    if [[ "${enrich_ok}" -eq 0 && "${needs_enrich_scan}" -eq 1 ]]; then
+      if [[ "${ALLOW_SYNTHETIC_FALLBACK}" -eq 0 ]]; then
+        echo "[sprawl-run] wrkr enrich scan failed for ${target} and synthetic fallback disabled" >&2
+        echo "[sprawl-run] stderr log: ${enrich_scan_err_path}" >&2
+        if [[ -s "${enrich_scan_err_path}" ]]; then
+          echo "[sprawl-run] last wrkr stderr lines:" >&2
+          tail -n 40 "${enrich_scan_err_path}" >&2
+        fi
+        exit 1
+      fi
       write_synthetic_scan "${target}" "${enrich_scan_path}"
       write_state_from_scan "${target}" "${enrich_scan_path}" "${enrich_state_path}" "synthetic-enrich"
-    else
-      write_state_from_scan "${target}" "${enrich_scan_path}" "${enrich_state_path}" "wrkr-enrich"
+    elif [[ "${needs_enrich_scan}" -eq 1 ]]; then
+      if [[ "${scan_source_for_target}" == "clone" ]]; then
+        write_state_from_scan "${target}" "${enrich_scan_path}" "${enrich_state_path}" "wrkr-enrich-clone"
+      else
+        write_state_from_scan "${target}" "${enrich_scan_path}" "${enrich_state_path}" "wrkr-enrich-repo-fallback"
+      fi
     fi
   fi
 
@@ -662,7 +842,7 @@ jq -s \
   --arg mode "${MODE}" \
   --arg detector_list "${DETECTOR_LIST}" '
   def pct(n; d): if d == 0 then 0 else ((n * 10000 / d) | round) / 100 end;
-  def ratio(n; d): if d == 0 then 0 else ((n * 10000 / d) | round) / 100 end;
+  def ratio(n; d): if d == 0 then 0 else ((n * 100 / d) | round) / 100 end;
   {
     schema_version: "v1",
     report_id: "ai-tool-sprawl-q1-2026",
@@ -688,6 +868,14 @@ jq -s \
         unapproved_tools: (map(.counts.unapproved // 0) | add),
         unknown_tools: (map(.counts.unknown // 0) | add),
         production_write_tools: (map(.counts.production_write_tools // 0) | add)
+      },
+      segmented_totals: {
+        headline_scope: "exclude_source_repo",
+        source_repo_tools: (map(.segments.source_repo_tools // 0) | add),
+        tools_detected_raw: (map(.segments.raw_counts.tools_detected // .counts.tools_detected // 0) | add),
+        approved_tools_raw: (map(.segments.raw_counts.approved // .counts.approved // 0) | add),
+        unapproved_tools_raw: (map(.segments.raw_counts.unapproved // .counts.unapproved // 0) | add),
+        unknown_tools_raw: (map(.segments.raw_counts.unknown // .counts.unknown // 0) | add)
       }
     },
     methodology: {
@@ -720,8 +908,8 @@ cat > "${RUN_DIR}/agg/campaign-public.md" <<EOF_PUBLIC
 Run ID: ${RUN_ID}
 
 - Organizations scanned: ${orgs_scanned}
-- Unapproved-to-approved ratio: ${ratio}
-- Average unknown tools per org: ${avg_unknown}
+- Unapproved-to-approved ratio (non-source scope): ${ratio}
+- Average unknown tools per org (non-source scope): ${avg_unknown}
 - Article 50 gap prevalence (%): ${article50_gap}
 EOF_PUBLIC
 
@@ -736,7 +924,12 @@ jq -s '
       approved_tools: (.counts.approved // 0),
       unapproved_tools: (.counts.unapproved // 0),
       unknown_tools: (.counts.unknown // 0),
-      production_write_tools: (.counts.production_write_tools // 0)
+      production_write_tools: (.counts.production_write_tools // 0),
+      source_repo_tools: (.segments.source_repo_tools // 0),
+      tools_detected_raw: (.segments.raw_counts.tools_detected // .counts.tools_detected // 0),
+      approved_tools_raw: (.segments.raw_counts.approved // .counts.approved // 0),
+      unapproved_tools_raw: (.segments.raw_counts.unapproved // .counts.unapproved // 0),
+      unknown_tools_raw: (.segments.raw_counts.unknown // .counts.unknown // 0)
     }),
     privilege_rows: map({
       org: .org,
@@ -776,8 +969,8 @@ jq -s '
   }
 ' "${state_inputs[@]}" > "${RUN_DIR}/appendix/combined-appendix.json"
 
-jq -r '(["org","tools_detected","approved_tools","unapproved_tools","unknown_tools","production_write_tools"] | @csv),
-  (.inventory_rows[] | [.org, .tools_detected, .approved_tools, .unapproved_tools, .unknown_tools, .production_write_tools] | @csv)
+jq -r '(["org","tools_detected","approved_tools","unapproved_tools","unknown_tools","production_write_tools","source_repo_tools","tools_detected_raw","approved_tools_raw","unapproved_tools_raw","unknown_tools_raw"] | @csv),
+  (.inventory_rows[] | [.org, .tools_detected, .approved_tools, .unapproved_tools, .unknown_tools, .production_write_tools, .source_repo_tools, .tools_detected_raw, .approved_tools_raw, .unapproved_tools_raw, .unknown_tools_raw] | @csv)
 ' "${RUN_DIR}/appendix/combined-appendix.json" > "${RUN_DIR}/appendix/aggregated-findings.csv"
 
 jq -r '(["org","repo","tool_type","tool_id","tool_name","detector","confidence","location"] | @csv),
@@ -813,11 +1006,13 @@ REPO_REF="$(safe_git_ref "${REPO_ROOT}")"
 WRKR_SHA="$(safe_git_sha "${WRKR_REPO_PATH}")"
 WRKR_REF="$(safe_git_ref "${WRKR_REPO_PATH}")"
 WRKR_VERSION="$(capture_wrkr_version)"
+WRKR_RUNTIME_REF="$(normalize_runtime_ref "${WRKR_RUNTIME}")"
+CLONE_ROOT_REF="$(normalize_path_ref "${CLONE_ROOT}")"
 
 APPROVED_DIGEST="$(file_sha256 "${REPO_ROOT}/${APPROVED_TOOLS_POLICY}")"
 PRODUCTION_DIGEST="$(file_sha256 "${REPO_ROOT}/${PRODUCTION_TARGETS_POLICY}")"
 SEGMENT_DIGEST="$(file_sha256 "${REPO_ROOT}/${SEGMENT_METADATA_POLICY}")"
-TARGETS_DIGEST="$(file_sha256 "${REPO_ROOT}/${TARGETS_FILE}")"
+TARGETS_DIGEST="$(file_sha256 "${TARGETS_FILE_PATH}")"
 EGRESS_ALLOWLIST_DIGEST="$(file_sha256 "${REPO_ROOT}/${EGRESS_ALLOWLIST}")"
 
 jq -n \
@@ -830,12 +1025,12 @@ jq -n \
   --arg campaign_mode "${MODE}" \
   --arg repo_sha "${REPO_SHA}" \
   --arg repo_ref "${REPO_REF}" \
-  --arg wrkr_runtime "${WRKR_RUNTIME}" \
+  --arg wrkr_runtime "${WRKR_RUNTIME_REF}" \
   --arg wrkr_version "${WRKR_VERSION}" \
   --arg wrkr_sha "${WRKR_SHA}" \
   --arg wrkr_ref "${WRKR_REF}" \
   --arg scan_source "${SCAN_SOURCE}" \
-  --arg clone_root "${CLONE_ROOT}" \
+  --arg clone_root "${CLONE_ROOT_REF}" \
   --arg detector_list "${DETECTOR_LIST}" \
   --arg targets_file "${TARGETS_FILE}" \
   --arg targets_file_sha256 "${TARGETS_DIGEST}" \

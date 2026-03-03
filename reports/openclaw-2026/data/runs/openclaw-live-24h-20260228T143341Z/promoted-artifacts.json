@@ -2,7 +2,7 @@
   "schema_version": "v1",
   "report_id": "openclaw-2026",
   "run_id": "openclaw-live-24h-20260228T143341Z",
-  "promoted_at": "2026-03-03T02:16:05Z",
+  "promoted_at": "2026-03-03T20:17:02Z",
   "source_run_dir": "runs/openclaw/openclaw-live-24h-20260228T143341Z",
   "destination_dir": "reports/openclaw-2026/data/runs/openclaw-live-24h-20260228T143341Z",
   "files": [

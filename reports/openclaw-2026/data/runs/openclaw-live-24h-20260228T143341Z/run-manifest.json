@@ -26,15 +26,15 @@
       "notes": "Canonical source pin for OpenClaw case-study runs. Use dual-lane execution (ungoverned + governed) with matched workload profile; set lane duration and window per run objective (pilot or 24h publication run)."
     },
     "wrkr": {
-      "runtime": "go-run:external:wrkr",
+      "runtime": "go-run:third_party/wrkr",
       "version": "unavailable",
       "commit_sha": "2b0efd6edc63856b9b21bcfa8136528c98e57202",
       "ref": "2b0efd6",
-      "scan_target_path": "external:openclaw",
+      "scan_target_path": "third_party/openclaw",
       "detector_list": "default"
     },
     "gait": {
-      "runtime": "go-run:external:gait",
+      "runtime": "go-run:third_party/gait",
       "version": "gait 0.0.0-dev",
       "commit_sha": "74d75038e4195d651666af32139e1e35b8927664",
       "ref": "v1.3.1"
@@ -53,7 +53,8 @@
       "compose_file_sha256": "49deedea8ec9d1f1afb0365366b180cb286e267e4244b76973c22c045d945e18",
       "dockerfile_sha256": "b6240f6ee993d040527c4f9a250bd42da05181949bf0c12861ebfc99e2f6350c",
       "policy_sha256": "8f70c1ce2d72b41d4e2e130c0890bb71e674000efaaf44ba55cde84a99715a93"
-    }
+    },
+    "path_portability_note": "runtime refs normalized to repo-local third_party paths for contributor reproducibility; tool commit SHAs unchanged"
   },
   "operational_guardrails": {
     "egress_allowlist_path": "pipelines/policies/openclaw-egress-allowlist.txt",

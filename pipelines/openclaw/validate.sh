@@ -218,6 +218,17 @@ if [[ -n "${RUN_ID}" ]]; then
       fi
     done
 
+    if [[ "${STRICT}" -eq 1 && -f "${run_dir}/artifacts/run-manifest.json" ]]; then
+      if jq -e '
+        (.reproducibility.wrkr.runtime // "" | test("external:"))
+        or (.reproducibility.gait.runtime // "" | test("external:"))
+        or (.reproducibility.wrkr.scan_target_path // "" | test("^external:"))
+      ' "${run_dir}/artifacts/run-manifest.json" >/dev/null; then
+        echo "[openclaw-validate] strict mode disallows external/local tool runtime refs in run-manifest" >&2
+        FAILURES=$((FAILURES + 1))
+      fi
+    fi
+
     manuscript_path="${REPO_ROOT}/reports/openclaw-2026/manuscript/report.md"
     anecdotes_path="${run_dir}/artifacts/anecdotes.json"
     if [[ -f "${manuscript_path}" && -f "${anecdotes_path}" ]]; then

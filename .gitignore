@@ -12,6 +12,10 @@ runs/tool-sprawl/*/states-enrich/
 runs/tool-sprawl/*/scans/
 runs/tool-sprawl/*/agg/
 runs/tool-sprawl/*/appendix/
+runs/tool-sprawl/*/wrkr-state/
+runs/tool-sprawl/*/wrkr-state-enrich/
+runs/tool-sprawl/*/sources/
+runs/tool-sprawl/sprawl-*/
 runs/*/*/artifacts/publish-pack/
 third_party/
 /.runtime-cache/

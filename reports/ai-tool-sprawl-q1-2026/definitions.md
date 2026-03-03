@@ -7,6 +7,13 @@ Effective date: `2026-02-26`
 This file defines canonical classifications and formulas for the Q1 2026 sprawl report.
 If changed, bump version and rerun campaign metrics.
 
+## Headline scope filter
+
+Headline metrics exclude tools where `tool_type == "source_repo"`.
+
+- `source_repo` detections are retained in segmented totals for transparency.
+- Headline claims are computed from the non-`source_repo` subset only.
+
 ## Core Classifications
 
 ## Approved tool
@@ -38,25 +45,45 @@ If policy is not configured, production-write claims are omitted.
 
 ## Destructive-capable tooling (organization-level)
 
-An organization is marked as having destructive-capable AI tooling when at least one discovered tool instance has permissions/actions that can irreversibly mutate/delete/exfiltrate high-value state and that tooling is reachable in the measured execution surface.
+Deterministic proxy used in this report cycle:
+
+- `true` when at least one non-`source_repo` tool has write/admin permission surface or `proc.exec` permission.
+- `false` otherwise.
 
 ## Approval-gated execution (organization-level)
 
-An organization is marked as approval-gated when destructive-capable actions require non-prompt approval controls before execution (for example policy gate with non-executable default and explicit approval token/workflow).
+Deterministic proxy used in this report cycle:
+
+- Evaluate only non-`source_repo` risky tools (same risky definition as above).
+- `approval_gate_present = true` when every risky tool is approval-classified as `approved`.
+- `approval_gate_present = false` when no risky tools exist or any risky tool is not `approved`.
 
 Prompt instructions alone do not qualify as an approval gate.
 
 ## Prompt-only controls (organization-level)
 
-An organization is marked prompt-only when primary/sole control evidence for risky actions is natural-language instructions/prompts without enforceable tool-boundary policy or approval gate.
+Deterministic proxy used in this report cycle:
+
+- `true` when prompt-channel tooling is detected (`tool_type == "prompt_channel"`) or policy rule `WRKR-016` fails.
+- `false` otherwise.
 
 ## Auditable decision artifacts (organization-level)
 
-An organization has auditable decision artifacts when policy decisions/outcomes for risky actions can be traced via verifiable logs/runpacks/artifacts with stable identifiers.
+Deterministic proxy used in this report cycle:
+
+- `true` when policy rules `WRKR-003` and `WRKR-008` are not failing.
+- `false` when either fails.
 
 ## Transparency gap (EU AI Act Article 50 proxy)
 
-An organization is flagged with transparency gap when campaign evidence indicates inability to provide baseline AI system/tool inventory and traceable usage evidence for discovered tooling.
+Deterministic proxy used in this report cycle:
+
+- Evaluate non-`source_repo` scope only.
+- `true` when at least one scoped tool exists and any of:
+  - scoped unknown-tool count > 0
+  - scoped unapproved-tool count > 0
+  - auditable decision artifacts proxy is `false`
+- `false` otherwise.
 
 ## Headline Metrics
 

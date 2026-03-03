@@ -10,6 +10,7 @@ Headline values remain unpublished until campaign data lock and strict validatio
 ## Scope and Evidence Rules
 
 - Only deterministic campaign outputs may be used for headline claims.
+- Headline metrics exclude `tool_type == "source_repo"`; raw counts are published in segmented tables.
 - Enriched context may be included only with explicit provenance (`source`, `as_of`).
 - All report claims must map to `claims/ai-tool-sprawl-q1-2026/claims.json`.
 - No publication until `pipelines/sprawl/validate.sh --strict` passes.
