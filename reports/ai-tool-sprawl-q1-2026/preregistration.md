@@ -1,13 +1,14 @@
 # AI Tool Sprawl Q1 2026 Pre-Registration
 
 Status: locked  
-Version: `v4`
+Version: `v5`
 
 ## Study Identity
 
 - Report ID: `ai-tool-sprawl-q1-2026`
 - Calibration run cohort: `internal/repos.md` (AI-native 50 pre-pass)
 - Calibration reference run ID: `sprawl-ai50-prepass-20260303T203500Z`
+- Calibration tuned reference run ID: `sprawl-ai50-tuned3-clean-20260303T210808Z`
 - Planned publication-campaign run ID: `sprawl-live-<timestamp>`
 - Planned publication window: `2026-04-01 to 2026-04-30 (target)`
 - Target list source: `internal/repos.md`
@@ -60,6 +61,7 @@ Version: `v4`
 - Calibration gate:
   - detector coverage summary must be generated for the selected cohort
   - non-`source_repo` extraction quality must be reviewed before publication-scale run
+  - `sprawl_non_source_recall_exists_pct >= 60.0`
 - Advisory gate:
   - recommended headline-strength thresholds should pass
 - If hard gate passes and advisory misses:
@@ -78,6 +80,7 @@ Version: `v4`
 - `v2`: adds destructive-capability and control-posture prevalence endpoints/hypotheses.
 - `v3`: lock record finalized; preflight execution contract locked pending canonical target list in internal/repos.md.
 - `v4`: adds mandatory detector-calibration stage and records AI-native 50 calibration reference run.
+- `v5`: adds explicit calibration threshold (`>=60%` recall_exists) and records tuned clean calibration run ID.
 
 ## Lock Record
 

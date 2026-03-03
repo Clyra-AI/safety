@@ -1,7 +1,7 @@
 # AI Tool Sprawl Q1 2026 Study Protocol
 
 Status: execution protocol  
-Version: `v3`  
+Version: `v4`  
 Objective: produce a reproducible multi-organization AI tool sprawl measurement baseline.
 
 ## 1) Campaign Design
@@ -73,6 +73,7 @@ Publish only when:
 - anonymization check passes
 - deterministic rerun check passes for baseline aggregate
 - detector calibration artifacts are present and reviewed for non-`source_repo` extraction quality
+- required calibration threshold passes: `sprawl_non_source_recall_exists_pct >= 60.0`
 - enrich claims (if any) include provenance and are labeled time-sensitive
 - production-write claims are published only when production targets are intentionally populated and validated
 - control-posture prevalence claims are mapped to deterministic derivations in aggregate artifacts

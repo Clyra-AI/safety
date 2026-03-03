@@ -16,6 +16,7 @@ Detector calibration is a required pre-pass before publication-scale runs:
 - run a fixed AI-native cohort
 - generate calibration artifacts with `pipelines/sprawl/calibrate_detectors.sh`
 - review non-`source_repo` extraction quality and optional gold-label scoring
+- enforce calibration floor: `sprawl_non_source_recall_exists_pct >= 60.0`
 
 ## Deterministic reproducibility contract
 

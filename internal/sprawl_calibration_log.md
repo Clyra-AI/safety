@@ -49,3 +49,43 @@ Conclusion:
 
 - Current detector behavior is conservative/high-precision but low-recall for this AI-native cohort.
 - Next required step is detector tuning to improve non-`source_repo` recall before publication-scale campaign.
+
+## 2026-03-03 Hardening Sprint (Wrkr tuning)
+
+Wrkr detector tuning applied:
+
+- recursive dependency manifest coverage (not root-only)
+- expanded AI dependency keyword coverage
+- deterministic fallback `ai_project_signal` when dependency signals are absent (repo name / README signal)
+
+Wrkr implementation branch:
+
+- repo: `github.com/Clyra-AI/wrkr`
+- branch: `codex/dependency-recall-sprint`
+- commit: `77f547a75494b735da5cba500e3c82f3731e24cf`
+
+## 2026-03-03 Tuned run 1
+
+- Run ID: `sprawl-ai50-tuned1-20260303T210043Z`
+- Recall result: `36%` (`18 TP`, `32 FN`, `0 FP`)
+- Precision result: `100%`
+- Status: improved but below publish calibration floor.
+
+## 2026-03-03 Tuned run 2
+
+- Run ID: `sprawl-ai50-tuned2-20260303T210425Z`
+- Recall result: `60%` (`30 TP`, `20 FN`, `0 FP`)
+- Precision result: `100%`
+- Status: meets required calibration floor.
+
+## 2026-03-03 Tuned clean verification run
+
+- Run ID: `sprawl-ai50-tuned3-clean-20260303T210808Z`
+- Wrkr runtime commit in run-manifest: `77f547a75494b735da5cba500e3c82f3731e24cf`
+- Recall result: `60%` (`30 TP`, `20 FN`, `0 FP`)
+- Precision result: `100%`
+
+Calibration guardrail outcome:
+
+- required floor met: `sprawl_non_source_recall_exists_pct >= 60.0` (pass)
+- recommended floor missed: `>=75.0` (advisory)

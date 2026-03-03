@@ -60,6 +60,8 @@ Run a reproducible multi-target Wrkr campaign, generate aggregate and appendix a
 4. Evaluate detector quality once labels are available:
    - `pipelines/sprawl/calibrate_detectors.sh --run-id sprawl-ai50-<timestamp> --gold-labels <path-to-filled-labels.json> --strict`
 5. Tune detector set and repeat until non-`source_repo` extraction quality is acceptable.
+6. Exit criterion for publication-campaign eligibility:
+   - `sprawl_non_source_recall_exists_pct >= 60.0` on labeled calibration cohort.
 
 ## 1) Preflight
 

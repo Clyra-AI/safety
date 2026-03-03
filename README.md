@@ -92,6 +92,7 @@ Recommended sprawl order:
 2. `pipelines/sprawl/calibrate_detectors.sh --run-id <id> --strict`
 3. publication-scale campaign cohort (for example 101+)
 4. strict validation + publish pack
+5. calibration floor for sprawl publication gate: `sprawl_non_source_recall_exists_pct >= 60.0` (see `pipelines/config/calibration-thresholds.json`)
 
 If a run ID already exists, `run.sh` fails fast unless `--resume` is explicitly provided.
 For OpenClaw live container runs, keep provider API key env vars unset unless running an explicit exception mode (`ALLOW_EXTERNAL_SECRETS=1`).

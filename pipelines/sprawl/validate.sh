@@ -54,6 +54,7 @@ required_files=(
   "claims/ai-tool-sprawl-q1-2026/claims.json"
   "citations/sprawl-regulatory-sources.md"
   "pipelines/config/publish-thresholds.json"
+  "pipelines/config/calibration-thresholds.json"
   "pipelines/common/metric_coverage_gate.sh"
   "pipelines/common/derive_claim_values.sh"
 )
@@ -69,6 +70,22 @@ if [[ "${FAILURES}" -gt 0 ]]; then
   echo "[sprawl-validate] required-file failures=${FAILURES}" >&2
   exit 1
 fi
+
+compare_threshold() {
+  local actual="$1"
+  local op="$2"
+  local expected="$3"
+  awk -v a="${actual}" -v b="${expected}" -v op="${op}" '
+    BEGIN {
+      ok = 0
+      if (op == ">=") ok = (a >= b)
+      else if (op == "<=") ok = (a <= b)
+      else if (op == ">") ok = (a > b)
+      else if (op == "<") ok = (a < b)
+      else if (op == "==") ok = (a == b)
+      exit(ok ? 0 : 1)
+    }'
+}
 
 coverage_args=(
   --report-id "ai-tool-sprawl-q1-2026"
@@ -139,6 +156,53 @@ if [[ -n "${RUN_ID}" ]]; then
       ' "${run_dir}/agg/campaign-summary.json" >/dev/null; then
         echo "[sprawl-validate] campaign summary segmentation check failed (source_repo scope mismatch)" >&2
         FAILURES=$((FAILURES + 1))
+      fi
+    fi
+
+    calibration_cfg="${REPO_ROOT}/pipelines/config/calibration-thresholds.json"
+    calibration_eval="${run_dir}/calibration/gold-label-evaluation.json"
+    calibration_cov="${run_dir}/calibration/detector-coverage-summary.json"
+    required_cal_recall="$(jq -r '.reports["ai-tool-sprawl-q1-2026"].required_calibration_thresholds.sprawl_non_source_recall_exists_pct.value // empty' "${calibration_cfg}")"
+    required_cal_recall_op="$(jq -r '.reports["ai-tool-sprawl-q1-2026"].required_calibration_thresholds.sprawl_non_source_recall_exists_pct.op // empty' "${calibration_cfg}")"
+    recommended_cal_recall="$(jq -r '.reports["ai-tool-sprawl-q1-2026"].recommended_calibration_thresholds.sprawl_non_source_recall_exists_pct.value // empty' "${calibration_cfg}")"
+    recommended_cal_recall_op="$(jq -r '.reports["ai-tool-sprawl-q1-2026"].recommended_calibration_thresholds.sprawl_non_source_recall_exists_pct.op // empty' "${calibration_cfg}")"
+    recommended_targets_with_non_source="$(jq -r '.reports["ai-tool-sprawl-q1-2026"].recommended_calibration_thresholds.sprawl_targets_with_non_source_pct.value // empty' "${calibration_cfg}")"
+    recommended_targets_with_non_source_op="$(jq -r '.reports["ai-tool-sprawl-q1-2026"].recommended_calibration_thresholds.sprawl_targets_with_non_source_pct.op // empty' "${calibration_cfg}")"
+
+    if [[ ! -f "${calibration_eval}" || ! -f "${calibration_cov}" ]]; then
+      if [[ "${STRICT}" -eq 1 ]]; then
+        echo "[sprawl-validate] strict mode requires calibration artifacts: ${calibration_eval} and ${calibration_cov}" >&2
+        FAILURES=$((FAILURES + 1))
+      else
+        echo "[sprawl-validate] advisory: calibration artifacts missing for run ${RUN_ID}" >&2
+      fi
+    else
+      cal_recall="$(jq -r '.binary_metrics.recall_exists // empty' "${calibration_eval}")"
+      targets_with_non_source_pct="$(jq -r '.observed.targets_with_non_source_pct // empty' "${calibration_cov}")"
+
+      if [[ -n "${required_cal_recall}" && -n "${required_cal_recall_op}" ]]; then
+        if [[ -z "${cal_recall}" ]]; then
+          echo "[sprawl-validate] missing calibration recall metric in ${calibration_eval}" >&2
+          if [[ "${STRICT}" -eq 1 ]]; then
+            FAILURES=$((FAILURES + 1))
+          fi
+        elif ! compare_threshold "${cal_recall}" "${required_cal_recall_op}" "${required_cal_recall}"; then
+          echo "[sprawl-validate] calibration required threshold failed: sprawl_non_source_recall_exists_pct=${cal_recall} (${required_cal_recall_op} ${required_cal_recall})" >&2
+          if [[ "${STRICT}" -eq 1 ]]; then
+            FAILURES=$((FAILURES + 1))
+          fi
+        fi
+      fi
+
+      if [[ -n "${recommended_cal_recall}" && -n "${recommended_cal_recall_op}" && -n "${cal_recall}" ]]; then
+        if ! compare_threshold "${cal_recall}" "${recommended_cal_recall_op}" "${recommended_cal_recall}"; then
+          echo "[sprawl-validate] advisory: recommended calibration threshold missed: sprawl_non_source_recall_exists_pct=${cal_recall} (${recommended_cal_recall_op} ${recommended_cal_recall})" >&2
+        fi
+      fi
+      if [[ -n "${recommended_targets_with_non_source}" && -n "${recommended_targets_with_non_source_op}" && -n "${targets_with_non_source_pct}" ]]; then
+        if ! compare_threshold "${targets_with_non_source_pct}" "${recommended_targets_with_non_source_op}" "${recommended_targets_with_non_source}"; then
+          echo "[sprawl-validate] advisory: recommended calibration threshold missed: sprawl_targets_with_non_source_pct=${targets_with_non_source_pct} (${recommended_targets_with_non_source_op} ${recommended_targets_with_non_source})" >&2
+        fi
       fi
     fi
 

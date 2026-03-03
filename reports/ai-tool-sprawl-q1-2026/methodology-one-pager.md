@@ -8,6 +8,7 @@ Required content:
 
 - study objective and campaign scan window
 - detector-calibration pre-pass summary (cohort size, non-`source_repo` coverage, label-eval status)
+- calibration threshold result (`sprawl_non_source_recall_exists_pct` against `>=60.0` gate)
 - canonical target-list source (`internal/repos.md`)
 - deterministic baseline vs enrich separation
 - headline scope filter (`tool_type != "source_repo"`) and segmented raw-count disclosure

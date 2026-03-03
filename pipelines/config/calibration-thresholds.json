@@ -1,0 +1,23 @@
+{
+  "schema_version": "v1",
+  "reports": {
+    "ai-tool-sprawl-q1-2026": {
+      "required_calibration_thresholds": {
+        "sprawl_non_source_recall_exists_pct": {
+          "op": ">=",
+          "value": 60.0
+        }
+      },
+      "recommended_calibration_thresholds": {
+        "sprawl_non_source_recall_exists_pct": {
+          "op": ">=",
+          "value": 75.0
+        },
+        "sprawl_targets_with_non_source_pct": {
+          "op": ">=",
+          "value": 70.0
+        }
+      }
+    }
+  }
+}

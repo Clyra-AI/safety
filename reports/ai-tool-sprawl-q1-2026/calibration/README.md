@@ -12,6 +12,10 @@ Calibration aligns detector behavior to report intent by measuring:
 - target-level non-`source_repo` detection rate
 - optional precision/recall against manually labeled gold targets
 
+Required calibration floor for sprawl publication gate:
+
+- `sprawl_non_source_recall_exists_pct >= 60.0`
+
 ## Canonical workflow
 
 1. Run the AI-native calibration cohort (typically 50 repos):
