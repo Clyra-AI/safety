@@ -4,15 +4,11 @@ Research index for reproducible AI governance reports.
 
 ## Reports
 
-- [OpenClaw 2026](./openclaw-2026/)
-- [The State of AI Tool Sprawl Q1 2026](./ai-tool-sprawl-q1-2026/)
+- [OpenClaw 2026](./openclaw-2026/) - release candidate, PDF and artifacts available.
+- [The State of AI Tool Sprawl Q1 2026](./ai-tool-sprawl-q1-2026/) - in progress.
 
-Current status: both reports are in progress.
+## Quick links
 
-Each report page links to:
-
-- PDF
-- Methodology
-- Datasets
-- Reproduction setup
-- Tool repositories (Wrkr, Gait)
+- [OpenClaw report PDF](./assets/reports/openclaw-2026/report.pdf)
+- [OpenClaw artifacts](https://github.com/Clyra-AI/safety/tree/main/reports/openclaw-2026)
+- [Tool Sprawl workspace](https://github.com/Clyra-AI/safety/tree/main/reports/ai-tool-sprawl-q1-2026)

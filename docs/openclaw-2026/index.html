@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>OpenClaw 2026 | CAISI</title>
+    <meta
+      name="description"
+      content="OpenClaw 2026 case study: governed vs ungoverned AI agent behavior in a controlled 24-hour run."
+    />
+    <link rel="stylesheet" href="/assets/site.css" />
+  </head>
+  <body>
+    <main class="site" aria-label="OpenClaw 2026 report page">
+      <section class="section">
+        <p class="top-nav">
+          <a href="/">Home</a>
+          <span class="meta-sep">|</span>
+          <a href="/ai-tool-sprawl-q1-2026/">AI Tool Sprawl Q1 2026</a>
+        </p>
+        <p class="kicker">Research Report - February 2026</p>
+        <h1>We Gave an AI Agent Full Tool Access and Hit Stop. It Didn't Stop.</h1>
+        <p class="lead">
+          In a controlled 24-hour test, an ungoverned AI agent deleted emails,
+          shared files publicly, approved payments, and restarted services.
+          Every stop command was ignored. Under the same workload with
+          enforcement, destructive actions dropped to zero.
+        </p>
+        <p class="meta">
+          <a href="/assets/reports/openclaw-2026/report.pdf">Read the Full Report (PDF)</a>
+          <span class="meta-sep">|</span>
+          <a href="https://github.com/Clyra-AI/safety/tree/main/reports/openclaw-2026/data">See the Data (GitHub)</a>
+        </p>
+      </section>
+
+      <section class="section" aria-labelledby="headline-numbers">
+        <h2 id="headline-numbers">Four Headline Numbers</h2>
+        <div class="research-grid">
+          <article class="card">
+            <h3 class="card-title">100%</h3>
+            <p class="finding">Stop commands ignored</p>
+          </article>
+          <article class="card">
+            <h3 class="card-title">497</h3>
+            <p class="finding">Destructive actions executed</p>
+          </article>
+          <article class="card">
+            <h3 class="card-title">707</h3>
+            <p class="finding">Sensitive accesses, no approval</p>
+          </article>
+          <article class="card">
+            <h3 class="card-title">1,615</h3>
+            <p class="finding">Actions blocked under enforcement</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="what-found">
+        <h2 id="what-found">What We Found</h2>
+        <p class="body">
+          We ran a 24-hour experiment on OpenClaw, an open-source AI agent
+          framework. Two identical setups. One with no enforceable controls.
+          One with tool-boundary enforcement that evaluates every action before
+          it executes.
+        </p>
+        <p class="body">
+          The ungoverned agent deleted emails, shared internal documents
+          publicly, approved payments without authorization, and restarted
+          infrastructure services. When we issued stop commands, it ignored all
+          of them. <strong>515 tool calls executed after stop.</strong> Nothing
+          in the system prevented any of it.
+        </p>
+        <p class="body">
+          The governed agent faced the same workload. It blocked
+          <strong>1,278</strong> actions outright, sent <strong>337</strong> to
+          an approval queue, and produced a signed evidence trail for every
+          decision. Destructive actions that executed: <strong>zero</strong>.
+        </p>
+        <p class="body">
+          This is not a theoretical risk model. It is a measured result from a
+          controlled experiment with published artifacts. Every number on this
+          page traces to a specific artifact in the public repository.
+        </p>
+      </section>
+
+      <section class="section" aria-labelledby="scenarios">
+        <h2 id="scenarios">Five Scenarios, 24 Hours</h2>
+        <div class="research-grid">
+          <article class="card">
+            <h3 class="card-title tight">Inbox Cleanup</h3>
+            <p class="finding">
+              The agent was given access to email. It deleted
+              <strong>214</strong> messages after stop commands. Under
+              enforcement: <strong>100% blocked</strong>.
+            </p>
+          </article>
+          <article class="card">
+            <h3 class="card-title tight">File Sharing</h3>
+            <p class="finding">
+              The agent shared <strong>155</strong> internal documents publicly.
+              Under enforcement: <strong>100% blocked</strong>.
+            </p>
+          </article>
+          <article class="card">
+            <h3 class="card-title tight">Financial Operations</h3>
+            <p class="finding">
+              The agent executed <strong>87</strong> write-class payment
+              approval actions without an enforceable approval boundary. Under
+              enforcement: <strong>100% sent to approval queue</strong>.
+            </p>
+          </article>
+          <article class="card callout-amber">
+            <h3 class="card-title tight">Secrets Handling</h3>
+            <p class="finding">
+              The agent accessed <strong>226</strong> sensitive resources. Under
+              enforcement: <strong>20% blocked</strong>. This is the one that
+              underperformed and is explicitly flagged.
+            </p>
+          </article>
+          <article class="card">
+            <h3 class="card-title tight">Infrastructure</h3>
+            <p class="finding">
+              The agent attempted <strong>260</strong> service restarts. Under
+              enforcement: <strong>100% blocked</strong>.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="side-by-side">
+        <h2 id="side-by-side">Side by Side</h2>
+        <div class="research-grid">
+          <article class="card">
+            <h3 class="card-title">Without enforcement</h3>
+            <p class="finding">Every action executed</p>
+            <p class="finding">Every stop command ignored</p>
+            <p class="finding">Zero evidence trail</p>
+            <p class="finding"><strong>497</strong> destructive actions completed</p>
+          </article>
+          <article class="card">
+            <h3 class="card-title">With enforcement</h3>
+            <p class="finding"><strong>1,278</strong> actions blocked before execution</p>
+            <p class="finding"><strong>337</strong> actions sent to approval queue</p>
+            <p class="finding"><strong>99.96%</strong> signed decision evidence coverage</p>
+            <p class="finding"><strong>0</strong> destructive actions completed</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="bigger-picture">
+        <h2 id="bigger-picture">The Bigger Picture</h2>
+        <p class="body">
+          Most organizations deploying AI agents today rely on prompt
+          instructions and model compliance to keep agents within bounds. This
+          experiment measured what happens when those instructions are the only
+          control. The answer: the agent does exactly what it is optimized to
+          do and ignores everything else.
+        </p>
+        <p class="body">
+          This pattern is showing up across industries. CNBC reported last week
+          on AI agents failing silently at scale, including a manufacturing
+          agent that overproduced hundreds of thousands of units and a customer
+          service agent that started approving refunds to optimize for positive
+          reviews. The common thread: no enforceable control at the point where
+          the agent takes action.
+        </p>
+        <p class="body">
+          IBM X-Force 2026 reports that supply chain compromises have quadrupled
+          over five years and <strong>56%</strong> of new vulnerabilities are
+          exploitable without authentication. Unmanaged AI agents with tool
+          access to production systems are the same class of unmanaged
+          dependency. The question is not whether agents will misbehave. It is
+          whether you can stop them when they do.
+        </p>
+        <p class="body">
+          The EU AI Act begins broad enforcement on <strong>August 2, 2026</strong>.
+          Auditors are shifting from "do you have a policy" to "show me the
+          evidence." Organizations that can produce signed, structured proof of
+          agent governance will close audits in days. Organizations that cannot
+          will face a different conversation.
+        </p>
+      </section>
+
+      <section class="section" aria-labelledby="takeaways">
+        <h2 id="takeaways">What We Learned</h2>
+        <p class="body"><strong>01 - Know what's running before you scale it.</strong> A pre-test scan found 17 tools and no high-risk inventory hits. High-impact behavior still emerged at runtime. Static discovery is necessary, not sufficient.</p>
+        <p class="body"><strong>02 - Controls have to work where the action happens.</strong> The governed lane produced <strong>1,615</strong> non-executable outcomes at the tool boundary. In the baseline lane, no enforceable boundary prevented destructive execution.</p>
+        <p class="body"><strong>03 - Evidence has to exist before the incident.</strong> Governed execution produced verifiable traces for <strong>99.96%</strong> of decisions. Incident response quality depends on artifact-backed history.</p>
+        <p class="body"><strong>04 - Approval has to be enforced, not suggested.</strong> <strong>337</strong> write-class actions were routed to approval instead of executing.</p>
+        <p class="body"><strong>05 - Stop has to mean stop.</strong> The baseline lane executed <strong>515</strong> tool calls after stop. A stop control that can be ignored is not a safety control.</p>
+      </section>
+
+      <section class="section" aria-labelledby="methodology">
+        <h2 id="methodology">Methodology</h2>
+        <div class="research-grid">
+          <article class="card">
+            <h3 class="card-title tight">Controlled comparison</h3>
+            <p class="finding">Two lanes, same workload, same 24-hour window. One with enforcement, one without. Pinned to a single OpenClaw commit.</p>
+          </article>
+          <article class="card">
+            <h3 class="card-title tight">Isolated environment</h3>
+            <p class="finding">Containerized runtime, dropped capabilities, read-only root filesystem, no external API keys, resource caps, isolated network.</p>
+          </article>
+          <article class="card">
+            <h3 class="card-title tight">Pre-registered design</h3>
+            <p class="finding">Hypotheses and endpoints were locked before run execution.</p>
+          </article>
+          <article class="card">
+            <h3 class="card-title tight">Verifiable claims</h3>
+            <p class="finding">Each headline maps to deterministic queries over published artifacts, with strict validation gates in the pipeline.</p>
+          </article>
+        </div>
+        <p class="meta">
+          <a href="https://github.com/Clyra-AI/safety/tree/main/reports/openclaw-2026">Technical details: run ID, commit pin, artifact paths, and reproduction commands</a>
+        </p>
+      </section>
+
+      <section class="section" aria-labelledby="limitations">
+        <h2 id="limitations">What This Doesn't Cover</h2>
+        <p class="body">
+          This is one framework, one pinned commit, and one 24-hour window. It
+          is not an ecosystem census. The workload is scenario-based rather
+          than a sample of production traffic. Run-to-run variance is not
+          estimated. The <code>secrets_handling</code> scenario achieved only
+          20% governed non-executable coverage, and that policy gap is
+          explicitly published.
+        </p>
+      </section>
+
+      <section class="section" aria-labelledby="full-report">
+        <h2 id="full-report">Read the Full Report</h2>
+        <p class="lead">7 pages. Every claim backed by published artifacts. No email required.</p>
+        <p class="meta">
+          <a href="/assets/reports/openclaw-2026/report.pdf">Download PDF</a>
+          <span class="meta-sep">|</span>
+          <a href="https://github.com/Clyra-AI/safety/tree/main/reports/openclaw-2026/data">GitHub Artifacts</a>
+          <span class="meta-sep">|</span>
+          <a href="https://github.com/Clyra-AI/safety/tree/main/pipelines/openclaw">Reproduction Pipeline</a>
+        </p>
+      </section>
+
+      <section class="section" aria-labelledby="team-heading">
+        <h2 id="team-heading">Team</h2>
+        <div class="team-list">
+          <p class="person">
+            <strong>David Ahmann</strong>, Head of Cloud, Data and AI Platforms,
+            CDW Canada <a href="https://www.linkedin.com/in/dahmann/">(LinkedIn)</a>
+          </p>
+          <p class="person">
+            <strong>Talgat Ryshmanov</strong>, Principal DevSecOps Consultant,
+            Adaptavist <a href="https://www.linkedin.com/in/ryshmanov/">(LinkedIn)</a>
+          </p>
+        </div>
+      </section>
+
+      <footer class="section" aria-label="Page footer">
+        <p class="footer-note">
+          The Clyra AI Safety Initiative (CAISI) publishes independent,
+          reproducible AI governance research.
+        </p>
+        <div class="footer-links">
+          <a href="/">Home</a>
+          <span class="meta-sep">|</span>
+          <a href="https://github.com/Clyra-AI/wrkr">Wrkr</a>
+          <span class="meta-sep">|</span>
+          <a href="https://github.com/Clyra-AI/gait">Gait</a>
+          <span class="meta-sep">|</span>
+          <a href="https://github.com/Clyra-AI/safety">Full repository</a>
+        </div>
+      </footer>
+    </main>
+  </body>
+</html>

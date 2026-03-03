@@ -1,32 +1,7 @@
-# OpenClaw 2026: 24-Hour Governance Boundary Study
+# OpenClaw 2026
 
-Date: TBD
+This route is rendered from `index.html` for consistent site UX.
 
-## Abstract
-
-Technical post-mortem style analysis of OpenClaw-envelope tool behavior over a 24-hour window, with and without governance enforcement.
-
-## Headline findings
-
-- TBD
-
-## Artifacts
-
-Available now:
-- Methodology: `reports/openclaw-2026/methodology.md`
-- Definitions: `reports/openclaw-2026/definitions.md`
-- Study protocol: `reports/openclaw-2026/study-protocol.md`
-- Pre-registration: `reports/openclaw-2026/preregistration.md`
-- Manuscript source: `reports/openclaw-2026/manuscript/`
-- Press assets source: `reports/openclaw-2026/press-pack/`
-- Data dictionary: `reports/openclaw-2026/data/README.md`
-- Reproduction config: `reports/openclaw-2026/container-config/README.md`
-
-Generated at publication:
-- Report PDF: `reports/openclaw-2026/report.pdf`
-- One-page methodology brief: `reports/openclaw-2026/methodology-one-pager.md` (or PDF equivalent)
-
-## Tools used
-
-- Wrkr: https://github.com/Clyra-AI/wrkr
-- Gait: https://github.com/Clyra-AI/gait
+- [Open report page](./)
+- [Report PDF](/assets/reports/openclaw-2026/report.pdf)
+- [Artifacts](https://github.com/Clyra-AI/safety/tree/main/reports/openclaw-2026/data)
