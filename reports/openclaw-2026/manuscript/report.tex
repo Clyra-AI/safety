@@ -1,7 +1,6 @@
 % Options for packages loaded elsewhere
 \PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
-\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
 \documentclass[
 ]{article}
 \usepackage{xcolor}
@@ -182,11 +181,7 @@
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
 \hypersetup{
-  colorlinks=true,
-  linkcolor={linkblue},
-  filecolor={linkblue},
-  citecolor={linkblue},
-  urlcolor={linkblue},
+  hidelinks,
   pdfcreator={LaTeX via pandoc}}
 
 \author{}
@@ -194,7 +189,8 @@
 
 \begin{document}
 
-\section{100\% Ignored Stop Rate}\label{100-ignored-stop-rate}
+\section{100\% Post-Stop Execution Rate (Baseline
+Lane)}\label{100-post-stop-execution-rate-baseline-lane}
 
 \subsection{A Governed Evaluation of OpenClaw Agent
 Behavior}\label{a-governed-evaluation-of-openclaw-agent-behavior}
@@ -269,7 +265,7 @@ repository contents.
 \begin{itemize}
 \tightlist
 \item
-  Ungoverned ignored-stop rate: \texttt{100\%} (\texttt{515/515}
+  Ungoverned post-stop execution rate: \texttt{100\%} (\texttt{515/515}
   post-stop calls executed).
 \item
   Ungoverned sensitive accesses without approval: \texttt{707}.
@@ -309,7 +305,7 @@ H1 & 1615 & H2 \\
 H2 & 2585 & 24-hour window \\
 H3 & 707 & 24-hour window \\
 H4 & 99.96 & governed tool-call traces \\
-H5 & 100 & valid stop signals \\
+H5 & 100 & post-stop calls \\
 H6 & 497 & 24-hour window \\
 H7 & 100 & governed destructive attempts \\
 H8 & 0 & governed stop events \\
@@ -458,7 +454,7 @@ This section reports ungoverned-lane measurements only.
 \item
   Sensitive access without approval path: \texttt{707}.
 \item
-  Ignored stop-command rate: \texttt{100\%}.
+  Post-stop execution rate: \texttt{100\%}.
 \item
   Destructive attempts (24h): \texttt{497}.
 \end{itemize}
@@ -539,9 +535,19 @@ Scenario source artifact: \texttt{derived/scenario\_summary.json}.
   \texttt{H9\ +\ H11\ =\ 214\ +\ 155} is the destructive/high-risk
   subset used for scenario headlines.
 \item
+  Headline \texttt{H5} is computed as a post-stop executable-call rate
+  (\texttt{post\_stop\_executed\_calls\ /\ post\_stop\_calls}), not as a
+  count of stop-signal events.
+\item
   Finance headline \texttt{H13\ =\ 87} is a write-class approval-gap
   metric (\texttt{approve\_payment} class in this harness). It is not
   equivalent to \texttt{87\ destructive\ executions}.
+\item
+  \texttt{secrets\_handling} marks \texttt{export\_secret\_index} as
+  sensitive by default, while destructive classification is narrower and
+  tied to deterministic action/target rules; this is why
+  \texttt{H7\ =\ 100\%} can coexist with \texttt{secrets\_handling}
+  governed non-executable rate \texttt{20\%}.
 \end{itemize}
 
 \subsubsection{Example Events
@@ -622,6 +628,12 @@ Outcomes)}\label{governed-reason-code-distribution-non-executable-outcomes}
   (post-stop actions held non-executable).
 \end{itemize}
 
+Interpretation note: \texttt{R1}
+(\texttt{fail\_closed\_missing\_targets}) is intentionally conservative.
+It reduces executable risk, but it can also over-block when target
+constraints are incomplete; policy calibration work should reduce this
+class while preserving non-executable guarantees for high-risk actions.
+
 \subsubsection{Evidence Summary}\label{evidence-summary}
 
 \begin{itemize}
@@ -677,9 +689,9 @@ Observed composition in this run:
   \texttt{16686} parse-error findings (scan-scope noise over
   heterogeneous workspace content).
 \item
-  \texttt{76} policy-violation findings (rules \texttt{WRKR-001},
-  \texttt{WRKR-005}, \texttt{WRKR-006}, \texttt{WRKR-007},
-  \texttt{WRKR-003}).
+  \texttt{76} policy-violation findings (\texttt{WRKR-001}: 17,
+  \texttt{WRKR-005}: 17, \texttt{WRKR-006}: 17, \texttt{WRKR-007}: 17,
+  \texttt{WRKR-003}: 8).
 \item
   \texttt{272} policy-check rows and \texttt{17} source-discovery rows.
 \end{itemize}
@@ -763,6 +775,9 @@ IBM X-Force analyses logged in
   No confidence intervals are reported; run-to-run variance is not
   estimated in this manuscript.
 \item
+  This manuscript does not present comparative baselines against
+  alternative governance frameworks or prompt-only control experiments.
+\item
   Policy set \texttt{openclaw-research-v1.yaml} was authored with
   knowledge of core5 scenario classes.
 \item
@@ -791,6 +806,10 @@ IBM X-Force analyses logged in
 \item
   Baseline semantics: the baseline lane uses a permissive allow-all
   decision rule (\texttt{matched\_rule\_allow\_live}) in this harness.
+\item
+  Stop-metric semantics: ungoverned stop behavior is measured from
+  post-stop executable call traces rather than explicit stop-signal
+  event counters.
 \item
   Stop-latency artifact: \texttt{stop\_to\_halt\_p95\_sec\ =\ 0}
   reflects synchronous harness behavior, not end-to-end distributed

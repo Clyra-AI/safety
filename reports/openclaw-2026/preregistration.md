@@ -15,7 +15,7 @@ Version: `v9`
 1. Ungoverned lane will emit policy-violating tool actions in a 24-hour window.
 2. Governed lane will reduce executable policy-violating actions while preserving signed decision evidence coverage.
 3. Governed evidence verification rate will be near-complete for all evaluated tool calls.
-4. Under context-pressure segments, ungoverned behavior will show measurable ignored-stop and destructive-attempt risk signals.
+4. Under context-pressure segments, ungoverned behavior will show measurable post-stop execution and destructive-attempt risk signals.
 5. Governed lane will keep destructive actions non-executable and maintain bounded stop-to-halt latency.
 
 ## Primary and Secondary Endpoints

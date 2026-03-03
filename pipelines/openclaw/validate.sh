@@ -37,6 +37,30 @@ collect_example_timestamps() {
   ' "${manuscript}" | rg -o '[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9:.]+Z' | sort -u
 }
 
+collect_media_example_timestamps() {
+  local media_brief="$1"
+  awk '
+    /^## Artifact-Backed Scenario Examples/ { in_section=1; next }
+    /^## / && in_section { exit }
+    in_section { print }
+  ' "${media_brief}" | rg -o '[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9:.]+Z' | sort -u
+}
+
+collect_stat_card_example_timestamps() {
+  local stat_cards="$1"
+  rg -o '[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9:.]+Z' "${stat_cards}" | sort -u
+}
+
+timestamp_in_anecdotes() {
+  local anecdotes_file="$1"
+  local timestamp="$2"
+  jq -e --arg ts "${timestamp}" '
+    ([.top_incidents[]?.timestamp, .examples_by_scenario[]?[]?.timestamp]
+      | map(select(. != null))
+      | index($ts)) != null
+  ' "${anecdotes_file}" >/dev/null
+}
+
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --run-id)
@@ -195,7 +219,8 @@ if [[ -n "${RUN_ID}" ]]; then
     done
 
     manuscript_path="${REPO_ROOT}/reports/openclaw-2026/manuscript/report.md"
-    if [[ -f "${manuscript_path}" && -f "${run_dir}/artifacts/anecdotes.json" ]]; then
+    anecdotes_path="${run_dir}/artifacts/anecdotes.json"
+    if [[ -f "${manuscript_path}" && -f "${anecdotes_path}" ]]; then
       example_timestamps_raw="$(collect_example_timestamps "${manuscript_path}" || true)"
       if [[ -z "${example_timestamps_raw}" ]]; then
         msg="[openclaw-validate] no Example Events timestamps found in manuscript"
@@ -208,15 +233,39 @@ if [[ -n "${RUN_ID}" ]]; then
       else
         while IFS= read -r ts; do
           [[ -z "${ts}" ]] && continue
-          if ! jq -e --arg ts "${ts}" '
-            ([.top_incidents[]?.timestamp, .examples_by_scenario[]?[]?.timestamp]
-             | map(select(. != null))
-             | index($ts)) != null
-          ' "${run_dir}/artifacts/anecdotes.json" >/dev/null; then
+          if ! timestamp_in_anecdotes "${anecdotes_path}" "${ts}"; then
             echo "[openclaw-validate] manuscript example timestamp not found in promoted anecdotes: ${ts}" >&2
             FAILURES=$((FAILURES + 1))
           fi
         done <<< "${example_timestamps_raw}"
+      fi
+    fi
+
+    press_media_path="${REPO_ROOT}/reports/openclaw-2026/press-pack/media-brief.md"
+    if [[ -f "${press_media_path}" && -f "${anecdotes_path}" ]]; then
+      media_timestamps_raw="$(collect_media_example_timestamps "${press_media_path}" || true)"
+      if [[ -n "${media_timestamps_raw}" ]]; then
+        while IFS= read -r ts; do
+          [[ -z "${ts}" ]] && continue
+          if ! timestamp_in_anecdotes "${anecdotes_path}" "${ts}"; then
+            echo "[openclaw-validate] press media-brief example timestamp not found in promoted anecdotes: ${ts}" >&2
+            FAILURES=$((FAILURES + 1))
+          fi
+        done <<< "${media_timestamps_raw}"
+      fi
+    fi
+
+    press_stat_cards_path="${REPO_ROOT}/reports/openclaw-2026/press-pack/stat-cards.md"
+    if [[ -f "${press_stat_cards_path}" && -f "${anecdotes_path}" ]]; then
+      stat_timestamps_raw="$(collect_stat_card_example_timestamps "${press_stat_cards_path}" || true)"
+      if [[ -n "${stat_timestamps_raw}" ]]; then
+        while IFS= read -r ts; do
+          [[ -z "${ts}" ]] && continue
+          if ! timestamp_in_anecdotes "${anecdotes_path}" "${ts}"; then
+            echo "[openclaw-validate] press stat-card timestamp not found in promoted anecdotes: ${ts}" >&2
+            FAILURES=$((FAILURES + 1))
+          fi
+        done <<< "${stat_timestamps_raw}"
       fi
     fi
   fi

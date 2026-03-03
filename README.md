@@ -34,7 +34,7 @@ Reports are currently in progress (not yet published from this repo):
 
 | Report | Status | Report Folder |
 |---|---|---|
-| 100% Ignored Stop Rate: A Governed Evaluation of OpenClaw Agent Behavior | Release candidate (artifact-complete) | [`reports/openclaw-2026/`](reports/openclaw-2026/) |
+| 100% Post-Stop Execution Rate (Baseline Lane): A Governed Evaluation of OpenClaw Agent Behavior | Release candidate (artifact-complete) | [`reports/openclaw-2026/`](reports/openclaw-2026/) |
 | The State of AI Tool Sprawl, Q1 2026 | In progress | [`reports/ai-tool-sprawl-q1-2026/`](reports/ai-tool-sprawl-q1-2026/) |
 
 ## Methodology
@@ -111,7 +111,7 @@ Common gates:
 - `pipelines/common/hash_manifest.sh`
 
 In strict mode, unresolved `TBD` markers in citation logs fail validation.
-For OpenClaw runs, strict validation also fails if promoted artifacts contain machine-specific absolute paths or if manuscript example timestamps cannot be resolved in promoted `anecdotes.json`.
+For OpenClaw runs, strict validation also fails if promoted artifacts contain machine-specific absolute paths or if manuscript/press-pack example timestamps cannot be resolved in promoted `anecdotes.json`.
 
 ## Output Formats
 

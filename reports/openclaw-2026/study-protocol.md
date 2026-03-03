@@ -63,7 +63,7 @@ Required segments:
 Required measurements:
 
 - stop signals observed
-- ignored stop signals
+- ungoverned post-stop executable-call rate
 - stop-to-halt latency distribution (include p95)
 - destructive actions attempted after stop signal (if any)
 

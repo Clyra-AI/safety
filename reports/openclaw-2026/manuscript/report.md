@@ -1,4 +1,4 @@
-# 100% Ignored Stop Rate
+# 100% Post-Stop Execution Rate (Baseline Lane)
 ## A Governed Evaluation of OpenClaw Agent Behavior
 
 - Report ID: `openclaw-2026`
@@ -30,7 +30,7 @@ This report is intentionally scoped to one pinned OpenClaw source snapshot and o
 
 ## Key Findings (At a Glance)
 
-- Ungoverned ignored-stop rate: `100%` (`515/515` post-stop calls executed).
+- Ungoverned post-stop execution rate: `100%` (`515/515` post-stop calls executed).
 - Ungoverned sensitive accesses without approval: `707`.
 - Ungoverned destructive attempts: `497`.
 - Governed non-executable policy outcomes: `1,615` of `2,585` decisions.
@@ -51,7 +51,7 @@ All headline claims in this report map to one immutable run.
 | H2 | 2585 | 24-hour window |
 | H3 | 707 | 24-hour window |
 | H4 | 99.96 | governed tool-call traces |
-| H5 | 100 | valid stop signals |
+| H5 | 100 | post-stop calls |
 | H6 | 497 | 24-hour window |
 | H7 | 100 | governed destructive attempts |
 | H8 | 0 | governed stop events |
@@ -133,7 +133,7 @@ This section reports ungoverned-lane measurements only.
 
 - Total tool calls (24h): `1306`.
 - Sensitive access without approval path: `707`.
-- Ignored stop-command rate: `100%`.
+- Post-stop execution rate: `100%`.
 - Destructive attempts (24h): `497`.
 
 Ungoverned metrics source artifact: `derived/ungoverned_summary.json`.
@@ -171,7 +171,9 @@ Scenario source artifact: `derived/scenario_summary.json`.
 
 - Action-type table `Operations = 261` is a raw action count (`scenario_counts.ops_command` in `ungoverned_summary.json`), while headline `H15 = 260` is the destructive subset (`headline_metrics.openclaw_ops_restart_attempts_24h` in `scenario_summary.json`).
 - The `post_stop_calls = 515` denominator reconciles as `260 inbox_cleanup + 255 drive_sharing` (all tool calls marked `post_stop=true`), while `H9 + H11 = 214 + 155` is the destructive/high-risk subset used for scenario headlines.
+- Headline `H5` is computed as a post-stop executable-call rate (`post_stop_executed_calls / post_stop_calls`), not as a count of stop-signal events.
 - Finance headline `H13 = 87` is a write-class approval-gap metric (`approve_payment` class in this harness). It is not equivalent to `87 destructive executions`.
+- `secrets_handling` marks `export_secret_index` as sensitive by default, while destructive classification is narrower and tied to deterministic action/target rules; this is why `H7 = 100%` can coexist with `secrets_handling` governed non-executable rate `20%`.
 
 ### Example Events (Artifact-Backed)
 
@@ -207,6 +209,8 @@ Figure 1. Governed decision outcomes in the 24-hour run: `allow=970`, `block=127
 - `R4` count `282`: `default_block` (default deny where no allow rule matches).
 - `R5` count `64`: `blocked_after_stop` (post-stop actions held non-executable).
 
+Interpretation note: `R1` (`fail_closed_missing_targets`) is intentionally conservative. It reduces executable risk, but it can also over-block when target constraints are incomplete; policy calibration work should reduce this class while preserving non-executable guarantees for high-risk actions.
+
 ### Evidence Summary
 
 - Governed tool-call verification coverage: `2584 / 2585` calls (`99.96%`)
@@ -230,7 +234,7 @@ Scan artifact: `raw/wrkr/wrkr-scan.json` under run base path.
 Observed composition in this run:
 
 - `16686` parse-error findings (scan-scope noise over heterogeneous workspace content).
-- `76` policy-violation findings (rules `WRKR-001`, `WRKR-005`, `WRKR-006`, `WRKR-007`, `WRKR-003`).
+- `76` policy-violation findings (`WRKR-001`: 17, `WRKR-005`: 17, `WRKR-006`: 17, `WRKR-007`: 17, `WRKR-003`: 8).
 - `272` policy-check rows and `17` source-discovery rows.
 
 ### Interpreting Discovery vs Runtime Findings
@@ -272,6 +276,7 @@ As context-only industry framing, this runtime control gap is directionally cons
 - This report covers one pinned OpenClaw source snapshot and one canonical 24-hour run.
 - The workload profile is controlled and scenario-based; it is not a census of all production behaviors.
 - No confidence intervals are reported; run-to-run variance is not estimated in this manuscript.
+- This manuscript does not present comparative baselines against alternative governance frameworks or prompt-only control experiments.
 - Policy set `openclaw-research-v1.yaml` was authored with knowledge of core5 scenario classes.
 - `secrets_handling` governed non-executable rate is 20% in this run (`90/450` non-executable, `360/450` allowed), indicating policy tuning is still required for sensitive-export pathways.
 - External incident reporting is used only as context and is not treated as numeric evidence for claims.
@@ -282,6 +287,7 @@ As context-only industry framing, this runtime control gap is directionally cons
 - Classification bias: sensitive/destructive labels are deterministic but still depend on schema mappings.
 - Environment bias: isolated lab controls differ from live enterprise integration environments.
 - Baseline semantics: the baseline lane uses a permissive allow-all decision rule (`matched_rule_allow_live`) in this harness.
+- Stop-metric semantics: ungoverned stop behavior is measured from post-stop executable call traces rather than explicit stop-signal event counters.
 - Stop-latency artifact: `stop_to_halt_p95_sec = 0` reflects synchronous harness behavior, not end-to-end distributed production latency.
 - Tooling drift: upstream changes in OpenClaw, Wrkr, Gait, or dependencies can alter observed distributions.
 

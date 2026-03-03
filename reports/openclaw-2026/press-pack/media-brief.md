@@ -22,7 +22,7 @@ Without an enforceable boundary, high-impact actions execute directly. With enfo
 - Baseline-lane sensitive accesses without approval: `707`
 - Baseline-lane destructive attempts: `497`
 - Baseline-lane post-stop calls executed: `515`
-- Baseline-lane ignored-stop rate: `100%`
+- Baseline-lane post-stop execution rate: `100%`
 - Governed destructive non-executable rate: `100%`
 - Governed evidence verification rate: `99.96%`
 

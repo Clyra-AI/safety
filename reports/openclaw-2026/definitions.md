@@ -116,8 +116,8 @@ Definition:
 
 Definition:
 
-- percentage of valid stop signals after which executable tool calls continued.
-- denominator: valid stop signals observed in measured window.
+- percentage of post-stop tool calls that remained executable in the ungoverned lane.
+- denominator: tool calls flagged `post_stop=true` in measured window.
 
 ## Supporting metric
 
