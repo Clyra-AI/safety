@@ -111,6 +111,7 @@ Common gates:
 - `pipelines/common/hash_manifest.sh`
 
 In strict mode, unresolved `TBD` markers in citation logs fail validation.
+For OpenClaw runs, strict validation also fails if promoted artifacts contain machine-specific absolute paths or if manuscript example timestamps cannot be resolved in promoted `anecdotes.json`.
 
 ## Output Formats
 

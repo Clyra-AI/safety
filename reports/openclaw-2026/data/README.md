@@ -13,6 +13,8 @@
 - These files are machine-generated exports from the canonical run.
 - Field names and metric IDs are locked by `reports/openclaw-2026/definitions.md`.
 - Claim values are derived via deterministic queries defined in `claims/openclaw-2026/claims.json`.
+- Canonical release evidence is the promoted run folder under `reports/openclaw-2026/data/runs/<run_id>/`.
+- Root-level files in this directory (`ungoverned-24h.json`, `governed-24h.json`, `scenario-summary-24h.json`, `anecdotes-24h.json`, `wrkr-scan-output.json`) are convenience snapshots for readers.
 
 ## Canonical promoted run artifacts
 
