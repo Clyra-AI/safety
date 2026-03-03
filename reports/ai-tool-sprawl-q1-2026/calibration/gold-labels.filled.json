@@ -1,0 +1,352 @@
+[
+  {
+    "target": "apify/mcp-cli",
+    "expected_non_source_exists": true,
+    "expected_non_source_count": 1,
+    "reviewer": "caisi-internal-v1",
+    "notes": "AI-native calibration cohort expectation: at least one non-source_repo AI tool signal per target."
+  },
+  {
+    "target": "Arize-ai/openinference",
+    "expected_non_source_exists": true,
+    "expected_non_source_count": 1,
+    "reviewer": "caisi-internal-v1",
+    "notes": "AI-native calibration cohort expectation: at least one non-source_repo AI tool signal per target."
+  },
+  {
+    "target": "augmnt/augments-mcp-server",
+    "expected_non_source_exists": true,
+    "expected_non_source_count": 1,
+    "reviewer": "caisi-internal-v1",
+    "notes": "AI-native calibration cohort expectation: at least one non-source_repo AI tool signal per target."
+  },
+  {
+    "target": "bosun-ai/swiftide",
+    "expected_non_source_exists": true,
+    "expected_non_source_count": 1,
+    "reviewer": "caisi-internal-v1",
+    "notes": "AI-native calibration cohort expectation: at least one non-source_repo AI tool signal per target."
+  },
+  {
+    "target": "can1357/oh-my-pi",
+    "expected_non_source_exists": true,
+    "expected_non_source_count": 1,
+    "reviewer": "caisi-internal-v1",
+    "notes": "AI-native calibration cohort expectation: at least one non-source_repo AI tool signal per target."
+  },
+  {
+    "target": "cbcoutinho/nextcloud-mcp-server",
+    "expected_non_source_exists": true,
+    "expected_non_source_count": 1,
+    "reviewer": "caisi-internal-v1",
+    "notes": "AI-native calibration cohort expectation: at least one non-source_repo AI tool signal per target."
+  },
+  {
+    "target": "dbt-labs/dbt-mcp",
+    "expected_non_source_exists": true,
+    "expected_non_source_count": 1,
+    "reviewer": "caisi-internal-v1",
+    "notes": "AI-native calibration cohort expectation: at least one non-source_repo AI tool signal per target."
+  },
+  {
+    "target": "debba/tabularis",
+    "expected_non_source_exists": true,
+    "expected_non_source_count": 1,
+    "reviewer": "caisi-internal-v1",
+    "notes": "AI-native calibration cohort expectation: at least one non-source_repo AI tool signal per target."
+  },
+  {
+    "target": "DeusData/codebase-memory-mcp",
+    "expected_non_source_exists": true,
+    "expected_non_source_count": 1,
+    "reviewer": "caisi-internal-v1",
+    "notes": "AI-native calibration cohort expectation: at least one non-source_repo AI tool signal per target."
+  },
+  {
+    "target": "dynamiq-ai/dynamiq",
+    "expected_non_source_exists": true,
+    "expected_non_source_count": 1,
+    "reviewer": "caisi-internal-v1",
+    "notes": "AI-native calibration cohort expectation: at least one non-source_repo AI tool signal per target."
+  },
+  {
+    "target": "e2b-dev/E2B",
+    "expected_non_source_exists": true,
+    "expected_non_source_count": 1,
+    "reviewer": "caisi-internal-v1",
+    "notes": "AI-native calibration cohort expectation: at least one non-source_repo AI tool signal per target."
+  },
+  {
+    "target": "firecrawl/firecrawl-mcp-server",
+    "expected_non_source_exists": true,
+    "expected_non_source_count": 1,
+    "reviewer": "caisi-internal-v1",
+    "notes": "AI-native calibration cohort expectation: at least one non-source_repo AI tool signal per target."
+  },
+  {
+    "target": "genomoncology/biomcp",
+    "expected_non_source_exists": true,
+    "expected_non_source_count": 1,
+    "reviewer": "caisi-internal-v1",
+    "notes": "AI-native calibration cohort expectation: at least one non-source_repo AI tool signal per target."
+  },
+  {
+    "target": "Giskard-AI/giskard-oss",
+    "expected_non_source_exists": true,
+    "expected_non_source_count": 1,
+    "reviewer": "caisi-internal-v1",
+    "notes": "AI-native calibration cohort expectation: at least one non-source_repo AI tool signal per target."
+  },
+  {
+    "target": "GoogleCloudPlatform/agent-starter-pack",
+    "expected_non_source_exists": true,
+    "expected_non_source_count": 1,
+    "reviewer": "caisi-internal-v1",
+    "notes": "AI-native calibration cohort expectation: at least one non-source_repo AI tool signal per target."
+  },
+  {
+    "target": "groupultra/telegram-search",
+    "expected_non_source_exists": true,
+    "expected_non_source_count": 1,
+    "reviewer": "caisi-internal-v1",
+    "notes": "AI-native calibration cohort expectation: at least one non-source_repo AI tool signal per target."
+  },
+  {
+    "target": "Haohao-end/LMForge-End-to-End-LLMOps-Platform-for-Multi-Model-Agents",
+    "expected_non_source_exists": true,
+    "expected_non_source_count": 1,
+    "reviewer": "caisi-internal-v1",
+    "notes": "AI-native calibration cohort expectation: at least one non-source_repo AI tool signal per target."
+  },
+  {
+    "target": "hyprmcp/jetski",
+    "expected_non_source_exists": true,
+    "expected_non_source_count": 1,
+    "reviewer": "caisi-internal-v1",
+    "notes": "AI-native calibration cohort expectation: at least one non-source_repo AI tool signal per target."
+  },
+  {
+    "target": "jeff-nasseri/mikrotik-mcp",
+    "expected_non_source_exists": true,
+    "expected_non_source_count": 1,
+    "reviewer": "caisi-internal-v1",
+    "notes": "AI-native calibration cohort expectation: at least one non-source_repo AI tool signal per target."
+  },
+  {
+    "target": "keboola/mcp-server",
+    "expected_non_source_exists": true,
+    "expected_non_source_count": 1,
+    "reviewer": "caisi-internal-v1",
+    "notes": "AI-native calibration cohort expectation: at least one non-source_repo AI tool signal per target."
+  },
+  {
+    "target": "langfuse/langfuse",
+    "expected_non_source_exists": true,
+    "expected_non_source_count": 1,
+    "reviewer": "caisi-internal-v1",
+    "notes": "AI-native calibration cohort expectation: at least one non-source_repo AI tool signal per target."
+  },
+  {
+    "target": "langwatch/langwatch",
+    "expected_non_source_exists": true,
+    "expected_non_source_count": 1,
+    "reviewer": "caisi-internal-v1",
+    "notes": "AI-native calibration cohort expectation: at least one non-source_repo AI tool signal per target."
+  },
+  {
+    "target": "lmnr-ai/lmnr",
+    "expected_non_source_exists": true,
+    "expected_non_source_count": 1,
+    "reviewer": "caisi-internal-v1",
+    "notes": "AI-native calibration cohort expectation: at least one non-source_repo AI tool signal per target."
+  },
+  {
+    "target": "makeplane/plane-mcp-server",
+    "expected_non_source_exists": true,
+    "expected_non_source_count": 1,
+    "reviewer": "caisi-internal-v1",
+    "notes": "AI-native calibration cohort expectation: at least one non-source_repo AI tool signal per target."
+  },
+  {
+    "target": "mcp-use/mcp-use",
+    "expected_non_source_exists": true,
+    "expected_non_source_count": 1,
+    "reviewer": "caisi-internal-v1",
+    "notes": "AI-native calibration cohort expectation: at least one non-source_repo AI tool signal per target."
+  },
+  {
+    "target": "memodb-io/Acontext",
+    "expected_non_source_exists": true,
+    "expected_non_source_count": 1,
+    "reviewer": "caisi-internal-v1",
+    "notes": "AI-native calibration cohort expectation: at least one non-source_repo AI tool signal per target."
+  },
+  {
+    "target": "minipuft/claude-prompts",
+    "expected_non_source_exists": true,
+    "expected_non_source_count": 1,
+    "reviewer": "caisi-internal-v1",
+    "notes": "AI-native calibration cohort expectation: at least one non-source_repo AI tool signal per target."
+  },
+  {
+    "target": "moltis-org/moltis",
+    "expected_non_source_exists": true,
+    "expected_non_source_count": 1,
+    "reviewer": "caisi-internal-v1",
+    "notes": "AI-native calibration cohort expectation: at least one non-source_repo AI tool signal per target."
+  },
+  {
+    "target": "nextlevelbuilder/goclaw",
+    "expected_non_source_exists": true,
+    "expected_non_source_count": 1,
+    "reviewer": "caisi-internal-v1",
+    "notes": "AI-native calibration cohort expectation: at least one non-source_repo AI tool signal per target."
+  },
+  {
+    "target": "openlit/openlit",
+    "expected_non_source_exists": true,
+    "expected_non_source_count": 1,
+    "reviewer": "caisi-internal-v1",
+    "notes": "AI-native calibration cohort expectation: at least one non-source_repo AI tool signal per target."
+  },
+  {
+    "target": "openops-cloud/openops",
+    "expected_non_source_exists": true,
+    "expected_non_source_count": 1,
+    "reviewer": "caisi-internal-v1",
+    "notes": "AI-native calibration cohort expectation: at least one non-source_repo AI tool signal per target."
+  },
+  {
+    "target": "PackmindHub/packmind",
+    "expected_non_source_exists": true,
+    "expected_non_source_count": 1,
+    "reviewer": "caisi-internal-v1",
+    "notes": "AI-native calibration cohort expectation: at least one non-source_repo AI tool signal per target."
+  },
+  {
+    "target": "PrefectHQ/fastmcp",
+    "expected_non_source_exists": true,
+    "expected_non_source_count": 1,
+    "reviewer": "caisi-internal-v1",
+    "notes": "AI-native calibration cohort expectation: at least one non-source_repo AI tool signal per target."
+  },
+  {
+    "target": "provos/ironcurtain",
+    "expected_non_source_exists": true,
+    "expected_non_source_count": 1,
+    "reviewer": "caisi-internal-v1",
+    "notes": "AI-native calibration cohort expectation: at least one non-source_repo AI tool signal per target."
+  },
+  {
+    "target": "rhesis-ai/rhesis",
+    "expected_non_source_exists": true,
+    "expected_non_source_count": 1,
+    "reviewer": "caisi-internal-v1",
+    "notes": "AI-native calibration cohort expectation: at least one non-source_repo AI tool signal per target."
+  },
+  {
+    "target": "saigontechnology/AgentCrew",
+    "expected_non_source_exists": true,
+    "expected_non_source_count": 1,
+    "reviewer": "caisi-internal-v1",
+    "notes": "AI-native calibration cohort expectation: at least one non-source_repo AI tool signal per target."
+  },
+  {
+    "target": "seuros/action_mcp",
+    "expected_non_source_exists": true,
+    "expected_non_source_count": 1,
+    "reviewer": "caisi-internal-v1",
+    "notes": "AI-native calibration cohort expectation: at least one non-source_repo AI tool signal per target."
+  },
+  {
+    "target": "smallcloudai/refact",
+    "expected_non_source_exists": true,
+    "expected_non_source_count": 1,
+    "reviewer": "caisi-internal-v1",
+    "notes": "AI-native calibration cohort expectation: at least one non-source_repo AI tool signal per target."
+  },
+  {
+    "target": "SmythOS/sre",
+    "expected_non_source_exists": true,
+    "expected_non_source_count": 1,
+    "reviewer": "caisi-internal-v1",
+    "notes": "AI-native calibration cohort expectation: at least one non-source_repo AI tool signal per target."
+  },
+  {
+    "target": "stacklok/toolhive",
+    "expected_non_source_exists": true,
+    "expected_non_source_count": 1,
+    "reviewer": "caisi-internal-v1",
+    "notes": "AI-native calibration cohort expectation: at least one non-source_repo AI tool signal per target."
+  },
+  {
+    "target": "SynaLinks/synalinks",
+    "expected_non_source_exists": true,
+    "expected_non_source_count": 1,
+    "reviewer": "caisi-internal-v1",
+    "notes": "AI-native calibration cohort expectation: at least one non-source_repo AI tool signal per target."
+  },
+  {
+    "target": "taylorwilsdon/google_workspace_mcp",
+    "expected_non_source_exists": true,
+    "expected_non_source_count": 1,
+    "reviewer": "caisi-internal-v1",
+    "notes": "AI-native calibration cohort expectation: at least one non-source_repo AI tool signal per target."
+  },
+  {
+    "target": "tensorzero/tensorzero",
+    "expected_non_source_exists": true,
+    "expected_non_source_count": 1,
+    "reviewer": "caisi-internal-v1",
+    "notes": "AI-native calibration cohort expectation: at least one non-source_repo AI tool signal per target."
+  },
+  {
+    "target": "tinyfish-io/agentql-mcp",
+    "expected_non_source_exists": true,
+    "expected_non_source_count": 1,
+    "reviewer": "caisi-internal-v1",
+    "notes": "AI-native calibration cohort expectation: at least one non-source_repo AI tool signal per target."
+  },
+  {
+    "target": "truffle-ai/dexto",
+    "expected_non_source_exists": true,
+    "expected_non_source_count": 1,
+    "reviewer": "caisi-internal-v1",
+    "notes": "AI-native calibration cohort expectation: at least one non-source_repo AI tool signal per target."
+  },
+  {
+    "target": "vakovalskii/ValeDesk",
+    "expected_non_source_exists": true,
+    "expected_non_source_count": 1,
+    "reviewer": "caisi-internal-v1",
+    "notes": "AI-native calibration cohort expectation: at least one non-source_repo AI tool signal per target."
+  },
+  {
+    "target": "VeriTeknik/pluggedin-app",
+    "expected_non_source_exists": true,
+    "expected_non_source_count": 1,
+    "reviewer": "caisi-internal-v1",
+    "notes": "AI-native calibration cohort expectation: at least one non-source_repo AI tool signal per target."
+  },
+  {
+    "target": "vm0-ai/vm0",
+    "expected_non_source_exists": true,
+    "expected_non_source_count": 1,
+    "reviewer": "caisi-internal-v1",
+    "notes": "AI-native calibration cohort expectation: at least one non-source_repo AI tool signal per target."
+  },
+  {
+    "target": "yigitkonur/cli-continues",
+    "expected_non_source_exists": true,
+    "expected_non_source_count": 1,
+    "reviewer": "caisi-internal-v1",
+    "notes": "AI-native calibration cohort expectation: at least one non-source_repo AI tool signal per target."
+  },
+  {
+    "target": "yogthos/Matryoshka",
+    "expected_non_source_exists": true,
+    "expected_non_source_count": 1,
+    "reviewer": "caisi-internal-v1",
+    "notes": "AI-native calibration cohort expectation: at least one non-source_repo AI tool signal per target."
+  }
+]
