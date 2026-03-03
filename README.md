@@ -133,6 +133,11 @@ After a clean run, promote only canonical reproducibility artifacts into a track
 
 - `pipelines/openclaw/promote_run_artifacts.sh --run-id <run_id>`
 
+Systemic rule for sprawl:
+
+- `runs/tool-sprawl/sprawl-*` is treated as local execution workspace only and must not be committed.
+- Keep only canonical, publish-bound artifacts under report-owned paths (for example `reports/<report-id>/data/runs/<run_id>/`) when explicitly promoting a release set.
+
 Default destination:
 
 - `reports/openclaw-2026/data/runs/<run_id>/`

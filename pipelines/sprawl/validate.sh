@@ -215,6 +215,14 @@ if [[ -n "${RUN_ID}" ]]; then
   fi
 fi
 
+if [[ "${STRICT}" -eq 1 ]] && command -v git >/dev/null 2>&1; then
+  tracked_sprawl_runs="$(git -C "${REPO_ROOT}" ls-files 'runs/tool-sprawl/sprawl-*' 2>/dev/null | grep -v '^runs/tool-sprawl/.gitkeep$' || true)"
+  if [[ -n "${tracked_sprawl_runs}" ]]; then
+    echo "[sprawl-validate] strict mode disallows tracked files under runs/tool-sprawl/sprawl-*; keep sprawl run dirs local-only" >&2
+    FAILURES=$((FAILURES + 1))
+  fi
+fi
+
 if [[ "${FAILURES}" -gt 0 ]]; then
   echo "[sprawl-validate] failures=${FAILURES}" >&2
   exit 1
