@@ -2,7 +2,14 @@
 
 ## Scope and sample
 
-TBD.
+This report uses a deterministic, public-repository campaign design.
+
+- Flagship publication scope: `500` organizations (one `owner/repo` target per owner).
+- Calibration scope: fixed AI-native cohort (`50` targets) for detector quality checks.
+- Intermediate benchmark scope: `101` targets for campaign readiness checks before the 500-run.
+- Headline metrics use non-`source_repo` scope only; raw totals are published separately in segmented tables.
+
+Claims in `claims/ai-tool-sprawl-q1-2026/claims.json` remain intentionally `TBD` until the canonical 500-target run is completed and values are frozen from run artifacts.
 
 Definitions lock: `definitions.md`  
 Execution protocol: `study-protocol.md`

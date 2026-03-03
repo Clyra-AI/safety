@@ -1,7 +1,7 @@
 # AI Tool Sprawl Q1 2026 Study Protocol
 
 Status: execution protocol  
-Version: `v4`  
+Version: `v5`  
 Objective: produce a reproducible multi-organization AI tool sprawl measurement baseline.
 
 ## 1) Campaign Design
@@ -9,7 +9,8 @@ Objective: produce a reproducible multi-organization AI tool sprawl measurement 
 - Canonical campaign mode: deterministic baseline scan.
 - Supplemental enrich mode: separate run with explicit provenance (`as_of`, `source`), never merged into baseline headline claims.
 - Calibration pre-pass: AI-native 50-target cohort before publication-scale campaign.
-- Publication campaign target: `TBD` organizations (minimum publish threshold may apply).
+- Publication campaign target: `500` organizations (minimum publish threshold hard gate).
+- Intermediate benchmark campaign: `101` organizations for operational readiness and quality checks (not canonical publication scope).
 - Runtime pinning: prefer repo-pinned Wrkr runtime (`go run` from `WRKR_REPO_PATH`) over ambient PATH binary unless an explicit `WRKR_BIN` override is supplied.
 
 ## 2) Sampling Rules
@@ -87,3 +88,7 @@ Publish only when:
 - temporal drift between scan and publication
 
 Each threat requires a mitigation and residual risk note.
+
+## Version Notes
+
+- `v5`: sets canonical publication cohort to 500 organizations and marks 101-org campaign as intermediate readiness scope.

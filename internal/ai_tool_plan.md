@@ -41,7 +41,8 @@ Run a reproducible multi-target Wrkr campaign, generate aggregate and appendix a
 - Recommended calibration generation path (AI-native cohort):
   - `pipelines/sprawl/generate_targets.sh --total 50 --ai-weight 100 --dev-weight 0 --sec-weight 0 --output internal/repos.md --catalog internal/repos_candidates.csv`
 - Recommended publication-campaign generation path:
-  - `pipelines/sprawl/generate_targets.sh --total 101 --output internal/repos.md --catalog internal/repos_candidates.csv`
+  - `pipelines/sprawl/generate_targets.sh --total 500 --pages 5 --per-page 100 --output internal/repos.md --catalog internal/repos_candidates.csv`
+  - (optional intermediate benchmark) `pipelines/sprawl/generate_targets.sh --total 101 --output internal/repos.md --catalog internal/repos_candidates.csv`
 - Expected `internal/repos.md` format:
   - one `owner/repo` per line
   - blank lines allowed
@@ -68,7 +69,7 @@ Run a reproducible multi-target Wrkr campaign, generate aggregate and appendix a
 1. Ensure toolchain is available:
    - `wrkr`, `jq`, `bash`, `curl` (and `gh` if using authenticated GitHub search generation)
 2. (Recommended) regenerate target list:
-   - `pipelines/sprawl/generate_targets.sh --total 101 --output internal/repos.md --catalog internal/repos_candidates.csv`
+   - `pipelines/sprawl/generate_targets.sh --total 500 --pages 5 --per-page 100 --output internal/repos.md --catalog internal/repos_candidates.csv`
 3. Confirm preregistration lock fields are set:
    - `reports/ai-tool-sprawl-q1-2026/preregistration.md`
 4. Confirm required policy/config inputs exist:
@@ -85,9 +86,9 @@ Run a reproducible multi-target Wrkr campaign, generate aggregate and appendix a
 1. Preflight (no writes):
    - `pipelines/sprawl/run.sh --run-id sprawl-<timestamp> --dry-run`
 2. Generate run scaffold:
-   - `pipelines/sprawl/run.sh --run-id sprawl-<timestamp>`
+   - `pipelines/sprawl/run.sh --run-id sprawl-<timestamp> --max-targets 500 --scan-source clone --no-synthetic-fallback --max-runtime-sec 172800 --max-run-disk-mb 65536`
 3. If interrupted, resume same run ID:
-   - `pipelines/sprawl/run.sh --run-id sprawl-<timestamp> --resume`
+   - `pipelines/sprawl/run.sh --run-id sprawl-<timestamp> --resume --max-targets 500 --scan-source clone --no-synthetic-fallback --max-runtime-sec 172800 --max-run-disk-mb 65536`
 4. Capture run metadata in:
    - `runs/tool-sprawl/<run_id>/artifacts/run-manifest.json`
 5. Record:
@@ -195,3 +196,19 @@ Defaults are already locked for:
 - approved-tools baseline policy
 - production-targets and segment metadata placeholders
 - publish thresholds
+
+## 11) 500-Run Reliability Controls (GitHub + Runtime)
+
+1. Use authenticated GitHub query generation for target acquisition:
+   - `gh auth status` should be valid before `generate_targets.sh`.
+2. Generate target list once, then freeze `internal/repos.md` for the run; avoid regenerating mid-campaign.
+3. Use clone-based scans (`--scan-source clone`) to reduce dependency on GitHub API rate limits during per-target scanning.
+4. Keep read-only token posture for fallback repo scans:
+   - set `WRKR_GITHUB_TOKEN`
+   - set `WRKR_GITHUB_TOKEN_MODE=read-only`
+5. Use large enough runtime/disk caps for 500 targets:
+   - `--max-runtime-sec 172800` (48h)
+   - `--max-run-disk-mb 65536` (64GB)
+6. Always resume with the same run ID after interruptions; do not restart with a new run ID unless inputs changed intentionally.
+7. Clear external model/cloud secret environment variables before run (`*_API_KEY`, cloud write creds), or run will stop on guardrails.
+8. Capacity planning reference: recent 101-target baseline consumed ~5.6GB; plan ~30-40GB for 500 targets with current filters and keep 64GB cap as minimum.
