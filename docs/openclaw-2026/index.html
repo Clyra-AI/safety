@@ -185,7 +185,7 @@
         <div class="research-grid">
           <article class="card">
             <h3 class="card-title tight">Controlled comparison</h3>
-            <p class="finding">Two lanes, same workload, same 24-hour window. One with enforcement, one without. Pinned to a single OpenClaw commit.</p>
+            <p class="finding">Two lanes, same workload, same 24-hour window. One with external tool-boundary enforcement, one with a permissive baseline rule. Pinned to a single OpenClaw commit.</p>
           </article>
           <article class="card">
             <h3 class="card-title tight">Isolated environment</h3>
@@ -202,6 +202,28 @@
         </div>
         <p class="meta">
           <a href="https://github.com/Clyra-AI/safety/tree/main/reports/openclaw-2026">Technical details: run ID, commit pin, artifact paths, and reproduction commands</a>
+        </p>
+      </section>
+
+      <section class="section" aria-labelledby="faq">
+        <h2 id="faq">FAQ: Enforcement and Generalization</h2>
+        <p class="body">
+          <strong>What governance structure was used?</strong> An external
+          tool-boundary enforcement layer evaluated each tool call before
+          execution and returned <code>allow</code>, <code>block</code>, or
+          <code>require_approval</code>. Governed non-allow outcomes were
+          non-executable and produced signed evidence artifacts.
+        </p>
+        <p class="body">
+          <strong>Does this generalize beyond OpenClaw?</strong> The mechanism
+          is portable to agent stacks that expose pre-execution tool-call
+          mediation. The exact rates in this report are case-study-specific to
+          this pinned OpenClaw commit, workload profile, and policy set.
+        </p>
+        <p class="meta">
+          <a href="https://github.com/Clyra-AI/safety/blob/main/reports/openclaw-2026/container-config/gait-policies/openclaw-research-v1.yaml">Policy file</a>
+          <span class="meta-sep">|</span>
+          <a href="https://github.com/Clyra-AI/safety/blob/main/reports/openclaw-2026/study-protocol.md">Study protocol</a>
         </p>
       </section>
 

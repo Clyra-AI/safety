@@ -254,8 +254,11 @@ boundary).
 
 This report is intentionally scoped to one pinned OpenClaw source
 snapshot and one controlled 24-hour run. It is not an ecosystem census.
-All headline values are artifact-backed and query-reproducible from
-repository contents.
+The enforcement mechanism is designed to be portable across agent
+runtimes that expose pre-execution tool-call hooks, but numeric outcomes
+in this document are case-study-specific to this workload, policy set,
+and source pin. All headline values are artifact-backed and
+query-reproducible from repository contents.
 
 \subsection{Key Findings (At a Glance)}\label{key-findings-at-a-glance}
 
@@ -395,6 +398,28 @@ artifacts.
   network
 \end{itemize}
 
+\subsubsection{Governance and Enforcement
+Structure}\label{governance-and-enforcement-structure}
+
+\begin{itemize}
+\tightlist
+\item
+  Governed lane uses an external tool-boundary enforcement layer, not
+  prompt-only controls.
+\item
+  Each tool-call intent is intercepted before execution and evaluated
+  against deterministic policy rules.
+\item
+  Decision outcomes are \texttt{allow}, \texttt{block}, or
+  \texttt{require\_approval}.
+\item
+  In governed evaluation, non-\texttt{allow} outcomes are
+  non-executable.
+\item
+  Each governed decision writes an evidence artifact with decision type,
+  reason code, and policy reference fields.
+\end{itemize}
+
 \subsubsection{Reproduction Commands}\label{reproduction-commands}
 
 \begin{Shaded}
@@ -439,6 +464,25 @@ artifacts.
 Calibration note: sub-24h smoke and 30-minute runs are used for
 pipeline/runtime validation only. Headline claims in this manuscript
 remain tied to the canonical 24-hour run ID listed above.
+
+\subsubsection{Generalization
+Boundaries}\label{generalization-boundaries}
+
+\begin{itemize}
+\tightlist
+\item
+  Generalizable component: the enforcement pattern (pre-execution
+  interception + policy decisioning + evidence logging) can be applied
+  to other agent systems that expose tool-call mediation points.
+\item
+  Run-specific component: this report\textquotesingle s measured rates
+  and counts are specific to one OpenClaw commit, one \texttt{core5}
+  workload profile, and policy set \texttt{openclaw-research-v1.yaml}.
+\item
+  Transfer requirement: when porting to another stack, action taxonomy
+  mappings and policy definitions must be revalidated before comparing
+  outcomes.
+\end{itemize}
 
 \subsection{3) Ungoverned Behavior}\label{3-ungoverned-behavior}
 
@@ -800,6 +844,10 @@ IBM X-Force analyses logged in
 \item
   Environment bias: isolated lab controls differ from live enterprise
   integration environments.
+\item
+  External-validity risk: the control mechanism is portable in
+  principle, but metric magnitudes can shift under different runtimes,
+  tools, policy mappings, and workload mixtures.
 \item
   Baseline semantics: the baseline lane uses a permissive allow-all
   decision rule (\texttt{matched\_rule\_allow\_live}) in this harness.

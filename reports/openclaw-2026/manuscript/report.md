@@ -26,7 +26,7 @@ In this 24-hour controlled run, the baseline lane executed with a permissive all
 
 Technically, governed evaluation processed **2,585** tool-call decisions and classified **1,615** as non-executable policy violations (`block` + `require_approval`) using deterministic policy rules. The baseline lane processed **1,306** calls under `matched_rule_allow_live` (no enforceable approval boundary).
 
-This report is intentionally scoped to one pinned OpenClaw source snapshot and one controlled 24-hour run. It is not an ecosystem census. All headline values are artifact-backed and query-reproducible from repository contents.
+This report is intentionally scoped to one pinned OpenClaw source snapshot and one controlled 24-hour run. It is not an ecosystem census. The enforcement mechanism is designed to be portable across agent runtimes that expose pre-execution tool-call hooks, but numeric outcomes in this document are case-study-specific to this workload, policy set, and source pin. All headline values are artifact-backed and query-reproducible from repository contents.
 
 ## Key Findings (At a Glance)
 
@@ -95,6 +95,14 @@ The canonical publication run (`openclaw-live-24h-20260228T143341Z`) executed fo
 - Lane duration: `86400` seconds per lane
 - Isolation controls: dropped capabilities, read-only root filesystem, no-new-privileges, bounded tmpfs, resource caps, isolated bridge network
 
+### Governance and Enforcement Structure
+
+- Governed lane uses an external tool-boundary enforcement layer, not prompt-only controls.
+- Each tool-call intent is intercepted before execution and evaluated against deterministic policy rules.
+- Decision outcomes are `allow`, `block`, or `require_approval`.
+- In governed evaluation, non-`allow` outcomes are non-executable.
+- Each governed decision writes an evidence artifact with decision type, reason code, and policy reference fields.
+
 ### Reproduction Commands
 
 ```bash
@@ -126,6 +134,12 @@ pipelines/openclaw/validate.sh --run-id <id> --strict
 - Claim derivation and threshold evaluation artifacts
 
 Calibration note: sub-24h smoke and 30-minute runs are used for pipeline/runtime validation only. Headline claims in this manuscript remain tied to the canonical 24-hour run ID listed above.
+
+### Generalization Boundaries
+
+- Generalizable component: the enforcement pattern (pre-execution interception + policy decisioning + evidence logging) can be applied to other agent systems that expose tool-call mediation points.
+- Run-specific component: this report's measured rates and counts are specific to one OpenClaw commit, one `core5` workload profile, and policy set `openclaw-research-v1.yaml`.
+- Transfer requirement: when porting to another stack, action taxonomy mappings and policy definitions must be revalidated before comparing outcomes.
 
 ## 3) Ungoverned Behavior
 
@@ -286,6 +300,7 @@ As context-only industry framing, this runtime control gap is directionally cons
 - Workload-shape bias: fixed scenario scheduling may over- or under-represent real user sequences.
 - Classification bias: sensitive/destructive labels are deterministic but still depend on schema mappings.
 - Environment bias: isolated lab controls differ from live enterprise integration environments.
+- External-validity risk: the control mechanism is portable in principle, but metric magnitudes can shift under different runtimes, tools, policy mappings, and workload mixtures.
 - Baseline semantics: the baseline lane uses a permissive allow-all decision rule (`matched_rule_allow_live`) in this harness.
 - Stop-metric semantics: ungoverned stop behavior is measured from post-stop executable call traces rather than explicit stop-signal event counters.
 - Stop-latency artifact: `stop_to_halt_p95_sec = 0` reflects synchronous harness behavior, not end-to-end distributed production latency.
