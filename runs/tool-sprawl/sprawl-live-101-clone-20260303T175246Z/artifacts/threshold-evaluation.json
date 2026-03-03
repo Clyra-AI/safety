@@ -1,0 +1,147 @@
+{
+  "schema_version": "v1",
+  "generated_at": "2026-03-03T18:17:46Z",
+  "report_id": "ai-tool-sprawl-q1-2026",
+  "run_id": "sprawl-live-101-clone-20260303T175246Z",
+  "claim_values_path": "runs/tool-sprawl/sprawl-live-101-clone-20260303T175246Z/artifacts/claim-values.json",
+  "thresholds_path": "pipelines/config/publish-thresholds.json",
+  "scaling": {
+    "lane_duration_sec": null,
+    "scale_factor_to_24h": 1,
+    "additional_scaled_claim_ids": []
+  },
+  "required": {
+    "total": 5,
+    "passed": 4,
+    "failed": 1,
+    "results": [
+      {
+        "id": "sprawl_unapproved_to_approved_ratio",
+        "operator": ">=",
+        "threshold": 2.5,
+        "measured": 6129.38,
+        "projected_24h": 6129.38,
+        "scaled_to_24h": false,
+        "passed": true,
+        "error": null
+      },
+      {
+        "id": "sprawl_avg_unknown_tools_per_org",
+        "operator": ">=",
+        "threshold": 1.5,
+        "measured": 9656.44,
+        "projected_24h": 9656.44,
+        "scaled_to_24h": false,
+        "passed": true,
+        "error": null
+      },
+      {
+        "id": "sprawl_orgs_scanned",
+        "operator": ">=",
+        "threshold": 500,
+        "measured": 101,
+        "projected_24h": 101,
+        "scaled_to_24h": false,
+        "passed": false,
+        "error": null
+      },
+      {
+        "id": "sprawl_orgs_with_destructive_tooling_pct",
+        "operator": ">=",
+        "threshold": 15.0,
+        "measured": 51.49,
+        "projected_24h": 51.49,
+        "scaled_to_24h": false,
+        "passed": true,
+        "error": null
+      },
+      {
+        "id": "sprawl_orgs_without_approval_gate_pct",
+        "operator": ">=",
+        "threshold": 10.0,
+        "measured": 27.72,
+        "projected_24h": 27.72,
+        "scaled_to_24h": false,
+        "passed": true,
+        "error": null
+      }
+    ]
+  },
+  "recommended": {
+    "total": 7,
+    "passed": 7,
+    "failed": 0,
+    "results": [
+      {
+        "id": "sprawl_unapproved_to_approved_ratio",
+        "operator": ">=",
+        "threshold": 4.0,
+        "measured": 6129.38,
+        "projected_24h": 6129.38,
+        "scaled_to_24h": false,
+        "passed": true,
+        "error": null
+      },
+      {
+        "id": "sprawl_avg_unknown_tools_per_org",
+        "operator": ">=",
+        "threshold": 3.0,
+        "measured": 9656.44,
+        "projected_24h": 9656.44,
+        "scaled_to_24h": false,
+        "passed": true,
+        "error": null
+      },
+      {
+        "id": "sprawl_article50_gap_prevalence_pct",
+        "operator": ">=",
+        "threshold": 30.0,
+        "measured": 100,
+        "projected_24h": 100,
+        "scaled_to_24h": false,
+        "passed": true,
+        "error": null
+      },
+      {
+        "id": "sprawl_orgs_with_destructive_tooling_pct",
+        "operator": ">=",
+        "threshold": 30.0,
+        "measured": 51.49,
+        "projected_24h": 51.49,
+        "scaled_to_24h": false,
+        "passed": true,
+        "error": null
+      },
+      {
+        "id": "sprawl_orgs_without_approval_gate_pct",
+        "operator": ">=",
+        "threshold": 20.0,
+        "measured": 27.72,
+        "projected_24h": 27.72,
+        "scaled_to_24h": false,
+        "passed": true,
+        "error": null
+      },
+      {
+        "id": "sprawl_orgs_prompt_only_controls_pct",
+        "operator": ">=",
+        "threshold": 25.0,
+        "measured": 55.45,
+        "projected_24h": 55.45,
+        "scaled_to_24h": false,
+        "passed": true,
+        "error": null
+      },
+      {
+        "id": "sprawl_orgs_without_audit_artifacts_pct",
+        "operator": ">=",
+        "threshold": 30.0,
+        "measured": 45.54,
+        "projected_24h": 45.54,
+        "scaled_to_24h": false,
+        "passed": true,
+        "error": null
+      }
+    ]
+  }
+}

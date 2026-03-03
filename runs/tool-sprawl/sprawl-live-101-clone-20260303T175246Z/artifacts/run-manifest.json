@@ -1,0 +1,48 @@
+{
+  "schema_version": "v2",
+  "report_id": "ai-tool-sprawl-q1-2026",
+  "run_id": "sprawl-live-101-clone-20260303T175246Z",
+  "created_at": "2026-03-03T18:04:19Z",
+  "status": "completed",
+  "mode": "scaffold",
+  "campaign_mode": "baseline-only",
+  "reproducibility": {
+    "repository": {
+      "commit_sha": "65a1658fa76fecede069cc0328641cb68fec5ffc",
+      "ref": "65a1658-dirty"
+    },
+    "wrkr": {
+      "runtime": "/tmp/wrkr-local",
+      "version": "unavailable",
+      "commit_sha": "2b0efd6edc63856b9b21bcfa8136528c98e57202",
+      "ref": "2b0efd6",
+      "detector_list": "default",
+      "scan_source": "clone",
+      "clone_root": "/Users/davidahmann/Projects/clyra_report/runs/tool-sprawl/sprawl-live-101-clone-20260303T175246Z/sources"
+    },
+    "inputs": {
+      "targets_file": "internal/repos.md",
+      "targets_file_sha256": "317a3622f24dc868b624615fd35ddfc050f0b189e539ce4f329aeb3c7dc9e20a",
+      "approved_policy": "pipelines/policies/approved-tools.v1.yaml",
+      "approved_policy_sha256": "9ccceec35303cfcd254d519779baead3c6d6425a67cb28835f763c5322f56540",
+      "production_policy": "pipelines/policies/production-targets.v1.yaml",
+      "production_policy_sha256": "d918b9eb41af1f651e013d435db2830d39a3efd50254b8cfedc83556150ff5fc",
+      "segment_policy": "pipelines/policies/campaign-segments.v1.yaml",
+      "segment_policy_sha256": "9d00308f907f539e98946e846ee13c655e07a2b0c2983e24bd53598708b239a8"
+    }
+  },
+  "operational_guardrails": {
+    "egress_allowlist_path": "pipelines/policies/sprawl-egress-allowlist.txt",
+    "egress_allowlist_sha256": "28dd667d4338a5c960af88f1d2d3d8c453bbe50f043b102fc4d7e5f38315995f",
+    "no_production_creds_enforced": true,
+    "read_only_token_required": true,
+    "max_runtime_sec": 10800,
+    "max_run_disk_mb": 16384,
+    "max_targets": 101
+  },
+  "artifacts": {
+    "campaign_summary": "runs/tool-sprawl/sprawl-live-101-clone-20260303T175246Z/agg/campaign-summary.json",
+    "appendix": "runs/tool-sprawl/sprawl-live-101-clone-20260303T175246Z/appendix/combined-appendix.json",
+    "claim_values": "runs/tool-sprawl/sprawl-live-101-clone-20260303T175246Z/artifacts/claim-values.json"
+  }
+}

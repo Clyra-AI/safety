@@ -122,9 +122,17 @@ if [[ -n "${RUN_ID}" ]]; then
     "${REPO_ROOT}/pipelines/common/derive_claim_values.sh" "${derive_args[@]}"
 
     mkdir -p "${run_dir}/artifacts"
-    "${REPO_ROOT}/pipelines/common/hash_manifest.sh" \
-      --input "${run_dir}" \
+    hash_args=(
+      --input "${run_dir}"
       --output "${run_dir}/artifacts/manifest.sha256"
+    )
+    if [[ -f "${run_dir}/artifacts/run-manifest.json" ]]; then
+      scan_source="$(jq -r '.reproducibility.wrkr.scan_source // empty' "${run_dir}/artifacts/run-manifest.json" 2>/dev/null || true)"
+      if [[ "${scan_source}" == "clone" ]]; then
+        hash_args+=(--exclude-prefix "sources/")
+      fi
+    fi
+    "${REPO_ROOT}/pipelines/common/hash_manifest.sh" "${hash_args[@]}"
   fi
 
   threshold_args=(

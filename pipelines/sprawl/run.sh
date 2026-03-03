@@ -7,7 +7,7 @@ Usage:
   run.sh [--run-id <id>] [--resume] [--dry-run] [--mode baseline-only|baseline+enrich]
          [--targets-file <path>] [--max-targets <n>] [--max-runtime-sec <n>] [--max-run-disk-mb <n>]
          [--detector-list <csv>] [--approved-tools <path>] [--production-targets <path>] [--segment-metadata <path>]
-         [--egress-allowlist <path>] [--no-synthetic-fallback]
+         [--egress-allowlist <path>] [--scan-source repo|clone] [--clone-root <path>] [--no-synthetic-fallback]
 
 Creates immutable run layout and executes Wrkr sprawl scans:
   runs/tool-sprawl/<run_id>/{states,states-enrich,scans,agg,appendix,artifacts}
@@ -28,6 +28,8 @@ APPROVED_TOOLS_POLICY="pipelines/policies/approved-tools.v1.yaml"
 PRODUCTION_TARGETS_POLICY="pipelines/policies/production-targets.v1.yaml"
 SEGMENT_METADATA_POLICY="pipelines/policies/campaign-segments.v1.yaml"
 EGRESS_ALLOWLIST="pipelines/policies/sprawl-egress-allowlist.txt"
+SCAN_SOURCE="${SCAN_SOURCE:-repo}"
+CLONE_ROOT="${CLONE_ROOT:-}"
 ALLOW_SYNTHETIC_FALLBACK=1
 
 WRKR_REPO_PATH="${WRKR_REPO_PATH:-/Users/davidahmann/Projects/wrkr}"
@@ -423,6 +425,14 @@ while [[ $# -gt 0 ]]; do
       EGRESS_ALLOWLIST="${2:-}"
       shift 2
       ;;
+    --scan-source)
+      SCAN_SOURCE="${2:-}"
+      shift 2
+      ;;
+    --clone-root)
+      CLONE_ROOT="${2:-}"
+      shift 2
+      ;;
     --no-synthetic-fallback)
       ALLOW_SYNTHETIC_FALLBACK=0
       shift
@@ -445,6 +455,10 @@ fi
 
 if [[ "${MODE}" != "baseline-only" && "${MODE}" != "baseline+enrich" ]]; then
   echo "[sprawl-run] --mode must be baseline-only or baseline+enrich" >&2
+  exit 1
+fi
+if [[ "${SCAN_SOURCE}" != "repo" && "${SCAN_SOURCE}" != "clone" ]]; then
+  echo "[sprawl-run] --scan-source must be repo or clone" >&2
   exit 1
 fi
 for n in "${MAX_TARGETS}" "${MAX_RUNTIME_SEC}" "${MAX_RUN_DISK_MB}"; do
@@ -499,10 +513,12 @@ if (( ${#targets[@]} > MAX_TARGETS )); then
 fi
 
 if [[ "${DRY_RUN}" -eq 1 ]]; then
+  clone_root_display="${CLONE_ROOT:-runs/tool-sprawl/${RUN_ID}/sources}"
   echo "[sprawl-run] dry-run mode"
   echo "[sprawl-run] run_id=${RUN_ID} mode=${MODE_STATE} campaign_mode=${MODE}"
   echo "[sprawl-run] run_dir=${RUN_DIR}"
   echo "[sprawl-run] targets_file=${TARGETS_FILE} targets=${#targets[@]}"
+  echo "[sprawl-run] scan_source=${SCAN_SOURCE} clone_root=${clone_root_display}"
   echo "[sprawl-run] wrkr_runtime=${WRKR_RUNTIME}"
   echo "[sprawl-run] guardrails: max_runtime_sec=${MAX_RUNTIME_SEC} max_run_disk_mb=${MAX_RUN_DISK_MB} egress_allowlist=${EGRESS_ALLOWLIST}"
   echo "[sprawl-run] actions:"
@@ -527,6 +543,14 @@ for policy in "${APPROVED_TOOLS_POLICY}" "${PRODUCTION_TARGETS_POLICY}" "${SEGME
 done
 
 mkdir -p "${RUN_DIR}/states" "${RUN_DIR}/states-enrich" "${RUN_DIR}/scans" "${RUN_DIR}/agg" "${RUN_DIR}/appendix" "${RUN_DIR}/artifacts"
+if [[ "${SCAN_SOURCE}" == "clone" ]]; then
+  if [[ -z "${CLONE_ROOT}" ]]; then
+    CLONE_ROOT="${RUN_DIR}/sources"
+  elif [[ "${CLONE_ROOT}" != /* ]]; then
+    CLONE_ROOT="${REPO_ROOT}/${CLONE_ROOT}"
+  fi
+  mkdir -p "${CLONE_ROOT}"
+fi
 
 assert_runtime_budget
 check_disk_quota "${RUN_DIR}"
@@ -537,22 +561,32 @@ for target in "${targets[@]}"; do
   slug="$(slugify "${target}")"
   scan_path="${RUN_DIR}/scans/${slug}.scan.json"
   state_path="${RUN_DIR}/states/${slug}.json"
+  source_path=""
+  if [[ "${SCAN_SOURCE}" == "clone" ]]; then
+    source_path="${CLONE_ROOT}/${slug}"
+    if [[ ! -d "${source_path}/.git" ]]; then
+      if ! git clone --depth 1 "https://github.com/${target}.git" "${source_path}" >/dev/null 2>&1; then
+        if [[ "${ALLOW_SYNTHETIC_FALLBACK}" -eq 0 ]]; then
+          echo "[sprawl-run] clone failed for ${target} and synthetic fallback disabled" >&2
+          exit 1
+        fi
+      fi
+    fi
+  fi
 
   scan_ok=0
   if [[ "${WRKR_RUNTIME}" != "unavailable" ]]; then
-    wrkr_args=(
-      scan
-      --repo "${target}"
-      --state "${state_path}"
-      --approved-tools "${REPO_ROOT}/${APPROVED_TOOLS_POLICY}"
-      --production-targets "${REPO_ROOT}/${PRODUCTION_TARGETS_POLICY}"
-      --json
-    )
-    if [[ -n "${WRKR_GITHUB_API_BASE:-}" ]]; then
-      wrkr_args+=(--github-api "${WRKR_GITHUB_API_BASE}")
-    fi
-    if [[ -n "${WRKR_GITHUB_TOKEN:-}" ]]; then
-      wrkr_args+=(--github-token "${WRKR_GITHUB_TOKEN}")
+    wrkr_args=(scan --state "${state_path}" --approved-tools "${REPO_ROOT}/${APPROVED_TOOLS_POLICY}" --production-targets "${REPO_ROOT}/${PRODUCTION_TARGETS_POLICY}" --json)
+    if [[ "${SCAN_SOURCE}" == "clone" ]]; then
+      wrkr_args+=(--path "${source_path}")
+    else
+      wrkr_args+=(--repo "${target}")
+      if [[ -n "${WRKR_GITHUB_API_BASE:-}" ]]; then
+        wrkr_args+=(--github-api "${WRKR_GITHUB_API_BASE}")
+      fi
+      if [[ -n "${WRKR_GITHUB_TOKEN:-}" ]]; then
+        wrkr_args+=(--github-token "${WRKR_GITHUB_TOKEN}")
+      fi
     fi
 
     if run_wrkr "${wrkr_args[@]}" > "${scan_path}" 2>/dev/null; then
@@ -577,20 +611,17 @@ for target in "${targets[@]}"; do
     enrich_ok=0
 
     if [[ "${WRKR_RUNTIME}" != "unavailable" ]]; then
-      wrkr_enrich_args=(
-        scan
-        --repo "${target}"
-        --state "${enrich_state_path}"
-        --approved-tools "${REPO_ROOT}/${APPROVED_TOOLS_POLICY}"
-        --production-targets "${REPO_ROOT}/${PRODUCTION_TARGETS_POLICY}"
-        --enrich
-        --json
-      )
-      if [[ -n "${WRKR_GITHUB_API_BASE:-}" ]]; then
-        wrkr_enrich_args+=(--github-api "${WRKR_GITHUB_API_BASE}")
-      fi
-      if [[ -n "${WRKR_GITHUB_TOKEN:-}" ]]; then
-        wrkr_enrich_args+=(--github-token "${WRKR_GITHUB_TOKEN}")
+      wrkr_enrich_args=(scan --state "${enrich_state_path}" --approved-tools "${REPO_ROOT}/${APPROVED_TOOLS_POLICY}" --production-targets "${REPO_ROOT}/${PRODUCTION_TARGETS_POLICY}" --enrich --json)
+      if [[ "${SCAN_SOURCE}" == "clone" ]]; then
+        wrkr_enrich_args+=(--path "${source_path}")
+      else
+        wrkr_enrich_args+=(--repo "${target}")
+        if [[ -n "${WRKR_GITHUB_API_BASE:-}" ]]; then
+          wrkr_enrich_args+=(--github-api "${WRKR_GITHUB_API_BASE}")
+        fi
+        if [[ -n "${WRKR_GITHUB_TOKEN:-}" ]]; then
+          wrkr_enrich_args+=(--github-token "${WRKR_GITHUB_TOKEN}")
+        fi
       fi
       if run_wrkr "${wrkr_enrich_args[@]}" > "${enrich_scan_path}" 2>/dev/null; then
         enrich_ok=1
@@ -610,8 +641,17 @@ done
 
 assert_runtime_budget
 
-states_glob=("${RUN_DIR}"/states/*.json)
-if [[ ! -e "${states_glob[0]}" ]]; then
+state_inputs=()
+for target in "${targets[@]}"; do
+  slug="$(slugify "${target}")"
+  state_file="${RUN_DIR}/states/${slug}.json"
+  if [[ ! -f "${state_file}" ]]; then
+    echo "[sprawl-run] missing expected state file for target ${target}: ${state_file}" >&2
+    exit 1
+  fi
+  state_inputs+=("${state_file}")
+done
+if [[ "${#state_inputs[@]}" -eq 0 ]]; then
   echo "[sprawl-run] no state files generated" >&2
   exit 1
 fi
@@ -655,7 +695,7 @@ jq -s \
       detector_list: $detector_list
     }
   }
-' "${states_glob[@]}" > "${RUN_DIR}/agg/campaign-summary.json"
+' "${state_inputs[@]}" > "${RUN_DIR}/agg/campaign-summary.json"
 
 jq -n \
   --arg generated_at "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
@@ -734,7 +774,7 @@ jq -s '
     }),
     mcp_enrich_rows: []
   }
-' "${states_glob[@]}" > "${RUN_DIR}/appendix/combined-appendix.json"
+' "${state_inputs[@]}" > "${RUN_DIR}/appendix/combined-appendix.json"
 
 jq -r '(["org","tools_detected","approved_tools","unapproved_tools","unknown_tools","production_write_tools"] | @csv),
   (.inventory_rows[] | [.org, .tools_detected, .approved_tools, .unapproved_tools, .unknown_tools, .production_write_tools] | @csv)
@@ -794,6 +834,8 @@ jq -n \
   --arg wrkr_version "${WRKR_VERSION}" \
   --arg wrkr_sha "${WRKR_SHA}" \
   --arg wrkr_ref "${WRKR_REF}" \
+  --arg scan_source "${SCAN_SOURCE}" \
+  --arg clone_root "${CLONE_ROOT}" \
   --arg detector_list "${DETECTOR_LIST}" \
   --arg targets_file "${TARGETS_FILE}" \
   --arg targets_file_sha256 "${TARGETS_DIGEST}" \
@@ -829,7 +871,9 @@ jq -n \
         version: $wrkr_version,
         commit_sha: $wrkr_sha,
         ref: $wrkr_ref,
-        detector_list: $detector_list
+        detector_list: $detector_list,
+        scan_source: $scan_source,
+        clone_root: $clone_root
       },
       inputs: {
         targets_file: $targets_file,
@@ -858,9 +902,14 @@ jq -n \
     }
   }' > "${MANIFEST_PATH}"
 
-"${REPO_ROOT}/pipelines/common/hash_manifest.sh" \
-  --input "${RUN_DIR}" \
+hash_args=(
+  --input "${RUN_DIR}"
   --output "${RUN_DIR}/artifacts/manifest.sha256"
+)
+if [[ "${SCAN_SOURCE}" == "clone" ]]; then
+  hash_args+=(--exclude-prefix "sources/")
+fi
+"${REPO_ROOT}/pipelines/common/hash_manifest.sh" "${hash_args[@]}"
 
 echo "[sprawl-run] completed run ${RUN_ID}"
 echo "[sprawl-run] manifest: ${MANIFEST_PATH}"

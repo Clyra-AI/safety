@@ -4,7 +4,7 @@ set -euo pipefail
 usage() {
   cat <<'EOF'
 Usage:
-  hash_manifest.sh --input <dir> --output <file>
+  hash_manifest.sh --input <dir> --output <file> [--exclude-prefix <prefix>]
 
 Writes a deterministic SHA-256 manifest with lines:
   <sha256>  <relative_path>
@@ -13,6 +13,7 @@ EOF
 
 INPUT_DIR=""
 OUTPUT_FILE=""
+EXCLUDE_PREFIXES=()
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -22,6 +23,10 @@ while [[ $# -gt 0 ]]; do
       ;;
     --output)
       OUTPUT_FILE="${2:-}"
+      shift 2
+      ;;
+    --exclude-prefix)
+      EXCLUDE_PREFIXES+=("${2:-}")
       shift 2
       ;;
     -h|--help)
@@ -76,6 +81,16 @@ for file in "${files[@]}"; do
     continue
   fi
   rel="${file#${INPUT_ABS}/}"
+  skip=0
+  for prefix in "${EXCLUDE_PREFIXES[@]-}"; do
+    if [[ -n "${prefix}" && "${rel}" == "${prefix}"* ]]; then
+      skip=1
+      break
+    fi
+  done
+  if [[ "${skip}" -eq 1 ]]; then
+    continue
+  fi
   hash="$("${HASHER[@]}" "${file}" | awk '{print $1}')"
   printf '%s  %s\n' "${hash}" "${rel}" >> "${TMP_FILE}"
 done
