@@ -4,11 +4,11 @@
   "run_id": "openclaw-live-24h-20260228T143341Z",
   "created_at": "2026-03-01T14:35:27Z",
   "status": "completed",
-  "mode": "scaffold",
+  "mode": "create",
   "execution_mode": "container",
   "workload_mode": "live",
   "scenario_set": "core5",
-  "parallel_lanes": false,
+  "parallel_lanes": true,
   "measurement_window": {
     "window_hours": 24,
     "lane_duration_sec": 86400
@@ -26,15 +26,15 @@
       "notes": "Canonical source pin for OpenClaw case-study runs. Use dual-lane execution (ungoverned + governed) with matched workload profile; set lane duration and window per run objective (pilot or 24h publication run)."
     },
     "wrkr": {
-      "runtime": "go-run:/Users/davidahmann/Projects/wrkr",
+      "runtime": "go-run:external:wrkr",
       "version": "unavailable",
       "commit_sha": "2b0efd6edc63856b9b21bcfa8136528c98e57202",
       "ref": "2b0efd6",
-      "scan_target_path": "/Users/davidahmann/Projects/agent-ecosystem/openclaw",
+      "scan_target_path": "external:openclaw",
       "detector_list": "default"
     },
     "gait": {
-      "runtime": "go-run:/Users/davidahmann/Projects/gait",
+      "runtime": "go-run:external:gait",
       "version": "gait 0.0.0-dev",
       "commit_sha": "74d75038e4195d651666af32139e1e35b8927664",
       "ref": "v1.3.1"
@@ -72,5 +72,6 @@
     "evidence_verification": "runs/openclaw/openclaw-live-24h-20260228T143341Z/artifacts/verification/evidence-verification.json",
     "claim_values": "runs/openclaw/openclaw-live-24h-20260228T143341Z/artifacts/claim-values.json",
     "threshold_evaluation": "runs/openclaw/openclaw-live-24h-20260228T143341Z/artifacts/threshold-evaluation.json"
-  }
+  },
+  "lane_execution_model": "parallel_containers"
 }

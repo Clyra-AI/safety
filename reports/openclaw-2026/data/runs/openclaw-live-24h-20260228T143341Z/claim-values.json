@@ -1,8 +1,8 @@
 {
   "schema_version": "v1",
-  "generated_at": "2026-03-01T15:06:49Z",
+  "generated_at": "2026-03-03T02:14:45Z",
   "run_id": "openclaw-live-24h-20260228T143341Z",
-  "claims_file": "/Users/davidahmann/Projects/clyra_report/claims/openclaw-2026/claims.json",
+  "claims_file": "claims/openclaw-2026/claims.json",
   "coverage": {
     "total_claims": 16,
     "computed_claims": 16,

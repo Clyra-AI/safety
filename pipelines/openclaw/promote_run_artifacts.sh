@@ -33,6 +33,11 @@ file_sha256() {
   echo "unavailable"
 }
 
+contains_machine_path() {
+  local file="$1"
+  jq -e '.. | strings | select(test("^/Users/|^/home/"))' "${file}" >/dev/null 2>&1
+}
+
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --run-id)
@@ -109,6 +114,23 @@ copy_file "artifacts/anecdotes.json" "anecdotes.json"
 copy_file "artifacts/manifest.sha256" "run-tree-manifest.sha256"
 copy_file "derived/scenario_summary.json" "scenario-summary.json"
 copy_file "raw/wrkr/wrkr-scan.json" "wrkr-scan.json"
+
+for json_file in "run-manifest.json" "claim-values.json" "threshold-evaluation.json"; do
+  if contains_machine_path "${DEST_DIR}/${json_file}"; then
+    echo "[openclaw-promote] machine-specific absolute path found in ${json_file}" >&2
+    exit 1
+  fi
+done
+
+if jq -e '.mode == "scaffold"' "${DEST_DIR}/run-manifest.json" >/dev/null; then
+  echo "[openclaw-promote] invalid run-manifest mode=scaffold; run must be executed before promotion" >&2
+  exit 1
+fi
+
+if jq -e '.execution_mode == "container" and .parallel_lanes == false' "${DEST_DIR}/run-manifest.json" >/dev/null; then
+  echo "[openclaw-promote] invalid run-manifest: container execution must report parallel_lanes=true" >&2
+  exit 1
+fi
 
 raw_archive_rel=""
 raw_archive_sha="unavailable"

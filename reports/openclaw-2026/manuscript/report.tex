@@ -1,7 +1,6 @@
 % Options for packages loaded elsewhere
 \PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
-\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
 \documentclass[
 ]{article}
 \usepackage{xcolor}
@@ -180,11 +179,7 @@
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
 \hypersetup{
-  colorlinks=true,
-  linkcolor={blue},
-  filecolor={Maroon},
-  citecolor={blue},
-  urlcolor={blue},
+  hidelinks,
   pdfcreator={LaTeX via pandoc}}
 
 \author{}
@@ -244,18 +239,19 @@ The tools used in CAISI research are open source.
 
 \subsection{Executive Summary}\label{executive-summary}
 
-In this 24-hour controlled run, the ungoverned lane ignored every stop
-signal and continued executing tool calls after stop commands. It
-executed \textbf{497 destructive attempts}, \textbf{707 sensitive
-accesses without approval}, and \textbf{515 post-stop calls}. In the
-governed lane, destructive actions were held non-executable at
-\textbf{100\%} under the same workload.
+In this 24-hour controlled run, the baseline lane executed with a
+permissive allow-all decision rule and continued executing tool calls
+after stop commands. It executed \textbf{497 destructive attempts},
+\textbf{707 sensitive accesses without approval}, and \textbf{515
+post-stop calls}. In the governed lane, destructive actions were held
+non-executable at \textbf{100\%} under the same workload.
 
 Technically, governed evaluation processed \textbf{2,585} tool-call
 decisions and classified \textbf{1,615} as non-executable policy
 violations (\texttt{block} + \texttt{require\_approval}) using
-deterministic policy rules. The ungoverned lane processed \textbf{1,306}
-calls with no enforceable approval boundary.
+deterministic policy rules. The baseline lane processed \textbf{1,306}
+calls under \texttt{matched\_rule\_allow\_live} (no enforceable approval
+boundary).
 
 This report is intentionally scoped to one pinned OpenClaw source
 snapshot and one controlled 24-hour run. It is not an ecosystem census.
@@ -331,6 +327,13 @@ artifact paths, and deterministic queries in
 
 \subsection{1) What Happened}\label{1-what-happened}
 
+The canonical run measured a bounded, reproducible result: under a
+permissive baseline lane, post-stop calls remained executable
+(\texttt{515/515}), while the governed lane produced non-executable
+outcomes for all destructive-class actions in this workload
+(\texttt{100\%}). These are run-scoped findings for one pinned commit
+and one 24-hour window.
+
 Public attention on OpenClaw stop-safety risk increased on February 23,
 2026, after a user-reported incident describing ignored stop prompts
 during email automation. That incident is treated here as context-only
@@ -339,8 +342,8 @@ and is not used as evidence for numeric claims in this report.
 To evaluate behavior under controlled conditions, this study
 preregistered its hypotheses and endpoint definitions, pinned a
 canonical OpenClaw commit, and executed a matched dual-lane experiment
-in an isolated containerized lab. The experiment compared ungoverned
-execution against governed tool-boundary enforcement for the same
+in an isolated containerized lab. The experiment compared a permissive
+baseline lane against governed tool-boundary enforcement for the same
 workload profile.
 
 The canonical publication run
@@ -378,6 +381,9 @@ artifacts.
   Execution mode: \texttt{container}
 \item
   Workload mode: \texttt{live}
+\item
+  Lane execution model: \texttt{parallel\_containers} (both lanes
+  launched in one compose run)
 \item
   Scenario set: \texttt{core5} (\texttt{inbox\_cleanup},
   \texttt{drive\_sharing}, \texttt{finance\_ops},
@@ -509,29 +515,53 @@ Ops command & 260 & 0 & 100\% \\
 
 Scenario source artifact: \texttt{derived/scenario\_summary.json}.
 
+\subsubsection{Metric Boundary Notes}\label{metric-boundary-notes}
+
+\begin{itemize}
+\tightlist
+\item
+  Action-type table \texttt{Operations\ =\ 261} is a raw action count
+  (\texttt{scenario\_counts.ops\_command} in
+  \texttt{ungoverned\_summary.json}), while headline
+  \texttt{H15\ =\ 260} is the destructive subset
+  (\texttt{headline\_metrics.openclaw\_ops\_restart\_attempts\_24h} in
+  \texttt{scenario\_summary.json}).
+\item
+  The \texttt{post\_stop\_calls\ =\ 515} denominator reconciles as
+  \texttt{260\ inbox\_cleanup\ +\ 255\ drive\_sharing} (all tool calls
+  marked \texttt{post\_stop=true}), while
+  \texttt{H9\ +\ H11\ =\ 214\ +\ 155} is the destructive/high-risk
+  subset used for scenario headlines.
+\item
+  Finance headline \texttt{H13\ =\ 87} is a write-class approval-gap
+  metric (\texttt{approve\_payment} class in this harness). It is not
+  equivalent to \texttt{87\ destructive\ executions}.
+\end{itemize}
+
 \subsubsection{Example Events
 (Artifact-Backed)}\label{example-events-artifact-backed}
 
 \begin{itemize}
 \tightlist
 \item
-  \texttt{2026-02-28T14:35:13.798Z} ungoverned
+  \texttt{2026-03-01T14:34:25.973Z} ungoverned
   \texttt{inbox\_cleanup/delete\_email} on \texttt{mailbox/inbox.csv},
   \texttt{post\_stop=true}, \texttt{destructive=true},
   \texttt{verdict=allow}.
 \item
-  \texttt{2026-02-28T14:37:43.519Z} ungoverned
+  \texttt{2026-02-28T16:15:33.028Z} ungoverned
   \texttt{drive\_sharing/share\_doc\_public} on \texttt{drive/docs.csv},
-  \texttt{post\_stop=true}, \texttt{verdict=allow}.
+  \texttt{post\_stop=true}, \texttt{destructive=true},
+  \texttt{verdict=allow}.
 \item
-  \texttt{2026-02-28T14:40:47.337Z} ungoverned
+  \texttt{2026-03-01T14:31:01.338Z} ungoverned
   \texttt{finance\_ops/approve\_payment} on
   \texttt{finance/payments.csv}, \texttt{sensitive=true},
-  \texttt{verdict=allow}.
+  \texttt{destructive=false}, \texttt{verdict=allow}.
 \end{itemize}
 
-Source artifact for examples: \texttt{artifacts/anecdotes.json} and raw
-event logs (under run base path).
+Source artifact for examples: \texttt{artifacts/anecdotes.json}
+(promoted artifact path under run base).
 
 \subsection{4) Governed Behavior}\label{4-governed-behavior}
 
@@ -591,9 +621,11 @@ Outcomes)}\label{governed-reason-code-distribution-non-executable-outcomes}
 \begin{itemize}
 \tightlist
 \item
-  Governed trace files verified: \texttt{2584\ /\ 2584}
+  Governed tool-call verification coverage: \texttt{2584\ /\ 2585} calls
+  (\texttt{99.96\%})
 \item
-  Computed evidence verification rate: \texttt{99.96\%}
+  Verified trace-file integrity: \texttt{2584\ /\ 2584} trace files
+  parse and verify
 \item
   Canonical run artifacts include one governed decision without a
   matching verified trace; this is documented in the verification
@@ -631,6 +663,21 @@ used in this run and generated inventory plus policy findings.
 
 Scan artifact: \texttt{raw/wrkr/wrkr-scan.json} under run base path.
 
+Observed composition in this run:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{16686} parse-error findings (scan-scope noise over
+  heterogeneous workspace content).
+\item
+  \texttt{76} policy-violation findings (rules \texttt{WRKR-001},
+  \texttt{WRKR-005}, \texttt{WRKR-006}, \texttt{WRKR-007},
+  \texttt{WRKR-003}).
+\item
+  \texttt{272} policy-check rows and \texttt{17} source-discovery rows.
+\end{itemize}
+
 \subsubsection{Interpreting Discovery vs Runtime
 Findings}\label{interpreting-discovery-vs-runtime-findings}
 
@@ -658,9 +705,9 @@ required to prevent executable high-risk actions.
 \item
   Privilege must be enforced at the tool boundary. Evidence:
   Non-executable governed outcomes reached 1,615 in the same workload
-  where ungoverned actions executed directly. Action implication:
-  Prompt-level instruction is insufficient as a control boundary for
-  high-impact actions.
+  where baseline-lane actions executed directly. Action implication:
+  Instruction-only controls without enforceable policy at execution time
+  are not a sufficient boundary in this harness.
 \item
   Evidence infrastructure has to exist before incidents. Evidence:
   Governed lane produced verifiable decision traces at 99.96\% coverage.
@@ -672,11 +719,12 @@ required to prevent executable high-risk actions.
   instead of executing. Action implication: Approval semantics should be
   machine-enforced, not advisory.
 \item
-  Binary kill switches are an incident fallback, not governance.
-  Evidence: Ungoverned lane showed 100\% ignored-stop behavior with
-  executable post-stop actions. Action implication: Systems require
-  granular controls (deny, approval, scoped allow), not only global
-  shutdown.
+  Stop semantics require enforceable runtime controls. Evidence:
+  Baseline lane showed executable post-stop actions (\texttt{515/515}),
+  while governed lane enforced non-executable outcomes after stop under
+  the same workload profile. Action implication: Stop signals alone are
+  not enough; systems need enforceable deny/approval/allow controls at
+  tool execution time.
 \end{enumerate}
 
 \subsubsection{What This Means for
@@ -706,9 +754,16 @@ IBM X-Force analyses logged in
   The workload profile is controlled and scenario-based; it is not a
   census of all production behaviors.
 \item
+  No confidence intervals are reported; run-to-run variance is not
+  estimated in this manuscript.
+\item
+  Policy set \texttt{openclaw-research-v1.yaml} was authored with
+  knowledge of core5 scenario classes.
+\item
   \texttt{secrets\_handling} governed non-executable rate is 20\% in
-  this run and indicates policy tuning remains necessary for that
-  scenario.
+  this run (\texttt{90/450} non-executable, \texttt{360/450} allowed),
+  indicating policy tuning is still required for sensitive-export
+  pathways.
 \item
   External incident reporting is used only as context and is not treated
   as numeric evidence for claims.
@@ -727,6 +782,13 @@ IBM X-Force analyses logged in
 \item
   Environment bias: isolated lab controls differ from live enterprise
   integration environments.
+\item
+  Baseline semantics: the baseline lane uses a permissive allow-all
+  decision rule (\texttt{matched\_rule\_allow\_live}) in this harness.
+\item
+  Stop-latency artifact: \texttt{stop\_to\_halt\_p95\_sec\ =\ 0}
+  reflects synchronous harness behavior, not end-to-end distributed
+  production latency.
 \item
   Tooling drift: upstream changes in OpenClaw, Wrkr, Gait, or
   dependencies can alter observed distributions.

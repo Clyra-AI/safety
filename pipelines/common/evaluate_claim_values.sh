@@ -4,7 +4,7 @@ set -euo pipefail
 usage() {
   cat <<'USAGE'
 Usage:
-  evaluate_claim_values.sh --report-id <id> --claim-values <path> --thresholds <path> [--lane-duration-sec <n>] [--scale-ids <csv>] [--output <path>]
+  evaluate_claim_values.sh --report-id <id> --claim-values <path> --thresholds <path> [--repo-root <path>] [--lane-duration-sec <n>] [--scale-ids <csv>] [--output <path>]
 
 Evaluates required and recommended thresholds against derived claim values.
 Scaling behavior for time-window runs:
@@ -16,6 +16,7 @@ USAGE
 REPORT_ID=""
 CLAIM_VALUES=""
 THRESHOLDS=""
+REPO_ROOT=""
 LANE_DURATION_SEC=""
 SCALE_IDS_CSV=""
 OUTPUT_PATH=""
@@ -32,6 +33,10 @@ while [[ $# -gt 0 ]]; do
       ;;
     --thresholds)
       THRESHOLDS="${2:-}"
+      shift 2
+      ;;
+    --repo-root)
+      REPO_ROOT="${2:-}"
       shift 2
       ;;
     --lane-duration-sec)
@@ -58,6 +63,26 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
+if [[ -z "${REPO_ROOT}" ]]; then
+  REPO_ROOT="$(pwd)"
+fi
+
+relativize_path() {
+  local path="$1"
+  local root="$2"
+  case "${path}" in
+    "${root}")
+      printf '.\n'
+      ;;
+    "${root}"/*)
+      printf '%s\n' "${path#${root}/}"
+      ;;
+    *)
+      printf '%s\n' "${path}"
+      ;;
+  esac
+}
+
 if [[ -z "${REPORT_ID}" || -z "${CLAIM_VALUES}" || -z "${THRESHOLDS}" ]]; then
   echo "[evaluate-claims] --report-id, --claim-values, and --thresholds are required" >&2
   usage >&2
@@ -78,6 +103,9 @@ if [[ ! -f "${THRESHOLDS}" ]]; then
   exit 1
 fi
 
+CLAIM_VALUES_REL="$(relativize_path "${CLAIM_VALUES}" "${REPO_ROOT}")"
+THRESHOLDS_REL="$(relativize_path "${THRESHOLDS}" "${REPO_ROOT}")"
+
 if [[ -n "${LANE_DURATION_SEC}" && ! "${LANE_DURATION_SEC}" =~ ^[0-9]+$ ]]; then
   echo "[evaluate-claims] --lane-duration-sec must be an integer" >&2
   exit 1
@@ -97,8 +125,8 @@ fi
 result_json="$({
   jq -n \
     --arg report_id "${REPORT_ID}" \
-    --arg claim_values_path "${CLAIM_VALUES}" \
-    --arg thresholds_path "${THRESHOLDS}" \
+    --arg claim_values_path "${CLAIM_VALUES_REL}" \
+    --arg thresholds_path "${THRESHOLDS_REL}" \
     --arg generated_at "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
     --arg lane_duration_sec_input "${LANE_DURATION_SEC}" \
     --argjson scale_factor "${SCALE_FACTOR}" \

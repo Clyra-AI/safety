@@ -71,6 +71,40 @@ file_sha256() {
   ${hasher} "${file}" | awk '{print $1}'
 }
 
+normalize_path_ref() {
+  local path="$1"
+  if [[ -z "${path}" ]]; then
+    printf '%s\n' "${path}"
+    return
+  fi
+  if [[ "${path}" == "${REPO_ROOT}" ]]; then
+    printf '.\n'
+    return
+  fi
+  if [[ "${path}" == "${REPO_ROOT}/"* ]]; then
+    printf '%s\n' "${path#${REPO_ROOT}/}"
+    return
+  fi
+  if [[ "${path}" == /* ]]; then
+    printf 'external:%s\n' "${path##*/}"
+    return
+  fi
+  printf '%s\n' "${path}"
+}
+
+normalize_runtime_ref() {
+  local runtime="$1"
+  if [[ "${runtime}" == go-run:* ]]; then
+    printf 'go-run:%s\n' "$(normalize_path_ref "${runtime#go-run:}")"
+    return
+  fi
+  if [[ "${runtime}" == /* ]]; then
+    normalize_path_ref "${runtime}"
+    return
+  fi
+  printf '%s\n' "${runtime}"
+}
+
 is_number() {
   local value="$1"
   [[ "${value}" =~ ^-?[0-9]+([.][0-9]+)?$ ]]
@@ -523,9 +557,17 @@ if [[ ! -d "${RUN_DIR}" && "${RESUME}" -eq 1 ]]; then
   exit 1
 fi
 
-MODE="scaffold"
+MODE="create"
 if [[ "${RESUME}" -eq 1 ]]; then
   MODE="resume"
+fi
+EFFECTIVE_PARALLEL_LANES="${PARALLEL_LANES}"
+LANE_EXECUTION_MODEL="sequential_host"
+if [[ "${EXECUTION_MODE}" == "container" ]]; then
+  EFFECTIVE_PARALLEL_LANES=1
+  LANE_EXECUTION_MODEL="parallel_containers"
+elif [[ "${PARALLEL_LANES}" -eq 1 ]]; then
+  LANE_EXECUTION_MODEL="parallel_host"
 fi
 
 maybe_bootstrap_tool_repos
@@ -536,7 +578,9 @@ if [[ "${DRY_RUN}" -eq 1 ]]; then
   echo "[openclaw-run] run_id=${RUN_ID}"
   echo "[openclaw-run] mode=${MODE} execution=${EXECUTION_MODE} workload=${WORKLOAD_MODE}"
   echo "[openclaw-run] scenario_set=${OPENCLAW_SCENARIO_SET}"
-  echo "[openclaw-run] parallel_lanes=${PARALLEL_LANES}"
+  echo "[openclaw-run] parallel_lanes_requested=${PARALLEL_LANES}"
+  echo "[openclaw-run] parallel_lanes_effective=${EFFECTIVE_PARALLEL_LANES}"
+  echo "[openclaw-run] lane_execution_model=${LANE_EXECUTION_MODEL}"
   echo "[openclaw-run] run_dir=${RUN_DIR}"
   echo "[openclaw-run] wrkr_runtime=${WRKR_RUNTIME}"
   echo "[openclaw-run] gait_runtime=${GAIT_RUNTIME}"
@@ -573,7 +617,7 @@ fi
 
 mkdir -p "${RUN_DIR}/config" "${RUN_DIR}/raw/ungoverned" "${RUN_DIR}/raw/governed" "${RUN_DIR}/raw/wrkr" "${RUN_DIR}/derived" "${RUN_DIR}/artifacts/gait" "${RUN_DIR}/artifacts/verification"
 
-if [[ "${MODE}" == "scaffold" ]]; then
+if [[ "${MODE}" == "create" ]]; then
   cp -R "${REPO_ROOT}/reports/openclaw-2026/container-config/." "${RUN_DIR}/config/"
 fi
 
@@ -969,6 +1013,7 @@ jq -n \
 
 "${REPO_ROOT}/pipelines/common/evaluate_claim_values.sh" \
   --report-id "openclaw-2026" \
+  --repo-root "${REPO_ROOT}" \
   --claim-values "${CLAIM_VALUES_PATH}" \
   --thresholds "${REPO_ROOT}/pipelines/config/publish-thresholds.json" \
   --lane-duration-sec "${LANE_DURATION_SEC}" \
@@ -986,6 +1031,9 @@ GAIT_SHA="$(safe_git_sha "${GAIT_REPO_PATH}")"
 GAIT_REF="$(safe_git_ref "${GAIT_REPO_PATH}")"
 WRKR_VERSION="$(capture_wrkr_version)"
 GAIT_VERSION="$(capture_gait_version)"
+WRKR_RUNTIME_REF="$(normalize_runtime_ref "${WRKR_RUNTIME}")"
+GAIT_RUNTIME_REF="$(normalize_runtime_ref "${GAIT_RUNTIME}")"
+WRKR_SCAN_TARGET_REF="$(normalize_path_ref "${wrkr_scan_target}")"
 
 OPENCLAW_REPO_URL="$(extract_openclaw_field "repository_url")"
 OPENCLAW_COMMIT_OR_TAG="$(extract_openclaw_field "commit_or_tag")"
@@ -1013,17 +1061,18 @@ jq -n \
   --arg execution_mode "${EXECUTION_MODE}" \
   --arg workload_mode "${WORKLOAD_MODE}" \
   --arg scenario_set "${OPENCLAW_SCENARIO_SET}" \
-  --argjson parallel_lanes "$(if [[ "${PARALLEL_LANES}" -eq 1 ]]; then echo "true"; else echo "false"; fi)" \
+  --arg lane_execution_model "${LANE_EXECUTION_MODEL}" \
+  --argjson parallel_lanes "$(if [[ "${EFFECTIVE_PARALLEL_LANES}" -eq 1 ]]; then echo "true"; else echo "false"; fi)" \
   --argjson lane_duration_sec "${LANE_DURATION_SEC}" \
   --argjson window_hours "${WINDOW_HOURS}" \
   --arg repo_sha "${REPO_SHA}" \
   --arg repo_ref "${REPO_REF}" \
-  --arg wrkr_runtime "${WRKR_RUNTIME}" \
+  --arg wrkr_runtime "${WRKR_RUNTIME_REF}" \
   --arg wrkr_version "${WRKR_VERSION}" \
   --arg wrkr_sha "${WRKR_SHA}" \
   --arg wrkr_ref "${WRKR_REF}" \
-  --arg wrkr_scan_target "${wrkr_scan_target}" \
-  --arg gait_runtime "${GAIT_RUNTIME}" \
+  --arg wrkr_scan_target "${WRKR_SCAN_TARGET_REF}" \
+  --arg gait_runtime "${GAIT_RUNTIME_REF}" \
   --arg gait_version "${GAIT_VERSION}" \
   --arg gait_sha "${GAIT_SHA}" \
   --arg gait_ref "${GAIT_REF}" \
@@ -1060,6 +1109,7 @@ jq -n \
     workload_mode: $workload_mode,
     scenario_set: $scenario_set,
     parallel_lanes: $parallel_lanes,
+    lane_execution_model: $lane_execution_model,
     measurement_window: {
       window_hours: $window_hours,
       lane_duration_sec: $lane_duration_sec

@@ -1,6 +1,6 @@
 # OpenClaw 2026 Definitions (Locked for This Cycle)
 
-Status: draft lock candidate  
+Status: locked  
 Version: `v6`  
 Effective date: `2026-02-27`
 

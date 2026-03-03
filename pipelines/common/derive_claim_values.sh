@@ -29,6 +29,22 @@ resolve_path() {
   fi
 }
 
+relativize_path() {
+  local path="$1"
+  local root="$2"
+  case "${path}" in
+    "${root}")
+      printf '.\n'
+      ;;
+    "${root}"/*)
+      printf '%s\n' "${path#${root}/}"
+      ;;
+    *)
+      printf '%s\n' "${path}"
+      ;;
+  esac
+}
+
 trim() {
   # shellcheck disable=SC2001
   sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//'
@@ -104,6 +120,7 @@ if [[ ! -f "${CLAIMS_FILE_ABS}" ]]; then
   echo "[derive-claims] claims file not found: ${CLAIMS_FILE_ABS}" >&2
   exit 1
 fi
+CLAIMS_FILE_REL="$(relativize_path "${CLAIMS_FILE_ABS}" "${REPO_ROOT}")"
 
 mkdir -p "$(dirname "${OUTPUT_FILE}")"
 
@@ -206,7 +223,7 @@ jq -n \
   --arg schema_version "v1" \
   --arg generated_at "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
   --arg run_id "${RUN_ID}" \
-  --arg claims_file "${CLAIMS_FILE_ABS}" \
+  --arg claims_file "${CLAIMS_FILE_REL}" \
   --argjson total "${total}" \
   --argjson computed "${computed}" \
   --argjson warnings "${warnings}" \

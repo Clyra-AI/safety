@@ -23,6 +23,20 @@ RUN_ID="${RUN_ID:-}"
 STRICT=0
 FAILURES=0
 
+contains_machine_path() {
+  local file="$1"
+  jq -e '.. | strings | select(test("^/Users/|^/home/"))' "${file}" >/dev/null 2>&1
+}
+
+collect_example_timestamps() {
+  local manuscript="$1"
+  awk '
+    /^### Example Events/ { in_section=1; next }
+    /^## / && in_section { exit }
+    in_section { print }
+  ' "${manuscript}" | rg -o '[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9:.]+Z' | sort -u
+}
+
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --run-id)
@@ -142,6 +156,7 @@ if [[ -n "${RUN_ID}" ]]; then
     if [[ -n "${lane_duration_sec}" ]]; then
       "${REPO_ROOT}/pipelines/common/evaluate_claim_values.sh" \
         --report-id "openclaw-2026" \
+        --repo-root "${REPO_ROOT}" \
         --claim-values "${run_dir}/artifacts/claim-values.json" \
         --thresholds "${REPO_ROOT}/pipelines/config/publish-thresholds.json" \
         --lane-duration-sec "${lane_duration_sec}" \
@@ -163,6 +178,45 @@ if [[ -n "${RUN_ID}" ]]; then
       ' "${run_dir}/derived/scenario_summary.json" >/dev/null; then
         echo "[openclaw-validate] scenario coverage incomplete for run ${RUN_ID}" >&2
         FAILURES=$((FAILURES + 1))
+      fi
+    fi
+
+    machine_path_files=(
+      "${run_dir}/artifacts/claim-values.json"
+      "${run_dir}/artifacts/threshold-evaluation.json"
+      "${run_dir}/artifacts/run-manifest.json"
+    )
+    for abs_check in "${machine_path_files[@]}"; do
+      if [[ -f "${abs_check}" ]] && contains_machine_path "${abs_check}"; then
+        rel_path="${abs_check#${REPO_ROOT}/}"
+        echo "[openclaw-validate] machine-specific absolute path detected in ${rel_path}" >&2
+        FAILURES=$((FAILURES + 1))
+      fi
+    done
+
+    manuscript_path="${REPO_ROOT}/reports/openclaw-2026/manuscript/report.md"
+    if [[ -f "${manuscript_path}" && -f "${run_dir}/artifacts/anecdotes.json" ]]; then
+      example_timestamps_raw="$(collect_example_timestamps "${manuscript_path}" || true)"
+      if [[ -z "${example_timestamps_raw}" ]]; then
+        msg="[openclaw-validate] no Example Events timestamps found in manuscript"
+        if [[ "${STRICT}" -eq 1 ]]; then
+          echo "${msg}" >&2
+          FAILURES=$((FAILURES + 1))
+        else
+          echo "${msg} (warning in non-strict mode)" >&2
+        fi
+      else
+        while IFS= read -r ts; do
+          [[ -z "${ts}" ]] && continue
+          if ! jq -e --arg ts "${ts}" '
+            ([.top_incidents[]?.timestamp, .examples_by_scenario[]?[]?.timestamp]
+             | map(select(. != null))
+             | index($ts)) != null
+          ' "${run_dir}/artifacts/anecdotes.json" >/dev/null; then
+            echo "[openclaw-validate] manuscript example timestamp not found in promoted anecdotes: ${ts}" >&2
+            FAILURES=$((FAILURES + 1))
+          fi
+        done <<< "${example_timestamps_raw}"
       fi
     fi
   fi

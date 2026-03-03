@@ -1,10 +1,10 @@
 {
   "schema_version": "v1",
-  "generated_at": "2026-03-01T15:06:49Z",
+  "generated_at": "2026-03-03T02:14:45Z",
   "report_id": "openclaw-2026",
   "run_id": "openclaw-live-24h-20260228T143341Z",
-  "claim_values_path": "/Users/davidahmann/Projects/clyra_report/runs/openclaw/openclaw-live-24h-20260228T143341Z/artifacts/claim-values.json",
-  "thresholds_path": "/Users/davidahmann/Projects/clyra_report/pipelines/config/publish-thresholds.json",
+  "claim_values_path": "runs/openclaw/openclaw-live-24h-20260228T143341Z/artifacts/claim-values.json",
+  "thresholds_path": "pipelines/config/publish-thresholds.json",
   "scaling": {
     "lane_duration_sec": 86400,
     "scale_factor_to_24h": 1.000000000000,
