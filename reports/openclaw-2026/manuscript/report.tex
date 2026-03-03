@@ -1,6 +1,7 @@
 % Options for packages loaded elsewhere
 \PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
 \documentclass[
 ]{article}
 \usepackage{xcolor}
@@ -167,21 +168,17 @@
 \setlength{\emergencystretch}{3em}
 \sloppy
 
-% Force visible hyperlink styling in generated PDFs.
-\AtBeginDocument{%
-  \hypersetup{%
-    colorlinks=true,
-    linkcolor=linkblue,
-    urlcolor=linkblue,
-    citecolor=linkblue,
-    filecolor=linkblue
-  }%
-}
+% Hyperlink colors are set at Pandoc invocation time via:
+% -V colorlinks=true -V linkcolor=blue -V urlcolor=blue -V citecolor=blue -V filecolor=blue
 \usepackage{bookmark}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
 \hypersetup{
-  hidelinks,
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={blue},
+  citecolor={blue},
+  urlcolor={blue},
   pdfcreator={LaTeX via pandoc}}
 
 \author{}

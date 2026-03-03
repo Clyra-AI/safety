@@ -15,7 +15,13 @@ Build contract:
 - Source -> PDF build must be deterministic from pinned inputs.
 - Final PDF location: `reports/openclaw-2026/report.pdf`.
 
-Canonical command (LaTeX source -> PDF with `latexmk`):
+Canonical command (recommended, deterministic Markdown -> LaTeX -> PDF):
+
+```bash
+pipelines/common/build_report_pdf.sh --report-dir reports/openclaw-2026
+```
+
+Optional direct command (LaTeX source -> PDF with `latexmk`):
 
 ```bash
 latexmk -pdfxe -interaction=nonstopmode -halt-on-error \
@@ -24,7 +30,7 @@ latexmk -pdfxe -interaction=nonstopmode -halt-on-error \
 cp reports/openclaw-2026/manuscript/report.pdf reports/openclaw-2026/report.pdf
 ```
 
-Source generation command (Markdown -> LaTeX):
+Manual source generation command (Markdown -> LaTeX):
 
 ```bash
 pandoc reports/openclaw-2026/manuscript/report.md \
@@ -33,6 +39,11 @@ pandoc reports/openclaw-2026/manuscript/report.md \
   --to latex \
   --include-in-header=reports/openclaw-2026/manuscript/pdf-header.tex \
   -V geometry:margin=1in \
+  -V colorlinks=true \
+  -V linkcolor=blue \
+  -V urlcolor=blue \
+  -V citecolor=blue \
+  -V filecolor=blue \
   -o reports/openclaw-2026/manuscript/report.tex
 ```
 
@@ -43,5 +54,10 @@ pandoc reports/openclaw-2026/manuscript/report.md \
   --pdf-engine=xelatex \
   --include-in-header=reports/openclaw-2026/manuscript/pdf-header.tex \
   -V geometry:margin=1in \
+  -V colorlinks=true \
+  -V linkcolor=blue \
+  -V urlcolor=blue \
+  -V citecolor=blue \
+  -V filecolor=blue \
   -o reports/openclaw-2026/report.pdf
 ```

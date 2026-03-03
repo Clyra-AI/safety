@@ -154,17 +154,20 @@ Release CI:
 Canonical manuscript source lives under each report's `manuscript/` directory.  
 Preferred source format is Markdown or LaTeX.
 
-Recommended deterministic build commands (examples):
+Recommended deterministic build commands:
 
-- Markdown to PDF with Pandoc:
-  - `pandoc reports/<report-id>/manuscript/report.md --pdf-engine=xelatex --include-in-header=reports/<report-id>/manuscript/pdf-header.tex -V geometry:margin=1in -o reports/<report-id>/report.pdf`
-- LaTeX to PDF with latexmk:
+- Canonical:
+  - `pipelines/common/build_report_pdf.sh --report-dir reports/<report-id>`
+- Manual fallback (Markdown to PDF):
+  - `pandoc reports/<report-id>/manuscript/report.md --pdf-engine=xelatex --include-in-header=reports/<report-id>/manuscript/pdf-header.tex -V geometry:margin=1in -V colorlinks=true -V linkcolor=blue -V urlcolor=blue -V citecolor=blue -V filecolor=blue -o reports/<report-id>/report.pdf`
+- LaTeX-only fallback:
   - `latexmk -pdf -interaction=nonstopmode reports/<report-id>/manuscript/report.tex`
 
 Header policy:
 
 - Use report-local `manuscript/pdf-header.tex` for portable font/code-block styling.
 - Avoid machine-specific fonts in header files (for example `Helvetica Neue`, `Menlo`).
+- Blue hyperlink rendering is mandatory for published PDFs; use the canonical build script to avoid Pandoc `hidelinks` regressions.
 
 Build output paths:
 

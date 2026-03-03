@@ -61,13 +61,5 @@
 \setlength{\emergencystretch}{3em}
 \sloppy
 
-% Force visible hyperlink styling in generated PDFs.
-\AtBeginDocument{%
-  \hypersetup{%
-    colorlinks=true,
-    linkcolor=linkblue,
-    urlcolor=linkblue,
-    citecolor=linkblue,
-    filecolor=linkblue
-  }%
-}
+% Hyperlink colors are set at Pandoc invocation time via:
+% -V colorlinks=true -V linkcolor=blue -V urlcolor=blue -V citecolor=blue -V filecolor=blue
