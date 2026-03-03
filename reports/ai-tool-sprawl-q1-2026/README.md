@@ -14,6 +14,7 @@ Expected outputs:
 - `definitions.md`
 - `study-protocol.md`
 - `preregistration.md`
+- `calibration/`
 - `manuscript/`
 - `press-pack/`
 - `data/`

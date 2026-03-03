@@ -13,6 +13,7 @@ Run a reproducible multi-target Wrkr campaign, generate aggregate and appendix a
 - Canonical claim lane: baseline deterministic scan outputs.
 - Supplemental lane: enrich-enabled outputs (time-sensitive, explicitly labeled with `as_of`).
 - Target list file: `internal/repos.md`
+- Calibration artifact path: `runs/tool-sprawl/<run_id>/calibration/`
 - Preregistration file: `reports/ai-tool-sprawl-q1-2026/preregistration.md`
 - Approved-tools policy: `pipelines/policies/approved-tools.v1.yaml`
 - Production-targets policy: `pipelines/policies/production-targets.v1.yaml`
@@ -37,7 +38,9 @@ Run a reproducible multi-target Wrkr campaign, generate aggregate and appendix a
 ## Input Assumptions
 
 - Target list lives in `internal/repos.md`.
-- Recommended generation path (deterministic, open-source sample):
+- Recommended calibration generation path (AI-native cohort):
+  - `pipelines/sprawl/generate_targets.sh --total 50 --ai-weight 100 --dev-weight 0 --sec-weight 0 --output internal/repos.md --catalog internal/repos_candidates.csv`
+- Recommended publication-campaign generation path:
   - `pipelines/sprawl/generate_targets.sh --total 101 --output internal/repos.md --catalog internal/repos_candidates.csv`
 - Expected `internal/repos.md` format:
   - one `owner/repo` per line
@@ -45,6 +48,18 @@ Run a reproducible multi-target Wrkr campaign, generate aggregate and appendix a
   - lines starting with `#` treated as comments
 
 ## Step-by-Step Execution
+
+## 0) Detector Calibration (Mandatory Pre-Pass)
+
+1. Run fixed AI-native pre-pass cohort:
+   - `pipelines/sprawl/run.sh --run-id sprawl-ai50-<timestamp> --mode baseline-only --targets-file internal/repos.md --max-targets 50 --scan-source clone --no-synthetic-fallback`
+2. Generate calibration artifacts:
+   - `pipelines/sprawl/calibrate_detectors.sh --run-id sprawl-ai50-<timestamp> --strict`
+3. Fill manual labels from generated template:
+   - `runs/tool-sprawl/sprawl-ai50-<timestamp>/calibration/gold-labels.template.json`
+4. Evaluate detector quality once labels are available:
+   - `pipelines/sprawl/calibrate_detectors.sh --run-id sprawl-ai50-<timestamp> --gold-labels <path-to-filled-labels.json> --strict`
+5. Tune detector set and repeat until non-`source_repo` extraction quality is acceptable.
 
 ## 1) Preflight
 

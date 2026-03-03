@@ -11,6 +11,12 @@ Execution protocol: `study-protocol.md`
 
 Follow the deterministic campaign runbook and guardrails.
 
+Detector calibration is a required pre-pass before publication-scale runs:
+
+- run a fixed AI-native cohort
+- generate calibration artifacts with `pipelines/sprawl/calibrate_detectors.sh`
+- review non-`source_repo` extraction quality and optional gold-label scoring
+
 ## Deterministic reproducibility contract
 
 For this report, "deterministic" means the same target list, repository commit SHAs, Wrkr version, detector set, policy inputs, and command sequence produce the same aggregate outputs.
