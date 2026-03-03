@@ -1,6 +1,7 @@
 % Options for packages loaded elsewhere
 \PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
 \documentclass[
 ]{article}
 \usepackage{xcolor}
@@ -170,16 +171,22 @@
 % Force visible hyperlink styling in generated PDFs.
 \AtBeginDocument{%
   \hypersetup{%
+    colorlinks=true,
     linkcolor=linkblue,
     urlcolor=linkblue,
-    citecolor=linkblue
+    citecolor=linkblue,
+    filecolor=linkblue
   }%
 }
 \usepackage{bookmark}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
 \hypersetup{
-  hidelinks,
+  colorlinks=true,
+  linkcolor={linkblue},
+  filecolor={linkblue},
+  citecolor={linkblue},
+  urlcolor={linkblue},
   pdfcreator={LaTeX via pandoc}}
 
 \author{}
@@ -216,9 +223,8 @@ Behavior}\label{a-governed-evaluation-of-openclaw-agent-behavior}
 Affiliation}\label{authorship-and-affiliation}
 
 David Ahmann - Head of Cloud, Data and AI Platforms at CDW Canada
-(\href{https://www.linkedin.com/in/dahmann/}{LinkedIn})\\
-Devan Shah - Chief Software and Data Security Architect at IBM
-(\href{https://www.linkedin.com/in/devan-shah-3b61172a/}{LinkedIn})\\
+(\href{https://www.linkedin.com/in/dahmann/}{LinkedIn})
+
 Talgat Ryshmanov - Principal DevSecOps Consultant at Adaptavist
 (\href{https://www.linkedin.com/in/ryshmanov/}{LinkedIn})
 

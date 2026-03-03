@@ -11,7 +11,7 @@
 ## Authorship and Affiliation
 
 David Ahmann - Head of Cloud, Data and AI Platforms at CDW Canada ([LinkedIn](https://www.linkedin.com/in/dahmann/))  
-Devan Shah - Chief Software and Data Security Architect at IBM ([LinkedIn](https://www.linkedin.com/in/devan-shah-3b61172a/))  
+<!-- Devan Shah - Chief Software and Data Security Architect at IBM ([LinkedIn](https://www.linkedin.com/in/devan-shah-3b61172a/)) -->  
 Talgat Ryshmanov - Principal DevSecOps Consultant at Adaptavist ([LinkedIn](https://www.linkedin.com/in/ryshmanov/))
 
 ## About CAISI
