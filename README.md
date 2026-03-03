@@ -84,6 +84,7 @@ Execution behavior:
 
 - OpenClaw: `pipelines/openclaw/run.sh` executes dual lanes, derives summaries, writes claim-value + threshold-evaluation artifacts, and emits reproducibility metadata.
 - Sprawl: `pipelines/sprawl/run.sh` executes campaign scans, builds aggregate/appendix artifacts, writes claim-value artifacts, and emits reproducibility metadata.
+- Sprawl targets: `pipelines/sprawl/generate_targets.sh` builds reproducible open-source `owner/repo` target sets (for example `--total 101`) and writes `internal/repos.md` plus `internal/repos_candidates.csv`.
 
 If a run ID already exists, `run.sh` fails fast unless `--resume` is explicitly provided.
 For OpenClaw live container runs, keep provider API key env vars unset unless running an explicit exception mode (`ALLOW_EXTERNAL_SECRETS=1`).

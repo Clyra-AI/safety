@@ -36,7 +36,9 @@ Run a reproducible multi-target Wrkr campaign, generate aggregate and appendix a
 
 ## Input Assumptions
 
-- Target list will be provided in `internal/repos.md`.
+- Target list lives in `internal/repos.md`.
+- Recommended generation path (deterministic, open-source sample):
+  - `pipelines/sprawl/generate_targets.sh --total 101 --output internal/repos.md --catalog internal/repos_candidates.csv`
 - Expected `internal/repos.md` format:
   - one `owner/repo` per line
   - blank lines allowed
@@ -47,14 +49,16 @@ Run a reproducible multi-target Wrkr campaign, generate aggregate and appendix a
 ## 1) Preflight
 
 1. Ensure toolchain is available:
-   - `wrkr`, `jq`, `bash`
-2. Confirm preregistration lock fields are set:
+   - `wrkr`, `jq`, `bash`, `curl` (and `gh` if using authenticated GitHub search generation)
+2. (Recommended) regenerate target list:
+   - `pipelines/sprawl/generate_targets.sh --total 101 --output internal/repos.md --catalog internal/repos_candidates.csv`
+3. Confirm preregistration lock fields are set:
    - `reports/ai-tool-sprawl-q1-2026/preregistration.md`
-3. Confirm required policy/config inputs exist:
+4. Confirm required policy/config inputs exist:
    - `pipelines/policies/approved-tools.v1.yaml`
    - `pipelines/policies/production-targets.v1.yaml` (required for production-write claims)
    - `pipelines/policies/campaign-segments.v1.yaml` (optional)
-4. Confirm report controls are present:
+5. Confirm report controls are present:
    - `reports/ai-tool-sprawl-q1-2026/definitions.md`
    - `reports/ai-tool-sprawl-q1-2026/study-protocol.md`
    - `claims/ai-tool-sprawl-q1-2026/claims.json`
