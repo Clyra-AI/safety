@@ -6,6 +6,26 @@
         "sprawl_non_source_recall_exists_pct": {
           "op": ">=",
           "value": 60.0
+        },
+        "sprawl_non_source_precision_exists_pct": {
+          "op": ">=",
+          "value": 60.0
+        },
+        "sprawl_destructive_tooling_labeled_rows": {
+          "op": ">=",
+          "value": 25
+        },
+        "sprawl_approval_gate_absence_labeled_rows": {
+          "op": ">=",
+          "value": 25
+        },
+        "sprawl_unknown_exists_labeled_rows": {
+          "op": ">=",
+          "value": 25
+        },
+        "sprawl_unknown_exists_recall_exists_pct": {
+          "op": ">=",
+          "value": 60.0
         }
       },
       "recommended_calibration_thresholds": {
@@ -13,9 +33,37 @@
           "op": ">=",
           "value": 75.0
         },
+        "sprawl_non_source_precision_exists_pct": {
+          "op": ">=",
+          "value": 90.0
+        },
         "sprawl_targets_with_non_source_pct": {
           "op": ">=",
           "value": 70.0
+        },
+        "sprawl_destructive_tooling_recall_exists_pct": {
+          "op": ">=",
+          "value": 60.0
+        },
+        "sprawl_destructive_tooling_precision_exists_pct": {
+          "op": ">=",
+          "value": 80.0
+        },
+        "sprawl_approval_gate_absence_recall_exists_pct": {
+          "op": ">=",
+          "value": 60.0
+        },
+        "sprawl_approval_gate_absence_precision_exists_pct": {
+          "op": ">=",
+          "value": 80.0
+        },
+        "sprawl_unknown_exists_recall_exists_pct": {
+          "op": ">=",
+          "value": 75.0
+        },
+        "sprawl_unknown_exists_precision_exists_pct": {
+          "op": ">=",
+          "value": 80.0
         }
       }
     }

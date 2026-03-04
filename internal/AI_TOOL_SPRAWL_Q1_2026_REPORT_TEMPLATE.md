@@ -12,44 +12,45 @@ Methodology engine: Wrkr OSS deterministic campaign pipeline
 - Planned publish date: `TBD`
 - Campaign run ID: `TBD` (immutable once set)
 - Mandatory hero metric:
-  - `Unapproved-to-approved AI tool ratio per organization`
+  - `Not-baseline-approved to baseline-approved ratio`
 - Secondary headline metrics:
-  - `Average unknown/untracked AI tools per organization`
-  - `% orgs with production-write AI exposure (only when policy configured)`
-  - `% orgs with Article 50 transparency gap proxy`
-  - `% orgs with destructive-capable tooling`
-  - `% orgs without approval-gated execution`
-  - `% orgs with prompt-only controls`
-  - `% orgs without auditable decision artifacts`
+  - `Explicit-unapproved to baseline-approved ratio`
+  - `Average approval-unknown tools per organization`
+  - `% organizations with Article 50 transparency gap proxy`
+  - `Median Article 50 controls missing per organization (0-4)`
+  - `% organizations with destructive tooling`
+  - `% organizations without approval gate for destructive tooling`
+  - `% organizations without verifiable evidence tier`
 - Canonical claims ledger: `claims/ai-tool-sprawl-q1-2026/claims.json`
 
 ## 0.1) Headline Integrity Block (Required)
 
-Populate for every headline used in the manuscript.
+Populate for every headline used in manuscript text.
 
 | Claim ID | Headline number | Denominator | Run ID | Artifact path | Query |
 |---|---:|---|---|---|---|
-| `sprawl_unapproved_to_approved_ratio` | TBD | `aggregate approved tools` | `TBD` | `runs/tool-sprawl/<run_id>/agg/campaign-summary.json` | `jq '.campaign.metrics.unapproved_to_approved_ratio'` |
-| `sprawl_avg_unknown_tools_per_org` | TBD | `organizations scanned` | `TBD` | `runs/tool-sprawl/<run_id>/agg/campaign-summary.json` | `jq '.campaign.metrics.avg_unknown_tools_per_org'` |
+| `sprawl_not_baseline_approved_to_approved_ratio` | TBD | `aggregate approved tools` | `TBD` | `runs/tool-sprawl/<run_id>/agg/campaign-summary.json` | `jq '.campaign.metrics.not_baseline_approved_to_approved_ratio'` |
+| `sprawl_explicit_unapproved_to_approved_ratio` | TBD | `aggregate approved tools` | `TBD` | `runs/tool-sprawl/<run_id>/agg/campaign-summary.json` | `jq '.campaign.metrics.explicit_unapproved_to_approved_ratio'` |
+| `sprawl_avg_approval_unknown_tools_per_org` | TBD | `organizations scanned` | `TBD` | `runs/tool-sprawl/<run_id>/agg/campaign-summary.json` | `jq '.campaign.metrics.avg_approval_unknown_tools_per_org'` |
 | `sprawl_article50_gap_prevalence_pct` | TBD | `organizations scanned` | `TBD` | `runs/tool-sprawl/<run_id>/agg/campaign-summary.json` | `jq '.campaign.metrics.article50_gap_prevalence_pct'` |
+| `sprawl_article50_controls_missing_median` | TBD | `organizations scanned` | `TBD` | `runs/tool-sprawl/<run_id>/agg/campaign-summary.json` | `jq '.campaign.metrics.article50_controls_missing_median'` |
 | `sprawl_orgs_with_destructive_tooling_pct` | TBD | `organizations scanned` | `TBD` | `runs/tool-sprawl/<run_id>/agg/campaign-summary.json` | `jq '.campaign.metrics.orgs_with_destructive_tooling_pct'` |
 | `sprawl_orgs_without_approval_gate_pct` | TBD | `organizations scanned` | `TBD` | `runs/tool-sprawl/<run_id>/agg/campaign-summary.json` | `jq '.campaign.metrics.orgs_without_approval_gate_pct'` |
-| `sprawl_orgs_prompt_only_controls_pct` | TBD | `organizations scanned` | `TBD` | `runs/tool-sprawl/<run_id>/agg/campaign-summary.json` | `jq '.campaign.metrics.orgs_prompt_only_controls_pct'` |
-| `sprawl_orgs_without_audit_artifacts_pct` | TBD | `organizations scanned` | `TBD` | `runs/tool-sprawl/<run_id>/agg/campaign-summary.json` | `jq '.campaign.metrics.orgs_without_audit_artifacts_pct'` |
+| `sprawl_orgs_without_verifiable_evidence_pct` | TBD | `organizations scanned` | `TBD` | `runs/tool-sprawl/<run_id>/agg/campaign-summary.json` | `jq '.campaign.metrics.orgs_without_verifiable_evidence_pct'` |
 
 ## 1) Core Thesis and Messaging Stack
 
 Core thesis: AI governance gaps are measurable now, not hypothetical future risk.
 
-Primary message: `TBD headline number` is the average unknown/unapproved AI tooling burden observed across the sample.
+Primary message: `TBD headline number` is the observed not-baseline-approved tool burden across the sample.
 
-Secondary message: For every one approved AI tool, organizations run a larger set of unapproved AI tools.
+Secondary message: approval-unknown and explicit-unapproved tooling are distinct risk classes and must be reported separately.
 
-Tertiary message: EU AI Act enforcement starts August 2, 2026; many organizations cannot yet prove AI system transparency obligations.
+Tertiary message: EU AI Act transparency claims in this report are deterministic control proxies, not legal determinations.
 
 ## 2) Scope and Non-Negotiables
 
-- Structure must follow the 10 sections below.
+- Structure follows the canonical 10-section report structure.
 - Headline metrics must come from deterministic campaign artifacts.
 - Any enrich-derived claims must include explicit `as_of` provenance.
 - No production-write percentages unless production-target policy is configured.
@@ -57,15 +58,12 @@ Tertiary message: EU AI Act enforcement starts August 2, 2026; many organization
 
 ## 3) Required Evidence Inputs
 
-- Campaign aggregate:
-  - `runs/tool-sprawl/<run_id>/agg/campaign-summary.json`
-  - `runs/tool-sprawl/<run_id>/agg/campaign-public.md`
-- Appendix matrices:
-  - `runs/tool-sprawl/<run_id>/appendix/combined-appendix.json`
-  - CSV exports under `runs/tool-sprawl/<run_id>/appendix/...`
-- Methodology metadata:
-  - scan window, sample definition, Wrkr version, detector coverage
-- Anonymized case-study rows from appendix exports
+- `runs/tool-sprawl/<run_id>/agg/campaign-summary.json`
+- `runs/tool-sprawl/<run_id>/agg/campaign-public.md`
+- `runs/tool-sprawl/<run_id>/appendix/combined-appendix.json`
+- CSV exports under `runs/tool-sprawl/<run_id>/appendix/`
+- calibration artifacts under `runs/tool-sprawl/<run_id>/calibration/`
+- claims ledger + threshold evaluation artifacts
 
 If a section claim cannot be tied to an artifact and query, delete the claim.
 
@@ -73,202 +71,53 @@ If a section claim cannot be tied to an artifact and query, delete the claim.
 
 ## Section 1: Headline findings
 
-Goal: one-page opening with 3-5 standalone numbers.
-Hard constraint:
-- External threat-intel numbers may appear only as labeled context and must be logged in `citations/threat-context-sources.md` as `context-only`.
-
-Template:
-
-| Headline stat | Value | Artifact source | Query |
-|---|---:|---|---|
-| AI tools discovered across sample | TBD | `...` | `...` |
-| Unapproved-to-approved ratio | TBD | `...` | `...` |
-| Orgs with transparency gap (Article 50 proxy) | TBD | `...` | `...` |
-| Additional high-signal stat | TBD | `...` | `...` |
-
-Narrative constraints:
-- No caveats on this page.
-- Numbers first, methods deferred to Section 2.
-- If a context callout is used, separate it visually from measured campaign numbers.
+Show 3-5 artifact-backed numbers first.
 
 ## Section 2: Methodology
 
-Goal: reproducible, concise, and technically defensible.
+State sample, scan window, Wrkr version/commit, calibration coverage, and deterministic pipeline.
 
-Include:
-- What was scanned (org/repo counts, scope).
-- Detector classes and boundaries.
-- Deterministic baseline vs optional enrich mode separation.
-- Data handling and anonymization policy.
-- Reproduction command sequence.
+## Section 3: Tool inventory
 
-Template:
+Break down discovered tools and segmented counts:
 
-- Sample definition: `TBD`
-- Scan window: `TBD`
-- Wrkr version: `TBD`
-- Command set: `TBD`
-- Limitations and exclusions: `TBD`
-- Threats to validity (required): `TBD`
-
-## Section 3: AI tool inventory breakdown
-
-Goal: category-level intelligence behind headline totals.
-
-Categories to include:
-- AI coding assistants
-- Agent frameworks
-- MCP servers/integrations
-- Plugins/extensions and CI agents
-- API/model provider integrations
-- Custom/internal wrappers
-
-Template table:
-
-| Category | Count | % org prevalence | Most common tools | Notable unexpected findings |
-|---|---:|---:|---|---|
-| TBD | TBD | TBD | TBD | TBD |
+- baseline-approved
+- explicit-unapproved
+- approval-unknown
+- source-repo excluded totals vs raw totals.
 
 ## Section 4: Privilege and access map
 
-Goal: convert inventory into operational risk.
+Translate inventory into destructive tooling and approval-gate posture.
 
-Severity bands:
-- CRITICAL
-- HIGH
-- MEDIUM
-- LOW
+## Section 5: Approval and governance gap
 
-Template table:
+Present both ratios:
 
-| Risk tier | Tool count | Typical capability pattern | Business impact summary |
-|---|---:|---|---|
-| CRITICAL | TBD | TBD | TBD |
-| HIGH | TBD | TBD | TBD |
-| MEDIUM | TBD | TBD | TBD |
-| LOW | TBD | TBD | TBD |
+- not-baseline-approved / baseline-approved
+- explicit-unapproved / baseline-approved
 
-## Section 5: The approval gap
+Include approval-unknown burden as separate line, not merged wording.
 
-Goal: quantify governance mismatch between approved and deployed tools.
+## Section 6: Regulatory exposure
 
-Required outputs:
-- approved / unapproved / unknown counts
-- unapproved-to-approved ratio (primary report number)
-- adoption pattern signal (org-wide vs team vs one-off)
+Use Article 50 proxy language only. Include controls-missing median and explicit legal disclaimer.
 
-Template table:
+## Section 7: Case studies
 
-| Classification | Count | % of tools | Notes |
-|---|---:|---:|---|
-| Approved | TBD | TBD | TBD |
-| Unapproved | TBD | TBD | TBD |
-| Unknown | TBD | TBD | TBD |
+2-5 anonymized cases with artifact/query links.
 
-Key ratio:
+## Section 8: Benchmarks
 
-- `Unapproved-to-approved ratio = TBD`
-
-## Section 6: Regulatory exposure analysis
-
-Goal: map findings to concrete compliance deadlines and control gaps.
-
-Required coverage:
-- EU AI Act Articles 9, 12, 14, 15, 50
-- SOC 2 AI-relevant controls
-- Colorado AI Act
-- Texas TRAIGA
-- NIST AI RMF alignment
-
-Template table:
-
-| Regulation | Control / Article | Gap prevalence | Evidence basis |
-|---|---|---:|---|
-| EU AI Act | Article 50 (Transparency Obligations) | TBD | TBD |
-| EU AI Act | Article 12 (Record Keeping) | TBD | TBD |
-| EU AI Act | Article 15 (Accuracy/Robustness/Cybersecurity) | TBD | TBD |
-| TBD | TBD | TBD | TBD |
-
-## Section 7: Case studies (anonymized)
-
-Goal: 3-5 concrete narratives grounded in exported evidence.
-
-Per-case structure (200-300 words each):
-- Org profile (anonymized)
-- What was discovered
-- Why it matters
-- Corrective action path
-
-Case slots:
-- Case 1: `TBD`
-- Case 2: `TBD`
-- Case 3: `TBD`
-- Optional Case 4: `TBD`
-- Optional Case 5: `TBD`
-
-## Section 8: Benchmarks and comparisons
-
-Goal: position AI tool sprawl as a known infrastructure governance pattern.
-
-Comparators:
-- cloud sprawl era
-- container sprawl era
-- SaaS sprawl baseline
-- segment breakdown (industry/size) where defensible
-
-Template:
-
-| Benchmark frame | Current finding | Comparison signal | Interpretation |
-|---|---|---|---|
-| Cloud sprawl analogue | TBD | TBD | TBD |
-| Container sprawl analogue | TBD | TBD | TBD |
-| SaaS sprawl analogue | TBD | TBD | TBD |
+Quartiles/segments and methodological comparators.
 
 ## Section 9: Recommendations
 
-Goal: practical actions, not marketing copy.
+Concrete operational actions (discovery, gating, evidence continuity, governance workflows).
 
-Use max seven recommendations:
-1. Inventory first.
-2. Classify by privilege, not tool brand.
-3. Continuous scanning and drift gates.
-4. Early regulatory mapping.
-5. Least-privilege at tool boundary.
-6. Evidence trails by default.
-7. Integrate with AppSec/GRC workflows.
+## Section 10: Appendix
 
-Required alignment note:
-- If citing external guidance such as "continuously discover and test", map it directly to concrete Wrkr campaign mechanics (`pipelines/sprawl/run.sh`, scheduled reruns, deterministic diffing), not generic advice.
-
-Closing line template:
-
-`The Wrkr open source scanner used for this report is available at https://github.com/Clyra-AI/wrkr.`
-
-Reference note (single paragraph only):
-
-`Tool-boundary enforcement is the natural response to high-privilege findings; Gait is the open-source implementation reference: https://github.com/Clyra-AI/gait.`
-
-## Section 10: Appendix (full data tables)
-
-Goal: make report citable and independently analyzable.
-
-Required tables:
-- inventory rows
-- privilege rows
-- approval-gap rows
-- regulatory rows
-- prompt-channel rows (if present)
-- attack-path rows (if present)
-- enrich MCP rows with provenance (if used)
-
-Template index:
-
-| Table | File | Schema version |
-|---|---|---|
-| Inventory | `...` | `v1` |
-| Privilege map | `...` | `v1` |
-| Approval gap | `...` | `v1` |
-| Regulatory matrix | `...` | `v1` |
+Data dictionary, schema versions, claim map, threshold evaluation summary, reproducibility commands.
 
 ## Mandatory Methodological Disclosures (Fixed Headings)
 
@@ -302,5 +151,6 @@ Template index:
 - Hero number is strong enough to anchor coverage.
 - All headline claims pass artifact + query validation.
 - Anonymization checks pass.
-- Determinism rerun check passes for baseline aggregate.
+- Deterministic rerun check passes for baseline aggregate.
+- Calibration required thresholds pass with labeled coverage.
 - Any enrich claims include source + `as_of` timestamp.

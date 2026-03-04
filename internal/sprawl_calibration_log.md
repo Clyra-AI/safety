@@ -1,5 +1,7 @@
 # Sprawl Detector Calibration Log
 
+Note: metric naming was updated in sprawl definitions `v4` (`not_baseline_approved`, `explicit_unapproved`, `approval_unknown`). Older entries below are retained as historical run notes.
+
 ## 2026-03-03 AI-native pre-pass
 
 - Run ID: `sprawl-ai50-prepass-20260303T203500Z`
@@ -14,8 +16,8 @@ Observed campaign metrics (`runs/tool-sprawl/sprawl-ai50-prepass-20260303T203500
 - raw tools detected: `363`
 - source-repo tools: `329`
 - source-repo share: `90.63%`
-- unapproved/approved ratio (headline scope): `1.43`
-- avg unknown tools per org (headline scope): `0`
+- not-baseline-approved / baseline-approved ratio (headline scope): `1.43`
+- average approval-unknown tools per org (headline scope): `0`
 
 Interpretation:
 
@@ -89,3 +91,4 @@ Calibration guardrail outcome:
 
 - required floor met: `sprawl_non_source_recall_exists_pct >= 60.0` (pass)
 - recommended floor missed: `>=75.0` (advisory)
+- additional `v2` calibration dimensions (destructive tooling, approval-gate absence, unknown classification) still require labeled coverage before strict publication readiness.

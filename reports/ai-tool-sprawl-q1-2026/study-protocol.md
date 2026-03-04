@@ -1,8 +1,8 @@
 # AI Tool Sprawl Q1 2026 Study Protocol
 
 Status: execution protocol  
-Version: `v5`  
-Objective: produce a reproducible multi-organization AI tool sprawl measurement baseline.
+Version: `v6`  
+Objective: produce a reproducible multi-organization AI tool governance baseline.
 
 ## 1) Campaign Design
 
@@ -10,14 +10,14 @@ Objective: produce a reproducible multi-organization AI tool sprawl measurement 
 - Supplemental enrich mode: separate run with explicit provenance (`as_of`, `source`), never merged into baseline headline claims.
 - Calibration pre-pass: AI-native 50-target cohort before publication-scale campaign.
 - Publication campaign target: `500` organizations (minimum publish threshold hard gate).
-- Intermediate benchmark campaign: `101` organizations for operational readiness and quality checks (not canonical publication scope).
-- Runtime pinning: prefer repo-pinned Wrkr runtime (`go run` from `WRKR_REPO_PATH`) over ambient PATH binary unless an explicit `WRKR_BIN` override is supplied.
+- Intermediate benchmark campaign: `101` organizations for operational readiness checks only.
+- Runtime pinning: prefer repo-pinned Wrkr runtime (`go run` from `WRKR_REPO_PATH`) over ambient PATH binary unless explicit `WRKR_BIN` override is supplied.
 
 ## 2) Sampling Rules
 
 - Define inclusion list before scan run.
-- For detector calibration, use a fixed AI-native cohort list and do not mix in publication cohort edits.
-- Exclusion rules (archived, inaccessible, non-code mirrors) documented in methodology.
+- For detector calibration, use a fixed AI-native cohort list and do not mix publication cohort edits.
+- Exclusion rules (archived, inaccessible, non-code mirrors) are documented in methodology.
 - No mid-campaign sampling edits without new run ID.
 
 ## 3) Required Inputs
@@ -46,10 +46,11 @@ Objective: produce a reproducible multi-organization AI tool sprawl measurement 
   - `calibration/gold-label-evaluation.json` (if manual labels provided)
 - claims ledger values and query mapping
 - organization-level control posture derivations:
-  - destructive-capable tooling prevalence
+  - destructive tooling prevalence
   - approval-gate absence prevalence
   - prompt-only control prevalence
-  - missing audit-artifact prevalence
+  - evidence-tier prevalence
+  - Article 50 proxy score prevalence (`controls_missing_count`)
 
 ## 5) Reproducibility Contract
 
@@ -61,9 +62,9 @@ Third-party reproduction must be possible from:
 - generated campaign and appendix artifacts
 - deterministic scope filter (`tool_type != "source_repo"`) used for headline metrics
 - claim and threshold gates
-- detector calibration pass summary for non-`source_repo` extraction quality before publication campaign
+- detector calibration pass summary for non-`source_repo` extraction and posture classification quality before publication campaign
 - resume semantics that skip only already-valid JSON scan/state pairs (invalid/zero-byte artifacts are recomputed)
-- clone-mode resilience: if Git clone repeatedly fails (for example GitHub transient 5xx), runner falls back to deterministic `--repo` scan for that target and records fallback provenance in state
+- clone-mode resilience: if Git clone repeatedly fails, runner falls back to deterministic `--repo` scan and records fallback provenance in state.
 
 ## 6) Publication Guardrails
 
@@ -73,22 +74,28 @@ Publish only when:
 - threshold gate passes
 - anonymization check passes
 - deterministic rerun check passes for baseline aggregate
-- detector calibration artifacts are present and reviewed for non-`source_repo` extraction quality
-- required calibration threshold passes: `sprawl_non_source_recall_exists_pct >= 60.0`
+- detector calibration artifacts are present and reviewed
+- required calibration thresholds pass:
+  - `sprawl_non_source_recall_exists_pct >= 60.0`
+  - `sprawl_non_source_precision_exists_pct >= 60.0`
+  - `sprawl_destructive_tooling_labeled_rows >= 25`
+  - `sprawl_approval_gate_absence_labeled_rows >= 25`
+  - `sprawl_unknown_exists_labeled_rows >= 25`
+  - `sprawl_unknown_exists_recall_exists_pct >= 60.0`
 - enrich claims (if any) include provenance and are labeled time-sensitive
 - production-write claims are published only when production targets are intentionally populated and validated
-- control-posture prevalence claims are mapped to deterministic derivations in aggregate artifacts
+- all regulatory language is explicitly scoped as deterministic control proxy unless legal review says otherwise.
 
 ## 7) Threats to Validity (Must Be Reported)
 
 - sample selection bias
 - public-repo visibility limits
 - detector coverage boundaries
-- classification ambiguity for unknown approval status
+- approval-status ambiguity (`explicit_unapproved` vs `approval_unknown`)
 - temporal drift between scan and publication
 
-Each threat requires a mitigation and residual risk note.
+Each threat requires mitigation and residual-risk text.
 
 ## Version Notes
 
-- `v5`: sets canonical publication cohort to 500 organizations and marks 101-org campaign as intermediate readiness scope.
+- `v6`: aligns protocol to split approval metrics, Article 50 proxy scoring, evidence-tier posture, and metric-specific calibration coverage gates.

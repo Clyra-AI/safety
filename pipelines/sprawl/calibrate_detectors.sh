@@ -150,8 +150,15 @@ jq -n \
       observed_non_source_tools: (.counts.tools_detected // 0),
       observed_source_repo_tools: (.segments.source_repo_tools // 0),
       observed_raw_tools: (.segments.raw_counts.tools_detected // 0),
+      observed_destructive_tooling: (.control_posture.destructive_tooling // false),
+      observed_approval_gate_absent: ((.control_posture.approval_gate_present // false) | not),
+      observed_unknown_tools: (.counts.approval_unknown // .counts.unknown // 0),
       expected_non_source_exists: null,
       expected_non_source_count: null,
+      expected_destructive_tooling: null,
+      expected_approval_gate_absent: null,
+      expected_unknown_exists: null,
+      expected_unknown_count: null,
       reviewer: null,
       notes: null
     })
@@ -204,51 +211,120 @@ if [[ -n "${GOLD_LABELS}" ]]; then
     --slurpfile labels "${GOLD_LABELS_PATH}" \
     --slurpfile states <(find "${STATES_DIR}" -type f -name '*.json' | sort | xargs -I{} jq -c '.' "{}") \
     '
-    [($states // [])[] | {
-      target,
-      observed_non_source_tools: (.counts.tools_detected // 0)
-    }] as $observed |
-    (($labels[0] // []) | map(select(.target != null))) as $gold |
-    [ $gold[] as $g |
-      ($observed[] | select(.target == $g.target) | .observed_non_source_tools // 0) as $obs |
+    def ratio(n; d):
+      if d == 0 then null else ((10000 * n / d) | round / 100) end;
+
+    def binary_eval($rows; $expected_key; $pred_key):
+      ($rows | map(select((.[ $expected_key ] | type) == "boolean"))) as $b |
+      ($b | map(select(.[ $expected_key ] == true and .[ $pred_key ] == true)) | length) as $tp |
+      ($b | map(select(.[ $expected_key ] == true and .[ $pred_key ] == false)) | length) as $fn |
+      ($b | map(select(.[ $expected_key ] == false and .[ $pred_key ] == true)) | length) as $fp |
+      ($b | map(select(.[ $expected_key ] == false and .[ $pred_key ] == false)) | length) as $tn |
       {
-        target: $g.target,
-        expected_non_source_exists: ($g.expected_non_source_exists // null),
-        expected_non_source_count: ($g.expected_non_source_count // null),
-        observed_non_source_tools: $obs,
-        predicted_non_source_exists: ($obs > 0)
-      }
-    ] as $rows |
-
-    ($rows | map(select((.expected_non_source_exists | type) == "boolean"))) as $binary |
-    ($binary | map(select(.expected_non_source_exists == true and .predicted_non_source_exists == true)) | length) as $tp |
-    ($binary | map(select(.expected_non_source_exists == true and .predicted_non_source_exists == false)) | length) as $fn |
-    ($binary | map(select(.expected_non_source_exists == false and .predicted_non_source_exists == true)) | length) as $fp |
-    ($binary | map(select(.expected_non_source_exists == false and .predicted_non_source_exists == false)) | length) as $tn |
-
-    ($rows | map(select((.expected_non_source_count | type) == "number" and .expected_non_source_count >= 0))) as $counted |
-    ($counted | map(.expected_non_source_count) | add // 0) as $expected_total |
-    ($counted | map(.observed_non_source_tools) | add // 0) as $observed_total |
-
-    {
-      schema_version: "v1",
-      run_id: $run_id,
-      generated_at: $generated_at,
-      labeled_rows_total: ($rows | length),
-      binary_eval_rows: ($binary | length),
-      binary_metrics: {
+        rows: ($b | length),
         true_positive: $tp,
         false_negative: $fn,
         false_positive: $fp,
         true_negative: $tn,
-        recall_exists: (if ($tp + $fn) == 0 then null else ((10000 * $tp / ($tp + $fn)) | round / 100) end),
-        precision_exists: (if ($tp + $fp) == 0 then null else ((10000 * $tp / ($tp + $fp)) | round / 100) end)
+        recall_exists: ratio($tp; ($tp + $fn)),
+        precision_exists: ratio($tp; ($tp + $fp))
+      };
+
+    def count_eval($rows; $expected_key; $observed_key):
+      ($rows | map(select((.[ $expected_key ] | type) == "number" and .[ $expected_key ] >= 0))) as $c |
+      ($c | map(.[ $expected_key ]) | add // 0) as $expected_total |
+      ($c | map(.[ $observed_key ]) | add // 0) as $observed_total |
+      {
+        rows: ($c | length),
+        expected_total: $expected_total,
+        observed_total: $observed_total,
+        observed_to_expected_ratio: ratio($observed_total; $expected_total)
+      };
+
+    [($states // [])[] | {
+      target,
+      observed_non_source_tools: (.counts.tools_detected // 0),
+      predicted_non_source_exists: ((.counts.tools_detected // 0) > 0),
+      observed_destructive_tooling: (.control_posture.destructive_tooling // false),
+      predicted_destructive_tooling: (.control_posture.destructive_tooling // false),
+      observed_approval_gate_absent: ((.control_posture.approval_gate_present // false) | not),
+      predicted_approval_gate_absent: ((.control_posture.approval_gate_present // false) | not),
+      observed_unknown_tools: (.counts.approval_unknown // .counts.unknown // 0),
+      predicted_unknown_exists: ((.counts.approval_unknown // .counts.unknown // 0) > 0)
+    }] as $observed |
+    (($labels[0] // []) | map(select(.target != null))) as $gold |
+    [ $gold[] as $g |
+      (
+        ($observed | map(select(.target == $g.target)) | .[0]) // {
+          target: $g.target,
+          observed_non_source_tools: 0,
+          predicted_non_source_exists: false,
+          observed_destructive_tooling: false,
+          predicted_destructive_tooling: false,
+          observed_approval_gate_absent: false,
+          predicted_approval_gate_absent: false,
+          observed_unknown_tools: 0,
+          predicted_unknown_exists: false
+        }
+      ) as $o |
+      {
+        target: $g.target,
+        expected_non_source_exists: ($g.expected_non_source_exists // null),
+        expected_non_source_count: ($g.expected_non_source_count // null),
+        expected_destructive_tooling: ($g.expected_destructive_tooling // null),
+        expected_approval_gate_absent: ($g.expected_approval_gate_absent // null),
+        expected_unknown_exists: ($g.expected_unknown_exists // null),
+        expected_unknown_count: ($g.expected_unknown_count // null),
+        reviewer: ($g.reviewer // null),
+        notes: ($g.notes // null),
+        observed_non_source_tools: ($o.observed_non_source_tools // 0),
+        predicted_non_source_exists: ($o.predicted_non_source_exists // false),
+        observed_destructive_tooling: ($o.observed_destructive_tooling // false),
+        predicted_destructive_tooling: ($o.predicted_destructive_tooling // false),
+        observed_approval_gate_absent: ($o.observed_approval_gate_absent // false),
+        predicted_approval_gate_absent: ($o.predicted_approval_gate_absent // false),
+        observed_unknown_tools: ($o.observed_unknown_tools // 0),
+        predicted_unknown_exists: ($o.predicted_unknown_exists // false)
+      }
+    ] as $rows |
+
+    (binary_eval($rows; "expected_non_source_exists"; "predicted_non_source_exists")) as $non_source_exists |
+    (binary_eval($rows; "expected_destructive_tooling"; "predicted_destructive_tooling")) as $destructive_tooling |
+    (binary_eval($rows; "expected_approval_gate_absent"; "predicted_approval_gate_absent")) as $approval_gate_absence |
+    (binary_eval($rows; "expected_unknown_exists"; "predicted_unknown_exists")) as $unknown_exists |
+    (count_eval($rows; "expected_non_source_count"; "observed_non_source_tools")) as $non_source_count |
+    (count_eval($rows; "expected_unknown_count"; "observed_unknown_tools")) as $unknown_count |
+
+    {
+      schema_version: "v2",
+      run_id: $run_id,
+      generated_at: $generated_at,
+      labeled_rows_total: ($rows | length),
+      # Backward-compatible top-level metrics map to non_source_exists evaluation.
+      binary_eval_rows: ($non_source_exists.rows),
+      binary_metrics: {
+        true_positive: ($non_source_exists.true_positive),
+        false_negative: ($non_source_exists.false_negative),
+        false_positive: ($non_source_exists.false_positive),
+        true_negative: ($non_source_exists.true_negative),
+        recall_exists: ($non_source_exists.recall_exists),
+        precision_exists: ($non_source_exists.precision_exists)
       },
-      count_eval_rows: ($counted | length),
+      count_eval_rows: ($non_source_count.rows),
       count_metrics: {
-        expected_non_source_total: $expected_total,
-        observed_non_source_total: $observed_total,
-        observed_to_expected_ratio: (if $expected_total == 0 then null else ((10000 * $observed_total / $expected_total) | round / 100) end)
+        expected_non_source_total: ($non_source_count.expected_total),
+        observed_non_source_total: ($non_source_count.observed_total),
+        observed_to_expected_ratio: ($non_source_count.observed_to_expected_ratio)
+      },
+      evaluations: {
+        non_source_exists: $non_source_exists,
+        destructive_tooling: $destructive_tooling,
+        approval_gate_absence: $approval_gate_absence,
+        unknown_exists: $unknown_exists
+      },
+      count_evaluations: {
+        non_source_count: $non_source_count,
+        unknown_count: $unknown_count
       }
     }
     ' > "${GOLD_EVAL_JSON}"

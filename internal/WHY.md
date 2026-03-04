@@ -41,7 +41,7 @@ Purpose:
 - Quantifies inventory, approval gap, privilege exposure, and regulatory gaps.
 
 Primary headline metric:
-- unapproved-to-approved AI tool ratio per organization.
+- not-baseline-approved to baseline-approved AI tool ratio per organization.
 
 ## Research Philosophy
 

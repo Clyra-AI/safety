@@ -3,18 +3,25 @@
   "report_id": "ai-tool-sprawl-q1-2026",
   "claims": [
     {
-      "id": "sprawl_avg_unknown_tools_per_org",
-      "headline": "Average unknown AI tools per organization",
+      "id": "sprawl_not_baseline_approved_to_approved_ratio",
+      "headline": "Not-baseline-approved to baseline-approved ratio",
       "value": "TBD",
       "artifact_path": "runs/tool-sprawl/<run_id>/agg/campaign-summary.json",
-      "query": "jq '.campaign.metrics.avg_unknown_tools_per_org'"
+      "query": "jq '.campaign.metrics.not_baseline_approved_to_approved_ratio'"
     },
     {
-      "id": "sprawl_unapproved_to_approved_ratio",
-      "headline": "Unapproved-to-approved tool ratio",
+      "id": "sprawl_explicit_unapproved_to_approved_ratio",
+      "headline": "Explicit-unapproved to baseline-approved ratio",
       "value": "TBD",
       "artifact_path": "runs/tool-sprawl/<run_id>/agg/campaign-summary.json",
-      "query": "jq '.campaign.metrics.unapproved_to_approved_ratio'"
+      "query": "jq '.campaign.metrics.explicit_unapproved_to_approved_ratio'"
+    },
+    {
+      "id": "sprawl_avg_approval_unknown_tools_per_org",
+      "headline": "Average approval-unknown AI tools per organization",
+      "value": "TBD",
+      "artifact_path": "runs/tool-sprawl/<run_id>/agg/campaign-summary.json",
+      "query": "jq '.campaign.metrics.avg_approval_unknown_tools_per_org'"
     },
     {
       "id": "sprawl_article50_gap_prevalence_pct",
@@ -22,6 +29,13 @@
       "value": "TBD",
       "artifact_path": "runs/tool-sprawl/<run_id>/agg/campaign-summary.json",
       "query": "jq '.campaign.metrics.article50_gap_prevalence_pct'"
+    },
+    {
+      "id": "sprawl_article50_controls_missing_median",
+      "headline": "Median Article 50 proxy controls missing per organization (0-4)",
+      "value": "TBD",
+      "artifact_path": "runs/tool-sprawl/<run_id>/agg/campaign-summary.json",
+      "query": "jq '.campaign.metrics.article50_controls_missing_median'"
     },
     {
       "id": "sprawl_orgs_scanned",
@@ -45,18 +59,11 @@
       "query": "jq '.campaign.metrics.orgs_without_approval_gate_pct'"
     },
     {
-      "id": "sprawl_orgs_prompt_only_controls_pct",
-      "headline": "Organizations relying on prompt-only controls percent",
+      "id": "sprawl_orgs_without_verifiable_evidence_pct",
+      "headline": "Organizations without verifiable governance evidence percent",
       "value": "TBD",
       "artifact_path": "runs/tool-sprawl/<run_id>/agg/campaign-summary.json",
-      "query": "jq '.campaign.metrics.orgs_prompt_only_controls_pct'"
-    },
-    {
-      "id": "sprawl_orgs_without_audit_artifacts_pct",
-      "headline": "Organizations without auditable decision artifacts percent",
-      "value": "TBD",
-      "artifact_path": "runs/tool-sprawl/<run_id>/agg/campaign-summary.json",
-      "query": "jq '.campaign.metrics.orgs_without_audit_artifacts_pct'"
+      "query": "jq '.campaign.metrics.orgs_without_verifiable_evidence_pct'"
     }
   ]
 }

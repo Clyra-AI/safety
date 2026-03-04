@@ -10,11 +10,20 @@ Calibration aligns detector behavior to report intent by measuring:
 
 - non-`source_repo` extraction coverage
 - target-level non-`source_repo` detection rate
-- optional precision/recall against manually labeled gold targets
+- optional precision/recall against manually labeled gold targets for:
+  - non-`source_repo` presence
+  - destructive tooling posture
+  - approval-gate absence
+  - unknown-tool classification presence
 
 Required calibration floor for sprawl publication gate:
 
 - `sprawl_non_source_recall_exists_pct >= 60.0`
+- `sprawl_non_source_precision_exists_pct >= 60.0`
+- `sprawl_destructive_tooling_labeled_rows >= 25`
+- `sprawl_approval_gate_absence_labeled_rows >= 25`
+- `sprawl_unknown_exists_labeled_rows >= 25`
+- `sprawl_unknown_exists_recall_exists_pct >= 60.0`
 
 ## Canonical workflow
 
@@ -42,6 +51,10 @@ Each gold-label entry is a JSON object:
 - `target`: `owner/repo`
 - `expected_non_source_exists`: `true|false|null`
 - `expected_non_source_count`: integer or `null`
+- `expected_destructive_tooling`: `true|false|null`
+- `expected_approval_gate_absent`: `true|false|null`
+- `expected_unknown_exists`: `true|false|null`
+- `expected_unknown_count`: integer or `null`
 - `reviewer`: optional reviewer ID/name
 - `notes`: optional rationale
 

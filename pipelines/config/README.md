@@ -44,19 +44,22 @@ Current defaults:
     - `openclaw_ops_restart_governed_non_executable_rate_pct >= 99.9`
 - Sprawl:
   - required:
-    - `sprawl_unapproved_to_approved_ratio >= 2.5`
-    - `sprawl_avg_unknown_tools_per_org >= 1.5`
+    - `sprawl_not_baseline_approved_to_approved_ratio >= 2.5`
+    - `sprawl_avg_approval_unknown_tools_per_org >= 1.5`
     - `sprawl_orgs_scanned >= 500`
+    - `sprawl_article50_gap_prevalence_pct >= 15.0`
+    - `sprawl_orgs_without_verifiable_evidence_pct >= 20.0`
     - `sprawl_orgs_with_destructive_tooling_pct >= 15.0`
     - `sprawl_orgs_without_approval_gate_pct >= 10.0`
   - recommended:
-    - `sprawl_unapproved_to_approved_ratio >= 4.0`
-    - `sprawl_avg_unknown_tools_per_org >= 3.0`
+    - `sprawl_not_baseline_approved_to_approved_ratio >= 4.0`
+    - `sprawl_explicit_unapproved_to_approved_ratio >= 2.0`
+    - `sprawl_avg_approval_unknown_tools_per_org >= 3.0`
     - `sprawl_article50_gap_prevalence_pct >= 30.0`
+    - `sprawl_article50_controls_missing_median >= 1.5`
     - `sprawl_orgs_with_destructive_tooling_pct >= 30.0`
     - `sprawl_orgs_without_approval_gate_pct >= 20.0`
-    - `sprawl_orgs_prompt_only_controls_pct >= 25.0`
-    - `sprawl_orgs_without_audit_artifacts_pct >= 30.0`
+    - `sprawl_orgs_without_verifiable_evidence_pct >= 30.0`
 
 Notes:
 

@@ -137,17 +137,25 @@
     },
     "ai-tool-sprawl-q1-2026": {
       "required_claim_thresholds": {
-        "sprawl_unapproved_to_approved_ratio": {
+        "sprawl_not_baseline_approved_to_approved_ratio": {
           "op": ">=",
           "value": 2.5
         },
-        "sprawl_avg_unknown_tools_per_org": {
+        "sprawl_avg_approval_unknown_tools_per_org": {
           "op": ">=",
           "value": 1.5
         },
         "sprawl_orgs_scanned": {
           "op": ">=",
           "value": 500
+        },
+        "sprawl_article50_gap_prevalence_pct": {
+          "op": ">=",
+          "value": 15.0
+        },
+        "sprawl_orgs_without_verifiable_evidence_pct": {
+          "op": ">=",
+          "value": 20.0
         },
         "sprawl_orgs_with_destructive_tooling_pct": {
           "op": ">=",
@@ -159,17 +167,25 @@
         }
       },
       "recommended_claim_thresholds": {
-        "sprawl_unapproved_to_approved_ratio": {
+        "sprawl_not_baseline_approved_to_approved_ratio": {
           "op": ">=",
           "value": 4.0
         },
-        "sprawl_avg_unknown_tools_per_org": {
+        "sprawl_explicit_unapproved_to_approved_ratio": {
+          "op": ">=",
+          "value": 2.0
+        },
+        "sprawl_avg_approval_unknown_tools_per_org": {
           "op": ">=",
           "value": 3.0
         },
         "sprawl_article50_gap_prevalence_pct": {
           "op": ">=",
           "value": 30.0
+        },
+        "sprawl_article50_controls_missing_median": {
+          "op": ">=",
+          "value": 1.5
         },
         "sprawl_orgs_with_destructive_tooling_pct": {
           "op": ">=",
@@ -179,11 +195,7 @@
           "op": ">=",
           "value": 20.0
         },
-        "sprawl_orgs_prompt_only_controls_pct": {
-          "op": ">=",
-          "value": 25.0
-        },
-        "sprawl_orgs_without_audit_artifacts_pct": {
+        "sprawl_orgs_without_verifiable_evidence_pct": {
           "op": ">=",
           "value": 30.0
         }
