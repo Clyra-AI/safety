@@ -1,0 +1,38 @@
+schema_version: v1
+frameworks:
+  eu_ai_act:
+    name: "EU AI Act"
+    controls:
+      - id: "Article 50"
+        label: "Transparency obligations"
+        proxy_source: "control_posture.article50_gap + article50_controls_missing_count"
+        determinism: "measured deterministic proxy; not legal determination"
+  soc2:
+    name: "SOC 2 (Trust Services Criteria)"
+    controls:
+      - id: "CC6.1"
+        label: "Logical access controls"
+        proxy_source: "not_baseline_approved_tools + approval_gate_absent"
+      - id: "CC7.1"
+        label: "System operation monitoring"
+        proxy_source: "evidence_verifiable"
+      - id: "CC8.1"
+        label: "Change management"
+        proxy_source: "explicit_unapproved_tools + prompt_only_controls"
+  pci_dss_4_0_1:
+    name: "PCI DSS 4.0.1"
+    controls:
+      - id: "6.3"
+        label: "Vulnerability identification and management"
+        proxy_source: "destructive_tooling"
+      - id: "6.5"
+        label: "Secure change management"
+        proxy_source: "explicit_unapproved_tools + approval_gate_absent"
+      - id: "7.2"
+        label: "Access controls by need-to-know"
+        proxy_source: "not_baseline_approved_tools"
+      - id: "12.8"
+        label: "Third-party service provider risk management"
+        proxy_source: "approval_unknown_tools"
+notes:
+  - "PCI 6.4.3 payment-page script inventory/authorization is context-only unless payment-page script telemetry is explicitly collected."

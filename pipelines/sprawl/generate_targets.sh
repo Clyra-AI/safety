@@ -139,10 +139,9 @@ if command -v gh >/dev/null 2>&1; then
 fi
 
 AI_QUERIES=(
-  "topic:ai-agent pushed:>=${MIN_PUSHED} stars:>=250 archived:false fork:false"
-  "topic:model-context-protocol pushed:>=${MIN_PUSHED} stars:>=80 archived:false fork:false"
-  "topic:llmops pushed:>=${MIN_PUSHED} stars:>=150 archived:false fork:false"
-  "topic:ai-coding-assistant pushed:>=${MIN_PUSHED} stars:>=100 archived:false fork:false"
+  "topic:ai-agent pushed:>=${MIN_PUSHED} stars:>=20 archived:false fork:false"
+  "topic:model-context-protocol pushed:>=${MIN_PUSHED} stars:>=10 archived:false fork:false"
+  "topic:llmops pushed:>=${MIN_PUSHED} stars:>=20 archived:false fork:false"
 )
 DEV_QUERIES=(
   "topic:devops pushed:>=${MIN_PUSHED} stars:>=7000 -topic:ai -topic:llm -topic:machine-learning archived:false fork:false"
@@ -226,15 +225,21 @@ tmp_raw="$(mktemp)"
 tmp_selected_json="$(mktemp)"
 trap 'rm -f "${tmp_raw}" "${tmp_selected_json}"' EXIT
 
-for q in "${AI_QUERIES[@]}"; do
-  fetch_query "ai_native" "${q}" >> "${tmp_raw}"
-done
-for q in "${DEV_QUERIES[@]}"; do
-  fetch_query "dev_platform" "${q}" >> "${tmp_raw}"
-done
-for q in "${SEC_QUERIES[@]}"; do
-  fetch_query "security_platform" "${q}" >> "${tmp_raw}"
-done
+if (( AI_WEIGHT > 0 )); then
+  for q in "${AI_QUERIES[@]}"; do
+    fetch_query "ai_native" "${q}" >> "${tmp_raw}"
+  done
+fi
+if (( DEV_WEIGHT > 0 )); then
+  for q in "${DEV_QUERIES[@]}"; do
+    fetch_query "dev_platform" "${q}" >> "${tmp_raw}"
+  done
+fi
+if (( SEC_WEIGHT > 0 )); then
+  for q in "${SEC_QUERIES[@]}"; do
+    fetch_query "security_platform" "${q}" >> "${tmp_raw}"
+  done
+fi
 
 ai_quota=$((TOTAL * AI_WEIGHT / 100))
 dev_quota=$((TOTAL * DEV_WEIGHT / 100))

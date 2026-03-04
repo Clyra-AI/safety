@@ -1,7 +1,7 @@
 # AI Tool Sprawl Q1 2026 Study Protocol
 
 Status: execution protocol  
-Version: `v6`  
+Version: `v7`  
 Objective: produce a reproducible multi-organization AI tool governance baseline.
 
 ## 1) Campaign Design
@@ -26,6 +26,8 @@ Objective: produce a reproducible multi-organization AI tool governance baseline
 - approved-tool policy list (`pipelines/policies/approved-tools.v1.yaml`)
 - production-target policy (`pipelines/policies/production-targets.v1.yaml`) required for production-write claims
 - optional segment metadata (`pipelines/policies/campaign-segments.v1.yaml`)
+- regulatory applicability scope (`pipelines/policies/regulatory-scope.v1.json`)
+- regulatory mapping reference (`pipelines/policies/regulatory-mappings.v1.yaml`)
 
 ## 4) Required Outputs
 
@@ -51,6 +53,10 @@ Objective: produce a reproducible multi-organization AI tool governance baseline
   - prompt-only control prevalence
   - evidence-tier prevalence
   - Article 50 proxy score prevalence (`controls_missing_count`)
+- regulatory matrix rows for enabled frameworks:
+  - EU AI Act Article 50 proxy
+  - SOC 2 (`CC6.1`, `CC7.1`, `CC8.1`) deterministic proxies
+  - PCI DSS 4.0.1 (`6.3`, `6.5`, `7.2`, `12.8`) deterministic proxies when PCI scope is enabled
 
 ## 5) Reproducibility Contract
 
@@ -99,3 +105,4 @@ Each threat requires mitigation and residual-risk text.
 ## Version Notes
 
 - `v6`: aligns protocol to split approval metrics, Article 50 proxy scoring, evidence-tier posture, and metric-specific calibration coverage gates.
+- `v7`: adds policy-driven SOC 2 and PCI DSS proxy mappings and regulatory applicability scope controls.

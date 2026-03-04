@@ -53,6 +53,8 @@ required_files=(
   "reports/ai-tool-sprawl-q1-2026/preregistration.md"
   "claims/ai-tool-sprawl-q1-2026/claims.json"
   "citations/sprawl-regulatory-sources.md"
+  "pipelines/policies/regulatory-scope.v1.json"
+  "pipelines/policies/regulatory-mappings.v1.yaml"
   "pipelines/config/publish-thresholds.json"
   "pipelines/config/calibration-thresholds.json"
   "pipelines/common/metric_coverage_gate.sh"

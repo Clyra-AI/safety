@@ -101,7 +101,13 @@ Include approval-unknown burden as separate line, not merged wording.
 
 ## Section 6: Regulatory exposure
 
-Use Article 50 proxy language only. Include controls-missing median and explicit legal disclaimer.
+Use deterministic proxy language only with explicit control IDs:
+
+- EU AI Act: `Article 50` proxy + controls-missing median
+- SOC 2: `CC6.1`, `CC7.1`, `CC8.1` proxy rows
+- PCI DSS 4.0.1 (PCI-scoped orgs only): `6.3`, `6.5`, `7.2`, `12.8` proxy rows
+
+Include explicit legal disclaimer: these are control proxies, not legal determinations or audit opinions.
 
 ## Section 7: Case studies
 

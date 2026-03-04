@@ -241,18 +241,28 @@ if [[ -n "${GOLD_LABELS}" ]]; then
         observed_to_expected_ratio: ratio($observed_total; $expected_total)
       };
 
+    def gate_absent_from($r):
+      if (($r.control_posture // {}) | has("approval_gate_absent")) then
+        ($r.control_posture.approval_gate_absent)
+      else
+        (($r.control_posture.approval_gate_present // false) | not)
+      end;
+
     [($states // [])[] | {
       target,
       observed_non_source_tools: (.counts.tools_detected // 0),
       predicted_non_source_exists: ((.counts.tools_detected // 0) > 0),
       observed_destructive_tooling: (.control_posture.destructive_tooling // false),
       predicted_destructive_tooling: (.control_posture.destructive_tooling // false),
-      observed_approval_gate_absent: ((.control_posture.approval_gate_present // false) | not),
-      predicted_approval_gate_absent: ((.control_posture.approval_gate_present // false) | not),
+      observed_approval_gate_absent: gate_absent_from(.),
+      predicted_approval_gate_absent: gate_absent_from(.),
       observed_unknown_tools: (.counts.approval_unknown // .counts.unknown // 0),
       predicted_unknown_exists: ((.counts.approval_unknown // .counts.unknown // 0) > 0)
     }] as $observed |
     (($labels[0] // []) | map(select(.target != null))) as $gold |
+    def value_or_null($obj; $key):
+      if ($obj | has($key)) then $obj[$key] else null end;
+
     [ $gold[] as $g |
       (
         ($observed | map(select(.target == $g.target)) | .[0]) // {
@@ -269,14 +279,14 @@ if [[ -n "${GOLD_LABELS}" ]]; then
       ) as $o |
       {
         target: $g.target,
-        expected_non_source_exists: ($g.expected_non_source_exists // null),
-        expected_non_source_count: ($g.expected_non_source_count // null),
-        expected_destructive_tooling: ($g.expected_destructive_tooling // null),
-        expected_approval_gate_absent: ($g.expected_approval_gate_absent // null),
-        expected_unknown_exists: ($g.expected_unknown_exists // null),
-        expected_unknown_count: ($g.expected_unknown_count // null),
-        reviewer: ($g.reviewer // null),
-        notes: ($g.notes // null),
+        expected_non_source_exists: value_or_null($g; "expected_non_source_exists"),
+        expected_non_source_count: value_or_null($g; "expected_non_source_count"),
+        expected_destructive_tooling: value_or_null($g; "expected_destructive_tooling"),
+        expected_approval_gate_absent: value_or_null($g; "expected_approval_gate_absent"),
+        expected_unknown_exists: value_or_null($g; "expected_unknown_exists"),
+        expected_unknown_count: value_or_null($g; "expected_unknown_count"),
+        reviewer: value_or_null($g; "reviewer"),
+        notes: value_or_null($g; "notes"),
         observed_non_source_tools: ($o.observed_non_source_tools // 0),
         predicted_non_source_exists: ($o.predicted_non_source_exists // false),
         observed_destructive_tooling: ($o.observed_destructive_tooling // false),

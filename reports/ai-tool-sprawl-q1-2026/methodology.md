@@ -24,6 +24,14 @@ Follow the deterministic campaign runbook and guardrails:
 4. generate appendix exports and claim values with deterministic `jq` queries
 5. run validation gates before manuscript finalization.
 
+Regulatory rows are produced from deterministic proxy logic with policy-driven scope:
+
+- `pipelines/policies/regulatory-scope.v1.json` controls framework applicability per org
+- `pipelines/policies/regulatory-mappings.v1.yaml` documents control-ID mappings
+- EU AI Act rows are enabled by default
+- SOC 2 rows are enabled by default
+- PCI DSS rows are emitted only for orgs marked PCI-scoped.
+
 ## Calibration contract
 
 Calibration is mandatory before publication-scale runs.

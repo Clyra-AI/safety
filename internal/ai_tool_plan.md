@@ -18,6 +18,8 @@ Run a reproducible multi-target Wrkr campaign, generate aggregate and appendix a
 - Approved-tools policy: `pipelines/policies/approved-tools.v1.yaml`
 - Production-targets policy: `pipelines/policies/production-targets.v1.yaml`
 - Segment metadata (optional): `pipelines/policies/campaign-segments.v1.yaml`
+- Regulatory scope policy: `pipelines/policies/regulatory-scope.v1.json`
+- Regulatory mappings reference: `pipelines/policies/regulatory-mappings.v1.yaml`
 - Publish threshold policy: `pipelines/config/publish-thresholds.json`
 - Calibration threshold policy: `pipelines/config/calibration-thresholds.json`
 - Default production-claim posture: do not publish production-write prevalence until production targets are intentionally populated.
@@ -50,6 +52,7 @@ Run a reproducible multi-target Wrkr campaign, generate aggregate and appendix a
   - `pipelines/sprawl/generate_targets.sh --total 50 --ai-weight 100 --dev-weight 0 --sec-weight 0 --output internal/repos.md --catalog internal/repos_candidates.csv`
 - Recommended publication generation path:
   - `pipelines/sprawl/generate_targets.sh --total 500 --pages 5 --per-page 100 --output internal/repos.md --catalog internal/repos_candidates.csv`
+  - optional expanded campaign: `pipelines/sprawl/generate_targets.sh --total 1000 --pages 10 --per-page 100 --output internal/repos.md --catalog internal/repos_candidates.csv`
 
 ## Step-by-Step Execution
 

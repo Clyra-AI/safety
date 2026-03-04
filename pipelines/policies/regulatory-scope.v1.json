@@ -1,0 +1,10 @@
+{
+  "schema_version": "v1",
+  "defaults": {
+    "eu_ai_act": true,
+    "soc2": true,
+    "pci_dss": false
+  },
+  "orgs": {
+  }
+}

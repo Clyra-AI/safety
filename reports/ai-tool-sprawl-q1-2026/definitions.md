@@ -1,8 +1,8 @@
 # AI Tool Sprawl Q1 2026 Definitions (Locked for This Cycle)
 
 Status: locked  
-Version: `v4`  
-Effective date: `2026-03-03`
+Version: `v5`  
+Effective date: `2026-03-04`
 
 This file defines canonical classifications and formulas for the Q1 2026 sprawl report.
 If changed, bump version and rerun campaign metrics.
@@ -111,6 +111,38 @@ Gap proxy definition:
 
 This is a deterministic control proxy, not a legal determination.
 
+## SOC 2 deterministic control proxies
+
+Organization-level SOC 2 proxy rows are emitted when `regulatory_scope.soc2 == true` (default `true`).
+
+Control IDs mapped in this cycle:
+
+1. `CC6.1` logical access proxy:
+  - gap when `not_baseline_approved > 0` or `approval_gate_absent == true`.
+2. `CC7.1` monitoring proxy:
+  - gap when `evidence_verifiable != true`.
+3. `CC8.1` change-management proxy:
+  - gap when `explicit_unapproved > 0` or `prompt_only_controls == true`.
+
+These are deterministic control proxies aligned to control intent, not an auditor opinion.
+
+## PCI DSS 4.0.1 deterministic control proxies
+
+Organization-level PCI rows are emitted only when `regulatory_scope.pci_dss == true` (default `false`).
+
+Control IDs mapped in this cycle:
+
+1. `6.3` vulnerability-management proxy:
+  - gap when `destructive_tooling == true`.
+2. `6.5` secure-change proxy:
+  - gap when `explicit_unapproved > 0` or `approval_gate_absent == true`.
+3. `7.2` access-control proxy:
+  - gap when `not_baseline_approved > 0`.
+4. `12.8` third-party risk proxy:
+  - gap when `approval_unknown > 0`.
+
+`PCI DSS 6.4.3` (payment-page script inventory/authorization) is context-only unless payment-page script telemetry is explicitly collected and pinned in methodology.
+
 ## Headline Metrics
 
 Primary:
@@ -133,6 +165,9 @@ Supporting:
 - Organization scan unit: one target entry from campaign list.
 - Included repositories: deterministic acquisition scope as recorded in methodology.
 - Excluded entities: private/non-resolvable targets outside defined acquisition policy.
+- Framework applicability defaults are loaded from `pipelines/policies/regulatory-scope.v1.json`:
+  - `eu_ai_act=true`, `soc2=true`, `pci_dss=false`
+  - per-org overrides may be set under `orgs.<owner>`.
 
 ## Change Control
 

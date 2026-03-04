@@ -4,7 +4,7 @@ set -euo pipefail
 usage() {
   cat <<'USAGE'
 Usage:
-  rebuild_from_scans.sh --run-id <id> [--targets-file <path>] [--mode baseline-only|baseline+enrich] [--detector-list <csv>]
+  rebuild_from_scans.sh --run-id <id> [--targets-file <path>] [--mode baseline-only|baseline+enrich] [--detector-list <csv>] [--regulatory-scope <path>]
 
 Rebuilds derived state, campaign summary, appendix exports, claim-values, threshold evaluation,
 and manifest hash from existing scan artifacts under runs/tool-sprawl/<run_id>/scans.
@@ -16,6 +16,7 @@ RUN_ID=""
 TARGETS_FILE="internal/repos.md"
 MODE="baseline-only"
 DETECTOR_LIST="default"
+REGULATORY_SCOPE_POLICY="pipelines/policies/regulatory-scope.v1.json"
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -33,6 +34,10 @@ while [[ $# -gt 0 ]]; do
       ;;
     --detector-list)
       DETECTOR_LIST="${2:-}"
+      shift 2
+      ;;
+    --regulatory-scope)
+      REGULATORY_SCOPE_POLICY="${2:-}"
       shift 2
       ;;
     -h|--help)
@@ -64,6 +69,15 @@ if [[ "${TARGETS_FILE_PATH}" != /* ]]; then
 fi
 if [[ ! -f "${TARGETS_FILE_PATH}" ]]; then
   echo "[sprawl-rebuild] targets file not found: ${TARGETS_FILE_PATH}" >&2
+  exit 1
+fi
+
+REG_SCOPE_PATH="${REGULATORY_SCOPE_POLICY}"
+if [[ "${REG_SCOPE_PATH}" != /* ]]; then
+  REG_SCOPE_PATH="${REPO_ROOT}/${REG_SCOPE_PATH}"
+fi
+if [[ ! -f "${REG_SCOPE_PATH}" ]]; then
+  echo "[sprawl-rebuild] regulatory scope policy not found: ${REG_SCOPE_PATH}" >&2
   exit 1
 fi
 
@@ -101,6 +115,7 @@ while IFS= read -r target; do
   fi
 
   jq -n --slurpfile scan "${scan_path}" \
+    --slurpfile regscope "${REG_SCOPE_PATH}" \
     --arg target "${target}" \
     --arg org "${org}" \
     --arg repo "${repo}" \
@@ -112,6 +127,10 @@ while IFS= read -r target; do
       ($s.inventory.tools // []) as $tools |
       ($tools | map(select((.tool_type // "") != "source_repo"))) as $scoped |
       ($s.profile.failing_rules // []) as $failing_rules |
+      ($regscope[0] // {}) as $regscope_policy |
+      ($regscope_policy.defaults // {}) as $regscope_defaults |
+      ($regscope_policy.orgs // {}) as $regscope_orgs |
+      ($regscope_orgs[$org] // {}) as $regscope_org |
 
       def to_num($v):
         if ($v | type) == "number" then $v
@@ -131,6 +150,11 @@ while IFS= read -r target; do
         or (approval_class == "unapproved" and (approval_status_norm == "missing" or approval_status_norm == "unknown" or approval_status_norm == "null" or approval_status_norm == ""));
       def is_explicit_unapproved:
         (approval_class == "unapproved") and (is_approval_unknown | not);
+      def scope_flag($key; $fallback):
+        if (($regscope_org[$key] | type) == "boolean") then $regscope_org[$key]
+        elif (($regscope_defaults[$key] | type) == "boolean") then $regscope_defaults[$key]
+        else $fallback
+        end;
 
       ($tools | length) as $tool_array_len |
       (if $tool_array_len > 0
@@ -250,6 +274,11 @@ while IFS= read -r target; do
             unknown: $scoped_approval_unknown,
             unknown_legacy: $scoped_unknown_legacy
           }
+        },
+        regulatory_scope: {
+          eu_ai_act: scope_flag("eu_ai_act"; true),
+          soc2: scope_flag("soc2"; true),
+          pci_dss: scope_flag("pci_dss"; false)
         },
         control_posture: {
           destructive_tooling: $destructive_tooling,
@@ -432,15 +461,83 @@ jq -s '
       approval_unknown_tools: (.counts.approval_unknown // .counts.unknown // 0),
       not_baseline_approved_tools: (.counts.not_baseline_approved // .counts.unapproved // 0)
     }),
-    regulatory_rows: map({
-      org: .org,
-      regulation: "EU AI Act",
-      control_id: "Article 50 Proxy",
-      tool_id: (.target + ":tooling"),
-      gap_status: (if .control_posture.article50_gap then "gap" else "covered" end),
-      controls_missing_count: (.control_posture.article50_controls_missing_count // 0),
-      evidence_ref: .scan_path
-    }),
+    regulatory_rows: (
+      map(
+        (.counts.not_baseline_approved // .counts.unapproved // 0) as $not_baseline_approved |
+        (.counts.explicit_unapproved // 0) as $explicit_unapproved |
+        (.counts.approval_unknown // .counts.unknown // 0) as $approval_unknown |
+        (.regulatory_scope // {eu_ai_act: true, soc2: true, pci_dss: false}) as $scope |
+        [
+          (if ($scope.eu_ai_act // true) then {
+            org: .org,
+            regulation: "EU AI Act",
+            control_id: "Article 50 Proxy",
+            tool_id: (.target + ":tooling"),
+            gap_status: (if .control_posture.article50_gap then "gap" else "covered" end),
+            controls_missing_count: (.control_posture.article50_controls_missing_count // 0),
+            evidence_ref: .scan_path
+          } else empty end),
+          (if ($scope.soc2 // true) then {
+            org: .org,
+            regulation: "SOC 2",
+            control_id: "CC6.1",
+            tool_id: (.target + ":tooling"),
+            gap_status: (if ($not_baseline_approved > 0 or (.control_posture.approval_gate_absent == true)) then "gap" else "covered" end),
+            controls_missing_count: (if ($not_baseline_approved > 0 or (.control_posture.approval_gate_absent == true)) then 1 else 0 end),
+            evidence_ref: .scan_path
+          }, {
+            org: .org,
+            regulation: "SOC 2",
+            control_id: "CC7.1",
+            tool_id: (.target + ":tooling"),
+            gap_status: (if (.control_posture.evidence_verifiable != true) then "gap" else "covered" end),
+            controls_missing_count: (if (.control_posture.evidence_verifiable != true) then 1 else 0 end),
+            evidence_ref: .scan_path
+          }, {
+            org: .org,
+            regulation: "SOC 2",
+            control_id: "CC8.1",
+            tool_id: (.target + ":tooling"),
+            gap_status: (if ($explicit_unapproved > 0 or (.control_posture.prompt_only_controls == true)) then "gap" else "covered" end),
+            controls_missing_count: (if ($explicit_unapproved > 0 or (.control_posture.prompt_only_controls == true)) then 1 else 0 end),
+            evidence_ref: .scan_path
+          } else empty end),
+          (if ($scope.pci_dss // false) then {
+            org: .org,
+            regulation: "PCI DSS 4.0.1",
+            control_id: "6.3",
+            tool_id: (.target + ":tooling"),
+            gap_status: (if (.control_posture.destructive_tooling == true) then "gap" else "covered" end),
+            controls_missing_count: (if (.control_posture.destructive_tooling == true) then 1 else 0 end),
+            evidence_ref: .scan_path
+          }, {
+            org: .org,
+            regulation: "PCI DSS 4.0.1",
+            control_id: "6.5",
+            tool_id: (.target + ":tooling"),
+            gap_status: (if ($explicit_unapproved > 0 or (.control_posture.approval_gate_absent == true)) then "gap" else "covered" end),
+            controls_missing_count: (if ($explicit_unapproved > 0 or (.control_posture.approval_gate_absent == true)) then 1 else 0 end),
+            evidence_ref: .scan_path
+          }, {
+            org: .org,
+            regulation: "PCI DSS 4.0.1",
+            control_id: "7.2",
+            tool_id: (.target + ":tooling"),
+            gap_status: (if ($not_baseline_approved > 0) then "gap" else "covered" end),
+            controls_missing_count: (if ($not_baseline_approved > 0) then 1 else 0 end),
+            evidence_ref: .scan_path
+          }, {
+            org: .org,
+            regulation: "PCI DSS 4.0.1",
+            control_id: "12.8",
+            tool_id: (.target + ":tooling"),
+            gap_status: (if ($approval_unknown > 0) then "gap" else "covered" end),
+            controls_missing_count: (if ($approval_unknown > 0) then 1 else 0 end),
+            evidence_ref: .scan_path
+          } else empty end)
+        ]
+      ) | add
+    ),
     prompt_channel_rows: map({
       org: .org,
       repo: .repo,

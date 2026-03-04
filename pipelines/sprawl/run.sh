@@ -7,7 +7,7 @@ Usage:
   run.sh [--run-id <id>] [--resume] [--dry-run] [--mode baseline-only|baseline+enrich]
          [--targets-file <path>] [--max-targets <n>] [--max-runtime-sec <n>] [--max-run-disk-mb <n>]
          [--detector-list <csv>] [--approved-tools <path>] [--production-targets <path>] [--segment-metadata <path>]
-         [--egress-allowlist <path>] [--scan-source repo|clone] [--clone-root <path>] [--no-synthetic-fallback]
+         [--regulatory-scope <path>] [--egress-allowlist <path>] [--scan-source repo|clone] [--clone-root <path>] [--no-synthetic-fallback]
 
 Creates immutable run layout and executes Wrkr sprawl scans:
   runs/tool-sprawl/<run_id>/{wrkr-state,wrkr-state-enrich,states,states-enrich,scans,agg,appendix,artifacts}
@@ -27,6 +27,7 @@ DETECTOR_LIST="${WRKR_DETECTORS:-default}"
 APPROVED_TOOLS_POLICY="pipelines/policies/approved-tools.v1.yaml"
 PRODUCTION_TARGETS_POLICY="pipelines/policies/production-targets.v1.yaml"
 SEGMENT_METADATA_POLICY="pipelines/policies/campaign-segments.v1.yaml"
+REGULATORY_SCOPE_POLICY="pipelines/policies/regulatory-scope.v1.json"
 EGRESS_ALLOWLIST="pipelines/policies/sprawl-egress-allowlist.txt"
 SCAN_SOURCE="${SCAN_SOURCE:-repo}"
 CLONE_ROOT="${CLONE_ROOT:-}"
@@ -360,6 +361,7 @@ write_state_from_scan() {
   fi
 
   jq -n --slurpfile scan "${scan_path}" \
+    --slurpfile regscope "${REPO_ROOT}/${REGULATORY_SCOPE_POLICY}" \
     --arg target "${target}" \
     --arg org "${org}" \
     --arg repo "${repo}" \
@@ -371,6 +373,10 @@ write_state_from_scan() {
       ($s.inventory.tools // []) as $tools |
       ($tools | map(select((.tool_type // "") != "source_repo"))) as $scoped |
       ($s.profile.failing_rules // []) as $failing_rules |
+      ($regscope[0] // {}) as $regscope_policy |
+      ($regscope_policy.defaults // {}) as $regscope_defaults |
+      ($regscope_policy.orgs // {}) as $regscope_orgs |
+      ($regscope_orgs[$org] // {}) as $regscope_org |
 
       def to_num($v):
         if ($v | type) == "number" then $v
@@ -390,6 +396,11 @@ write_state_from_scan() {
         or (approval_class == "unapproved" and (approval_status_norm == "missing" or approval_status_norm == "unknown" or approval_status_norm == "null" or approval_status_norm == ""));
       def is_explicit_unapproved:
         (approval_class == "unapproved") and (is_approval_unknown | not);
+      def scope_flag($key; $fallback):
+        if (($regscope_org[$key] | type) == "boolean") then $regscope_org[$key]
+        elif (($regscope_defaults[$key] | type) == "boolean") then $regscope_defaults[$key]
+        else $fallback
+        end;
       def median($arr):
         if ($arr | length) == 0 then 0
         else
@@ -520,6 +531,11 @@ write_state_from_scan() {
           unknown_legacy: $scoped_unknown_legacy
         }
       },
+      regulatory_scope: {
+        eu_ai_act: scope_flag("eu_ai_act"; true),
+        soc2: scope_flag("soc2"; true),
+        pci_dss: scope_flag("pci_dss"; false)
+      },
       control_posture: {
         destructive_tooling: $destructive_tooling,
         approval_gate_present: $approval_gate_present,
@@ -589,6 +605,10 @@ while [[ $# -gt 0 ]]; do
       ;;
     --segment-metadata)
       SEGMENT_METADATA_POLICY="${2:-}"
+      shift 2
+      ;;
+    --regulatory-scope)
+      REGULATORY_SCOPE_POLICY="${2:-}"
       shift 2
       ;;
     --egress-allowlist)
@@ -710,7 +730,7 @@ check_secret_guardrails
 check_token_guardrails
 check_egress_allowlist "${REPO_ROOT}/${EGRESS_ALLOWLIST}"
 
-for policy in "${APPROVED_TOOLS_POLICY}" "${PRODUCTION_TARGETS_POLICY}" "${SEGMENT_METADATA_POLICY}"; do
+for policy in "${APPROVED_TOOLS_POLICY}" "${PRODUCTION_TARGETS_POLICY}" "${SEGMENT_METADATA_POLICY}" "${REGULATORY_SCOPE_POLICY}"; do
   if [[ ! -f "${REPO_ROOT}/${policy}" ]]; then
     echo "[sprawl-run] missing policy file: ${policy}" >&2
     exit 1
@@ -1053,15 +1073,83 @@ jq -s '
       approval_unknown_tools: (.counts.approval_unknown // .counts.unknown // 0),
       not_baseline_approved_tools: (.counts.not_baseline_approved // .counts.unapproved // 0)
     }),
-    regulatory_rows: map({
-      org: .org,
-      regulation: "EU AI Act",
-      control_id: "Article 50 Proxy",
-      tool_id: (.target + ":tooling"),
-      gap_status: (if .control_posture.article50_gap then "gap" else "covered" end),
-      controls_missing_count: (.control_posture.article50_controls_missing_count // 0),
-      evidence_ref: .scan_path
-    }),
+    regulatory_rows: (
+      map(
+        (.counts.not_baseline_approved // .counts.unapproved // 0) as $not_baseline_approved |
+        (.counts.explicit_unapproved // 0) as $explicit_unapproved |
+        (.counts.approval_unknown // .counts.unknown // 0) as $approval_unknown |
+        (.regulatory_scope // {eu_ai_act: true, soc2: true, pci_dss: false}) as $scope |
+        [
+          (if ($scope.eu_ai_act // true) then {
+            org: .org,
+            regulation: "EU AI Act",
+            control_id: "Article 50 Proxy",
+            tool_id: (.target + ":tooling"),
+            gap_status: (if .control_posture.article50_gap then "gap" else "covered" end),
+            controls_missing_count: (.control_posture.article50_controls_missing_count // 0),
+            evidence_ref: .scan_path
+          } else empty end),
+          (if ($scope.soc2 // true) then {
+            org: .org,
+            regulation: "SOC 2",
+            control_id: "CC6.1",
+            tool_id: (.target + ":tooling"),
+            gap_status: (if ($not_baseline_approved > 0 or (.control_posture.approval_gate_absent == true)) then "gap" else "covered" end),
+            controls_missing_count: (if ($not_baseline_approved > 0 or (.control_posture.approval_gate_absent == true)) then 1 else 0 end),
+            evidence_ref: .scan_path
+          }, {
+            org: .org,
+            regulation: "SOC 2",
+            control_id: "CC7.1",
+            tool_id: (.target + ":tooling"),
+            gap_status: (if (.control_posture.evidence_verifiable != true) then "gap" else "covered" end),
+            controls_missing_count: (if (.control_posture.evidence_verifiable != true) then 1 else 0 end),
+            evidence_ref: .scan_path
+          }, {
+            org: .org,
+            regulation: "SOC 2",
+            control_id: "CC8.1",
+            tool_id: (.target + ":tooling"),
+            gap_status: (if ($explicit_unapproved > 0 or (.control_posture.prompt_only_controls == true)) then "gap" else "covered" end),
+            controls_missing_count: (if ($explicit_unapproved > 0 or (.control_posture.prompt_only_controls == true)) then 1 else 0 end),
+            evidence_ref: .scan_path
+          } else empty end),
+          (if ($scope.pci_dss // false) then {
+            org: .org,
+            regulation: "PCI DSS 4.0.1",
+            control_id: "6.3",
+            tool_id: (.target + ":tooling"),
+            gap_status: (if (.control_posture.destructive_tooling == true) then "gap" else "covered" end),
+            controls_missing_count: (if (.control_posture.destructive_tooling == true) then 1 else 0 end),
+            evidence_ref: .scan_path
+          }, {
+            org: .org,
+            regulation: "PCI DSS 4.0.1",
+            control_id: "6.5",
+            tool_id: (.target + ":tooling"),
+            gap_status: (if ($explicit_unapproved > 0 or (.control_posture.approval_gate_absent == true)) then "gap" else "covered" end),
+            controls_missing_count: (if ($explicit_unapproved > 0 or (.control_posture.approval_gate_absent == true)) then 1 else 0 end),
+            evidence_ref: .scan_path
+          }, {
+            org: .org,
+            regulation: "PCI DSS 4.0.1",
+            control_id: "7.2",
+            tool_id: (.target + ":tooling"),
+            gap_status: (if ($not_baseline_approved > 0) then "gap" else "covered" end),
+            controls_missing_count: (if ($not_baseline_approved > 0) then 1 else 0 end),
+            evidence_ref: .scan_path
+          }, {
+            org: .org,
+            regulation: "PCI DSS 4.0.1",
+            control_id: "12.8",
+            tool_id: (.target + ":tooling"),
+            gap_status: (if ($approval_unknown > 0) then "gap" else "covered" end),
+            controls_missing_count: (if ($approval_unknown > 0) then 1 else 0 end),
+            evidence_ref: .scan_path
+          } else empty end)
+        ]
+      ) | add
+    ),
     prompt_channel_rows: map({
       org: .org,
       repo: .repo,
@@ -1126,6 +1214,7 @@ CLONE_ROOT_REF="$(normalize_path_ref "${CLONE_ROOT}")"
 APPROVED_DIGEST="$(file_sha256 "${REPO_ROOT}/${APPROVED_TOOLS_POLICY}")"
 PRODUCTION_DIGEST="$(file_sha256 "${REPO_ROOT}/${PRODUCTION_TARGETS_POLICY}")"
 SEGMENT_DIGEST="$(file_sha256 "${REPO_ROOT}/${SEGMENT_METADATA_POLICY}")"
+REG_SCOPE_DIGEST="$(file_sha256 "${REPO_ROOT}/${REGULATORY_SCOPE_POLICY}")"
 TARGETS_DIGEST="$(file_sha256 "${TARGETS_FILE_PATH}")"
 EGRESS_ALLOWLIST_DIGEST="$(file_sha256 "${REPO_ROOT}/${EGRESS_ALLOWLIST}")"
 
@@ -1154,6 +1243,8 @@ jq -n \
   --arg production_policy_sha256 "${PRODUCTION_DIGEST}" \
   --arg segment_policy "${SEGMENT_METADATA_POLICY}" \
   --arg segment_policy_sha256 "${SEGMENT_DIGEST}" \
+  --arg regulatory_scope_policy "${REGULATORY_SCOPE_POLICY}" \
+  --arg regulatory_scope_policy_sha256 "${REG_SCOPE_DIGEST}" \
   --arg egress_allowlist "${EGRESS_ALLOWLIST}" \
   --arg egress_allowlist_sha256 "${EGRESS_ALLOWLIST_DIGEST}" \
   --argjson max_runtime_sec "${MAX_RUNTIME_SEC}" \
@@ -1192,7 +1283,9 @@ jq -n \
         production_policy: $production_policy,
         production_policy_sha256: $production_policy_sha256,
         segment_policy: $segment_policy,
-        segment_policy_sha256: $segment_policy_sha256
+        segment_policy_sha256: $segment_policy_sha256,
+        regulatory_scope_policy: $regulatory_scope_policy,
+        regulatory_scope_policy_sha256: $regulatory_scope_policy_sha256
       }
     },
     operational_guardrails: {
