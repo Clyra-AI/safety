@@ -348,6 +348,43 @@ write_synthetic_scan() {
     }' > "${scan_path}"
 }
 
+write_failed_scan() {
+  local target="$1"
+  local scan_path="$2"
+  local err_path="$3"
+  local phase="$4"
+  local stderr_excerpt=""
+  if [[ -f "${err_path}" ]]; then
+    stderr_excerpt="$(tail -n 40 "${err_path}" 2>/dev/null || true)"
+  fi
+
+  jq -n \
+    --arg target "${target}" \
+    --arg generated_at "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+    --arg phase "${phase}" \
+    --arg stderr_log "${err_path}" \
+    --arg stderr_excerpt "${stderr_excerpt}" \
+    '{
+      schema_version: "v1",
+      status: "scan-failed",
+      target: $target,
+      generated_at: $generated_at,
+      failure: {
+        phase: $phase,
+        stderr_log: $stderr_log,
+        stderr_excerpt: $stderr_excerpt
+      },
+      inventory: {
+        tools_detected: 0,
+        approved_tools: 0,
+        unapproved_tools: 0,
+        unknown_tools: 0,
+        production_write_tools: 0,
+        tools: []
+      }
+    }' > "${scan_path}"
+}
+
 write_state_from_scan() {
   local target="$1"
   local scan_path="$2"
@@ -825,16 +862,23 @@ for target in "${targets[@]}"; do
 
   if [[ "${scan_ok}" -eq 0 && "${needs_baseline_scan}" -eq 1 ]]; then
     if [[ "${ALLOW_SYNTHETIC_FALLBACK}" -eq 0 ]]; then
-      echo "[sprawl-run] wrkr scan failed for ${target} and synthetic fallback disabled" >&2
+      echo "[sprawl-run] wrkr scan failed for ${target}; writing scan-failed artifact and continuing (synthetic fallback disabled)" >&2
       echo "[sprawl-run] stderr log: ${scan_err_path}" >&2
       if [[ -s "${scan_err_path}" ]]; then
         echo "[sprawl-run] last wrkr stderr lines:" >&2
         tail -n 40 "${scan_err_path}" >&2
       fi
-      exit 1
+      write_failed_scan "${target}" "${scan_path}" "${scan_err_path}" "baseline"
+      if [[ "${scan_source_for_target}" == "clone" ]]; then
+        write_state_from_scan "${target}" "${scan_path}" "${state_path}" "wrkr-scan-failed-clone"
+      else
+        write_state_from_scan "${target}" "${scan_path}" "${state_path}" "wrkr-scan-failed-repo"
+      fi
     fi
-    write_synthetic_scan "${target}" "${scan_path}"
-    write_state_from_scan "${target}" "${scan_path}" "${state_path}" "synthetic-preflight"
+    if [[ "${ALLOW_SYNTHETIC_FALLBACK}" -eq 1 ]]; then
+      write_synthetic_scan "${target}" "${scan_path}"
+      write_state_from_scan "${target}" "${scan_path}" "${state_path}" "synthetic-preflight"
+    fi
   elif [[ "${needs_baseline_scan}" -eq 1 ]]; then
     if [[ "${scan_source_for_target}" == "clone" ]]; then
       write_state_from_scan "${target}" "${scan_path}" "${state_path}" "wrkr-scan-clone"
@@ -882,16 +926,23 @@ for target in "${targets[@]}"; do
 
     if [[ "${enrich_ok}" -eq 0 && "${needs_enrich_scan}" -eq 1 ]]; then
       if [[ "${ALLOW_SYNTHETIC_FALLBACK}" -eq 0 ]]; then
-        echo "[sprawl-run] wrkr enrich scan failed for ${target} and synthetic fallback disabled" >&2
+        echo "[sprawl-run] wrkr enrich scan failed for ${target}; writing scan-failed artifact and continuing (synthetic fallback disabled)" >&2
         echo "[sprawl-run] stderr log: ${enrich_scan_err_path}" >&2
         if [[ -s "${enrich_scan_err_path}" ]]; then
           echo "[sprawl-run] last wrkr stderr lines:" >&2
           tail -n 40 "${enrich_scan_err_path}" >&2
         fi
-        exit 1
+        write_failed_scan "${target}" "${enrich_scan_path}" "${enrich_scan_err_path}" "enrich"
+        if [[ "${scan_source_for_target}" == "clone" ]]; then
+          write_state_from_scan "${target}" "${enrich_scan_path}" "${enrich_state_path}" "wrkr-enrich-failed-clone"
+        else
+          write_state_from_scan "${target}" "${enrich_scan_path}" "${enrich_state_path}" "wrkr-enrich-failed-repo"
+        fi
       fi
-      write_synthetic_scan "${target}" "${enrich_scan_path}"
-      write_state_from_scan "${target}" "${enrich_scan_path}" "${enrich_state_path}" "synthetic-enrich"
+      if [[ "${ALLOW_SYNTHETIC_FALLBACK}" -eq 1 ]]; then
+        write_synthetic_scan "${target}" "${enrich_scan_path}"
+        write_state_from_scan "${target}" "${enrich_scan_path}" "${enrich_state_path}" "synthetic-enrich"
+      fi
     elif [[ "${needs_enrich_scan}" -eq 1 ]]; then
       if [[ "${scan_source_for_target}" == "clone" ]]; then
         write_state_from_scan "${target}" "${enrich_scan_path}" "${enrich_state_path}" "wrkr-enrich-clone"
@@ -901,7 +952,9 @@ for target in "${targets[@]}"; do
     fi
   fi
 
-  check_disk_quota "${RUN_DIR}"
+  if [[ "${needs_baseline_scan}" -eq 1 || "${needs_enrich_scan}" -eq 1 ]]; then
+    check_disk_quota "${RUN_DIR}"
+  fi
 done
 
 assert_runtime_budget
@@ -948,10 +1001,10 @@ jq -s \
       metrics: {
         orgs_scanned: length,
         avg_approval_unknown_tools_per_org: (
-          if length == 0 then 0 else ((map(.counts.approval_unknown // .counts.unknown // 0) | add) * 10000 / length | round) / 100 end
+          ratio((map(.counts.approval_unknown // .counts.unknown // 0) | add); length)
         ),
         avg_unknown_tools_per_org: (
-          if length == 0 then 0 else ((map(.counts.approval_unknown // .counts.unknown // 0) | add) * 10000 / length | round) / 100 end
+          ratio((map(.counts.approval_unknown // .counts.unknown // 0) | add); length)
         ),
         explicit_unapproved_to_approved_ratio: ratio((map(.counts.explicit_unapproved // 0) | add); (map(.counts.approved // 0) | add)),
         not_baseline_approved_to_approved_ratio: ratio((map(.counts.not_baseline_approved // .counts.unapproved // 0) | add); (map(.counts.approved // 0) | add)),

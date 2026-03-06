@@ -143,6 +143,13 @@ GOLD_EVAL_JSON="${OUT_DIR}/gold-label-evaluation.json"
 jq -n \
   --slurpfile states <(find "${STATES_DIR}" -type f -name '*.json' | sort | xargs -I{} jq -c '.' "{}") \
   '
+  def gate_absent_from($r):
+    if (($r.control_posture // {}) | has("approval_gate_absent")) then
+      ($r.control_posture.approval_gate_absent)
+    else
+      (($r.control_posture.approval_gate_present // false) | not)
+    end;
+
   ($states // []) as $rows |
   $rows
   | map({
@@ -151,7 +158,7 @@ jq -n \
       observed_source_repo_tools: (.segments.source_repo_tools // 0),
       observed_raw_tools: (.segments.raw_counts.tools_detected // 0),
       observed_destructive_tooling: (.control_posture.destructive_tooling // false),
-      observed_approval_gate_absent: ((.control_posture.approval_gate_present // false) | not),
+      observed_approval_gate_absent: gate_absent_from(.),
       observed_unknown_tools: (.counts.approval_unknown // .counts.unknown // 0),
       expected_non_source_exists: null,
       expected_non_source_count: null,

@@ -4,12 +4,12 @@
 
 This report uses a deterministic, public-repository campaign design.
 
-- Flagship publication scope: `500` organizations (one `owner/repo` target per owner).
+- Current v1 manuscript scope: `1000` organizations (one `owner/repo` target per list entry).
 - Calibration scope: fixed AI-native cohort (`50` targets) for detector quality checks.
-- Intermediate benchmark scope: `101` targets for readiness checks before the 500-run.
+- Intermediate benchmark scope: `101` targets for readiness checks before the publication cohort.
 - Headline metrics use non-`source_repo` scope only; raw totals are published separately in segmented tables.
 
-Claims in `claims/ai-tool-sprawl-q1-2026/claims.json` remain `TBD` until the canonical 500-target run is completed and values are frozen from run artifacts.
+Claims in `claims/ai-tool-sprawl-q1-2026/claims.json` are frozen from canonical run `sprawl-ai1000-clean-pci-20260305T130344Z`.
 
 Definitions lock: `definitions.md`  
 Execution protocol: `study-protocol.md`
@@ -30,7 +30,7 @@ Regulatory rows are produced from deterministic proxy logic with policy-driven s
 - `pipelines/policies/regulatory-mappings.v1.yaml` documents control-ID mappings
 - EU AI Act rows are enabled by default
 - SOC 2 rows are enabled by default
-- PCI DSS rows are emitted only for orgs marked PCI-scoped.
+- PCI DSS rows are enabled by default and can be disabled per org via scope policy.
 
 ## Calibration contract
 

@@ -3,7 +3,7 @@
   "defaults": {
     "eu_ai_act": true,
     "soc2": true,
-    "pci_dss": false
+    "pci_dss": true
   },
   "orgs": {
   }

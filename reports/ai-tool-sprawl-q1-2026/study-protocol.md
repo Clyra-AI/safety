@@ -1,7 +1,7 @@
 # AI Tool Sprawl Q1 2026 Study Protocol
 
 Status: execution protocol  
-Version: `v7`  
+Version: `v9`  
 Objective: produce a reproducible multi-organization AI tool governance baseline.
 
 ## 1) Campaign Design
@@ -9,7 +9,7 @@ Objective: produce a reproducible multi-organization AI tool governance baseline
 - Canonical campaign mode: deterministic baseline scan.
 - Supplemental enrich mode: separate run with explicit provenance (`as_of`, `source`), never merged into baseline headline claims.
 - Calibration pre-pass: AI-native 50-target cohort before publication-scale campaign.
-- Publication campaign target: `500` organizations (minimum publish threshold hard gate).
+- Publication campaign target: `1000` organizations for the current v1 report cohort (`500` remains the minimum hard publish threshold).
 - Intermediate benchmark campaign: `101` organizations for operational readiness checks only.
 - Runtime pinning: prefer repo-pinned Wrkr runtime (`go run` from `WRKR_REPO_PATH`) over ambient PATH binary unless explicit `WRKR_BIN` override is supplied.
 
@@ -33,6 +33,7 @@ Objective: produce a reproducible multi-organization AI tool governance baseline
 
 - per-target scan JSON artifacts
 - per-target stderr logs for clone and scan failures (when present)
+- per-target `scan-failed` artifacts when scanner execution fails and synthetic fallback is disabled (run continues; target remains in denominator)
 - per-target derived state JSON with segmented counts:
   - headline scope (non-`source_repo`)
   - raw scope (includes `source_repo`)
@@ -106,3 +107,5 @@ Each threat requires mitigation and residual-risk text.
 
 - `v6`: aligns protocol to split approval metrics, Article 50 proxy scoring, evidence-tier posture, and metric-specific calibration coverage gates.
 - `v7`: adds policy-driven SOC 2 and PCI DSS proxy mappings and regulatory applicability scope controls.
+- `v8`: records non-fatal `scan-failed` target handling in required outputs and aligns protocol with PCI-enabled default scope policy.
+- `v9`: records the canonical v1 report cohort as 1000 public-repository targets while keeping the minimum publish threshold at 500.

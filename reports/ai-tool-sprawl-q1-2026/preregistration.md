@@ -1,17 +1,17 @@
 # AI Tool Sprawl Q1 2026 Pre-Registration
 
-Status: locked  
-Version: `v6`
+Status: locked with amendment record  
+Version: `v7`
 
 ## Study Identity
 
 - Report ID: `ai-tool-sprawl-q1-2026`
 - Calibration run cohort: `internal/repos.md` (AI-native 50 pre-pass)
 - Calibration reference run ID: `sprawl-ai50-prepass-20260303T203500Z`
-- Calibration tuned reference run ID: `sprawl-ai50-tuned3-clean-20260303T210808Z`
-- Planned publication-campaign run ID: `sprawl-live-<timestamp>`
+- Calibration tuned reference run ID: `sprawl-ai50-clean-pci-20260305T125702Z`
+- Canonical publication-campaign run ID: `sprawl-ai1000-clean-pci-20260305T130344Z`
 - Planned publication window: `2026-04-01 to 2026-04-30 (target)`
-- Target list source: `internal/repos.md`
+- Target list source: `internal/repos-1000-clean.md`
 
 ## Locked Hypotheses
 
@@ -84,9 +84,10 @@ Version: `v6`
 - `v4`: adds mandatory detector-calibration stage and records AI-native 50 calibration reference run.
 - `v5`: adds explicit calibration threshold (`>=60%` recall_exists) and records tuned clean calibration run ID.
 - `v6`: replaces unapproved/unknown headline terms with split endpoint model (`not_baseline_approved`, `explicit_unapproved`, `approval_unknown`) and adds evidence-tier endpoint.
+- `v7`: records the canonical 1000-target publication cohort and the clean PCI-enabled calibration run used before manuscript drafting.
 
 ## Lock Record
 
 - Locked by: `David Ahmann`
 - Locked at (UTC): `2026-03-03T22:00:00Z`
-- Notes: `Lock applies to baseline+enrich mechanics, split approval endpoint definitions, calibration gates, and publish thresholds.`
+- Notes: `Lock applies to baseline+enrich mechanics, split approval endpoint definitions, calibration gates, publish thresholds, and a documented amendment from the initial 500-target publication cohort to the canonical 1000-target run.`

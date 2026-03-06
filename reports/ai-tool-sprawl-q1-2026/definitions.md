@@ -1,8 +1,8 @@
 # AI Tool Sprawl Q1 2026 Definitions (Locked for This Cycle)
 
 Status: locked  
-Version: `v5`  
-Effective date: `2026-03-04`
+Version: `v6`  
+Effective date: `2026-03-05`
 
 This file defines canonical classifications and formulas for the Q1 2026 sprawl report.
 If changed, bump version and rerun campaign metrics.
@@ -128,7 +128,7 @@ These are deterministic control proxies aligned to control intent, not an audito
 
 ## PCI DSS 4.0.1 deterministic control proxies
 
-Organization-level PCI rows are emitted only when `regulatory_scope.pci_dss == true` (default `false`).
+Organization-level PCI rows are emitted when `regulatory_scope.pci_dss == true` (default `true`; can be disabled per org).
 
 Control IDs mapped in this cycle:
 
@@ -166,7 +166,7 @@ Supporting:
 - Included repositories: deterministic acquisition scope as recorded in methodology.
 - Excluded entities: private/non-resolvable targets outside defined acquisition policy.
 - Framework applicability defaults are loaded from `pipelines/policies/regulatory-scope.v1.json`:
-  - `eu_ai_act=true`, `soc2=true`, `pci_dss=false`
+  - `eu_ai_act=true`, `soc2=true`, `pci_dss=true`
   - per-org overrides may be set under `orgs.<owner>`.
 
 ## Change Control

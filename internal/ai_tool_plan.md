@@ -23,6 +23,7 @@ Run a reproducible multi-target Wrkr campaign, generate aggregate and appendix a
 - Publish threshold policy: `pipelines/config/publish-thresholds.json`
 - Calibration threshold policy: `pipelines/config/calibration-thresholds.json`
 - Default production-claim posture: do not publish production-write prevalence until production targets are intentionally populated.
+- Default regulatory scope posture: EU AI Act, SOC 2, and PCI DSS proxy rows enabled (per-org opt-out supported in scope policy).
 
 ## Required headline thresholds
 

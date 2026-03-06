@@ -139,9 +139,9 @@ if command -v gh >/dev/null 2>&1; then
 fi
 
 AI_QUERIES=(
-  "topic:ai-agent pushed:>=${MIN_PUSHED} stars:>=20 archived:false fork:false"
+  "topic:ai-agent pushed:>=${MIN_PUSHED} stars:>=25 archived:false fork:false"
   "topic:model-context-protocol pushed:>=${MIN_PUSHED} stars:>=10 archived:false fork:false"
-  "topic:llmops pushed:>=${MIN_PUSHED} stars:>=20 archived:false fork:false"
+  "topic:mcp-server pushed:>=${MIN_PUSHED} stars:>=10 archived:false fork:false"
 )
 DEV_QUERIES=(
   "topic:devops pushed:>=${MIN_PUSHED} stars:>=7000 -topic:ai -topic:llm -topic:machine-learning archived:false fork:false"

@@ -336,10 +336,10 @@ jq -s \
       metrics: {
         orgs_scanned: length,
         avg_approval_unknown_tools_per_org: (
-          if length == 0 then 0 else ((map(.counts.approval_unknown // .counts.unknown // 0) | add) * 10000 / length | round) / 100 end
+          ratio((map(.counts.approval_unknown // .counts.unknown // 0) | add); length)
         ),
         avg_unknown_tools_per_org: (
-          if length == 0 then 0 else ((map(.counts.approval_unknown // .counts.unknown // 0) | add) * 10000 / length | round) / 100 end
+          ratio((map(.counts.approval_unknown // .counts.unknown // 0) | add); length)
         ),
         explicit_unapproved_to_approved_ratio: ratio((map(.counts.explicit_unapproved // 0) | add); (map(.counts.approved // 0) | add)),
         not_baseline_approved_to_approved_ratio: ratio((map(.counts.not_baseline_approved // .counts.unapproved // 0) | add); (map(.counts.approved // 0) | add)),
