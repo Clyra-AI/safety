@@ -1,0 +1,39 @@
+Session Title
+515 Post-Stop Calls: A 24-Hour Study of Runtime Controls for Tool-Using AI Agents
+
+Study At A Glance
+- Canonical run ID: openclaw-live-24h-20260228T143341Z
+- Environment: isolated containerized lab only
+- Design: dual-lane controlled evaluation
+- Baseline lane: permissive execution with no enforceable approval boundary
+- Governed lane: pre-execution tool-boundary mediation with deterministic allow, block, and require_approval decisions
+- Measurement window: 24 hours
+- Scenario set: inbox cleanup, document sharing, finance operations, secrets handling, and ops commands
+
+Key Findings
+- In the baseline lane, 515 of 515 post-stop calls still executed.
+- In the baseline lane, 707 sensitive-access actions occurred without an enforceable approval mechanism.
+- In the baseline lane, 497 destructive attempts were observed.
+- In the governed lane, 1,615 of 2,585 observed decisions were rendered non-executable.
+- In the governed lane, destructive actions were held non-executable at 100 percent.
+- Governed evidence verification coverage was 2,584 of 2,585 decisions, or 99.96 percent.
+
+Why It Matters
+- Prompt instructions are not runtime controls.
+- Stop-safety and approval must be enforced at the tool boundary, before execution.
+- Security claims about agent behavior are stronger when they are backed by per-call evidence artifacts and deterministic queries.
+
+Scope And Limitations
+- This study covers one pinned OpenClaw source snapshot, one fixed workload profile, and one 24-hour run.
+- It is not a claim about all agent systems or all OpenClaw deployments.
+- All execution occurred in an isolated lab environment rather than production.
+- The governed lane reduced executable risk substantially, but some pathways remained weaker than others. In the secrets-handling scenario, only 20 percent of actions were rendered non-executable.
+
+Public Materials
+- Repository: https://github.com/Clyra-AI/safety
+- OpenClaw report package: https://github.com/Clyra-AI/safety/tree/main/reports/openclaw-2026
+- Canonical promoted artifacts: https://github.com/Clyra-AI/safety/tree/main/reports/openclaw-2026/data/runs/openclaw-live-24h-20260228T143341Z
+- Report PDF: https://github.com/Clyra-AI/safety/blob/main/docs/assets/reports/openclaw-2026/report.pdf
+
+Reviewer Note
+If the briefing is accepted, any demo or replay material will come from the isolated lab environment described above. The session is a runtime-governance and measurement briefing, not a new-vulnerability disclosure and not a product launch.
