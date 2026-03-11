@@ -1,0 +1,83 @@
+{
+  "schema_version": "v1",
+  "report_id": "ai-tool-sprawl-v2-2026",
+  "claims": [
+    {
+      "id": "sprawl_v2_not_baseline_approved_to_approved_ratio",
+      "headline": "Not-baseline-approved to baseline-approved tool ratio",
+      "value": "TBD",
+      "artifact_path": "runs/tool-sprawl/<run_id>/agg/campaign-summary-v2.json",
+      "query": "jq '.campaign.metrics.not_baseline_approved_to_approved_ratio'"
+    },
+    {
+      "id": "sprawl_v2_orgs_with_agents_pct",
+      "headline": "Organizations with declared agents percent",
+      "value": "TBD",
+      "artifact_path": "runs/tool-sprawl/<run_id>/agg/campaign-summary-v2.json",
+      "query": "jq '.campaign.metrics.orgs_with_agents_pct'"
+    },
+    {
+      "id": "sprawl_v2_avg_agents_per_org",
+      "headline": "Average declared agents per organization",
+      "value": "TBD",
+      "artifact_path": "runs/tool-sprawl/<run_id>/agg/campaign-summary-v2.json",
+      "query": "jq '.campaign.metrics.avg_agents_per_org'"
+    },
+    {
+      "id": "sprawl_v2_orgs_with_deployed_agents_pct",
+      "headline": "Organizations with deployed agents percent",
+      "value": "TBD",
+      "artifact_path": "runs/tool-sprawl/<run_id>/agg/campaign-summary-v2.json",
+      "query": "jq '.campaign.metrics.orgs_with_deployed_agents_pct'"
+    },
+    {
+      "id": "sprawl_v2_agents_missing_bindings_pct",
+      "headline": "Declared agents with incomplete bindings percent",
+      "value": "TBD",
+      "artifact_path": "runs/tool-sprawl/<run_id>/agg/campaign-summary-v2.json",
+      "query": "jq '.campaign.metrics.agents_missing_bindings_pct'"
+    },
+    {
+      "id": "sprawl_v2_orgs_with_write_capable_agents_pct",
+      "headline": "Organizations with write-capable agents percent",
+      "value": "TBD",
+      "artifact_path": "runs/tool-sprawl/<run_id>/agg/campaign-summary-v2.json",
+      "query": "jq '.campaign.metrics.orgs_with_write_capable_agents_pct'"
+    },
+    {
+      "id": "sprawl_v2_orgs_with_exec_capable_agents_pct",
+      "headline": "Organizations with exec-capable agents percent",
+      "value": "TBD",
+      "artifact_path": "runs/tool-sprawl/<run_id>/agg/campaign-summary-v2.json",
+      "query": "jq '.campaign.metrics.orgs_with_exec_capable_agents_pct'"
+    },
+    {
+      "id": "sprawl_v2_orgs_with_agent_attack_paths_pct",
+      "headline": "Organizations with agent-linked attack paths percent",
+      "value": "TBD",
+      "artifact_path": "runs/tool-sprawl/<run_id>/agg/campaign-summary-v2.json",
+      "query": "jq '.campaign.metrics.orgs_with_agent_attack_paths_pct'"
+    },
+    {
+      "id": "sprawl_v2_orgs_without_verifiable_evidence_pct",
+      "headline": "Organizations without verifiable governance evidence percent",
+      "value": "TBD",
+      "artifact_path": "runs/tool-sprawl/<run_id>/agg/campaign-summary-v2.json",
+      "query": "jq '.campaign.metrics.orgs_without_verifiable_evidence_pct'"
+    },
+    {
+      "id": "sprawl_v2_article50_gap_prevalence_pct",
+      "headline": "Organizations with Article 50 transparency gap proxy percent",
+      "value": "TBD",
+      "artifact_path": "runs/tool-sprawl/<run_id>/agg/campaign-summary-v2.json",
+      "query": "jq '.campaign.metrics.article50_gap_prevalence_pct'"
+    },
+    {
+      "id": "sprawl_v2_orgs_scanned",
+      "headline": "Organizations scanned",
+      "value": "TBD",
+      "artifact_path": "runs/tool-sprawl/<run_id>/agg/campaign-summary-v2.json",
+      "query": "jq '.campaign.metrics.orgs_scanned // (.campaign.scans | length)'"
+    }
+  ]
+}

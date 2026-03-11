@@ -1,0 +1,53 @@
+% Portable PDF header for Pandoc + XeLaTeX builds
+% Emphasis: readable code blocks, breakable long lines, cross-platform fonts.
+
+\usepackage{xcolor}
+\usepackage{framed}
+\usepackage{etoolbox}
+\usepackage{fontspec}
+\usepackage{newunicodechar}
+\usepackage{parskip}
+\usepackage{fancyvrb}
+\usepackage{fvextra}
+\usepackage{xurl}
+\IfFileExists{microtype.sty}{\usepackage{microtype}}{}
+
+\definecolor{shadecolor}{RGB}{245,245,245}
+\definecolor{linkblue}{RGB}{0,88,190}
+
+\fvset{
+  breaklines=true,
+  breakanywhere=true,
+  fontsize=\footnotesize
+}
+
+\makeatletter
+\@ifundefined{Shaded}{%
+  \newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}%
+}{}
+\makeatother
+
+\IfFontExistsTF{TeX Gyre Heros}{%
+  \setmainfont{TeX Gyre Heros}
+}{%
+  \IfFontExistsTF{Helvetica}{%
+    \setmainfont{Helvetica}
+  }{}%
+}
+\IfFontExistsTF{DejaVu Sans Mono}{%
+  \setmonofont{DejaVu Sans Mono}[Scale=0.88]
+}{%
+  \IfFontExistsTF{Menlo}{%
+    \setmonofont{Menlo}[Scale=0.88]
+  }{%
+    \IfFontExistsTF{Courier New}{%
+      \setmonofont{Courier New}[Scale=0.88]
+    }{}%
+  }%
+}
+
+\newunicodechar{→}{\ensuremath{\rightarrow}}
+
+\setlength{\parskip}{0.5em}
+\setlength{\emergencystretch}{3em}
+\sloppy

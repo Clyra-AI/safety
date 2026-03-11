@@ -66,6 +66,76 @@
           "value": 80.0
         }
       }
+    },
+    "ai-tool-sprawl-v2-2026": {
+      "required_calibration_thresholds": {
+        "sprawl_v2_non_source_recall_exists_pct": {
+          "op": ">=",
+          "value": 60.0
+        },
+        "sprawl_v2_non_source_precision_exists_pct": {
+          "op": ">=",
+          "value": 60.0
+        },
+        "sprawl_v2_agent_presence_labeled_rows": {
+          "op": ">=",
+          "value": 25
+        },
+        "sprawl_v2_agent_presence_recall_exists_pct": {
+          "op": ">=",
+          "value": 60.0
+        },
+        "sprawl_v2_agent_presence_precision_exists_pct": {
+          "op": ">=",
+          "value": 60.0
+        }
+      },
+      "recommended_calibration_thresholds": {
+        "sprawl_v2_non_source_recall_exists_pct": {
+          "op": ">=",
+          "value": 75.0
+        },
+        "sprawl_v2_non_source_precision_exists_pct": {
+          "op": ">=",
+          "value": 90.0
+        },
+        "sprawl_v2_targets_with_agents_pct": {
+          "op": ">=",
+          "value": 20.0
+        },
+        "sprawl_v2_agent_presence_recall_exists_pct": {
+          "op": ">=",
+          "value": 75.0
+        },
+        "sprawl_v2_agent_presence_precision_exists_pct": {
+          "op": ">=",
+          "value": 85.0
+        },
+        "sprawl_v2_deployed_agents_recall_exists_pct": {
+          "op": ">=",
+          "value": 60.0
+        },
+        "sprawl_v2_deployed_agents_precision_exists_pct": {
+          "op": ">=",
+          "value": 70.0
+        },
+        "sprawl_v2_binding_incomplete_agents_recall_exists_pct": {
+          "op": ">=",
+          "value": 60.0
+        },
+        "sprawl_v2_binding_incomplete_agents_precision_exists_pct": {
+          "op": ">=",
+          "value": 70.0
+        },
+        "sprawl_v2_write_capable_agents_recall_exists_pct": {
+          "op": ">=",
+          "value": 60.0
+        },
+        "sprawl_v2_exec_capable_agents_recall_exists_pct": {
+          "op": ">=",
+          "value": 60.0
+        }
+      }
     }
   }
 }

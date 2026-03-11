@@ -1,0 +1,18 @@
+[
+  {
+    "target": "owner/repo",
+    "expected_non_source_exists": null,
+    "expected_non_source_count": null,
+    "expected_agent_exists": null,
+    "expected_agent_count": null,
+    "expected_deployed_agent_exists": null,
+    "expected_agent_missing_bindings_exists": null,
+    "expected_write_capable_agent_exists": null,
+    "expected_exec_capable_agent_exists": null,
+    "expected_agent_attack_path_exists": null,
+    "expected_unknown_exists": null,
+    "expected_unknown_count": null,
+    "reviewer": null,
+    "notes": null
+  }
+]
