@@ -200,6 +200,80 @@
           "value": 30.0
         }
       }
+    },
+    "ai-tool-sprawl-v2-2026": {
+      "required_claim_thresholds": {
+        "sprawl_v2_not_baseline_approved_to_approved_ratio": {
+          "op": ">=",
+          "value": 2.5
+        },
+        "sprawl_v2_orgs_with_agents_pct": {
+          "op": ">=",
+          "value": 5.0
+        },
+        "sprawl_v2_orgs_with_deployed_agents_pct": {
+          "op": ">=",
+          "value": 2.0
+        },
+        "sprawl_v2_orgs_without_verifiable_evidence_pct": {
+          "op": ">=",
+          "value": 20.0
+        },
+        "sprawl_v2_article50_gap_prevalence_pct": {
+          "op": ">=",
+          "value": 15.0
+        },
+        "sprawl_v2_orgs_scanned": {
+          "op": ">=",
+          "value": 500
+        }
+      },
+      "recommended_claim_thresholds": {
+        "sprawl_v2_not_baseline_approved_to_approved_ratio": {
+          "op": ">=",
+          "value": 4.0
+        },
+        "sprawl_v2_orgs_with_agents_pct": {
+          "op": ">=",
+          "value": 10.0
+        },
+        "sprawl_v2_avg_agents_per_org": {
+          "op": ">=",
+          "value": 0.25
+        },
+        "sprawl_v2_orgs_with_deployed_agents_pct": {
+          "op": ">=",
+          "value": 5.0
+        },
+        "sprawl_v2_agents_missing_bindings_pct": {
+          "op": ">=",
+          "value": 10.0
+        },
+        "sprawl_v2_orgs_with_write_capable_agents_pct": {
+          "op": ">=",
+          "value": 5.0
+        },
+        "sprawl_v2_orgs_with_exec_capable_agents_pct": {
+          "op": ">=",
+          "value": 3.0
+        },
+        "sprawl_v2_orgs_with_agent_attack_paths_pct": {
+          "op": ">=",
+          "value": 3.0
+        },
+        "sprawl_v2_orgs_without_verifiable_evidence_pct": {
+          "op": ">=",
+          "value": 30.0
+        },
+        "sprawl_v2_article50_gap_prevalence_pct": {
+          "op": ">=",
+          "value": 30.0
+        },
+        "sprawl_v2_orgs_scanned": {
+          "op": ">=",
+          "value": 1000
+        }
+      }
     }
   }
 }

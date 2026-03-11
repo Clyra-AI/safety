@@ -7,7 +7,8 @@ Usage:
   run.sh [--run-id <id>] [--resume] [--dry-run] [--mode baseline-only|baseline+enrich]
          [--targets-file <path>] [--max-targets <n>] [--max-runtime-sec <n>] [--max-run-disk-mb <n>]
          [--detector-list <csv>] [--approved-tools <path>] [--production-targets <path>] [--segment-metadata <path>]
-         [--regulatory-scope <path>] [--egress-allowlist <path>] [--scan-source repo|clone] [--clone-root <path>] [--no-synthetic-fallback]
+         [--regulatory-scope <path>] [--egress-allowlist <path>] [--scan-source repo|clone] [--clone-root <path>]
+         [--purge-clones-after-scan] [--no-synthetic-fallback]
 
 Creates immutable run layout and executes Wrkr sprawl scans:
   runs/tool-sprawl/<run_id>/{wrkr-state,wrkr-state-enrich,states,states-enrich,scans,agg,appendix,artifacts}
@@ -31,6 +32,7 @@ REGULATORY_SCOPE_POLICY="pipelines/policies/regulatory-scope.v1.json"
 EGRESS_ALLOWLIST="pipelines/policies/sprawl-egress-allowlist.txt"
 SCAN_SOURCE="${SCAN_SOURCE:-repo}"
 CLONE_ROOT="${CLONE_ROOT:-}"
+PURGE_CLONES_AFTER_SCAN=0
 ALLOW_SYNTHETIC_FALLBACK=1
 
 WRKR_REPO_PATH="${WRKR_REPO_PATH:-${REPO_ROOT}/third_party/wrkr}"
@@ -57,6 +59,54 @@ file_sha256() {
   fi
   # shellcheck disable=SC2086
   ${hasher} "${file}" | awk '{print $1}'
+}
+
+dir_sha256() {
+  local dir="$1"
+  local exclude_prefix="${2:-}"
+  if [[ ! -d "${dir}" ]]; then
+    echo "unavailable"
+    return
+  fi
+  if command -v sha256sum >/dev/null 2>&1; then
+    if [[ -n "${exclude_prefix}" ]]; then
+      (
+        cd "${dir}" &&
+        find . -type f ! -path "./${exclude_prefix}" ! -path "./${exclude_prefix}/*" -print0 |
+          LC_ALL=C sort -z |
+          xargs -0 sha256sum |
+          sha256sum | awk '{print $1}'
+      )
+    else
+      (
+        cd "${dir}" &&
+        find . -type f -print0 |
+          LC_ALL=C sort -z |
+          xargs -0 sha256sum |
+          sha256sum | awk '{print $1}'
+      )
+    fi
+  elif command -v shasum >/dev/null 2>&1; then
+    if [[ -n "${exclude_prefix}" ]]; then
+      (
+        cd "${dir}" &&
+        find . -type f ! -path "./${exclude_prefix}" ! -path "./${exclude_prefix}/*" -print0 |
+          LC_ALL=C sort -z |
+          xargs -0 shasum -a 256 |
+          shasum -a 256 | awk '{print $1}'
+      )
+    else
+      (
+        cd "${dir}" &&
+        find . -type f -print0 |
+          LC_ALL=C sort -z |
+          xargs -0 shasum -a 256 |
+          shasum -a 256 | awk '{print $1}'
+      )
+    fi
+  else
+    echo "unavailable"
+  fi
 }
 
 assert_runtime_budget() {
@@ -660,6 +710,10 @@ while [[ $# -gt 0 ]]; do
       CLONE_ROOT="${2:-}"
       shift 2
       ;;
+    --purge-clones-after-scan)
+      PURGE_CLONES_AFTER_SCAN=1
+      shift
+      ;;
     --no-synthetic-fallback)
       ALLOW_SYNTHETIC_FALLBACK=0
       shift
@@ -751,6 +805,7 @@ if [[ "${DRY_RUN}" -eq 1 ]]; then
   echo "[sprawl-run] run_dir=${RUN_DIR}"
   echo "[sprawl-run] targets_file=${TARGETS_FILE} targets=${#targets[@]}"
   echo "[sprawl-run] scan_source=${SCAN_SOURCE} clone_root=${clone_root_display}"
+  echo "[sprawl-run] purge_clones_after_scan=${PURGE_CLONES_AFTER_SCAN}"
   echo "[sprawl-run] wrkr_runtime=${WRKR_RUNTIME}"
   echo "[sprawl-run] guardrails: max_runtime_sec=${MAX_RUNTIME_SEC} max_run_disk_mb=${MAX_RUN_DISK_MB} egress_allowlist=${EGRESS_ALLOWLIST}"
   echo "[sprawl-run] actions:"
@@ -954,6 +1009,10 @@ for target in "${targets[@]}"; do
 
   if [[ "${needs_baseline_scan}" -eq 1 || "${needs_enrich_scan}" -eq 1 ]]; then
     check_disk_quota "${RUN_DIR}"
+  fi
+
+  if [[ "${PURGE_CLONES_AFTER_SCAN}" -eq 1 && -n "${source_path}" && -d "${source_path}" ]]; then
+    rm -rf "${source_path}"
   fi
 done
 
@@ -1261,6 +1320,7 @@ REPO_REF="$(safe_git_ref "${REPO_ROOT}")"
 WRKR_SHA="$(safe_git_sha "${WRKR_REPO_PATH}")"
 WRKR_REF="$(safe_git_ref "${WRKR_REPO_PATH}")"
 WRKR_VERSION="$(capture_wrkr_version)"
+WRKR_TREE_DIGEST="$(dir_sha256 "${WRKR_REPO_PATH}" ".git")"
 WRKR_RUNTIME_REF="$(normalize_runtime_ref "${WRKR_RUNTIME}")"
 CLONE_ROOT_REF="$(normalize_path_ref "${CLONE_ROOT}")"
 
@@ -1285,6 +1345,7 @@ jq -n \
   --arg wrkr_version "${WRKR_VERSION}" \
   --arg wrkr_sha "${WRKR_SHA}" \
   --arg wrkr_ref "${WRKR_REF}" \
+  --arg wrkr_tree_sha256 "${WRKR_TREE_DIGEST}" \
   --arg scan_source "${SCAN_SOURCE}" \
   --arg clone_root "${CLONE_ROOT_REF}" \
   --arg detector_list "${DETECTOR_LIST}" \
@@ -1303,6 +1364,7 @@ jq -n \
   --argjson max_runtime_sec "${MAX_RUNTIME_SEC}" \
   --argjson max_run_disk_mb "${MAX_RUN_DISK_MB}" \
   --argjson target_count "${#targets[@]}" \
+  --argjson purge_clones_after_scan "${PURGE_CLONES_AFTER_SCAN}" \
   --arg claims_values "runs/tool-sprawl/${RUN_ID}/artifacts/claim-values.json" \
   --arg campaign_summary "runs/tool-sprawl/${RUN_ID}/agg/campaign-summary.json" \
   --arg appendix_path "runs/tool-sprawl/${RUN_ID}/appendix/combined-appendix.json" \
@@ -1324,6 +1386,7 @@ jq -n \
         version: $wrkr_version,
         commit_sha: $wrkr_sha,
         ref: $wrkr_ref,
+        tree_sha256: $wrkr_tree_sha256,
         detector_list: $detector_list,
         scan_source: $scan_source,
         clone_root: $clone_root
@@ -1348,7 +1411,8 @@ jq -n \
       read_only_token_required: true,
       max_runtime_sec: $max_runtime_sec,
       max_run_disk_mb: $max_run_disk_mb,
-      max_targets: $target_count
+      max_targets: $target_count,
+      purge_clones_after_scan: ($purge_clones_after_scan == 1)
     },
     artifacts: {
       campaign_summary: $campaign_summary,
