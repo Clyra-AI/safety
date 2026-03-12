@@ -229,14 +229,20 @@ case "${SELECTION_PROFILE}" in
       "\"agent orchestration\" in:name,description,readme pushed:>=${MIN_PUSHED} stars:>=15 archived:false fork:false"
     )
     DEV_QUERIES=(
-      "topic:devops pushed:>=${MIN_PUSHED} stars:>=7000 -topic:ai -topic:llm -topic:machine-learning archived:false fork:false"
-      "topic:cloud-native pushed:>=${MIN_PUSHED} stars:>=7000 -topic:ai -topic:llm archived:false fork:false"
-      "topic:developer-tools pushed:>=${MIN_PUSHED} stars:>=7000 -topic:ai -topic:llm archived:false fork:false"
+      "topic:devops pushed:>=${MIN_PUSHED} stars:>=500 -topic:ai -topic:llm -topic:machine-learning archived:false fork:false"
+      "topic:cloud-native pushed:>=${MIN_PUSHED} stars:>=500 -topic:ai -topic:llm archived:false fork:false"
+      "topic:developer-tools pushed:>=${MIN_PUSHED} stars:>=500 -topic:ai -topic:llm archived:false fork:false"
+      "topic:platform-engineering pushed:>=${MIN_PUSHED} stars:>=250 -topic:ai -topic:llm archived:false fork:false"
+      "topic:ci-cd pushed:>=${MIN_PUSHED} stars:>=500 -topic:ai -topic:llm archived:false fork:false"
+      "topic:observability pushed:>=${MIN_PUSHED} stars:>=500 -topic:ai -topic:llm archived:false fork:false"
     )
     SEC_QUERIES=(
-      "topic:security-tools pushed:>=${MIN_PUSHED} stars:>=3500 -topic:ai -topic:llm archived:false fork:false"
-      "topic:application-security pushed:>=${MIN_PUSHED} stars:>=3000 -topic:ai -topic:llm archived:false fork:false"
-      "topic:devsecops pushed:>=${MIN_PUSHED} stars:>=2500 -topic:ai -topic:llm archived:false fork:false"
+      "topic:security-tools pushed:>=${MIN_PUSHED} stars:>=250 -topic:ai -topic:llm archived:false fork:false"
+      "topic:application-security pushed:>=${MIN_PUSHED} stars:>=250 -topic:ai -topic:llm archived:false fork:false"
+      "topic:devsecops pushed:>=${MIN_PUSHED} stars:>=250 -topic:ai -topic:llm archived:false fork:false"
+      "topic:cloud-security pushed:>=${MIN_PUSHED} stars:>=250 -topic:ai -topic:llm archived:false fork:false"
+      "topic:security-automation pushed:>=${MIN_PUSHED} stars:>=100 -topic:ai -topic:llm archived:false fork:false"
+      "topic:secrets-detection pushed:>=${MIN_PUSHED} stars:>=100 -topic:ai -topic:llm archived:false fork:false"
     )
     NAME_EXCLUDE_REGEX="(^|[-_])(awesome|learn|tutorial|course|example|examples|demo|benchmark|benchmarks|prompt|prompts|template|templates|boilerplate|starter|starters|scaffold|scaffolds|cookbook|cookbooks|docs|documentation)([-_]|$)"
     FULLNAME_EXCLUDE_REGEX="awesome-|/awesome|/learn-|/tutorial|/course|/examples?|/demo|/benchmarks?|/prompts?$|/prompt-|/template(s)?$|/template-|/boilerplate|/starter(s)?$|/starter-|/scaffold(s)?$|/scaffold-|/cookbook(s)?$|/cookbook-|/docs?$|/docs-|/documentation|/mirror|mirror-"
@@ -260,33 +266,66 @@ fi
 fetch_query() {
   local cohort="$1"
   local query="$2"
-  local page encoded url response message
+  local page encoded url response message reset_epoch now sleep_for
   encoded="$(jq -rn --arg q "${query}" '$q|@uri')"
   for ((page=1; page<=PAGES; page++)); do
-    if (( USE_GH_API == 1 )); then
-      response="$(gh api "search/repositories?q=${encoded}&sort=stars&order=desc&per_page=${PER_PAGE}&page=${page}")"
-    else
-      url="https://api.github.com/search/repositories?q=${encoded}&sort=stars&order=desc&per_page=${PER_PAGE}&page=${page}"
-      if [[ -n "${TOKEN}" ]]; then
-        response="$(curl -sS -L -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${TOKEN}" "${url}")"
-      else
-        response="$(curl -sS -L -H "Accept: application/vnd.github+json" "${url}")"
-      fi
-    fi
-
-    message="$(jq -r '.message // empty' <<<"${response}")"
-    if [[ -n "${message}" ]]; then
-      if [[ "${message}" == *"rate limit"* ]]; then
-        if (( USE_GH_API == 1 )); then
-          echo "[sprawl-targets] GitHub API rate limit exceeded for gh auth context." >&2
+    while true; do
+      if (( USE_GH_API == 1 )); then
+        if response="$(gh api "search/repositories?q=${encoded}&sort=stars&order=desc&per_page=${PER_PAGE}&page=${page}" 2>/tmp/sprawl-targets-gh.err)"; then
+          :
         else
-          echo "[sprawl-targets] GitHub API rate limit exceeded. Set GH_TOKEN or use gh auth and rerun." >&2
+          if grep -qi "rate limit exceeded" /tmp/sprawl-targets-gh.err; then
+            reset_epoch="$(gh api rate_limit --jq '.resources.search.reset')"
+            now="$(date +%s)"
+            sleep_for=$((reset_epoch - now + 2))
+            if (( sleep_for < 1 )); then
+              sleep_for=2
+            fi
+            echo "[sprawl-targets] waiting ${sleep_for}s for GitHub Search quota reset" >&2
+            sleep "${sleep_for}"
+            continue
+          fi
+          cat /tmp/sprawl-targets-gh.err >&2
+          rm -f /tmp/sprawl-targets-gh.err
+          exit 1
         fi
-        exit 1
+        rm -f /tmp/sprawl-targets-gh.err
+      else
+        url="https://api.github.com/search/repositories?q=${encoded}&sort=stars&order=desc&per_page=${PER_PAGE}&page=${page}"
+        if [[ -n "${TOKEN}" ]]; then
+          response="$(curl -sS -L -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${TOKEN}" "${url}")"
+        else
+          response="$(curl -sS -L -H "Accept: application/vnd.github+json" "${url}")"
+        fi
       fi
-      echo "[sprawl-targets] warning: query failed (${cohort}, page ${page}): ${message}" >&2
-      continue
-    fi
+
+      message="$(jq -r '.message // empty' <<<"${response}")"
+      if [[ -n "${message}" ]]; then
+        if [[ "${message}" == *"rate limit"* ]]; then
+          if (( USE_GH_API == 1 )); then
+            reset_epoch="$(gh api rate_limit --jq '.resources.search.reset')"
+          else
+            if [[ -n "${TOKEN}" ]]; then
+              reset_epoch="$(curl -sS -L -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${TOKEN}" "https://api.github.com/rate_limit" | jq -r '.resources.search.reset')"
+            else
+              reset_epoch="$(curl -sS -L -H "Accept: application/vnd.github+json" "https://api.github.com/rate_limit" | jq -r '.resources.search.reset')"
+            fi
+          fi
+          now="$(date +%s)"
+          sleep_for=$((reset_epoch - now + 2))
+          if (( sleep_for < 1 )); then
+            sleep_for=2
+          fi
+          echo "[sprawl-targets] waiting ${sleep_for}s for GitHub Search quota reset" >&2
+          sleep "${sleep_for}"
+          continue
+        fi
+        echo "[sprawl-targets] warning: query failed (${cohort}, page ${page}): ${message}" >&2
+        response=""
+      fi
+      break
+    done
+    [[ -z "${response}" ]] && continue
 
     jq -cr \
       --arg cohort "${cohort}" \
