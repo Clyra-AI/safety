@@ -13,7 +13,7 @@ Backbone status on 2026-03-11:
 - manuscript/template stubs exist
 - v2-specific target selection profile exists in `pipelines/sprawl/generate_targets.sh`
 - v2 run, rebuild, validation, and calibration scripts exist in `pipelines/sprawl/`
-- publication release still requires finalized claims, gold-label calibration review, and strict post-run validation
+- publication release still requires a pinned `pipelines/sprawl/tooling.lock.json`, vendored Wrkr provenance, finalized claims, gold-label calibration review, and strict post-run validation
 
 Expected outputs after activation:
 
@@ -31,4 +31,9 @@ Execution note:
 
 - out-of-box `wrkr` plus `proof` is sufficient for deterministic per-target capture
 - CAISI now has repo-side aggregation, calibration templating, and claim-gating logic for v2 collection runs
-- the locked v2 controls support full-scale collection, while final publication still requires post-run claim finalization and strict validation
+- the locked v2 controls support full-scale collection, while final publication still requires:
+  - `pipelines/sprawl/tooling.lock.json` pinned to the intended Wrkr commit
+  - `pipelines/sprawl/vendor_wrkr.sh`
+  - `pipelines/sprawl/finalize_claims_v2.sh`
+  - reviewer-completed `gold-label-evaluation-v2.json`
+  - `pipelines/sprawl/validate_v2.sh --lane full --strict`

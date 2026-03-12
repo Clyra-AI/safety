@@ -1,0 +1,12 @@
+{
+  "schema_version": "v1",
+  "tools": [
+    {
+      "name": "wrkr",
+      "repository": "git@github.com:Clyra-AI/wrkr.git",
+      "commit": "fb819fb9ff235f1160c21103779904f871918cf3",
+      "ref": "v1.0.8",
+      "tree_sha256": "0fb110ad32d15768845d226d4c68d0640dfd53972db107015caa48b1254543c2"
+    }
+  ]
+}

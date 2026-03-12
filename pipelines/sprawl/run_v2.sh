@@ -260,6 +260,27 @@ resolve_path() {
   fi
 }
 
+normalize_path_ref() {
+  local path="$1"
+  if [[ -z "${path}" ]]; then
+    printf '%s\n' "${path}"
+    return
+  fi
+  if [[ "${path}" == "${REPO_ROOT}" ]]; then
+    printf '.\n'
+    return
+  fi
+  if [[ "${path}" == "${REPO_ROOT}/"* ]]; then
+    printf '%s\n' "${path#${REPO_ROOT}/}"
+    return
+  fi
+  if [[ "${path}" == /* ]]; then
+    printf 'external:%s\n' "${path##*/}"
+    return
+  fi
+  printf '%s\n' "${path}"
+}
+
 build_clean_env_args() {
   local name value
   CLEAN_ENV_ARGS=()
@@ -401,15 +422,21 @@ calibrate_cmd=(
 "${calibrate_cmd[@]}"
 
 if [[ -f "${RUN_DIR}/artifacts/run-manifest.json" ]]; then
+  TARGETS_FILE_REF="$(normalize_path_ref "$(resolve_path "${TARGETS_FILE}")")"
+  TARGETS_CATALOG_REF=""
+  if [[ -n "${TARGETS_CATALOG:-}" ]]; then
+    TARGETS_CATALOG_REF="$(normalize_path_ref "$(resolve_path "${TARGETS_CATALOG}")")"
+  fi
   jq -n \
     --arg generated_at "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
     --arg lane "${LANE}" \
     --arg purpose "${PURPOSE}" \
-    --arg targets_file "${TARGETS_FILE}" \
-    --arg target_catalog "${TARGETS_CATALOG:-}" \
+    --arg targets_file "${TARGETS_FILE_REF}" \
+    --arg target_catalog "${TARGETS_CATALOG_REF}" \
     --arg campaign_summary "runs/tool-sprawl/${RUN_ID}/agg/campaign-summary-v2.json" \
     --arg appendix "runs/tool-sprawl/${RUN_ID}/appendix/combined-appendix-v2.json" \
     --arg calibration_cov "runs/tool-sprawl/${RUN_ID}/calibration/detector-coverage-summary-v2.json" \
+    --arg calibration_review "runs/tool-sprawl/${RUN_ID}/calibration/gold-label-validation-v2.json" \
     --arg calibration_eval "runs/tool-sprawl/${RUN_ID}/calibration/gold-label-evaluation-v2.json" \
     --arg claim_values "runs/tool-sprawl/${RUN_ID}/artifacts/claim-values-v2.json" \
     --arg threshold_eval "runs/tool-sprawl/${RUN_ID}/artifacts/threshold-evaluation-v2.json" \
@@ -437,6 +464,7 @@ if [[ -f "${RUN_DIR}/artifacts/run-manifest.json" ]]; then
         campaign_summary: $campaign_summary,
         appendix: $appendix,
         calibration_summary: $calibration_cov,
+        calibration_review: $calibration_review,
         calibration_evaluation: $calibration_eval,
         claim_values: $claim_values,
         threshold_evaluation: $threshold_eval

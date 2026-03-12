@@ -78,9 +78,10 @@ Colorado AI Act, Texas TRAIGA, and NIST mappings remain appendix-only until cont
 
 Before the first v2 campaign:
 
-1. vendor the intended Wrkr revision into this repo
-2. implement `campaign-summary-v2.json` derivation
-3. implement v2 appendix exports
-4. lock definitions and preregistration
-5. add v2 claim thresholds and validation coverage
-6. run v2 calibration before publication-scale scanning
+1. pin the intended Wrkr revision in `pipelines/sprawl/tooling.lock.json`
+2. vendor the matching Wrkr revision into this repo with `pipelines/sprawl/vendor_wrkr.sh`
+3. collect the immutable run with `pipelines/sprawl/run_v2.sh`
+4. complete reviewer-owned gold labels and rerun `pipelines/sprawl/calibrate_detectors_v2.sh --gold-labels <path>`
+5. finalize claim values with `pipelines/sprawl/finalize_claims_v2.sh`
+6. update the canonical claims ledger from the immutable run
+7. pass `pipelines/sprawl/validate_v2.sh --run-id <id> --lane full --strict`

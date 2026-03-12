@@ -30,6 +30,7 @@ PRODUCTION_TARGETS_POLICY="pipelines/policies/production-targets.v1.yaml"
 SEGMENT_METADATA_POLICY="pipelines/policies/campaign-segments.v1.yaml"
 REGULATORY_SCOPE_POLICY="pipelines/policies/regulatory-scope.v1.json"
 EGRESS_ALLOWLIST="pipelines/policies/sprawl-egress-allowlist.txt"
+TOOLING_LOCK_PATH="pipelines/sprawl/tooling.lock.json"
 SCAN_SOURCE="${SCAN_SOURCE:-repo}"
 CLONE_ROOT="${CLONE_ROOT:-}"
 PURGE_CLONES_AFTER_SCAN=0
@@ -63,47 +64,35 @@ file_sha256() {
 
 dir_sha256() {
   local dir="$1"
-  local exclude_prefix="${2:-}"
+  shift || true
+  local find_args=(find . -type f)
+  local exclude_prefix
   if [[ ! -d "${dir}" ]]; then
     echo "unavailable"
     return
   fi
+  if [[ "$#" -gt 0 ]]; then
+    for exclude_prefix in "$@"; do
+      [[ -z "${exclude_prefix}" ]] && continue
+      find_args+=(! -path "./${exclude_prefix}" ! -path "./${exclude_prefix}/*")
+    done
+  fi
   if command -v sha256sum >/dev/null 2>&1; then
-    if [[ -n "${exclude_prefix}" ]]; then
-      (
-        cd "${dir}" &&
-        find . -type f ! -path "./${exclude_prefix}" ! -path "./${exclude_prefix}/*" -print0 |
-          LC_ALL=C sort -z |
-          xargs -0 sha256sum |
-          sha256sum | awk '{print $1}'
-      )
-    else
-      (
-        cd "${dir}" &&
-        find . -type f -print0 |
-          LC_ALL=C sort -z |
-          xargs -0 sha256sum |
-          sha256sum | awk '{print $1}'
-      )
-    fi
+    (
+      cd "${dir}" &&
+      "${find_args[@]}" -print0 |
+        LC_ALL=C sort -z |
+        xargs -0 sha256sum |
+        sha256sum | awk '{print $1}'
+    )
   elif command -v shasum >/dev/null 2>&1; then
-    if [[ -n "${exclude_prefix}" ]]; then
-      (
-        cd "${dir}" &&
-        find . -type f ! -path "./${exclude_prefix}" ! -path "./${exclude_prefix}/*" -print0 |
-          LC_ALL=C sort -z |
-          xargs -0 shasum -a 256 |
-          shasum -a 256 | awk '{print $1}'
-      )
-    else
-      (
-        cd "${dir}" &&
-        find . -type f -print0 |
-          LC_ALL=C sort -z |
-          xargs -0 shasum -a 256 |
-          shasum -a 256 | awk '{print $1}'
-      )
-    fi
+    (
+      cd "${dir}" &&
+      "${find_args[@]}" -print0 |
+        LC_ALL=C sort -z |
+        xargs -0 shasum -a 256 |
+        shasum -a 256 | awk '{print $1}'
+    )
   else
     echo "unavailable"
   fi
@@ -132,10 +121,30 @@ check_disk_quota() {
   fi
 }
 
+vendor_provenance_file() {
+  local repo="$1"
+  local file="${repo}/VENDOR_PROVENANCE.json"
+  if [[ -f "${file}" ]]; then
+    printf '%s\n' "${file}"
+  fi
+}
+
+vendor_provenance_field() {
+  local repo="$1"
+  local query="$2"
+  local file
+  file="$(vendor_provenance_file "${repo}")"
+  if [[ -n "${file}" ]] && command -v jq >/dev/null 2>&1; then
+    jq -r "${query} // empty" "${file}" 2>/dev/null || true
+  fi
+}
+
 safe_git_sha() {
   local repo="$1"
   if [[ -d "${repo}/.git" ]] && command -v git >/dev/null 2>&1; then
     git -C "${repo}" rev-parse HEAD 2>/dev/null || echo "unavailable"
+  elif [[ -n "$(vendor_provenance_field "${repo}" '.source.commit_sha')" ]]; then
+    vendor_provenance_field "${repo}" '.source.commit_sha'
   else
     echo "unavailable"
   fi
@@ -145,6 +154,41 @@ safe_git_ref() {
   local repo="$1"
   if [[ -d "${repo}/.git" ]] && command -v git >/dev/null 2>&1; then
     git -C "${repo}" describe --tags --always --dirty 2>/dev/null || echo "unavailable"
+  elif [[ -n "$(vendor_provenance_field "${repo}" '.source.ref')" ]]; then
+    vendor_provenance_field "${repo}" '.source.ref'
+  else
+    echo "unavailable"
+  fi
+}
+
+safe_git_clean_json() {
+  local repo="$1"
+  local clean
+  if [[ -d "${repo}/.git" ]] && command -v git >/dev/null 2>&1; then
+    if [[ -z "$(git -C "${repo}" status --porcelain 2>/dev/null || true)" ]]; then
+      echo "true"
+    else
+      echo "false"
+    fi
+  else
+    clean="$(vendor_provenance_field "${repo}" '.source.clean')"
+    case "${clean}" in
+      true|false)
+        echo "${clean}"
+        ;;
+      *)
+        echo "null"
+        ;;
+    esac
+  fi
+}
+
+safe_git_remote() {
+  local repo="$1"
+  if [[ -d "${repo}/.git" ]] && command -v git >/dev/null 2>&1; then
+    git -C "${repo}" config --get remote.origin.url 2>/dev/null || echo "unavailable"
+  elif [[ -n "$(vendor_provenance_field "${repo}" '.source.remote_url')" ]]; then
+    vendor_provenance_field "${repo}" '.source.remote_url'
   else
     echo "unavailable"
   fi
@@ -1320,9 +1364,13 @@ REPO_REF="$(safe_git_ref "${REPO_ROOT}")"
 WRKR_SHA="$(safe_git_sha "${WRKR_REPO_PATH}")"
 WRKR_REF="$(safe_git_ref "${WRKR_REPO_PATH}")"
 WRKR_VERSION="$(capture_wrkr_version)"
-WRKR_TREE_DIGEST="$(dir_sha256 "${WRKR_REPO_PATH}" ".git")"
+WRKR_TREE_DIGEST="$(dir_sha256 "${WRKR_REPO_PATH}" ".git" "VENDOR_PROVENANCE.json")"
 WRKR_RUNTIME_REF="$(normalize_runtime_ref "${WRKR_RUNTIME}")"
 CLONE_ROOT_REF="$(normalize_path_ref "${CLONE_ROOT}")"
+TARGETS_FILE_REF="$(normalize_path_ref "${TARGETS_FILE_PATH}")"
+WRKR_CLEAN_JSON="$(safe_git_clean_json "${WRKR_REPO_PATH}")"
+WRKR_REMOTE_URL="$(safe_git_remote "${WRKR_REPO_PATH}")"
+WRKR_PROVENANCE_FILE_REF="$(normalize_path_ref "$(vendor_provenance_file "${WRKR_REPO_PATH}")")"
 
 APPROVED_DIGEST="$(file_sha256 "${REPO_ROOT}/${APPROVED_TOOLS_POLICY}")"
 PRODUCTION_DIGEST="$(file_sha256 "${REPO_ROOT}/${PRODUCTION_TARGETS_POLICY}")"
@@ -1330,6 +1378,7 @@ SEGMENT_DIGEST="$(file_sha256 "${REPO_ROOT}/${SEGMENT_METADATA_POLICY}")"
 REG_SCOPE_DIGEST="$(file_sha256 "${REPO_ROOT}/${REGULATORY_SCOPE_POLICY}")"
 TARGETS_DIGEST="$(file_sha256 "${TARGETS_FILE_PATH}")"
 EGRESS_ALLOWLIST_DIGEST="$(file_sha256 "${REPO_ROOT}/${EGRESS_ALLOWLIST}")"
+TOOLING_LOCK_DIGEST="$(file_sha256 "${REPO_ROOT}/${TOOLING_LOCK_PATH}")"
 
 jq -n \
   --arg schema_version "v2" \
@@ -1349,7 +1398,7 @@ jq -n \
   --arg scan_source "${SCAN_SOURCE}" \
   --arg clone_root "${CLONE_ROOT_REF}" \
   --arg detector_list "${DETECTOR_LIST}" \
-  --arg targets_file "${TARGETS_FILE}" \
+  --arg targets_file "${TARGETS_FILE_REF}" \
   --arg targets_file_sha256 "${TARGETS_DIGEST}" \
   --arg approved_policy "${APPROVED_TOOLS_POLICY}" \
   --arg approved_policy_sha256 "${APPROVED_DIGEST}" \
@@ -1361,6 +1410,11 @@ jq -n \
   --arg regulatory_scope_policy_sha256 "${REG_SCOPE_DIGEST}" \
   --arg egress_allowlist "${EGRESS_ALLOWLIST}" \
   --arg egress_allowlist_sha256 "${EGRESS_ALLOWLIST_DIGEST}" \
+  --arg tooling_lock "${TOOLING_LOCK_PATH}" \
+  --arg tooling_lock_sha256 "${TOOLING_LOCK_DIGEST}" \
+  --arg wrkr_remote_url "${WRKR_REMOTE_URL}" \
+  --arg wrkr_provenance_file "${WRKR_PROVENANCE_FILE_REF}" \
+  --argjson wrkr_clean "${WRKR_CLEAN_JSON}" \
   --argjson max_runtime_sec "${MAX_RUNTIME_SEC}" \
   --argjson max_run_disk_mb "${MAX_RUN_DISK_MB}" \
   --argjson target_count "${#targets[@]}" \
@@ -1387,6 +1441,9 @@ jq -n \
         commit_sha: $wrkr_sha,
         ref: $wrkr_ref,
         tree_sha256: $wrkr_tree_sha256,
+        clean: $wrkr_clean,
+        source_remote_url: (if $wrkr_remote_url == "" then null else $wrkr_remote_url end),
+        provenance_file: (if $wrkr_provenance_file == "" then null else $wrkr_provenance_file end),
         detector_list: $detector_list,
         scan_source: $scan_source,
         clone_root: $clone_root
@@ -1401,7 +1458,9 @@ jq -n \
         segment_policy: $segment_policy,
         segment_policy_sha256: $segment_policy_sha256,
         regulatory_scope_policy: $regulatory_scope_policy,
-        regulatory_scope_policy_sha256: $regulatory_scope_policy_sha256
+        regulatory_scope_policy_sha256: $regulatory_scope_policy_sha256,
+        tooling_lock: $tooling_lock,
+        tooling_lock_sha256: $tooling_lock_sha256
       }
     },
     operational_guardrails: {

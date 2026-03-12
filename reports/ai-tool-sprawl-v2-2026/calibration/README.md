@@ -1,58 +1,68 @@
 # Detector Calibration (AI Tool Sprawl V2)
 
-This directory defines the draft calibration contract for both non-`source_repo` tool extraction and agent-surface quality before publication-scale campaigns.
+This directory defines the publication calibration contract for v2 tool-plus-agent claims.
 
-## Why this exists
+The goal is not to prove every repo is risky. The goal is to prove that the detector surfaces used in headline claims are measured against a hand-reviewed gold-label set before publication.
 
-V2 adds first-class agent claims.
-That means calibration must cover not just whether non-source tools exist, but also whether agents, deployments, bindings, and privilege posture are being surfaced consistently.
+## Publication rule
 
-## Draft labeled dimensions
+Do not publish v2 headline claims until all of the following exist for the publication run:
 
-- non-`source_repo` tool presence and count
-- agent presence and count
-- deployed-agent presence
-- incomplete-binding presence
+- `runs/tool-sprawl/<run_id>/calibration/observed-by-target-v2.csv`
+- `runs/tool-sprawl/<run_id>/calibration/observed-agents-v2.csv`
+- `runs/tool-sprawl/<run_id>/calibration/gold-labels-v2.template.json`
+- `runs/tool-sprawl/<run_id>/calibration/gold-label-validation-v2.json`
+- `runs/tool-sprawl/<run_id>/calibration/gold-label-evaluation-v2.json`
+- `runs/tool-sprawl/<run_id>/calibration/detector-coverage-summary-v2.json`
+
+## Reviewer workflow
+
+1. Generate calibration scaffolding from the immutable run:
+
+   `bash pipelines/sprawl/calibrate_detectors_v2.sh --run-id <run_id>`
+
+2. Copy `gold-labels-v2.template.json` to a reviewer-owned file and fill only hand-reviewed expectations.
+
+3. Each reviewed row must include:
+
+- `target`
+- at least one `expected_*` field
+- `reviewer`
+- optional `notes`
+
+4. Re-run calibration with the completed labels:
+
+   `bash pipelines/sprawl/calibrate_detectors_v2.sh --run-id <run_id> --gold-labels <path>`
+
+5. For publication gates, run it in strict mode:
+
+   `bash pipelines/sprawl/calibrate_detectors_v2.sh --run-id <run_id> --gold-labels <path> --strict`
+
+Strict mode fails if any gold-label row:
+
+- is missing `target`
+- duplicates another target
+- does not match a run target
+- is missing `reviewer`
+- has no populated `expected_*` fields
+
+## Labeled dimensions
+
+- non-source tool presence and count
+- declared agent presence and count
+- deployed-agent presence and count
+- incomplete-binding agent presence and count
 - write-capable agent presence
 - exec-capable agent presence
 - agent-linked attack-path presence
-- approval-unknown presence and count
 
-## Draft activation floors
+## Gold-label boundary
 
-These are scaffolding targets, not canonical publish gates yet:
+Gold labels must come from manual review of target repositories and their public artifacts.
+Do not backfill labels from the detector output itself.
+Do not treat unlabeled rows as negatives.
 
-- tool non-source recall/precision existence: `>= 60.0`
-- agent existence recall/precision: `>= 60.0`
-- deployed-agent existence recall/precision: `>= 60.0`
-- incomplete-binding existence recall/precision: `>= 60.0`
-- write-capable agent existence recall/precision: `>= 60.0`
-- exec-capable agent existence recall/precision: `>= 60.0`
+## Publication gates
 
-## Expected outputs per run
-
-- `runs/tool-sprawl/<run_id>/calibration/observed-by-target.csv`
-- `runs/tool-sprawl/<run_id>/calibration/observed-non-source-tools.csv`
-- `runs/tool-sprawl/<run_id>/calibration/observed-agents.csv`
-- `runs/tool-sprawl/<run_id>/calibration/gold-labels.template.json`
-- `runs/tool-sprawl/<run_id>/calibration/detector-coverage-summary.json`
-- `runs/tool-sprawl/<run_id>/calibration/gold-label-evaluation.json`
-
-## Label schema
-
-Each gold-label entry is a JSON object with:
-
-- `target`
-- `expected_non_source_exists`
-- `expected_non_source_count`
-- `expected_agent_exists`
-- `expected_agent_count`
-- `expected_deployed_agent_exists`
-- `expected_agent_missing_bindings_exists`
-- `expected_write_capable_agent_exists`
-- `expected_exec_capable_agent_exists`
-- `expected_agent_attack_path_exists`
-- `expected_unknown_exists`
-- `expected_unknown_count`
-- `reviewer`
-- `notes`
+The hard thresholds live in `pipelines/config/calibration-thresholds.json`.
+`validate_v2.sh --lane full --strict` treats the required thresholds as binding and the recommended thresholds as advisory.

@@ -4,7 +4,7 @@ set -euo pipefail
 usage() {
   cat <<'USAGE'
 Usage:
-  validate_v2.sh [--run-id <id>] [--lane test|full] [--strict]
+  validate_v2.sh [--run-id <id>] [--lane test|full] [--claims-file <path>] [--strict]
 
 Validates v2 sprawl report readiness:
   - v2 control files and citation log exist
@@ -18,6 +18,7 @@ USAGE
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 RUN_ID="${RUN_ID:-}"
 LANE="test"
+CLAIMS_FILE="claims/ai-tool-sprawl-v2-2026/claims.json"
 STRICT=0
 FAILURES=0
 
@@ -29,6 +30,10 @@ while [[ $# -gt 0 ]]; do
       ;;
     --lane)
       LANE="${2:-}"
+      shift 2
+      ;;
+    --claims-file)
+      CLAIMS_FILE="${2:-}"
       shift 2
       ;;
     --strict)
@@ -62,12 +67,16 @@ required_files=(
   "citations/sprawl-v2-regulatory-sources.md"
   "pipelines/config/publish-thresholds.json"
   "pipelines/config/calibration-thresholds.json"
+  "pipelines/sprawl/tooling.lock.json"
   "pipelines/sprawl/generate_targets_v2.sh"
   "pipelines/sprawl/rebuild_from_scans_v2.sh"
   "pipelines/sprawl/calibrate_detectors_v2.sh"
+  "pipelines/sprawl/finalize_claims_v2.sh"
+  "pipelines/sprawl/vendor_wrkr.sh"
   "pipelines/common/metric_coverage_gate.sh"
   "pipelines/common/derive_claim_values.sh"
   "pipelines/common/evaluate_claim_values.sh"
+  "pipelines/common/threshold_gate.sh"
 )
 
 for rel in "${required_files[@]}"; do
@@ -105,6 +114,22 @@ fi
 
 if [[ "${FAILURES}" -gt 0 ]]; then
   echo "[sprawl-validate-v2] control-doc failures=${FAILURES}" >&2
+  exit 1
+fi
+
+resolve_path() {
+  local path="$1"
+  local root="$2"
+  if [[ "${path}" = /* ]]; then
+    printf '%s\n' "${path}"
+  else
+    printf '%s/%s\n' "${root}" "${path}"
+  fi
+}
+
+CLAIMS_FILE_ABS="$(resolve_path "${CLAIMS_FILE}" "${REPO_ROOT}")"
+if [[ ! -f "${CLAIMS_FILE_ABS}" ]]; then
+  echo "[sprawl-validate-v2] claims file not found: ${CLAIMS_FILE_ABS}" >&2
   exit 1
 fi
 
@@ -214,7 +239,7 @@ evaluate_calibration_scope() {
 
 coverage_args=(
   --report-id "ai-tool-sprawl-v2-2026"
-  --claims "${REPO_ROOT}/claims/ai-tool-sprawl-v2-2026/claims.json"
+  --claims "${CLAIMS_FILE_ABS}"
   --thresholds "${REPO_ROOT}/pipelines/config/publish-thresholds.json"
 )
 if [[ "${STRICT}" -eq 1 && "${LANE}" == "full" ]]; then
@@ -224,7 +249,7 @@ fi
 
 claim_args=(
   --repo-root "${REPO_ROOT}"
-  --claims "claims/ai-tool-sprawl-v2-2026/claims.json"
+  --claims "${CLAIMS_FILE_ABS}"
 )
 if [[ -n "${RUN_ID}" ]]; then
   claim_args+=(--run-id "${RUN_ID}")
@@ -281,6 +306,33 @@ if [[ -n "${RUN_ID}" ]]; then
       echo "[sprawl-validate-v2] strict full mode requires a reproducible vendored wrkr tree digest in v2 manifest" >&2
       FAILURES=$((FAILURES + 1))
     fi
+    if jq -e '(.reproducibility.wrkr.ref // "" | test("dirty"))' "${run_dir}/artifacts/run-manifest-v2.json" >/dev/null; then
+      echo "[sprawl-validate-v2] strict full mode requires a clean vendored wrkr ref in v2 manifest" >&2
+      FAILURES=$((FAILURES + 1))
+    fi
+    if ! jq -e '(.reproducibility.wrkr.clean == true)' "${run_dir}/artifacts/run-manifest-v2.json" >/dev/null; then
+      echo "[sprawl-validate-v2] strict full mode requires vendored wrkr clean-state proof in v2 manifest" >&2
+      FAILURES=$((FAILURES + 1))
+    fi
+    if ! jq -e '((.reproducibility.wrkr.provenance_file // "") | length) > 0' "${run_dir}/artifacts/run-manifest-v2.json" >/dev/null; then
+      echo "[sprawl-validate-v2] strict full mode requires vendored wrkr provenance metadata in v2 manifest" >&2
+      FAILURES=$((FAILURES + 1))
+    fi
+    if jq -e '
+      ((.inputs.targets_file // "") | startswith("/")) or
+      ((.inputs.target_catalog // "") | startswith("/"))
+    ' "${run_dir}/artifacts/run-manifest-v2.json" >/dev/null; then
+      echo "[sprawl-validate-v2] strict full mode disallows absolute target input paths in v2 manifest" >&2
+      FAILURES=$((FAILURES + 1))
+    fi
+    locked_wrkr_commit="$(jq -r '.tools[] | select(.name == "wrkr") | .commit // empty' "${REPO_ROOT}/pipelines/sprawl/tooling.lock.json" 2>/dev/null || true)"
+    if [[ -z "${locked_wrkr_commit}" ]]; then
+      echo "[sprawl-validate-v2] strict full mode requires a pinned wrkr entry in pipelines/sprawl/tooling.lock.json" >&2
+      FAILURES=$((FAILURES + 1))
+    elif ! jq -e --arg commit "${locked_wrkr_commit}" '(.reproducibility.wrkr.commit_sha // "") == $commit' "${run_dir}/artifacts/run-manifest-v2.json" >/dev/null; then
+      echo "[sprawl-validate-v2] strict full mode requires run wrkr commit to match pipelines/sprawl/tooling.lock.json" >&2
+      FAILURES=$((FAILURES + 1))
+    fi
   fi
 
   for rel in \
@@ -302,6 +354,7 @@ if [[ -n "${RUN_ID}" ]]; then
   calibration_cfg="${REPO_ROOT}/pipelines/config/calibration-thresholds.json"
   calibration_eval="${run_dir}/calibration/gold-label-evaluation-v2.json"
   calibration_cov="${run_dir}/calibration/detector-coverage-summary-v2.json"
+  calibration_review="${run_dir}/calibration/gold-label-validation-v2.json"
   if [[ ! -f "${calibration_eval}" || ! -f "${calibration_cov}" ]]; then
     if [[ "${STRICT}" -eq 1 && "${LANE}" == "full" ]]; then
       echo "[sprawl-validate-v2] full strict mode requires calibration artifacts: ${calibration_eval} and ${calibration_cov}" >&2
@@ -316,11 +369,25 @@ if [[ -n "${RUN_ID}" ]]; then
   else
     evaluate_calibration_scope "required_calibration_thresholds" "${calibration_cfg}" "${calibration_eval}" "${calibration_cov}"
     evaluate_calibration_scope "recommended_calibration_thresholds" "${calibration_cfg}" "${calibration_eval}" "${calibration_cov}"
+    if [[ "${STRICT}" -eq 1 && "${LANE}" == "full" ]]; then
+      if [[ ! -f "${calibration_review}" ]]; then
+        echo "[sprawl-validate-v2] full strict mode requires gold-label validation summary: ${calibration_review}" >&2
+        FAILURES=$((FAILURES + 1))
+      elif ! jq -e '
+        (.validation.duplicate_targets_count // 0) == 0 and
+        (.validation.unmatched_targets_count // 0) == 0 and
+        (.validation.rows_missing_reviewer_count // 0) == 0 and
+        (.validation.rows_without_expectations_count // 0) == 0
+      ' "${calibration_review}" >/dev/null; then
+        echo "[sprawl-validate-v2] full strict mode requires gold-label review hygiene (duplicates/unmatched/missing-reviewer/missing-expectation must be zero)" >&2
+        FAILURES=$((FAILURES + 1))
+      fi
+    fi
   fi
 
   derive_args=(
     --repo-root "${REPO_ROOT}"
-    --claims "claims/ai-tool-sprawl-v2-2026/claims.json"
+    --claims "${CLAIMS_FILE_ABS}"
     --run-id "${RUN_ID}"
     --output "${run_dir}/artifacts/claim-values-v2.json"
   )
@@ -341,6 +408,54 @@ if [[ -n "${RUN_ID}" ]]; then
       echo "[sprawl-validate-v2] strict full mode disallows external/local wrkr runtime refs in v2 manifest" >&2
       FAILURES=$((FAILURES + 1))
     fi
+  fi
+
+  if [[ -f "${run_dir}/artifacts/claim-values-v2.json" ]]; then
+    claims_path="$(jq -r '.claims_file // empty' "${run_dir}/artifacts/claim-values-v2.json" 2>/dev/null || true)"
+    if [[ "${claims_path}" == /* ]]; then
+      echo "[sprawl-validate-v2] claim-values artifact contains absolute claims_file path" >&2
+      FAILURES=$((FAILURES + 1))
+    fi
+  fi
+  if [[ -f "${run_dir}/artifacts/threshold-evaluation-v2.json" ]]; then
+    thresholds_path="$(jq -r '.thresholds_path // empty' "${run_dir}/artifacts/threshold-evaluation-v2.json" 2>/dev/null || true)"
+    if [[ "${thresholds_path}" == /* ]]; then
+      echo "[sprawl-validate-v2] threshold-evaluation artifact contains absolute thresholds_path" >&2
+      FAILURES=$((FAILURES + 1))
+    fi
+  fi
+
+  threshold_args=(
+    --report-id "ai-tool-sprawl-v2-2026"
+    --claims "${CLAIMS_FILE_ABS}"
+    --thresholds "${REPO_ROOT}/pipelines/config/publish-thresholds.json"
+  )
+  if [[ "${STRICT}" -eq 1 && "${LANE}" == "full" ]]; then
+    if jq -e '.claims[] | select((.value | type) == "string" and .value == "TBD")' "${CLAIMS_FILE_ABS}" >/dev/null; then
+      threshold_args+=(--strict)
+      "${REPO_ROOT}/pipelines/common/threshold_gate.sh" "${threshold_args[@]}"
+    else
+      threshold_args+=(--strict)
+      "${REPO_ROOT}/pipelines/common/threshold_gate.sh" "${threshold_args[@]}"
+    fi
+  else
+    if jq -e '.claims[] | select((.value | type) == "string" and .value == "TBD")' "${CLAIMS_FILE_ABS}" >/dev/null; then
+      echo "[sprawl-validate-v2] advisory: threshold gate skipped (claims not finalized)." >&2
+    elif [[ -f "${run_dir}/artifacts/threshold-evaluation-v2.json" ]]; then
+      req_passed="$(jq -r '.required.passed // 0' "${run_dir}/artifacts/threshold-evaluation-v2.json" 2>/dev/null || echo 0)"
+      req_total="$(jq -r '.required.total // 0' "${run_dir}/artifacts/threshold-evaluation-v2.json" 2>/dev/null || echo 0)"
+      echo "[sprawl-validate-v2] advisory: required publish thresholds ${req_passed}/${req_total} for run ${RUN_ID}" >&2
+    else
+      echo "[sprawl-validate-v2] advisory: threshold evaluation artifact missing for run ${RUN_ID}" >&2
+    fi
+  fi
+fi
+
+if [[ "${STRICT}" -eq 1 ]] && command -v git >/dev/null 2>&1; then
+  tracked_sprawl_runs="$(git -C "${REPO_ROOT}" ls-files 'runs/tool-sprawl/sprawl-*' 2>/dev/null | grep -v '^runs/tool-sprawl/.gitkeep$' || true)"
+  if [[ -n "${tracked_sprawl_runs}" ]]; then
+    echo "[sprawl-validate-v2] strict mode disallows tracked files under runs/tool-sprawl/sprawl-*; keep sprawl run dirs local-only" >&2
+    FAILURES=$((FAILURES + 1))
   fi
 fi
 

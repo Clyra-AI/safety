@@ -8,8 +8,10 @@ Usage:
 
 Builds v2 detector calibration artifacts from a completed sprawl run:
   - observed-by-target-v2.csv
+  - observed-agents-v2.csv
   - gold-labels-v2.template.json
   - detector-coverage-summary-v2.json
+  - gold-label-validation-v2.json (when --gold-labels is provided)
   - gold-label-evaluation-v2.json (when --gold-labels is provided)
 USAGE
 }
@@ -77,8 +79,10 @@ fi
 mkdir -p "${OUT_DIR}"
 
 OBSERVED_TARGETS_CSV="${OUT_DIR}/observed-by-target-v2.csv"
+OBSERVED_AGENTS_CSV="${OUT_DIR}/observed-agents-v2.csv"
 GOLD_TEMPLATE_JSON="${OUT_DIR}/gold-labels-v2.template.json"
 COVERAGE_SUMMARY_JSON="${OUT_DIR}/detector-coverage-summary-v2.json"
+GOLD_VALIDATION_JSON="${OUT_DIR}/gold-label-validation-v2.json"
 GOLD_EVAL_JSON="${OUT_DIR}/gold-label-evaluation-v2.json"
 
 {
@@ -98,6 +102,22 @@ GOLD_EVAL_JSON="${OUT_DIR}/gold-label-evaluation-v2.json"
     ] | @csv' "${state}"
   done
 } > "${OBSERVED_TARGETS_CSV}"
+
+{
+  echo 'target,observed_declared_agents,observed_deployed_agents,observed_binding_incomplete_agents,observed_write_capable_agents,observed_exec_capable_agents,observed_agent_attack_paths,source'
+  find "${STATES_DIR}" -type f -name '*.json' | sort | while IFS= read -r state; do
+    jq -r '[
+      .target,
+      (.counts.declared_agents // 0),
+      (.counts.deployed_agents // 0),
+      (.counts.binding_incomplete_agents // 0),
+      (.counts.write_capable_agents // 0),
+      (.counts.exec_capable_agents // 0),
+      (.counts.agent_linked_attack_paths // 0),
+      (.scan_path // "unknown")
+    ] | @csv' "${state}"
+  done
+} > "${OBSERVED_AGENTS_CSV}"
 
 jq -n \
   --slurpfile states <(find "${STATES_DIR}" -type f -name '*.json' | sort | xargs -I{} jq -c '.' "{}") \
@@ -177,11 +197,74 @@ if [[ -n "${GOLD_LABELS}" ]]; then
     echo "[sprawl-calibrate-v2] gold labels file not found: ${GOLD_LABELS_PATH}" >&2
     exit 1
   fi
+  if ! jq -e 'type == "array"' "${GOLD_LABELS_PATH}" >/dev/null 2>&1; then
+    echo "[sprawl-calibrate-v2] gold labels must be a JSON array: ${GOLD_LABELS_PATH}" >&2
+    exit 1
+  fi
 
   jq -n \
     --arg run_id "${RUN_ID}" \
     --arg generated_at "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
     --slurpfile labels "${GOLD_LABELS_PATH}" \
+    --slurpfile states <(find "${STATES_DIR}" -type f -name '*.json' | sort | xargs -I{} jq -c '.' "{}") \
+    '
+    def has_expectation($row):
+      [
+        $row.expected_non_source_exists,
+        $row.expected_non_source_count,
+        $row.expected_agents_exist,
+        $row.expected_agents_count,
+        $row.expected_deployed_agents_exist,
+        $row.expected_deployed_agents_count,
+        $row.expected_binding_incomplete_agents_exist,
+        $row.expected_binding_incomplete_agents_count,
+        $row.expected_write_capable_agents_exist,
+        $row.expected_exec_capable_agents_exist,
+        $row.expected_agent_attack_paths_exist
+      ] | map(. != null) | any;
+
+    def label_row_ref($entry):
+      (($entry.key + 1) | tostring) + ":" + (($entry.value.target // "") | tostring);
+
+    (($labels[0] // []) as $label_rows |
+      [($states // [])[] | .target] as $state_targets |
+      [($label_rows | to_entries[]) | select(((.value.target // "") | length) == 0) | (.key + 1)] as $rows_missing_target |
+      ([ $label_rows[] | (.target // "") ] | group_by(.) | map(select(length > 1 and .[0] != "") | .[0])) as $duplicate_targets |
+      ($label_rows | map(
+        (.target // "") as $target
+        | select(($target | length) > 0 and ($state_targets | index($target) == null))
+        | $target
+      )) as $unmatched_targets |
+      ($label_rows | to_entries | map(select((((.value.reviewer // "") | tostring | gsub("^\\s+|\\s+$"; "")) | length) == 0) | label_row_ref(.))) as $rows_missing_reviewer |
+      ($label_rows | to_entries | map(select(has_expectation(.value) | not) | label_row_ref(.))) as $rows_without_expectations |
+      {
+        schema_version: "v2",
+        run_id: $run_id,
+        generated_at: $generated_at,
+        validation: {
+          rows_supplied: ($label_rows | length),
+          rows_missing_target: $rows_missing_target,
+          rows_missing_target_count: ($rows_missing_target | length),
+          matched_targets_count: ($label_rows | map(
+            (.target // "") as $target
+            | select(($target | length) > 0 and ($state_targets | index($target) != null))
+          ) | length),
+          duplicate_targets: $duplicate_targets,
+          duplicate_targets_count: ($duplicate_targets | length),
+          unmatched_targets: $unmatched_targets,
+          unmatched_targets_count: ($unmatched_targets | length),
+          rows_missing_reviewer: $rows_missing_reviewer,
+          rows_missing_reviewer_count: ($rows_missing_reviewer | length),
+          rows_without_expectations: $rows_without_expectations,
+          rows_without_expectations_count: ($rows_without_expectations | length)
+        }
+      })' > "${GOLD_VALIDATION_JSON}"
+
+  jq -n \
+    --arg run_id "${RUN_ID}" \
+    --arg generated_at "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+    --slurpfile labels "${GOLD_LABELS_PATH}" \
+    --slurpfile validation "${GOLD_VALIDATION_JSON}" \
     --slurpfile states <(find "${STATES_DIR}" -type f -name '*.json' | sort | xargs -I{} jq -c '.' "{}") \
     '
     def ratio(n; d):
@@ -251,6 +334,7 @@ if [[ -n "${GOLD_LABELS}" ]]; then
       run_id: $run_id,
       generated_at: $generated_at,
       labeled_rows: ($rows | length),
+      label_validation: (($validation[0].validation) // null),
       evaluations: {
         non_source_exists: binary_eval($rows; "expected_non_source_exists"; "observed_non_source_exists"),
         non_source_count: count_eval($rows; "expected_non_source_count"; "observed_non_source_tools"),
@@ -268,10 +352,21 @@ if [[ -n "${GOLD_LABELS}" ]]; then
     ' > "${GOLD_EVAL_JSON}"
 fi
 
-if [[ "${STRICT}" -eq 1 && ! -f "${GOLD_EVAL_JSON}" ]]; then
-  echo "[sprawl-calibrate-v2] --strict requires --gold-labels and a completed evaluation artifact" >&2
-  exit 1
+if [[ "${STRICT}" -eq 1 ]]; then
+  if [[ ! -f "${GOLD_EVAL_JSON}" || ! -f "${GOLD_VALIDATION_JSON}" ]]; then
+    echo "[sprawl-calibrate-v2] --strict requires --gold-labels plus validation and evaluation artifacts" >&2
+    exit 1
+  fi
+  if ! jq -e '
+    (.validation.rows_missing_target_count // 0) == 0 and
+    (.validation.duplicate_targets_count // 0) == 0 and
+    (.validation.unmatched_targets_count // 0) == 0 and
+    (.validation.rows_missing_reviewer_count // 0) == 0 and
+    (.validation.rows_without_expectations_count // 0) == 0
+  ' "${GOLD_VALIDATION_JSON}" >/dev/null; then
+    echo "[sprawl-calibrate-v2] --strict requires complete gold labels with no duplicate/unmatched/missing-reviewer/missing-expectation rows" >&2
+    exit 1
+  fi
 fi
 
 echo "[sprawl-calibrate-v2] wrote ${OUT_DIR}"
-

@@ -138,10 +138,30 @@ extract_openclaw_field() {
   sed -n "s/^- ${key}: \`\(.*\)\`/\1/p" "${REPO_ROOT}/internal/openclaw_repo.md" | head -n1
 }
 
+vendor_provenance_file() {
+  local repo="$1"
+  local file="${repo}/VENDOR_PROVENANCE.json"
+  if [[ -f "${file}" ]]; then
+    printf '%s\n' "${file}"
+  fi
+}
+
+vendor_provenance_field() {
+  local repo="$1"
+  local query="$2"
+  local file
+  file="$(vendor_provenance_file "${repo}")"
+  if [[ -n "${file}" ]] && command -v jq >/dev/null 2>&1; then
+    jq -r "${query} // empty" "${file}" 2>/dev/null || true
+  fi
+}
+
 safe_git_sha() {
   local repo="$1"
   if [[ -d "${repo}/.git" ]] && command -v git >/dev/null 2>&1; then
     git -C "${repo}" rev-parse HEAD 2>/dev/null || echo "unavailable"
+  elif [[ -n "$(vendor_provenance_field "${repo}" '.source.commit_sha')" ]]; then
+    vendor_provenance_field "${repo}" '.source.commit_sha'
   else
     echo "unavailable"
   fi
@@ -151,6 +171,8 @@ safe_git_ref() {
   local repo="$1"
   if [[ -d "${repo}/.git" ]] && command -v git >/dev/null 2>&1; then
     git -C "${repo}" describe --tags --always --dirty 2>/dev/null || echo "unavailable"
+  elif [[ -n "$(vendor_provenance_field "${repo}" '.source.ref')" ]]; then
+    vendor_provenance_field "${repo}" '.source.ref'
   else
     echo "unavailable"
   fi
