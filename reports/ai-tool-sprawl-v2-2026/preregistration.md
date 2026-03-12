@@ -1,7 +1,7 @@
 # AI Tool Sprawl V2 2026 Pre-Registration
 
 Status: locked  
-Version: `v1`
+Version: `v2`
 
 This file governs the initial v2 full-scale collection and post-run publish validation workflow.
 
@@ -10,7 +10,7 @@ This file governs the initial v2 full-scale collection and post-run publish vali
 - Report ID: `ai-tool-sprawl-v2-2026`
 - Working title: `The State of AI Tool and Agent Sprawl, 2026`
 - Target list source: `pipelines/sprawl/generate_targets_v2.sh --purpose publication`
-- Default cohort weighting: `60% ai_native`, `20% dev_platform`, `20% security_platform`
+- Default cohort weighting: `50% ai_native`, `30% dev_platform`, `20% security_platform`
 - Run root: `runs/tool-sprawl/<run_id>/`
 - Initial lock created: `2026-03-11`
 
@@ -45,6 +45,7 @@ This file governs the initial v2 full-scale collection and post-run publish vali
 - Campaign summary artifact: `runs/tool-sprawl/<run_id>/agg/campaign-summary-v2.json`
 - Appendix artifact: `runs/tool-sprawl/<run_id>/appendix/combined-appendix-v2.json`
 - Sampling frame: one public `owner/repo` per owner with deterministic exclusions for obvious tutorial, template, docs, prompt-pack, and mirror repos
+- Publication cohort emphasis: weight the denominator toward mature software-delivery and security-platform repositories so AppSec and trust-pressure findings remain relevant outside AI-native builders
 - Full collection run: `pipelines/sprawl/run_v2.sh --lane full --purpose publication`
 - Strict publish validation occurs after claim values are populated from the immutable run and gold-label calibration evaluation is complete
 
@@ -64,5 +65,5 @@ This file governs the initial v2 full-scale collection and post-run publish vali
 ## Lock Record
 
 - Locked by: `David Ahmann`
-- Locked at (UTC): `2026-03-11T23:26:49Z`
-- Notes: `Initial locked preregistration for v2 full-scale collection; claims finalized post-run before strict publish validation.`
+- Locked at (UTC): `2026-03-12T17:42:11Z`
+- Notes: `v2 control update: publication cohort shifted to 50/30/20 AI-dev-sec mix and report framing centered on software-delivery, AppSec, and evidence posture.`

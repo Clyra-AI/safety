@@ -4,6 +4,7 @@
 
 - v1 measured deterministic tool approval and evidence posture
 - v2 adds first-class deterministic agent inventory, binding posture, deployment posture, and agent privilege posture
+- v2 publication framing shifts toward software-delivery and AppSec relevance rather than AI-native ecosystem prevalence alone
 
 ## What stays the same
 
@@ -30,6 +31,12 @@ Bundled `proof` frameworks provide reusable framework definitions and evidence-s
 - v2 campaign aggregation from `wrkr` scan JSON
 - v2 appendix exports for tools, agents, privilege maps, attack paths, and framework rollups
 - v2 run wrapper, validation path, and calibration template generation
+
+## Why this matters operationally
+
+- public AI-tool signals matter most when they sit inside software-delivery systems
+- regulated or trust-sensitive engineering environments need evidence, not just inventory
+- the study is strongest when it can connect AI adoption, delivery surface, and proof-of-control posture in the same denominator
 
 ## What still separates collection from publication
 

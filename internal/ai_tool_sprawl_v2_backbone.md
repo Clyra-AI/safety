@@ -1,7 +1,7 @@
 # AI Tool Sprawl V2 Backbone
 
 Status: active scaffold  
-Updated: `2026-03-11`
+Updated: `2026-03-12`
 
 This note records what v2 can use directly from `wrkr` and `proof`, and what still needs CAISI-specific implementation in this repo.
 
@@ -47,9 +47,11 @@ The generator now supports an explicit v2 sampling profile via:
 This keeps the locked v1 default path unchanged while versioning the v2 cohort logic:
 
 - same core eligibility rules as v1
-- default stratified mix of `60% ai_native`, `20% dev_platform`, `20% security_platform`
+- default stratified mix of `50% ai_native`, `30% dev_platform`, `20% security_platform`
 - expanded AI-native queries for agent-framework and agent-orchestration repos
 - stronger deterministic exclusions for tutorial, template, docs, prompt-pack, boilerplate, and mirror repos
+
+The publication weighting is intentionally more delivery- and security-heavy than the calibration cohort so the final denominator remains useful for AppSec, platform, and audit conversations.
 
 ## Recommended Implementation Order
 

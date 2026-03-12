@@ -124,10 +124,10 @@ esac
 
 if [[ "${SELECTION_PROFILE}" == "v2" ]]; then
   if (( AI_WEIGHT_SET == 0 )); then
-    AI_WEIGHT=60
+    AI_WEIGHT=50
   fi
   if (( DEV_WEIGHT_SET == 0 )); then
-    DEV_WEIGHT=20
+    DEV_WEIGHT=30
   fi
   if (( SEC_WEIGHT_SET == 0 )); then
     SEC_WEIGHT=20

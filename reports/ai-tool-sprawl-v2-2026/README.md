@@ -2,7 +2,7 @@
 
 Status: locked execution controls; manuscript draft
 
-This directory contains the v2 report backbone for a deterministic AI tool and agent sprawl study.
+This directory contains the v2 report backbone for a deterministic AI tool and agent sprawl study focused on software delivery, AppSec, and governance evidence.
 It preserves the locked Q1 2026 tool-only report and opens a separate tool+agent track.
 
 Backbone status on 2026-03-11:

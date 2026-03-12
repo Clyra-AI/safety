@@ -35,11 +35,59 @@ Populate from `claims/ai-tool-sprawl-v2-2026/claims.json` after the locked full-
 Draft section goal:
 
 - show the continuity tool metric
-- show agent prevalence
-- show one deployment or privilege metric
+- show the delivery-surface AI signal
 - show one evidence or transparency metric
+- only use privilege posture as a headline if the final cohort supports it cleanly
 
-## 2) Methodology
+## 2) Why This Matters for Software Delivery and AppSec
+
+Draft section goal:
+
+- connect public AI-tool signals to code, CI, and operational delivery surface
+- explain why regulated or trust-sensitive teams care about evidence, approval, and write-path visibility
+- keep the framing centered on verifiable governance questions, not generic AI hype
+
+## 3) Tool and Agent Adoption Signal
+
+Draft section goal:
+
+- carry forward tool inventory continuity from v1
+- show declared-agent prevalence and framework mix
+- separate raw detections from headline-scope counts cleanly
+
+## 4) Delivery Surface Exposure
+
+Draft section goal:
+
+- show where agents and AI tooling appear in software-delivery contexts
+- focus on code, CI, workflow, and orchestration surfaces before privilege claims
+- treat deployment and binding completeness as exposure qualifiers, not proof of runtime activity
+
+## 5) Governance and Evidence Gaps
+
+Draft section goal:
+
+- lead with approval visibility, evidence tier, and verifiable proof gaps
+- use agent binding incompleteness as a governance-readiness finding
+- keep privilege and attack-path metrics in support unless the final data makes them stronger than the evidence story
+
+## 6) Regulatory Readiness
+
+Draft section goal:
+
+- keep EU AI Act, SOC 2, and PCI DSS as deterministic readiness proxies
+- frame these as evidence-of-control coverage questions, not legal conclusions
+- keep appendix-only mappings out of headline text
+
+## 7) Case Studies
+
+Draft section goal:
+
+- use anonymized software-delivery examples only after artifact review
+- prioritize examples that illustrate adoption signal plus governance opacity
+- avoid narrow toy-repo anecdotes unless they expose a generalizable pattern
+
+## 8) Methodology
 
 Required facts:
 
@@ -48,66 +96,17 @@ Required facts:
 - Proof framework set
 - calibration coverage
 - deterministic baseline boundary
-
-## 3) Tool Inventory
-
-Carry forward v1 continuity metrics:
-
-- baseline-approved tools
-- explicit-unapproved tools
-- approval-unknown tools
-- non-source vs raw totals
-
-## 4) Agent Inventory
-
-Additive v2 section:
-
-- declared agents
-- framework mix
-- deployed agents
-- binding-complete vs binding-incomplete agents
-
-## 5) Privilege and Attack Path Posture
-
-Additive v2 section:
-
-- write-capable agents
-- exec-capable agents
-- credential-access agents
-- agent-linked attack-path prevalence
-
-## 6) Approval and Evidence Posture
-
-This section combines:
-
-- tool approval visibility
-- agent approval classification
-- evidence tier
-- verifiable evidence prevalence
-
-## 7) Regulatory Exposure
-
-Headline-eligible framework families:
-
-- EU AI Act
-- SOC 2
-- PCI DSS 4.0.1
-
-Appendix-only mappings stay out of headline text unless promoted by protocol update.
-
-## 8) Case Studies
-
-Use anonymized tool plus agent case studies only after artifact review.
+- publication weighting rationale
 
 ## 9) Recommendations
 
 Focus on:
 
-- discovery normalization
-- agent binding completeness
-- approval evidence
-- least privilege
-- proof-backed evidence continuity
+- discovery normalization across code and CI surface
+- machine-readable approval and evidence capture
+- agent binding completeness before runtime expansion
+- least privilege where delivery-connected agents exist
+- proof-backed evidence continuity for audit and leadership review
 
 ## 10) Appendix
 

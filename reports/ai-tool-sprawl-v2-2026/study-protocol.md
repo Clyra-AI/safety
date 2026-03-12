@@ -1,7 +1,7 @@
 # AI Tool Sprawl V2 2026 Study Protocol
 
 Status: locked  
-Version: `v1`  
+Version: `v2`  
 Objective: produce a reproducible multi-organization AI tool and agent governance baseline.
 
 ## 1) Campaign Design
@@ -18,7 +18,8 @@ The v2 selection profile must preserve the v1 core eligibility rules while chang
 - `fork=false`
 - `pushed>=<date>` activity cutoff
 - optional size cap
-- default cohort weighting: `60% ai_native`, `20% dev_platform`, `20% security_platform`
+- default cohort weighting: `50% ai_native`, `30% dev_platform`, `20% security_platform`
+- publication weighting is intentionally delivery- and security-heavier than the calibration cohort so the denominator better reflects AppSec-relevant software-delivery surface
 - deterministic exclusions for obvious tutorial, example, template, docs, prompt-pack, and mirror repos
 
 ## 2) Required Scanner Surfaces

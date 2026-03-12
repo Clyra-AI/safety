@@ -13,7 +13,7 @@ Usage:
 Builds a v2-specific reproducible target list using the explicit v2 selection profile.
 
 Defaults:
-  - publication: broader publication cohort, 60/20/20 AI/dev/sec
+  - publication: AppSec-oriented publication cohort, 50/30/20 AI/dev/sec
   - calibration: agent-dense calibration cohort, 85/10/5 AI/dev/sec
 USAGE
 }
@@ -99,8 +99,8 @@ case "${PURPOSE}" in
     [[ -n "${TOTAL}" ]] || TOTAL="1000"
     [[ -n "${OUTPUT_PATH}" ]] || OUTPUT_PATH="internal/repos-v2-publication.md"
     [[ -n "${CATALOG_PATH}" ]] || CATALOG_PATH="internal/repos-v2-publication_candidates.csv"
-    [[ -n "${AI_WEIGHT}" ]] || AI_WEIGHT="60"
-    [[ -n "${DEV_WEIGHT}" ]] || DEV_WEIGHT="20"
+    [[ -n "${AI_WEIGHT}" ]] || AI_WEIGHT="50"
+    [[ -n "${DEV_WEIGHT}" ]] || DEV_WEIGHT="30"
     [[ -n "${SEC_WEIGHT}" ]] || SEC_WEIGHT="20"
     [[ -n "${MAX_SIZE_KB}" ]] || MAX_SIZE_KB="200000"
     ;;

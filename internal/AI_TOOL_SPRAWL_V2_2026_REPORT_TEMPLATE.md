@@ -42,11 +42,13 @@ Populate for every headline used in manuscript text.
 
 ## 1) Core Thesis and Messaging Stack
 
-Core thesis: AI governance gaps remain measurable, and agent declarations make the governance surface wider and more operationally meaningful than tool-only inventory.
+Core thesis: AI is entering software delivery faster than organizations can produce verifiable approval and control evidence.
 
-Primary message: v2 measures both the approval visibility gap and the declared-agent surface.
+Primary message: v2 measures AI adoption signal, delivery-surface exposure, and evidence posture in the same deterministic denominator.
 
-Secondary message: binding completeness, deployment evidence, and privilege posture are separate dimensions and must not be collapsed into a single risk label.
+Secondary message: agent binding completeness, deployment evidence, and privilege posture are separate dimensions and must not be collapsed into a single risk label.
+
+Relevance rule for campaign derivatives: public AI-tool signal + delivery surface + trust pressure -> report relevance.
 
 ## 2) Required Evidence Inputs
 
@@ -59,14 +61,14 @@ Secondary message: binding completeness, deployment evidence, and privilege post
 ## 3) End-State Report Structure
 
 1. Headline findings
-2. Methodology
-3. Tool inventory continuity
-4. Agent inventory
-5. Binding and deployment posture
-6. Privilege and attack-path posture
-7. Approval and evidence posture
-8. Regulatory exposure
-9. Recommendations
+2. Why this matters for software delivery and AppSec
+3. Tool and agent adoption signal
+4. Delivery surface exposure
+5. Governance and evidence gaps
+6. Regulatory readiness
+7. Case studies
+8. Methodology
+9. Recommendations and limitations
 10. Appendix
 
 ## Mandatory Methodological Disclosures

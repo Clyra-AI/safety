@@ -19,9 +19,12 @@ V2 keeps the core eligibility rules from the locked v1 campaign:
 V2 changes the publication sampling frame through an explicit generator profile:
 
 - `pipelines/sprawl/generate_targets.sh --selection-profile v2`
-- default stratified mix: `60% ai_native`, `20% dev_platform`, `20% security_platform`
+- default stratified mix: `50% ai_native`, `30% dev_platform`, `20% security_platform`
 - expanded AI-native candidate pool for agent-framework and agent-orchestration repos
 - stronger deterministic exclusions for obvious tutorial, template, docs, prompt-pack, boilerplate, and mirror repos
+
+The publication weighting is not intended to mimic the broader public GitHub population.
+It is intentionally biased toward repositories that combine visible AI adoption with meaningful software-delivery and security surface, because those are the environments where AppSec, audit, and platform-governance questions become operationally important.
 
 The default generator path remains `v1`, so the legacy Q1 2026 sampling frame is unchanged unless the new profile is requested.
 
@@ -52,6 +55,14 @@ In short:
 
 - raw capture: out-of-box `wrkr` and `proof` are enough
 - publishable campaign math: special logic is still required in this repo
+
+## Narrative Boundary
+
+The publication manuscript should treat this study primarily as a software-delivery governance baseline, not as a generic "AI adoption" survey.
+
+- adoption signal matters because it anchors relevance
+- delivery-surface exposure matters because it connects to code, CI, and operational write paths
+- evidence and approval gaps matter because they determine whether leadership, audit, and AppSec can verify control claims
 
 ## Publication Boundary
 
