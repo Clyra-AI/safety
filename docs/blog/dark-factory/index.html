@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>The Dark Factory: Managing Work Instead of Supervising Agents | CAISI Blog</title>
+    <meta
+      name="description"
+      content="Why the future state is a background delivery system that turns work items into validated pull requests with audit trails and review states."
+    />
+    <link rel="stylesheet" href="/assets/site.css" />
+  </head>
+  <body>
+    <main class="site" aria-label="CAISI blog post">
+      <header class="site-header" aria-label="Site header">
+        <div class="brand-row">
+          <div class="brand-mark">
+            <a class="brand-link" href="/">CAISI</a>
+            <p class="brand-note">
+              Independent research and operating notes on AI agent governance.
+            </p>
+          </div>
+        </div>
+        <nav class="global-nav" aria-label="Primary">
+          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" href="/#research-heading">Research</a>
+          <a class="nav-link current" href="/blog/">Blog</a>
+          <a class="nav-link" href="/#about-heading">About</a>
+          <a class="nav-link" href="/#contact-heading">Contact</a>
+        </nav>
+      </header>
+
+      <section class="section hero">
+        <p class="breadcrumbs">
+          <a href="/">Home</a>
+          <span class="divider">/</span>
+          <a href="/blog/">Blog</a>
+          <span class="divider">/</span>
+          <span>Post 5</span>
+        </p>
+        <p class="eyebrow">CAISI Blog / Post 5 of 10</p>
+        <h1>The Dark Factory: Managing Work Instead of Supervising Agents</h1>
+        <p class="lead">
+          The future state is not a room full of engineers hovering over chat
+          windows. It is a background delivery system that turns well-formed
+          work items into validated pull requests. In that world, the unit of
+          management is not an individual agent session. It is the work moving
+          through the factory.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>The operational reality</h2>
+        <p>
+          Most current agent usage still depends on direct supervision. A person
+          starts the session, steers the work, reruns failed commands, and
+          manually decides when the output is good enough to open a PR. That can
+          work for experiments. It breaks down when you want one team to scale
+          output across dozens of repos, queues, and issue types.
+        </p>
+        <p>
+          The hard part is not agent intelligence. It is work management. Which
+          tasks are ready? Which ones depend on other work? Which paths can run
+          in parallel? When should the system retry, pause, or route to human
+          review? If nobody owns those questions centrally, "agentic scale"
+          quickly becomes repo chaos.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>The anti-pattern</h2>
+        <p>
+          The anti-pattern is agent supervision as a scaling strategy. Teams
+          imagine they can get more leverage by adding more agent sessions while
+          leaving work intake, state management, retries, approvals, and
+          reconciliation implicit. That usually creates invisible queues, hidden
+          failures, duplicate effort, and broken accountability.
+        </p>
+        <p>
+          You can spot the pattern quickly. Nobody can answer how many runs are
+          active, which tasks were retried, what was cancelled when issue state
+          changed, or what evidence should accompany a promoted change. The work
+          exists, but the operating system does not.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>The better system pattern</h2>
+        <p>
+          The better pattern is the dark factory: an orchestrated system that
+          turns work items into bounded execution runs with explicit states. A
+          task becomes a manifest. The manifest allocates a workspace, selects a
+          blueprint, captures dependencies, defines path claims, runs validation,
+          packages evidence, and decides whether to open a PR or wait for human
+          review.
+        </p>
+        <p>
+          In a mature setup, the orchestrator is not a convenience layer. It is
+          the control surface. It owns retries, approvals, backoff, conflict
+          detection, and restart recovery. Humans still matter, but they review
+          the work at the right points instead of babysitting every intermediate
+          step.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>What changes for human reviewers</h2>
+        <p>
+          The dark factory does not remove humans from software delivery. It
+          changes the shape of their work. Reviewers stop acting as traffic
+          coordinators and start acting as decision makers at the right control
+          points. Instead of supervising every command, they evaluate a coherent
+          artifact packet: what the run tried to do, what the policy layer
+          allowed, what validations passed, and where residual risk remains.
+        </p>
+        <p>
+          That matters because it preserves engineering judgment where it is most
+          valuable. Humans are still best at exception handling, tradeoffs,
+          ambiguous product decisions, and final accountability. The factory
+          simply removes the low-value mechanical supervision that burns time and
+          hides the real decision moments.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>Why security cares</h2>
+        <p>
+          The dark factory creates a governable approval surface. Security teams
+          do not need to supervise every keystroke if the system can prove what
+          entered the queue, which policies applied, what the workspace could
+          access, what validations ran, and what state the run reached before a
+          PR opened. That is a much stronger posture than ad hoc agent sessions
+          distributed across laptops and shared branches.
+        </p>
+        <p>
+          It also improves rollback and dispute handling. If a run has a stable
+          manifest, workspace, and artifact packet, the organization can stop
+          arguing about what "probably" happened. It can inspect the run state.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>Why platform and engineering care</h2>
+        <p>
+          Platform leaders care because this is how one team scales output
+          without linearly scaling human supervision. The orchestrator absorbs
+          coordination work that would otherwise live in engineers' heads. It
+          knows how to resume a task after a transient failure, block unsafe
+          concurrency, or reuse a warm workspace on retry.
+        </p>
+        <p>
+          This is also where Wrkr can be a useful implementation example. The
+          value is not "an agent that codes." The value is a system that can
+          turn work into managed runs, isolate execution, and hand humans a
+          reviewable result instead of a mystery patch.
+        </p>
+      </section>
+
+      <section class="section">
+        <div class="artifact">
+          <h2>Concrete example: from <code>agent-ready</code> issue to review handoff</h2>
+          <p class="body">
+            The dark factory is easier to understand when the work item becomes
+            the unit of motion.
+          </p>
+          <div class="artifact-flow">
+            <article class="artifact-step">
+              <h3>Manifest</h3>
+              <p>
+                An issue marked <code>agent-ready</code> becomes a run manifest
+                with scope, path claims, blueprint, and approval posture.
+              </p>
+            </article>
+            <article class="artifact-step">
+              <h3>Execution</h3>
+              <p>
+                The orchestrator allocates a workspace, runs the change, records
+                validation output, and manages retries or human holds.
+              </p>
+            </article>
+            <article class="artifact-step">
+              <h3>Handoff</h3>
+              <p>
+                A PR opens with patch summary, evidence packet, residual risk,
+                and reviewer guidance instead of a vague "please inspect."
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section article-section">
+        <h2>Practical next step</h2>
+        <p>
+          Look at your current issue-to-PR flow and ask whether the system or
+          the humans own the work states.
+        </p>
+        <ul class="list-plain">
+          <li>Define the run states explicitly: queued, planning, executing, blocked, needs review, validated, shipped, failed.</li>
+          <li>Attach path claims, dependencies, and approval posture to the work item before execution begins.</li>
+          <li>Decide what evidence must exist before a PR can be promoted.</li>
+          <li>Make cancellation and retry behavior explicit instead of informal.</li>
+        </ul>
+        <p>
+          The goal is not "fully autonomous everything." The goal is a managed,
+          observable work system that can absorb more autonomy without becoming
+          opaque.
+        </p>
+        <p>
+          The next post looks at the infrastructure this factory needs under the
+          hood: isolated, warm sandboxes. Without them, orchestration turns into
+          contention and cleanup pain.
+        </p>
+      </section>
+
+      <footer class="section article-footer" aria-label="Post footer">
+        <div class="series-nav">
+          <a class="nav-link" href="/blog/from-skills-to-blueprints/">Previous post</a>
+          <a class="nav-link" href="/blog/">Back to blog</a>
+          <a class="nav-link" href="/blog/isolated-warm-sandboxes/">Next post</a>
+        </div>
+        <p class="footer-note">
+          Practical question: if a run failed halfway through autonomous work in
+          your environment, would your team know the exact state it died in and
+          what should happen next?
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>

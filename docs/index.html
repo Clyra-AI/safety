@@ -6,111 +6,262 @@
     <title>Clyra AI Safety Initiative (CAISI)</title>
     <meta
       name="description"
-      content="Independent, reproducible research on AI agent governance."
+      content="Independent, reproducible research and operating notes on AI engineering control, evidence, and governed autonomy."
     />
-    <link rel="stylesheet" href="assets/site.css" />
+    <link rel="stylesheet" href="/assets/site.css" />
   </head>
   <body>
     <main class="site" aria-label="CAISI site content">
-      <section class="section">
-        <p class="top-nav">
-          <a href="/openclaw-2026/">OpenClaw 2026</a>
-        </p>
-        <h1>Clyra AI Safety Initiative</h1>
-        <p class="lead">Independent, reproducible research on AI agent governance.</p>
+      <header class="site-header" aria-label="Site header">
+        <div class="brand-row">
+          <div class="brand-mark">
+            <a class="brand-link" href="/">CAISI</a>
+            <p class="brand-note">
+              Independent research and operating notes on AI agent governance.
+            </p>
+          </div>
+        </div>
+        <nav class="global-nav" aria-label="Primary">
+          <a class="nav-link current" href="/">Home</a>
+          <a class="nav-link" href="/#research-heading">Research</a>
+          <a class="nav-link" href="/blog/">Blog</a>
+          <a class="nav-link" href="/#about-heading">About</a>
+          <a class="nav-link" href="/#contact-heading">Contact</a>
+        </nav>
+      </header>
+
+      <section class="section hero">
+        <div class="hero-grid">
+          <div class="hero-panel">
+            <p class="eyebrow">CAISI / Research + Operating Model</p>
+            <h1>Clyra AI Safety Initiative</h1>
+            <p class="lead">
+              We publish independent, reproducible research on AI agent
+              governance and write practical operating notes for teams trying to
+              ship agentic systems without losing control.
+            </p>
+            <div class="pill-row" aria-label="Theme labels">
+              <span class="pill">Control before execution</span>
+              <span class="pill">Deterministic validation</span>
+              <span class="pill">Proof over narrative</span>
+            </div>
+            <div class="button-row" style="margin-top: 22px">
+              <a class="button-link" href="/blog/">Read the blog series</a>
+              <a class="button-link secondary" href="/openclaw-2026/"
+                >OpenClaw report</a
+              >
+            </div>
+          </div>
+          <aside class="series-card">
+            <p class="eyebrow">Series Promise</p>
+            <h2 style="margin-bottom: 0">AI engineering is a systems discipline.</h2>
+            <p>
+              The new blog series is written for AppSec, security engineering,
+              and platform leaders who need a practical model for governed
+              autonomy across repositories, workflows, and engineering teams.
+            </p>
+            <div class="link-row">
+              <a href="/blog/">See all 10 posts</a>
+              <span class="divider">|</span>
+              <a href="https://github.com/Clyra-AI/safety">Repository</a>
+            </div>
+          </aside>
+        </div>
       </section>
 
       <section class="section" aria-labelledby="about-heading">
-        <h2 id="about-heading">About</h2>
+        <div class="section-intro">
+          <p class="eyebrow">About</p>
+          <h2 id="about-heading">Research that can be checked</h2>
+        </div>
         <p class="body">
-          The Clyra AI Safety Initiative (CAISI) publishes independent,
-          reproducible research on AI agent governance. Every finding is backed
-          by machine-generated artifacts, deterministic queries, and open
-          methodology. CAISI exists because the gap between AI agent deployment
-          and AI agent governance is growing faster than any single vendor,
-          regulator, or standards body can close, and the organizations facing
-          the consequences need empirical data, not opinion. All research is
-          published at <a href="https://caisi.dev">caisi.dev</a> with full
-          artifacts at
-          <a href="https://github.com/Clyra-AI/safety">github.com/Clyra-AI/safety</a>.
-          The tools used in CAISI research are open source.
+          We at CAISI publish independent, reproducible research on AI agent
+          governance. Every headline claim is backed by machine-generated
+          artifacts, deterministic queries, and open methodology. The point is
+          not to add more rhetoric to the market. The point is to make the
+          control problem visible and measurable.
+        </p>
+        <p class="body">
+          Our research pages publish artifacts and evidence. Our blog explains
+          the operating model behind those results: repo contracts, orchestrator
+          design, sandbox isolation, evaluation discipline, and proof of work
+          for AI-generated change.
         </p>
       </section>
 
       <section class="section" aria-labelledby="research-heading">
-        <h2 id="research-heading">Published Research</h2>
+        <div class="section-intro">
+          <p class="eyebrow">Research</p>
+          <h2 id="research-heading">Published and in-progress studies</h2>
+        </div>
         <div class="research-grid">
           <article class="card">
-            <h3 class="card-title">
+            <p class="post-stage">Published report</p>
+            <h3>
               <a href="/openclaw-2026/"
-                >100% Post-Stop Execution Rate (Baseline Lane): A Governed
-                Evaluation of OpenClaw Agent Behavior</a
+                >OpenClaw 2026: governed vs ungoverned agent behavior in a
+                controlled run</a
               >
             </h3>
-            <p class="finding">
-              In a 24-hour controlled run, the baseline lane used permissive
-              allow-all semantics and executed post-stop calls at 100%, with
-              497 destructive attempts and 707 sensitive accesses without
-              approval. Governed enforcement held destructive actions
-              non-executable and produced a signed evidence trail.
+            <p>
+              A controlled comparison showing what changes when the system moves
+              from prompt-only constraints to enforceable tool-boundary control
+              with evidence capture.
             </p>
-            <p class="meta">
-              <span>February 2026</span>
-              <span class="meta-sep">|</span>
+            <div class="link-row">
               <a href="/openclaw-2026/">Open report page</a>
-              <span class="meta-sep">|</span>
-              <a href="/assets/reports/openclaw-2026/report.pdf"
-                >View PDF</a
+              <span class="divider">|</span>
+              <a href="/assets/reports/openclaw-2026/report.pdf">Read PDF</a>
+            </div>
+          </article>
+          <article class="card">
+            <p class="post-stage">Research build in progress</p>
+            <h3>
+              <a href="/ai-tool-sprawl-q1-2026/"
+                >The State of AI Tool Sprawl</a
               >
-              <span class="meta-sep">|</span>
-              <a href="https://github.com/Clyra-AI/safety/tree/main/reports/openclaw-2026"
-                >Full artifacts (GitHub)</a
+            </h3>
+            <p>
+              Multi-organization measurement of AI tool inventory, approval
+              gaps, privilege surface, and the evidence problem that appears
+              when adoption outpaces oversight.
+            </p>
+            <div class="link-row">
+              <a href="/ai-tool-sprawl-q1-2026/">View research page</a>
+              <span class="divider">|</span>
+              <a href="https://github.com/Clyra-AI/safety/tree/main/reports/ai-tool-sprawl-q1-2026"
+                >Workspace</a
               >
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="blog-heading">
+        <div class="section-intro">
+          <p class="eyebrow">Blog</p>
+          <h2 id="blog-heading">AI engineering operating notes</h2>
+          <p class="body">
+            This series is written for teams that have moved past the novelty
+            phase. Each post starts from an operational pain point, names the
+            anti-pattern, and shows the system pattern that security and
+            platform teams can actually implement.
+          </p>
+        </div>
+        <div class="blog-grid">
+          <article class="post-card">
+            <p class="post-number">Post 1</p>
+            <h3>
+              <a href="/blog/ai-engineering-control-problem/"
+                >AI Engineering Is a Control Problem, Not a Prompt Problem</a
+              >
+            </h3>
+            <p>
+              Why the real shift is from "developers chatting with AI" to
+              organizations governing autonomous software work.
+            </p>
+          </article>
+          <article class="post-card">
+            <p class="post-number">Post 2</p>
+            <h3>
+              <a href="/blog/repository-runtime-contract/"
+                >Your Repository Is the Runtime Contract for Agents</a
+              >
+            </h3>
+            <p>
+              What makes a repo agent-legible, and why repo structure is part
+              of the control surface.
+            </p>
+          </article>
+          <article class="post-card">
+            <p class="post-number">Post 5</p>
+            <h3>
+              <a href="/blog/dark-factory/"
+                >The Dark Factory: Managing Work Instead of Supervising
+                Agents</a
+              >
+            </h3>
+            <p>
+              The orchestrator model for turning work items into validated PRs
+              with audit trails and human review states.
+            </p>
+          </article>
+          <article class="post-card">
+            <p class="post-number">Post 9</p>
+            <h3>
+              <a href="/blog/proof-of-work-for-ai-generated-changes/"
+                >Proof of Work for AI-Generated Changes</a
+              >
+            </h3>
+            <p>
+              Why passing CI is not enough, and what evidence a high-trust
+              change packet has to contain.
+            </p>
+          </article>
+        </div>
+        <div class="button-row" style="margin-top: 20px">
+          <a class="button-link secondary" href="/blog/">Browse all 10 posts</a>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="team-heading">
+        <div class="section-intro">
+          <p class="eyebrow">Team</p>
+          <h2 id="team-heading">CAISI contributors</h2>
+        </div>
+        <div class="team-grid">
+          <article class="card">
+            <p class="person">
+              <strong>David Ahmann</strong><br />
+              Head of Cloud, Data and AI Platforms, CDW Canada<br />
+              <a href="https://www.linkedin.com/in/dahmann/">LinkedIn</a>
+            </p>
+          </article>
+          <article class="card">
+            <p class="person">
+              <strong>Devan Shah</strong><br />
+              Chief Software and Data Security Architect, IBM<br />
+              <a href="https://www.linkedin.com/in/devan-shah-3b61172a/"
+                >LinkedIn</a
+              >
+            </p>
+          </article>
+          <article class="card">
+            <p class="person">
+              <strong>Talgat Ryshmanov</strong><br />
+              Principal DevSecOps Consultant, Adaptavist<br />
+              <a href="https://www.linkedin.com/in/ryshmanov/">LinkedIn</a>
             </p>
           </article>
         </div>
       </section>
 
-      <section class="section" aria-labelledby="team-heading">
-        <h2 id="team-heading">Team</h2>
-        <div class="team-list">
-          <p class="person">
-            <strong>David Ahmann</strong>, Head of Cloud, Data and AI Platforms,
-            CDW Canada
-            <a href="https://www.linkedin.com/in/dahmann/">(LinkedIn)</a>
-          </p>
-          <p class="person">
-            <strong>Devan Shah</strong>, Chief Software and Data Security
-            Architect, IBM
-            <a href="https://www.linkedin.com/in/devan-shah-3b61172a/"
-              >(LinkedIn)</a
-            >
-          </p>
-          <p class="person">
-            <strong>Talgat Ryshmanov</strong>, Principal DevSecOps Consultant,
-            Adaptavist
-            <a href="https://www.linkedin.com/in/ryshmanov/">(LinkedIn)</a>
-          </p>
-        </div>
-      </section>
-
       <section class="section" aria-labelledby="contact-heading">
-        <h2 id="contact-heading">Contact</h2>
-        <p class="contact"><a href="mailto:research@caisi.dev">research@caisi.dev</a></p>
+        <div class="section-intro">
+          <p class="eyebrow">Contact</p>
+          <h2 id="contact-heading">Get in touch</h2>
+        </div>
+        <p class="body">
+          For research questions, publication inquiries, or collaboration
+          around reproducible AI governance work:
+          <a href="mailto:research@caisi.dev">research@caisi.dev</a>
+        </p>
       </section>
 
-      <footer class="section" aria-label="Site footer">
+      <footer class="section article-footer" aria-label="Site footer">
         <div class="footer-links">
+          <a href="/blog/">Blog</a>
+          <span class="divider">|</span>
+          <a href="/openclaw-2026/">OpenClaw</a>
+          <span class="divider">|</span>
+          <a href="/ai-tool-sprawl-q1-2026/">Tool Sprawl</a>
+          <span class="divider">|</span>
           <a href="https://github.com/Clyra-AI/safety">GitHub</a>
-          <span class="meta-sep">|</span>
-          <a href="/assets/reports/openclaw-2026/report.pdf"
-            >OpenClaw report PDF</a
-          >
         </div>
         <p class="footer-note">
-          The tools used in CAISI research are open source:
-          <a href="https://github.com/Clyra-AI/wrkr">Wrkr</a> and
-          <a href="https://github.com/Clyra-AI/gait">Gait</a>.
+          The tools used in CAISI research are open source. Wrkr is relevant
+          where discovery, orchestration, and workspace flow matter. Gait is
+          relevant where policy verdicts and pre-execution control matter.
         </p>
       </footer>
     </main>

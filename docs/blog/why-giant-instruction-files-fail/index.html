@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Why Giant Instruction Files Fail | CAISI Blog</title>
+    <meta
+      name="description"
+      content="Why one giant global instruction file is the wrong abstraction for serious agent workflows and path-scoped context loading."
+    />
+    <link rel="stylesheet" href="/assets/site.css" />
+  </head>
+  <body>
+    <main class="site" aria-label="CAISI blog post">
+      <header class="site-header" aria-label="Site header">
+        <div class="brand-row">
+          <div class="brand-mark">
+            <a class="brand-link" href="/">CAISI</a>
+            <p class="brand-note">
+              Independent research and operating notes on AI agent governance.
+            </p>
+          </div>
+        </div>
+        <nav class="global-nav" aria-label="Primary">
+          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" href="/#research-heading">Research</a>
+          <a class="nav-link current" href="/blog/">Blog</a>
+          <a class="nav-link" href="/#about-heading">About</a>
+          <a class="nav-link" href="/#contact-heading">Contact</a>
+        </nav>
+      </header>
+
+      <section class="section hero">
+        <p class="breadcrumbs">
+          <a href="/">Home</a>
+          <span class="divider">/</span>
+          <a href="/blog/">Blog</a>
+          <span class="divider">/</span>
+          <span>Post 3</span>
+        </p>
+        <p class="eyebrow">CAISI Blog / Post 3 of 10</p>
+        <h1>Why Giant Instruction Files Fail</h1>
+        <p class="lead">
+          A single global instruction file feels responsible because it looks
+          comprehensive. In practice, it usually creates a new failure mode:
+          context sprawl. The system sees too much, enforces too little, and
+          drags irrelevant policy into tasks that should have been narrow and
+          deterministic.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>The operational reality</h2>
+        <p>
+          Most teams begin with one giant file because they want consistency.
+          They put coding rules, testing rules, product rules, release
+          procedures, domain glossaries, security notes, architectural history,
+          and tool references in a single place. Then every task drags that
+          material into context whether it is useful or not.
+        </p>
+        <p>
+          The result is predictable. The agent spends effort sorting signal from
+          noise. Maintainers stop trusting that any specific rule will actually
+          be followed. Updates become risky because one change affects every
+          workflow. Eventually the file stops being a contract and becomes an
+          archive of good intentions.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>The anti-pattern</h2>
+        <p>
+          The anti-pattern is instruction centralization without scoping. Teams
+          assume that if every rule is available everywhere, the system will be
+          safer. In reality, oversized context increases inconsistency. The
+          model has to choose which parts to honor, and reviewers lose the
+          ability to reason about what information should have been active for a
+          specific task.
+        </p>
+        <p>
+          This also weakens enforceability. A rule buried in a giant file is not
+          the same thing as a rule attached to the part of the repo where it
+          matters. A detector task should not need deploy guidance. A docs task
+          should not inherit operational runbooks. Least-privilege context is as
+          important as least-privilege access.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>The better system pattern</h2>
+        <p>
+          The better pattern is layered, conditional context. Keep a small set
+          of global workflow rules at the top. Then attach local guidance to the
+          directories, services, or workflows that actually need it. Let the
+          task determine what loads. That design gives you sharper context,
+          cheaper runs, and clearer ownership of each rule set.
+        </p>
+        <p>
+          Think about it the way platform teams already think about config and
+          policy. We do not put every environment variable for every service in
+          one file and call that architecture. We scope config to the place
+          where it applies. Agent instructions should follow the same design
+          principle.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>Why security cares</h2>
+        <p>
+          From a security perspective, giant instruction files blur boundaries.
+          They make it harder to tell which rules were relevant to a specific
+          action and whether a task saw guidance it should never have needed.
+          That matters when you are trying to prove how a risky change was
+          constrained.
+        </p>
+        <p>
+          Path-scoped rules create a cleaner control story. You can show that a
+          detector task loaded detector docs, detector tests, and detector
+          policies. You can show that it did not load unrelated release
+          instructions or production runbooks. That is a more defensible model
+          than "the whole playbook was somewhere in context."
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>Why platform and engineering care</h2>
+        <p>
+          Engineering leaders care because scoped context reduces maintenance
+          cost. Smaller instruction sets are easier to update, easier to reason
+          about, and less likely to create accidental regressions in unrelated
+          workflows. It also improves runtime efficiency. The agent spends less
+          time parsing generic prose and more time operating on task-relevant
+          material.
+        </p>
+        <p>
+          This is where context engineering becomes an architecture problem, not
+          a prompt-writing hobby. The win is not clever wording. The win is
+          shaping the repository and workflow so the right context loads
+          automatically.
+        </p>
+      </section>
+
+      <section class="section">
+        <div class="artifact">
+          <h2>Concrete example: detector task context vs everything bagel context</h2>
+          <p class="body">
+            A detector change should load only the materials required to make a
+            safe detector change. Anything else is a distraction or a risk.
+          </p>
+          <div class="artifact-flow">
+            <article class="artifact-step">
+              <h3>Task-specific rules</h3>
+              <p>
+                Detector conventions, path ownership, detector tests, and
+                detector docs load because the task touches that subsystem.
+              </p>
+            </article>
+            <article class="artifact-step">
+              <h3>Not loaded</h3>
+              <p>
+                Deploy rules, unrelated service docs, incident runbooks, and
+                release mechanics stay out of context because they are not part
+                of the immediate job.
+              </p>
+            </article>
+            <article class="artifact-step">
+              <h3>Result</h3>
+              <p>
+                The system sees a narrower problem, a cleaner boundary, and a
+                more auditable set of active instructions.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section article-section">
+        <h2>Practical next step</h2>
+        <p>
+          Review your current instruction surface and split it into three
+          buckets.
+        </p>
+        <ul class="list-plain">
+          <li>Global rules that apply everywhere no matter what the task is.</li>
+          <li>Path-scoped rules that belong only to specific directories or domains.</li>
+          <li>Deterministic scripts and validators that should replace prose whenever possible.</li>
+        </ul>
+        <p>
+          If a rule can be enforced by code, move it into code. If a rule only
+          matters for one subsystem, scope it to that subsystem. If a document
+          is useful only during release or incident handling, do not make every
+          feature task carry it around.
+        </p>
+        <p>
+          The next post moves from context architecture to workflow design:
+          where reasoning should stop and deterministic code should take over.
+          That is the handoff that makes agent systems reusable instead of
+          artisanal.
+        </p>
+      </section>
+
+      <footer class="section article-footer" aria-label="Post footer">
+        <div class="series-nav">
+          <a class="nav-link" href="/blog/repository-runtime-contract/">Previous post</a>
+          <a class="nav-link" href="/blog/">Back to blog</a>
+          <a class="nav-link" href="/blog/from-skills-to-blueprints/">Next post</a>
+        </div>
+        <p class="footer-note">
+          Practical question: which rules in your current agent workflow are
+          truly global, and which ones are just taking up space in every task?
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>

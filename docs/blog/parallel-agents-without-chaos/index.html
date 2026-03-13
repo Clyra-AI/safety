@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Parallel Agents Without Chaos | CAISI Blog</title>
+    <meta
+      name="description"
+      content="Why safe concurrency depends on path boundaries, dependency DAGs, claims, retries, and orchestrator-owned reconciliation."
+    />
+    <link rel="stylesheet" href="/assets/site.css" />
+  </head>
+  <body>
+    <main class="site" aria-label="CAISI blog post">
+      <header class="site-header" aria-label="Site header">
+        <div class="brand-row">
+          <div class="brand-mark">
+            <a class="brand-link" href="/">CAISI</a>
+            <p class="brand-note">
+              Independent research and operating notes on AI agent governance.
+            </p>
+          </div>
+        </div>
+        <nav class="global-nav" aria-label="Primary">
+          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" href="/#research-heading">Research</a>
+          <a class="nav-link current" href="/blog/">Blog</a>
+          <a class="nav-link" href="/#about-heading">About</a>
+          <a class="nav-link" href="/#contact-heading">Contact</a>
+        </nav>
+      </header>
+
+      <section class="section hero">
+        <p class="breadcrumbs">
+          <a href="/">Home</a>
+          <span class="divider">/</span>
+          <a href="/blog/">Blog</a>
+          <span class="divider">/</span>
+          <span>Post 7</span>
+        </p>
+        <p class="eyebrow">CAISI Blog / Post 7 of 10</p>
+        <h1>Parallel Agents Without Chaos</h1>
+        <p class="lead">
+          Parallelism is where the productivity story gets real. It is also
+          where weak operating models break. Running more agents at once does
+          not create leverage by itself. It creates leverage only when the
+          orchestrator owns dependencies, path boundaries, retries, and
+          reconciliation.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>The operational reality</h2>
+        <p>
+          Most repositories contain work that could run in parallel if the
+          system actually knew what was safe. A docs change and a detector change
+          may not conflict. A frontend refactor and a billing schema migration
+          probably should not run at the same time without coordination. Humans
+          have a rough intuition for these boundaries. Agents need the
+          orchestrator to encode them.
+        </p>
+        <p>
+          Without that encoding, concurrency produces a familiar mess: duplicate
+          edits, branch conflicts, stale assumptions, wasted retries, and review
+          handoffs nobody can merge cleanly. Teams then conclude that parallel
+          agents are inherently chaotic when the real problem is the missing
+          control layer above them.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>The anti-pattern</h2>
+        <p>
+          The anti-pattern is unmanaged fan-out. An issue queue is full, the
+          tooling can start multiple runs, and teams assume the system should do
+          so aggressively. That treats concurrency as a scheduling question when
+          it is really a claims question: who owns which paths, which tasks
+          depend on others, and what should happen when issue state changes
+          underneath an active run?
+        </p>
+        <p>
+          If the orchestrator cannot answer those questions, more agents simply
+          means more hidden contention. The queue appears busy while actual
+          delivery quality gets worse.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>The better system pattern</h2>
+        <p>
+          Safe concurrency starts with explicit claims. Each run should declare
+          what paths it intends to modify, which upstream work it depends on, and
+          which branch or artifact state it assumes. The orchestrator then uses
+          those claims to decide what can run in parallel, what must wait, and
+          what should be cancelled or retried when conditions change.
+        </p>
+        <p>
+          A dependency DAG is not overkill here. It is the minimum structure
+          required to let autonomous work scale safely. Once the graph exists,
+          concurrency becomes a policy decision instead of a guess. You can
+          block overlapping claims, reuse workspaces across retries, and
+          re-evaluate the run when a parent issue or dependency changes state.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>Why security cares</h2>
+        <p>
+          From a security perspective, unmanaged concurrency creates invisible
+          risk. Two changes may each look safe in isolation and become unsafe
+          together. One run may invalidate assumptions another run depends on.
+          If no system owns those dependencies, accountability gets diluted the
+          moment multiple autonomous changes are in flight.
+        </p>
+        <p>
+          Safe parallelism is not about slowing things down. It is about keeping
+          ownership explicit. A change packet should tell a reviewer not only
+          what the run did, but what else it was allowed to overlap with and why
+          that overlap was considered safe.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>Why platform and engineering care</h2>
+        <p>
+          This is the real throughput multiplier for engineering. One isolated
+          agent run can be useful. A controlled system that can run independent
+          work items at the same time is where output actually bends upward.
+          That only happens if cancellation, retry backoff, restart recovery,
+          and workspace reuse are designed into the orchestrator instead of
+          improvised by humans.
+        </p>
+        <p>
+          Platform leaders should think of this as traffic control, not raw
+          compute scaling. The value is not "more runs." The value is more safe
+          work completed per review cycle.
+        </p>
+      </section>
+
+      <section class="section">
+        <div class="artifact">
+          <h2>Concrete example: two tasks, one safe to parallelize, one blocked</h2>
+          <p class="body">
+            Concurrency should be a claim-aware decision, not an optimistic
+            default.
+          </p>
+          <div class="artifact-flow">
+            <article class="artifact-step">
+              <h3>Safe fan-out</h3>
+              <p>
+                A docs-only task and a detector-only task claim different paths,
+                no shared dependencies, and can run at the same time.
+              </p>
+            </article>
+            <article class="artifact-step">
+              <h3>Blocked overlap</h3>
+              <p>
+                Two tasks claim the same service directory or one task depends
+                on schema changes from another. The orchestrator holds one run.
+              </p>
+            </article>
+            <article class="artifact-step">
+              <h3>Recovery</h3>
+              <p>
+                If the blocking run fails or the issue changes state, the held
+                run is retried or cancelled with a clear reason code.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section article-section">
+        <h2>Practical next step</h2>
+        <p>
+          Before adding more parallel workers, add a minimal concurrency model.
+        </p>
+        <ul class="list-plain">
+          <li>Require each run to declare expected path claims.</li>
+          <li>Model obvious task dependencies and blockers explicitly.</li>
+          <li>Define what should cancel a run when the source issue changes state.</li>
+          <li>Keep retry reasons and backoff visible so failure loops do not become silent queue churn.</li>
+        </ul>
+        <p>
+          Concurrency is a force multiplier only when the orchestrator owns the
+          claims and the conflict rules. Otherwise it is a faster path to
+          branch-level confusion.
+        </p>
+        <p>
+          The next post shifts from scaling work to trusting outcomes. Visible
+          tests matter, but they are not enough when agents can optimize against
+          the exact checks they can see.
+        </p>
+      </section>
+
+      <footer class="section article-footer" aria-label="Post footer">
+        <div class="series-nav">
+          <a class="nav-link" href="/blog/isolated-warm-sandboxes/">Previous post</a>
+          <a class="nav-link" href="/blog/">Back to blog</a>
+          <a class="nav-link" href="/blog/visible-tests-are-not-enough/">Next post</a>
+        </div>
+        <p class="footer-note">
+          Practical question: if two autonomous tasks started in your main repo
+          right now, could your system explain why they were safe to run in
+          parallel?
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>

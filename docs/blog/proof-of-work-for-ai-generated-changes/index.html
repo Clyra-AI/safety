@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Proof of Work for AI-Generated Changes | CAISI Blog</title>
+    <meta
+      name="description"
+      content="Why passing CI is necessary but insufficient, and what evidence should accompany every autonomous code change."
+    />
+    <link rel="stylesheet" href="/assets/site.css" />
+  </head>
+  <body>
+    <main class="site" aria-label="CAISI blog post">
+      <header class="site-header" aria-label="Site header">
+        <div class="brand-row">
+          <div class="brand-mark">
+            <a class="brand-link" href="/">CAISI</a>
+            <p class="brand-note">
+              Independent research and operating notes on AI agent governance.
+            </p>
+          </div>
+        </div>
+        <nav class="global-nav" aria-label="Primary">
+          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" href="/#research-heading">Research</a>
+          <a class="nav-link current" href="/blog/">Blog</a>
+          <a class="nav-link" href="/#about-heading">About</a>
+          <a class="nav-link" href="/#contact-heading">Contact</a>
+        </nav>
+      </header>
+
+      <section class="section hero">
+        <p class="breadcrumbs">
+          <a href="/">Home</a>
+          <span class="divider">/</span>
+          <a href="/blog/">Blog</a>
+          <span class="divider">/</span>
+          <span>Post 9</span>
+        </p>
+        <p class="eyebrow">CAISI Blog / Post 9 of 10</p>
+        <h1>Proof of Work for AI-Generated Changes</h1>
+        <p class="lead">
+          A green CI badge is useful. It is not a trust model. Autonomous
+          software work needs a proof packet that explains what changed, what
+          ran, why the system believed the change was in bounds, and what
+          residual risk remains. Without that packet, every pull request asks a
+          reviewer to reconstruct the story from scraps.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>The operational reality</h2>
+        <p>
+          Reviewers already struggle to understand complex human-generated pull
+          requests. Autonomous changes raise the bar because the reviewer did not
+          watch the work happen. They inherit a patch, some logs, and whatever
+          summary the system chose to write. If the workflow does not package the
+          run coherently, the reviewer is forced to do incident reconstruction in
+          the code review tool.
+        </p>
+        <p>
+          That is not sustainable for buyers or allies. Security teams need
+          traceable evidence. Platform teams need machine-readable outputs they
+          can debug. Engineers need enough context to review quickly without
+          losing confidence in the merge path.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>The anti-pattern</h2>
+        <p>
+          The anti-pattern is evidence minimalism: treating the diff and the CI
+          status as if they were enough. That leaves crucial questions open. Why
+          did the system touch these files? Which commands ran? Which tests ran?
+          What did the policy layer allow or block? What remains uncertain? If a
+          reviewer cannot answer those questions without chasing logs, the proof
+          layer is missing.
+        </p>
+        <p>
+          Teams sometimes call that overhead. It is not overhead. It is the
+          thing that makes autonomous change reviewable at all.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>The better system pattern</h2>
+        <p>
+          The better pattern is a proof packet attached to every autonomous
+          change. The packet should connect the trigger, plan, patch summary,
+          validation results, policy verdicts, residual risk statement, and
+          promotion decision. A reviewer should be able to read it in minutes
+          and understand why the change exists, what the system did, and where
+          human judgment is still required.
+        </p>
+        <p>
+          This is not only about human comfort. It is what lets the system
+          explain itself later during a dispute, an audit, or a debugging
+          session. Proof packets are the trust layer between "the run completed"
+          and "the organization can defend the outcome."
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>What a reviewer should never need to do</h2>
+        <p>
+          A reviewer should never need to reconstruct the workflow from scattered
+          logs, diff through unrelated files just to infer intent, or ask in a
+          side channel which tests actually ran. If the review requires that
+          level of archaeology, the system has shifted the cost of autonomy onto
+          the people meant to trust it.
+        </p>
+        <p>
+          That is the practical purpose of proof of work. It compresses the run
+          into a defensible unit. The packet does not need to be verbose. It
+          does need to be complete enough that a third party can understand what
+          happened without privileged context sitting in someone's head.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>Why security cares</h2>
+        <p>
+          Security buyers need evidence chains, not just approvals. They need to
+          see what policy applied, what the system attempted, what it was
+          allowed to do, what actually executed, and where residual risk remains.
+          That is how an autonomous change becomes governable rather than merely
+          observable.
+        </p>
+        <p>
+          This is exactly where the distinction between receipt and proof
+          matters. A workflow can show that a change was authorized and still be
+          unable to show what actually happened. High-trust autonomy needs both
+          records, linked.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>Why platform and engineering care</h2>
+        <p>
+          Platform leaders care because proof packets reduce debugging time and
+          review friction. If the patch summary, validation output, and residual
+          risk statement are structured, a failed run is easier to diagnose and a
+          successful run is easier to merge. The packet becomes a reusable unit
+          of operational knowledge.
+        </p>
+        <p>
+          It also lets engineering teams move faster with less politics. The
+          reviewer is not being asked to trust the agent. They are being given a
+          compact artifact that makes the review decision legible.
+        </p>
+      </section>
+
+      <section class="section">
+        <div class="artifact">
+          <h2>Concrete example: what a proof packet should contain</h2>
+          <p class="body">
+            The exact format can vary. The fields should not.
+          </p>
+          <div class="artifact-flow">
+            <article class="artifact-step">
+              <h3>What changed</h3>
+              <p>
+                Run manifest, scope, affected paths, concise patch summary, and
+                the reasoning or plan that justified the edit.
+              </p>
+            </article>
+            <article class="artifact-step">
+              <h3>What ran</h3>
+              <p>
+                Commands, validations, hidden evaluation outcomes, policy
+                verdicts, and proof that the change reached the stated result.
+              </p>
+            </article>
+            <article class="artifact-step">
+              <h3>What remains risky</h3>
+              <p>
+                Residual risk, reviewer asks, rollback notes, and the specific
+                reason the workflow promoted or paused the change.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section article-section">
+        <h2>Practical next step</h2>
+        <p>
+          Take the last autonomous or semi-autonomous PR your team produced and
+          ask whether a third party could review it cold.
+        </p>
+        <ul class="list-plain">
+          <li>Could they tell what triggered the work?</li>
+          <li>Could they see what commands and validations ran?</li>
+          <li>Could they identify the policy posture and any approval requirements?</li>
+          <li>Could they see residual risk without joining a meeting?</li>
+        </ul>
+        <p>
+          If the answer is no, start packaging that data now. Proof should be
+          attached to the change at creation time, not reconstructed after
+          something goes wrong.
+        </p>
+        <p>
+          The final post steps back from the mechanisms and puts them on a
+          roadmap. Teams move through recognizable stages, and each stage
+          requires different controls, tooling, and organizational posture.
+        </p>
+      </section>
+
+      <footer class="section article-footer" aria-label="Post footer">
+        <div class="series-nav">
+          <a class="nav-link" href="/blog/visible-tests-are-not-enough/">Previous post</a>
+          <a class="nav-link" href="/blog/">Back to blog</a>
+          <a class="nav-link" href="/blog/ai-engineering-maturity-model/">Next post</a>
+        </div>
+        <p class="footer-note">
+          Practical question: could someone outside your immediate team review
+          the last autonomous change packet without needing a tour of your
+          internal dashboards?
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>

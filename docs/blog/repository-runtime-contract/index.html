@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Your Repository Is the Runtime Contract for Agents | CAISI Blog</title>
+    <meta
+      name="description"
+      content="Why agents perform well only when the repository behaves like an API with legible docs, deterministic commands, and clear validation paths."
+    />
+    <link rel="stylesheet" href="/assets/site.css" />
+  </head>
+  <body>
+    <main class="site" aria-label="CAISI blog post">
+      <header class="site-header" aria-label="Site header">
+        <div class="brand-row">
+          <div class="brand-mark">
+            <a class="brand-link" href="/">CAISI</a>
+            <p class="brand-note">
+              Independent research and operating notes on AI agent governance.
+            </p>
+          </div>
+        </div>
+        <nav class="global-nav" aria-label="Primary">
+          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" href="/#research-heading">Research</a>
+          <a class="nav-link current" href="/blog/">Blog</a>
+          <a class="nav-link" href="/#about-heading">About</a>
+          <a class="nav-link" href="/#contact-heading">Contact</a>
+        </nav>
+      </header>
+
+      <section class="section hero">
+        <p class="breadcrumbs">
+          <a href="/">Home</a>
+          <span class="divider">/</span>
+          <a href="/blog/">Blog</a>
+          <span class="divider">/</span>
+          <span>Post 2</span>
+        </p>
+        <p class="eyebrow">CAISI Blog / Post 2 of 10</p>
+        <h1>Your Repository Is the Runtime Contract for Agents</h1>
+        <p class="lead">
+          When an agent enters a codebase, it is not meeting "the product." It
+          is meeting a runtime contract. The docs, scripts, test entrypoints,
+          fixtures, boundaries, and failure messages together define whether the
+          work is legible or ambiguous. If the repository behaves like a clean
+          interface, agents tend to look competent. If it behaves like folklore,
+          agents look erratic and expensive.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>The operational reality</h2>
+        <p>
+          Teams often say an agent "doesn't understand the repo" as if that were
+          a model limitation. In practice, it is usually a contract problem. The
+          repo assumes undocumented tribal knowledge, validation paths are
+          inconsistent, scripts have side effects nobody wrote down, and the
+          difference between a safe change and a dangerous one is encoded in
+          human memory. Humans can survive that mess because they ask in Slack
+          and learn by repetition. Agents cannot.
+        </p>
+        <p>
+          This matters because the repository is where autonomous software work
+          becomes concrete. It is where the system decides what files exist,
+          what commands are canonical, what tests should run, where constraints
+          live, and what counts as "done." If those answers are fuzzy, you do
+          not have a stable interface. You have a probabilistic scavenger hunt.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>The anti-pattern</h2>
+        <p>
+          The anti-pattern is to treat repo readiness as a documentation clean-up
+          task instead of an execution contract. Teams add a giant instruction
+          file, maybe a long README, and hope the agent will infer the rest.
+          That still leaves the real operational questions unanswered: Which
+          command is canonical? Which directories are in scope? What fixtures
+          represent important scenarios? Which validations are mandatory? Where
+          should the agent stop and ask for review?
+        </p>
+        <p>
+          If the answers are not explicit, the agent improvises. Improvisation
+          feels fine when the cost of a mistake is low. It feels much worse when
+          a model invents a build path, edits the wrong subsystem, or chooses a
+          stale test harness because nothing in the repo declared the contract
+          clearly.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>The better system pattern</h2>
+        <p>
+          Treat the repository like an API for autonomous work. That means
+          creating a small number of reliable surfaces the system can depend on:
+          task guidance in <code>AGENTS.md</code>, product-specific reference
+          docs, deterministic command entrypoints, scenario fixtures, and
+          explicit validation scripts. If the repository makes the right path
+          obvious, the agent stops wasting tokens reconstructing the project
+          from first principles.
+        </p>
+        <p>
+          The goal is not to explain every corner of the codebase. The goal is
+          to define enough stable interfaces that an agent can operate safely
+          without pretending to be a senior maintainer on day one. In a healthy
+          repo, the best path is the easiest path to discover.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>Why security cares</h2>
+        <p>
+          Repo structure is part of the security control surface because it
+          shapes what the system can discover, how it reaches side-effecting
+          commands, and whether the difference between read paths and write
+          paths is visible. If a repository buries sensitive scripts beside
+          routine tooling, or leaves operational boundaries implicit, the agent
+          inherits those ambiguities.
+        </p>
+        <p>
+          Security teams should read a repo contract the same way they read an
+          API boundary. Where are the privileged actions? Which commands have
+          external effects? Which tests are safe in normal development, and
+          which should only run in isolated environments? A clean repo contract
+          reduces accidental overreach before policy-as-code ever fires.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>Why platform and engineering care</h2>
+        <p>
+          Platform leaders care because repo legibility is multiplicative. It
+          reduces human onboarding time and agent onboarding time at the same
+          moment. The same deterministic scripts that make local work predictable
+          also make automated work reusable across teams. The same scenario
+          fixtures that help humans understand edge cases also give agents a
+          concrete test surface.
+        </p>
+        <p>
+          This is where a tool like Wrkr can make sense as an implementation
+          example, not because the brand matters, but because it assumes a repo
+          with explicit entrypoints, discoverable docs, and stable validation
+          paths. The value does not come from the tool name. It comes from the
+          contract the repo exposes to the tool.
+        </p>
+      </section>
+
+      <section class="section">
+        <div class="artifact">
+          <h2>Concrete example: a repo contract that agents can actually use</h2>
+          <p class="body">
+            A "Wrkr-style" repository works because each artifact owns a
+            specific part of the interface instead of collapsing everything into
+            one instruction dump.
+          </p>
+          <div class="artifact-flow">
+            <article class="artifact-step">
+              <h3><code>AGENTS.md</code></h3>
+              <p>
+                Defines workflow rules, path boundaries, and what an agent
+                should do before changing code or running risky commands.
+              </p>
+            </article>
+            <article class="artifact-step">
+              <h3>Product docs</h3>
+              <p>
+                Explain domain behavior, invariants, and scenarios the repo
+                expects contributors to preserve.
+              </p>
+            </article>
+            <article class="artifact-step">
+              <h3>Scripts and CI</h3>
+              <p>
+                Provide deterministic entrypoints for build, test, validation,
+                and publish so the "right way" is not ambiguous.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section article-section">
+        <h2>Practical next step</h2>
+        <p>
+          Pick one repository that you want agents to operate inside safely.
+          Then review it as if you were designing an interface for a very fast,
+          very literal new hire.
+        </p>
+        <ul class="list-plain">
+          <li>Write down the canonical commands for setup, test, lint, and end-to-end validation.</li>
+          <li>Separate global workflow rules from product-specific docs and from scripts.</li>
+          <li>Add scenario fixtures for the cases that matter most, especially the ones humans always forget to explain.</li>
+          <li>Make path boundaries and escalation rules explicit.</li>
+        </ul>
+        <p>
+          The point is not elegance for its own sake. It is operational
+          leverage. A repo that behaves like an interface can support repeated
+          autonomous work. A repo that behaves like oral tradition cannot.
+        </p>
+        <p>
+          The next post stays on the same thread and sharpens a common failure:
+          giant instruction files. The issue is not that they are too long. The
+          issue is that they are the wrong abstraction for enforceable,
+          context-efficient work.
+        </p>
+      </section>
+
+      <footer class="section article-footer" aria-label="Post footer">
+        <div class="series-nav">
+          <a class="nav-link" href="/blog/ai-engineering-control-problem/">Previous post</a>
+          <a class="nav-link" href="/blog/">Back to blog</a>
+          <a class="nav-link" href="/blog/why-giant-instruction-files-fail/">Next post</a>
+        </div>
+        <p class="footer-note">
+          Practical question: if a strong engineer left your repo tomorrow,
+          would an agent still be able to find the correct validation path
+          without guessing?
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>

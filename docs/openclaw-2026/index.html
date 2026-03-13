@@ -12,11 +12,33 @@
   </head>
   <body>
     <main class="site" aria-label="OpenClaw 2026 report page">
-      <section class="section">
-        <p class="top-nav">
+      <header class="site-header" aria-label="Site header">
+        <div class="brand-row">
+          <div class="brand-mark">
+            <a class="brand-link" href="/">CAISI</a>
+            <p class="brand-note">
+              Independent research and operating notes on AI agent governance.
+            </p>
+          </div>
+        </div>
+        <nav class="global-nav" aria-label="Primary">
+          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link current" href="/openclaw-2026/">Research</a>
+          <a class="nav-link" href="/blog/">Blog</a>
+          <a class="nav-link" href="/#about-heading">About</a>
+          <a class="nav-link" href="/#contact-heading">Contact</a>
+        </nav>
+      </header>
+
+      <section class="section hero">
+        <p class="breadcrumbs">
           <a href="/">Home</a>
+          <span class="divider">/</span>
+          <span>Research</span>
+          <span class="divider">/</span>
+          <span>OpenClaw 2026</span>
         </p>
-        <p class="kicker">Research Report - February 2026</p>
+        <p class="eyebrow">Research Report</p>
         <h1>We Gave an AI Agent Full Tool Access and Hit Stop. It Didn't Stop.</h1>
         <p class="lead">
           In a controlled 24-hour test, an ungoverned AI agent deleted emails,
@@ -25,52 +47,58 @@
           enforcement, destructive actions dropped to zero.
         </p>
         <p class="meta">
-          <a href="/assets/reports/openclaw-2026/report.pdf">Read the Full Report (PDF)</a>
+          <a href="/assets/reports/openclaw-2026/report.pdf">Read the full report (PDF)</a>
           <span class="meta-sep">|</span>
-          <a href="https://github.com/Clyra-AI/safety/tree/main/reports/openclaw-2026/data">See the Data (GitHub)</a>
+          <a href="https://github.com/Clyra-AI/safety/tree/main/reports/openclaw-2026/data"
+            >See the data (GitHub)</a
+          >
+          <span class="meta-sep">|</span>
+          <a href="/blog/ai-engineering-control-problem/">Read the blog framing</a>
         </p>
       </section>
 
       <section class="section" aria-labelledby="for-media">
-        <h2 id="for-media">For Media</h2>
+        <h2 id="for-media">For media</h2>
         <p class="body">
           Need the short version first? The media brief explains the study in
           plain language, keeps the headline findings and limitations intact,
           and links back to the full report and artifact set.
         </p>
         <p class="meta">
-          <a href="/assets/reports/openclaw-2026/media-brief.pdf">Download Media Brief (PDF)</a>
+          <a href="/assets/reports/openclaw-2026/media-brief.pdf">Download media brief (PDF)</a>
           <span class="meta-sep">|</span>
-          <a href="https://github.com/Clyra-AI/safety/blob/main/reports/openclaw-2026/press-pack/media-brief.md">Source Brief (GitHub)</a>
+          <a href="https://github.com/Clyra-AI/safety/blob/main/reports/openclaw-2026/press-pack/media-brief.md"
+            >Source brief (GitHub)</a
+          >
           <span class="meta-sep">|</span>
-          <a href="mailto:research@caisi.dev?subject=OpenClaw%20media%20inquiry">Press Contact</a>
+          <a href="mailto:research@caisi.dev?subject=OpenClaw%20media%20inquiry">Press contact</a>
         </p>
       </section>
 
       <section class="section" aria-labelledby="headline-numbers">
-        <h2 id="headline-numbers">Four Headline Numbers</h2>
+        <h2 id="headline-numbers">Four headline numbers</h2>
         <div class="research-grid">
           <article class="card">
-            <h3 class="card-title">100%</h3>
+            <h3>100%</h3>
             <p class="finding">Stop commands ignored</p>
           </article>
           <article class="card">
-            <h3 class="card-title">497</h3>
+            <h3>497</h3>
             <p class="finding">Destructive actions executed</p>
           </article>
           <article class="card">
-            <h3 class="card-title">707</h3>
+            <h3>707</h3>
             <p class="finding">Sensitive accesses, no approval</p>
           </article>
           <article class="card">
-            <h3 class="card-title">1,615</h3>
+            <h3>1,615</h3>
             <p class="finding">Actions blocked under enforcement</p>
           </article>
         </div>
       </section>
 
       <section class="section" aria-labelledby="what-found">
-        <h2 id="what-found">What We Found</h2>
+        <h2 id="what-found">What we found</h2>
         <p class="body">
           We ran a 24-hour experiment on OpenClaw, an open-source AI agent
           framework. Two identical setups. One with no enforceable controls.
@@ -91,17 +119,17 @@
           decision. Destructive actions that executed: <strong>zero</strong>.
         </p>
         <p class="body">
-          This is not a theoretical risk model. It is a measured result from a
-          controlled experiment with published artifacts. Every number on this
-          page traces to a specific artifact in the public repository.
+          This is a measured result from a controlled experiment with published
+          artifacts. Every number on this page traces to a specific artifact in
+          the public repository.
         </p>
       </section>
 
       <section class="section" aria-labelledby="scenarios">
-        <h2 id="scenarios">Five Scenarios, 24 Hours</h2>
+        <h2 id="scenarios">Five scenarios, 24 hours</h2>
         <div class="research-grid">
           <article class="card">
-            <h3 class="card-title tight">Inbox Cleanup</h3>
+            <h3>Inbox cleanup</h3>
             <p class="finding">
               The agent was given access to email. It deleted
               <strong>214</strong> messages after stop commands. Under
@@ -109,14 +137,14 @@
             </p>
           </article>
           <article class="card">
-            <h3 class="card-title tight">File Sharing</h3>
+            <h3>File sharing</h3>
             <p class="finding">
               The agent shared <strong>155</strong> internal documents publicly.
               Under enforcement: <strong>100% blocked</strong>.
             </p>
           </article>
           <article class="card">
-            <h3 class="card-title tight">Financial Operations</h3>
+            <h3>Financial operations</h3>
             <p class="finding">
               The agent executed <strong>87</strong> write-class payment
               approval actions without an enforceable approval boundary. Under
@@ -124,7 +152,7 @@
             </p>
           </article>
           <article class="card">
-            <h3 class="card-title tight">Infrastructure</h3>
+            <h3>Infrastructure</h3>
             <p class="finding">
               The agent attempted <strong>260</strong> service restarts. Under
               enforcement: <strong>100% blocked</strong>.
@@ -134,17 +162,17 @@
       </section>
 
       <section class="section" aria-labelledby="side-by-side">
-        <h2 id="side-by-side">Side by Side</h2>
+        <h2 id="side-by-side">Side by side</h2>
         <div class="research-grid">
           <article class="card">
-            <h3 class="card-title">Without enforcement</h3>
+            <h3>Without enforcement</h3>
             <p class="finding">Every action executed</p>
             <p class="finding">Every stop command ignored</p>
             <p class="finding">Zero evidence trail</p>
             <p class="finding"><strong>497</strong> destructive actions completed</p>
           </article>
           <article class="card">
-            <h3 class="card-title">With enforcement</h3>
+            <h3>With enforcement</h3>
             <p class="finding"><strong>1,278</strong> actions blocked before execution</p>
             <p class="finding"><strong>337</strong> actions sent to approval queue</p>
             <p class="finding"><strong>99.96%</strong> signed decision evidence coverage</p>
@@ -154,7 +182,7 @@
       </section>
 
       <section class="section" aria-labelledby="bigger-picture">
-        <h2 id="bigger-picture">The Bigger Picture</h2>
+        <h2 id="bigger-picture">The bigger picture</h2>
         <p class="body">
           Most organizations deploying AI agents today rely on prompt
           instructions and model compliance to keep agents within bounds. This
@@ -163,32 +191,15 @@
           do and ignores everything else.
         </p>
         <p class="body">
-          This pattern is showing up across industries. CNBC reported last week
-          on AI agents failing silently at scale, including a manufacturing
-          agent that overproduced hundreds of thousands of units and a customer
-          service agent that started approving refunds to optimize for positive
-          reviews. The common thread: no enforceable control at the point where
-          the agent takes action.
-        </p>
-        <p class="body">
-          IBM X-Force 2026 reports that supply chain compromises have quadrupled
-          over five years and <strong>56%</strong> of new vulnerabilities are
-          exploitable without authentication. Unmanaged AI agents with tool
-          access to production systems are the same class of unmanaged
-          dependency. The question is not whether agents will misbehave. It is
-          whether you can stop them when they do.
-        </p>
-        <p class="body">
-          The EU AI Act begins broad enforcement on <strong>August 2, 2026</strong>.
-          Auditors are shifting from "do you have a policy" to "show me the
-          evidence." Organizations that can produce signed, structured proof of
-          agent governance will close audits in days. Organizations that cannot
-          will face a different conversation.
+          The lesson is not specific to one framework. It is a broader control
+          problem: if the system can mutate real state, then governance has to
+          exist where the action executes, not only where the prompt was
+          written.
         </p>
       </section>
 
       <section class="section" aria-labelledby="takeaways">
-        <h2 id="takeaways">What We Learned</h2>
+        <h2 id="takeaways">What we learned</h2>
         <p class="body"><strong>01 - Know what's running before you scale it.</strong> A pre-test scan found 17 tools and no high-risk inventory hits. High-impact behavior still emerged at runtime. Static discovery is necessary, not sufficient.</p>
         <p class="body"><strong>02 - Controls have to work where the action happens.</strong> The governed lane produced <strong>1,615</strong> non-executable outcomes at the tool boundary. In the baseline lane, no enforceable boundary prevented destructive execution.</p>
         <p class="body"><strong>03 - Evidence has to exist before the incident.</strong> Governed execution produced verifiable traces for <strong>99.96%</strong> of decisions. Incident response quality depends on artifact-backed history.</p>
@@ -196,33 +207,78 @@
         <p class="body"><strong>05 - Stop has to mean stop.</strong> The baseline lane executed <strong>515</strong> tool calls after stop. A stop control that can be ignored is not a safety control.</p>
       </section>
 
+      <section class="section" aria-labelledby="blog-bridge">
+        <h2 id="blog-bridge">From the CAISI blog</h2>
+        <div class="blog-grid">
+          <article class="post-card">
+            <p class="post-number">Post 1</p>
+            <h3>
+              <a href="/blog/ai-engineering-control-problem/"
+                >AI Engineering Is a Control Problem, Not a Prompt Problem</a
+              >
+            </h3>
+            <p>
+              The operating-model argument behind this report: why prompt text
+              is not a control plane.
+            </p>
+          </article>
+          <article class="post-card">
+            <p class="post-number">Post 9</p>
+            <h3>
+              <a href="/blog/proof-of-work-for-ai-generated-changes/"
+                >Proof of Work for AI-Generated Changes</a
+              >
+            </h3>
+            <p>
+              What evidence a third party should be able to inspect after an
+              autonomous change.
+            </p>
+          </article>
+        </div>
+      </section>
+
       <section class="section" aria-labelledby="methodology">
         <h2 id="methodology">Methodology</h2>
         <div class="research-grid">
           <article class="card">
-            <h3 class="card-title tight">Controlled comparison</h3>
-            <p class="finding">Two lanes, same workload, same 24-hour window. One with external tool-boundary enforcement, one with a permissive baseline rule. Pinned to a single OpenClaw commit.</p>
+            <h3>Controlled comparison</h3>
+            <p class="finding">
+              Two lanes, same workload, same 24-hour window. One with external
+              tool-boundary enforcement, one with a permissive baseline rule.
+              Pinned to a single OpenClaw commit.
+            </p>
           </article>
           <article class="card">
-            <h3 class="card-title tight">Isolated environment</h3>
-            <p class="finding">Containerized runtime, dropped capabilities, read-only root filesystem, no external API keys, resource caps, isolated network.</p>
+            <h3>Isolated environment</h3>
+            <p class="finding">
+              Containerized runtime, dropped capabilities, read-only root
+              filesystem, no external API keys, resource caps, isolated
+              network.
+            </p>
           </article>
           <article class="card">
-            <h3 class="card-title tight">Pre-registered design</h3>
-            <p class="finding">Hypotheses and endpoints were locked before run execution.</p>
+            <h3>Pre-registered design</h3>
+            <p class="finding">
+              Hypotheses and endpoints were locked before run execution.
+            </p>
           </article>
           <article class="card">
-            <h3 class="card-title tight">Verifiable claims</h3>
-            <p class="finding">Each headline maps to deterministic queries over published artifacts, with strict validation gates in the pipeline.</p>
+            <h3>Verifiable claims</h3>
+            <p class="finding">
+              Each headline maps to deterministic queries over published
+              artifacts, with strict validation gates in the pipeline.
+            </p>
           </article>
         </div>
         <p class="meta">
-          <a href="https://github.com/Clyra-AI/safety/tree/main/reports/openclaw-2026">Technical details: run ID, commit pin, artifact paths, and reproduction commands</a>
+          <a href="https://github.com/Clyra-AI/safety/tree/main/reports/openclaw-2026"
+            >Technical details: run ID, commit pin, artifact paths, and reproduction commands</a
+          >
         </p>
       </section>
 
       <section class="section" aria-labelledby="faq">
-        <h2 id="faq">FAQ: Enforcement and Generalization</h2>
+        <h2 id="faq">FAQ: enforcement and generalization</h2>
         <p class="body">
           <strong>What governance structure was used?</strong> An external
           tool-boundary enforcement layer evaluated each tool call before
@@ -237,73 +293,27 @@
           this pinned OpenClaw commit, workload profile, and policy set.
         </p>
         <p class="meta">
-          <a href="https://github.com/Clyra-AI/safety/blob/main/reports/openclaw-2026/container-config/gait-policies/openclaw-research-v1.yaml">Policy file</a>
-          <span class="meta-sep">|</span>
-          <a href="https://github.com/Clyra-AI/safety/blob/main/reports/openclaw-2026/study-protocol.md">Study protocol</a>
+          <a href="https://github.com/Clyra-AI/safety/blob/main/reports/openclaw-2026/container-config/gait-policies/openclaw-research-v1.yaml"
+            >Policy file</a
+          >
         </p>
       </section>
 
-      <section class="section" aria-labelledby="limitations">
-        <h2 id="limitations">What This Doesn't Cover</h2>
-        <p class="body">
-          This is one framework, one pinned commit, and one 24-hour window. It
-          is not an ecosystem census. The workload is scenario-based rather
-          than a sample of production traffic. Run-to-run variance is not
-          estimated. The <code>secrets_handling</code> scenario achieved only
-          20% governed non-executable coverage, and that policy gap is
-          explicitly published.
-        </p>
-      </section>
-
-      <section class="section" aria-labelledby="full-report">
-        <h2 id="full-report">Read the Full Report</h2>
-        <p class="lead">7 pages. Every claim backed by published artifacts. No email required.</p>
-        <p class="meta">
-          <a href="/assets/reports/openclaw-2026/report.pdf">Download PDF</a>
-          <span class="meta-sep">|</span>
-          <a href="https://github.com/Clyra-AI/safety/tree/main/reports/openclaw-2026/data">GitHub Artifacts</a>
-          <span class="meta-sep">|</span>
-          <a href="https://github.com/Clyra-AI/safety/tree/main/pipelines/openclaw">Reproduction Pipeline</a>
-        </p>
-      </section>
-
-      <section class="section" aria-labelledby="team-heading">
-        <h2 id="team-heading">Team</h2>
-        <div class="team-list">
-          <p class="person">
-            <strong>David Ahmann</strong>, Head of Cloud, Data and AI Platforms,
-            CDW Canada <a href="https://www.linkedin.com/in/dahmann/">(LinkedIn)</a>
-          </p>
-          <p class="person">
-            <strong>Devan Shah</strong>, Chief Software and Data Security
-            Architect, IBM <a href="https://www.linkedin.com/in/devan-shah-3b61172a/">(LinkedIn)</a>
-          </p>
-          <p class="person">
-            <strong>Talgat Ryshmanov</strong>, Principal DevSecOps Consultant,
-            Adaptavist <a href="https://www.linkedin.com/in/ryshmanov/">(LinkedIn)</a>
-          </p>
-        </div>
-      </section>
-
-      <section class="section" aria-labelledby="contact-heading">
-        <h2 id="contact-heading">Contact</h2>
-        <p class="contact"><a href="mailto:research@caisi.dev">research@caisi.dev</a></p>
-      </section>
-
-      <footer class="section" aria-label="Page footer">
-        <p class="footer-note">
-          The Clyra AI Safety Initiative (CAISI) publishes independent,
-          reproducible AI governance research.
-        </p>
+      <footer class="section article-footer" aria-label="Page footer">
         <div class="footer-links">
           <a href="/">Home</a>
-          <span class="meta-sep">|</span>
-          <a href="https://github.com/Clyra-AI/wrkr">Wrkr</a>
-          <span class="meta-sep">|</span>
-          <a href="https://github.com/Clyra-AI/gait">Gait</a>
-          <span class="meta-sep">|</span>
-          <a href="https://github.com/Clyra-AI/safety">Full repository</a>
+          <span class="divider">|</span>
+          <a href="/blog/">Blog</a>
+          <span class="divider">|</span>
+          <a href="/ai-tool-sprawl-q1-2026/">Tool Sprawl</a>
+          <span class="divider">|</span>
+          <a href="https://github.com/Clyra-AI/safety">Repository</a>
         </div>
+        <p class="footer-note">
+          We at CAISI publish report artifacts and operating notes side by
+          side: research pages for evidence, blog pages for the system patterns
+          those results imply.
+        </p>
       </footer>
     </main>
   </body>

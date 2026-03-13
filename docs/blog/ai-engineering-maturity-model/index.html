@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>The AI Engineering Maturity Model | CAISI Blog</title>
+    <meta
+      name="description"
+      content="A staged roadmap from prompt-first experiments to orchestrated, evidence-rich, dark-factory capable AI engineering."
+    />
+    <link rel="stylesheet" href="/assets/site.css" />
+  </head>
+  <body>
+    <main class="site" aria-label="CAISI blog post">
+      <header class="site-header" aria-label="Site header">
+        <div class="brand-row">
+          <div class="brand-mark">
+            <a class="brand-link" href="/">CAISI</a>
+            <p class="brand-note">
+              Independent research and operating notes on AI agent governance.
+            </p>
+          </div>
+        </div>
+        <nav class="global-nav" aria-label="Primary">
+          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" href="/#research-heading">Research</a>
+          <a class="nav-link current" href="/blog/">Blog</a>
+          <a class="nav-link" href="/#about-heading">About</a>
+          <a class="nav-link" href="/#contact-heading">Contact</a>
+        </nav>
+      </header>
+
+      <section class="section hero">
+        <p class="breadcrumbs">
+          <a href="/">Home</a>
+          <span class="divider">/</span>
+          <a href="/blog/">Blog</a>
+          <span class="divider">/</span>
+          <span>Post 10</span>
+        </p>
+        <p class="eyebrow">CAISI Blog / Post 10 of 10</p>
+        <h1>The AI Engineering Maturity Model</h1>
+        <p class="lead">
+          Teams do not jump from ad hoc prompting to governed autonomy in one
+          move. They climb through stages, and each stage has different
+          technical requirements, approval posture, and organizational risks.
+          The useful question is not whether a team is "good at AI." The useful
+          question is whether the next level of autonomy is justified by the
+          controls and evidence they already have.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>The operational reality</h2>
+        <p>
+          We see the same pattern across teams. They start with interactive
+          prompting and a few strong engineers. Then they add repository
+          guidance, scripts, and some workflow structure. Eventually they want
+          orchestration, isolated workspaces, hidden evaluation, and proof-rich
+          shipping. The trap is trying to skip the middle. That usually produces
+          more autonomy than the team can actually govern.
+        </p>
+        <p>
+          A maturity model helps because it turns vague optimism into a concrete
+          adoption path. It gives AppSec a framework for approval. It gives
+          platform teams a roadmap for implementation. It gives engineering
+          leaders a way to invest in the next capability without pretending that
+          every repo needs the final state immediately.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>The anti-pattern</h2>
+        <p>
+          The anti-pattern is autonomy inflation: assuming that once an agent is
+          useful interactively, the organization is ready for background
+          execution at scale. That leap ignores everything in between: repo
+          contract quality, sandbox isolation, policy boundaries, hidden evals,
+          proof packets, and operational ownership.
+        </p>
+        <p>
+          It also creates bad conversations between security and engineering. One
+          side sees unacceptable risk. The other sees arbitrary friction. A
+          maturity model gives both sides a shared language for what must be true
+          before the next level is justified.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>The better system pattern</h2>
+        <p>
+          The better pattern is staged capability growth. We find it useful to
+          think in five levels.
+        </p>
+        <ul class="list-plain">
+          <li><strong>Level 1: Prompt-first.</strong> Useful for individual assistance, low repeatability, weak evidence, heavy human steering.</li>
+          <li><strong>Level 2: Repo-aware.</strong> The system has a usable repo contract, deterministic commands, and scoped documentation.</li>
+          <li><strong>Level 3: Blueprinted.</strong> Workflows split reasoning from deterministic mechanics, with structured handoffs and reusable validators.</li>
+          <li><strong>Level 4: Governed delivery.</strong> Orchestration, isolated workspaces, policy gates, and proof packets exist for autonomous work.</li>
+          <li><strong>Level 5: Dark-factory capable.</strong> Safe concurrency, hidden evals, durable evidence, and operational states allow managed background delivery.</li>
+        </ul>
+        <p>
+          None of those levels is moralized. They are implementation states. A
+          team can be effective at one level for a long time. Trouble starts
+          when the organization claims a higher level than its controls support.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>How to use the model without theater</h2>
+        <p>
+          A maturity model becomes theater when it turns into a labeling
+          exercise. The point is not to declare a level in a slide deck. The
+          point is to connect each level to technical prerequisites, evidence
+          requirements, and approval posture. If a team says it is running
+          governed delivery but cannot show isolated workspaces, deterministic
+          validation, and proof packets, the label is not meaningful.
+        </p>
+        <p>
+          Used properly, the model becomes a planning tool. It tells leaders
+          what to build next, what not to claim yet, and which classes of work
+          are safe to widen. That is much more useful than broad statements
+          about being "AI ready."
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>Why security cares</h2>
+        <p>
+          AppSec and security engineering need this model because approval
+          posture should change with maturity. Level 1 may allow interactive
+          assistance on low-risk work. Level 4 may justify background change
+          generation inside bounded repos. Level 5 may justify parallel
+          autonomous work only if the evidence, isolation, and policy layers are
+          already mature.
+        </p>
+        <p>
+          The value of the model is that it makes "no" more precise and "yes"
+          more defensible. A security team does not have to reject autonomy as a
+          whole. It can say, "You are ready for the next level once these
+          control conditions are met."
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>Why platform and engineering care</h2>
+        <p>
+          Platform and engineering teams need a roadmap that matches
+          implementation reality. The first investments should usually be repo
+          contract quality, deterministic commands, and isolated execution. Then
+          come blueprinting, orchestration, proof packets, and layered
+          evaluation. That order matters because later stages depend on the
+          earlier ones being stable.
+        </p>
+        <p>
+          This is also the right way to think about product fit. Wrkr-style
+          discovery and orchestration makes more sense once the repo is legible.
+          Gait-style policy control makes more sense once the workflow has a
+          real execution boundary to mediate. The products are not the maturity
+          model. They map onto it.
+        </p>
+      </section>
+
+      <section class="section">
+        <div class="artifact">
+          <h2>Concrete example: a realistic 90-day progression</h2>
+          <p class="body">
+            Most teams do not need to build a dark factory in one quarter. They
+            do need to move out of the prompt-first zone deliberately.
+          </p>
+          <div class="artifact-flow">
+            <article class="artifact-step">
+              <h3>Days 1-30</h3>
+              <p>
+                Clean up repo contracts, pin deterministic commands, and define
+                path boundaries for one or two high-value workflows.
+              </p>
+            </article>
+            <article class="artifact-step">
+              <h3>Days 31-60</h3>
+              <p>
+                Split workflows into blueprints, add isolated workspaces, and
+                define the minimum proof packet for autonomous changes.
+              </p>
+            </article>
+            <article class="artifact-step">
+              <h3>Days 61-90</h3>
+              <p>
+                Introduce orchestration states, holdout evaluation, and a narrow
+                approval posture for background runs in bounded repos.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section article-section">
+        <h2>Practical next step</h2>
+        <p>
+          Assess one team or one repo against the five levels and be strict
+          about what evidence counts.
+        </p>
+        <ul class="list-plain">
+          <li>If the workflow still depends on hidden human supervision, it is not beyond prompt-first.</li>
+          <li>If there is no clean repo contract, do not talk about scale yet.</li>
+          <li>If deterministic validators are missing, blueprinting is still incomplete.</li>
+          <li>If proof packets and hidden evals are missing, background autonomy should remain narrow.</li>
+        </ul>
+        <p>
+          The point of maturity is not prestige. The point is to let the
+          organization adopt more autonomy with less guesswork and fewer
+          political collisions.
+        </p>
+        <p>
+          That is the core belief behind this series. The goal is not fully
+          autonomous everything. The goal is governed, observable, high-leverage
+          autonomy that security can approve and engineering can actually use.
+        </p>
+      </section>
+
+      <footer class="section article-footer" aria-label="Post footer">
+        <div class="series-nav">
+          <a class="nav-link" href="/blog/proof-of-work-for-ai-generated-changes/">Previous post</a>
+          <a class="nav-link" href="/blog/">Back to blog</a>
+        </div>
+        <p class="footer-note">
+          Practical question: which maturity level can your team defend with
+          evidence today, not aspiration?
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>

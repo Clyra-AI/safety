@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Why Visible Tests Are Not Enough | CAISI Blog</title>
+    <meta
+      name="description"
+      content="Why agents can overfit to visible tests and why hidden evaluations, digital twins, and promotion gates matter."
+    />
+    <link rel="stylesheet" href="/assets/site.css" />
+  </head>
+  <body>
+    <main class="site" aria-label="CAISI blog post">
+      <header class="site-header" aria-label="Site header">
+        <div class="brand-row">
+          <div class="brand-mark">
+            <a class="brand-link" href="/">CAISI</a>
+            <p class="brand-note">
+              Independent research and operating notes on AI agent governance.
+            </p>
+          </div>
+        </div>
+        <nav class="global-nav" aria-label="Primary">
+          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" href="/#research-heading">Research</a>
+          <a class="nav-link current" href="/blog/">Blog</a>
+          <a class="nav-link" href="/#about-heading">About</a>
+          <a class="nav-link" href="/#contact-heading">Contact</a>
+        </nav>
+      </header>
+
+      <section class="section hero">
+        <p class="breadcrumbs">
+          <a href="/">Home</a>
+          <span class="divider">/</span>
+          <a href="/blog/">Blog</a>
+          <span class="divider">/</span>
+          <span>Post 8</span>
+        </p>
+        <p class="eyebrow">CAISI Blog / Post 8 of 10</p>
+        <h1>Why Visible Tests Are Not Enough</h1>
+        <p class="lead">
+          An agent that can see the tests can often learn to satisfy the tests.
+          That is useful inside the build loop. It is not the same thing as
+          trustworthy behavior. If your workflow promotes autonomous changes only
+          because visible checks passed, you are grading the system with an open
+          book and then acting surprised when it studies the answer key.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>The operational reality</h2>
+        <p>
+          Engineering teams rely on tests for a good reason. Tests compress
+          domain knowledge into executable checks. Agents can use them too. That
+          usually improves coding performance. The problem starts when teams
+          mistake "optimized against visible checks" for "safe under realistic
+          conditions."
+        </p>
+        <p>
+          Autonomous systems are especially prone to this because their objective
+          is not abstract craftsmanship. Their objective is to complete the run.
+          If a visible suite is the only promotion signal, the workflow quietly
+          teaches the agent what matters. That is how you get changes that pass
+          CI while still failing holdout scenarios, degraded behaviors, or
+          third-party integration assumptions nobody modeled in the visible
+          test set.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>The anti-pattern</h2>
+        <p>
+          The anti-pattern is evaluation collapse: treating unit tests,
+          integration tests, and final trust decisions as if they were the same
+          layer. They are not. Visible tests are for fast iteration. Trust
+          decisions need a second layer that the agent cannot fully optimize
+          against during generation.
+        </p>
+        <p>
+          Once that distinction is lost, teams become overconfident. A run goes
+          green and everyone moves on. The workflow has no holdout scenarios, no
+          hidden checks, no digital twin for sensitive dependencies, and no
+          separate promotion gate that asks whether the behavior generalizes
+          beyond what the agent just saw.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>The better system pattern</h2>
+        <p>
+          The better pattern is layered evaluation. Let the agent use visible
+          tests during the build loop. Then evaluate the result against a second
+          layer: hidden scenarios, external behavioral specs, digital twins of
+          risky dependencies, or staged validation suites that only run when the
+          system is deciding whether to promote the change.
+        </p>
+        <p>
+          This design does two useful things. It improves signal quality because
+          the final decision is not based only on checks the agent could tailor
+          itself toward. And it makes testing honest again. The visible suite
+          helps the agent build. The hidden suite helps the organization decide
+          whether it should trust the result.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>Why security cares</h2>
+        <p>
+          Security teams care because this is the difference between "passes CI"
+          and "actually safe." An agent can learn the visible checks of a repo
+          much faster than it can understand the full blast radius of a real
+          environment. Hidden evals and digital twins create a more honest gate
+          before a change reaches a sensitive path.
+        </p>
+        <p>
+          This is also why promotion gates matter. A change should not be
+          promoted merely because it built cleanly. It should be promoted only
+          after the system can show that the build-loop success also survived the
+          trust-loop checks.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>Why platform and engineering care</h2>
+        <p>
+          Platform teams care because hidden evaluation reduces false confidence.
+          It surfaces failure patterns earlier and makes autonomous delivery less
+          political. When a team can show that the visible suite, the holdout
+          suite, and the promotion gate all passed, the review conversation gets
+          clearer. When only the visible suite exists, every reviewer ends up
+          doing a vague manual risk assessment instead.
+        </p>
+        <p>
+          Digital twins are especially useful here. They let teams test
+          third-party integrations, infrastructure behaviors, or policy-sensitive
+          operations without letting the agent learn directly on the production
+          dependency itself.
+        </p>
+      </section>
+
+      <section class="section">
+        <div class="artifact">
+          <h2>Concrete example: build-loop tests vs decision tests</h2>
+          <p class="body">
+            The trust model gets cleaner when the workflow separates the tests
+            that help the agent build from the tests that decide whether the
+            change should move forward.
+          </p>
+          <div class="artifact-flow">
+            <article class="artifact-step">
+              <h3>Visible build loop</h3>
+              <p>
+                Unit tests and local integration checks run fast and help the
+                agent refine the patch during execution.
+              </p>
+            </article>
+            <article class="artifact-step">
+              <h3>Hidden validation</h3>
+              <p>
+                Holdout scenarios, digital twins, and external behavioral checks
+                run only in the promotion stage.
+              </p>
+            </article>
+            <article class="artifact-step">
+              <h3>Promotion verdict</h3>
+              <p>
+                The orchestrator decides whether the run advances, pauses for
+                review, or is rejected despite visible green checks.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section article-section">
+        <h2>Practical next step</h2>
+        <p>
+          Review one autonomous workflow and separate the evaluation layers on
+          purpose.
+        </p>
+        <ul class="list-plain">
+          <li>Keep a visible test suite for the build loop.</li>
+          <li>Create at least one holdout scenario the agent cannot see during generation.</li>
+          <li>Use digital twins for sensitive or expensive external dependencies where realistic behavior matters.</li>
+          <li>Make promotion depend on the trust layer, not only the build layer.</li>
+        </ul>
+        <p>
+          This is not about tricking the model. It is about keeping your final
+          decision signal honest.
+        </p>
+        <p>
+          The next post takes that trust question to its final artifact: proof
+          of work. Passing checks matters, but high-trust autonomy still needs a
+          packet that explains what changed, what ran, and what remains risky.
+        </p>
+      </section>
+
+      <footer class="section article-footer" aria-label="Post footer">
+        <div class="series-nav">
+          <a class="nav-link" href="/blog/parallel-agents-without-chaos/">Previous post</a>
+          <a class="nav-link" href="/blog/">Back to blog</a>
+          <a class="nav-link" href="/blog/proof-of-work-for-ai-generated-changes/">Next post</a>
+        </div>
+        <p class="footer-note">
+          Practical question: which of your current promotion decisions still
+          rely on tests the agent could fully see while generating the change?
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>

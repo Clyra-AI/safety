@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Why Isolated, Warm Sandboxes Are Non-Negotiable | CAISI Blog</title>
+    <meta
+      name="description"
+      content="Why autonomous agents should never share a checkout, branch, or mutable environment, and why warm sandboxes improve throughput."
+    />
+    <link rel="stylesheet" href="/assets/site.css" />
+  </head>
+  <body>
+    <main class="site" aria-label="CAISI blog post">
+      <header class="site-header" aria-label="Site header">
+        <div class="brand-row">
+          <div class="brand-mark">
+            <a class="brand-link" href="/">CAISI</a>
+            <p class="brand-note">
+              Independent research and operating notes on AI agent governance.
+            </p>
+          </div>
+        </div>
+        <nav class="global-nav" aria-label="Primary">
+          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" href="/#research-heading">Research</a>
+          <a class="nav-link current" href="/blog/">Blog</a>
+          <a class="nav-link" href="/#about-heading">About</a>
+          <a class="nav-link" href="/#contact-heading">Contact</a>
+        </nav>
+      </header>
+
+      <section class="section hero">
+        <p class="breadcrumbs">
+          <a href="/">Home</a>
+          <span class="divider">/</span>
+          <a href="/blog/">Blog</a>
+          <span class="divider">/</span>
+          <span>Post 6</span>
+        </p>
+        <p class="eyebrow">CAISI Blog / Post 6 of 10</p>
+        <h1>Why Isolated, Warm Sandboxes Are Non-Negotiable</h1>
+        <p class="lead">
+          Shared checkouts, shared branches, and long-lived mutable development
+          environments are tolerable when one human owns the flow. They are the
+          wrong substrate for autonomous work. Once agents can operate in
+          parallel or resume from queue state, isolation stops being an
+          infrastructure luxury and becomes a control requirement.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>The operational reality</h2>
+        <p>
+          Teams usually discover the sandbox problem through pain. One run
+          rebases over another. A cached dependency masks a broken install path.
+          A partially mutated workspace leaks state into the next task. Secrets
+          and generated files linger in places nobody meant to preserve. Humans
+          can often recover because they remember what they did. Autonomous
+          workflows cannot depend on that kind of forensic memory.
+        </p>
+        <p>
+          The more serious the workflow becomes, the worse shared environments
+          behave. If multiple work items can run at once, or if the orchestrator
+          needs to retry a failed task, the environment has to be treated as a
+          first-class part of the control surface. Otherwise the system is
+          always one leftover file away from a false pass or a broken patch.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>The anti-pattern</h2>
+        <p>
+          The anti-pattern is convenient reuse without boundaries. Teams try to
+          save time by letting agents share the same checkout, the same branch,
+          or the same mutable sandbox. That does reduce startup latency for a
+          while. It also destroys attribution, increases blast radius, and turns
+          every retry into a question mark.
+        </p>
+        <p>
+          A shared environment makes it impossible to answer basic questions
+          cleanly. Which task created this file? Which run installed this tool?
+          Which branch owns this patch? Which failure belongs to the code and
+          which failure belongs to the environment? If the environment is shared,
+          the answer is often "we are not sure."
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>The better system pattern</h2>
+        <p>
+          The better pattern is per-issue or per-run isolation with warm starts.
+          Each work item gets its own workspace, branch, and lifecycle hooks.
+          The environment can still be prepared from a reusable base image or a
+          cached dependency layer, but the mutable state belongs to one run at a
+          time. That gives you both speed and separation.
+        </p>
+        <p>
+          "Warm" matters because cold starts can make autonomous systems feel
+          wasteful. But warm should mean prebuilt dependencies, pre-provisioned
+          tools, or cached bootstrap steps. It should not mean shared mutable
+          state. The distinction is operationally important. One improves
+          throughput. The other quietly undermines control.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>Why security cares</h2>
+        <p>
+          Isolation reduces blast radius. It keeps secrets, temp files, and side
+          effects bounded to the run that produced them. It also improves
+          evidentiary clarity. If a workspace belongs to one manifest, then the
+          resulting patch, logs, and validation output belong to that run. That
+          makes both incident response and policy enforcement cleaner.
+        </p>
+        <p>
+          This is also a least-privilege issue. A sandbox should only have the
+          capabilities required for the work it is performing. Shared mutable
+          environments tend to accumulate more permissions and more history than
+          any single task actually needs.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>Why platform and engineering care</h2>
+        <p>
+          Platform teams care because warm isolation eliminates a large class of
+          non-deterministic failures. It reduces git conflicts, makes retries
+          cheaper, and gives the orchestrator a clean lifecycle to manage:
+          create, prepare, run, finalize, remove. It is also easier to reason
+          about cost when sandboxes have explicit lifecycle hooks and retention
+          policies.
+        </p>
+        <p>
+          This is where durable versus ephemeral environments becomes a useful
+          distinction. Durable base layers and tool caches are good. Durable
+          mutable workspaces are dangerous unless they are scoped to one issue
+          and one ownership boundary.
+        </p>
+      </section>
+
+      <section class="section">
+        <div class="artifact">
+          <h2>Concrete example: workspace lifecycle hooks</h2>
+          <p class="body">
+            A clean sandbox model declares exactly what happens before, during,
+            and after execution.
+          </p>
+          <div class="artifact-flow">
+            <article class="artifact-step">
+              <h3><code>after_create</code></h3>
+              <p>
+                Clone the repo, hydrate caches, install pinned tools, and apply
+                the minimum credentials or policies required for the run.
+              </p>
+            </article>
+            <article class="artifact-step">
+              <h3><code>before_run</code> + <code>after_run</code></h3>
+              <p>
+                Verify workspace health, execute the blueprint, capture outputs,
+                and package validation artifacts while the run context is still
+                intact.
+              </p>
+            </article>
+            <article class="artifact-step">
+              <h3><code>before_remove</code></h3>
+              <p>
+                Persist only the evidence and patch artifacts that should
+                survive. Then tear down mutable state cleanly.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section article-section">
+        <h2>Practical next step</h2>
+        <p>
+          Audit one existing agent workflow and answer four environment
+          questions.
+        </p>
+        <ul class="list-plain">
+          <li>What mutable state can leak from one run into another today?</li>
+          <li>What should be cached as a warm base layer instead?</li>
+          <li>Which lifecycle hooks should package artifacts before cleanup?</li>
+          <li>What retention rules should decide whether a failed workspace is preserved for debugging or removed immediately?</li>
+        </ul>
+        <p>
+          If those answers are vague, the workflow is not ready for high-volume
+          autonomous work yet.
+        </p>
+        <p>
+          The next post builds on this. Once work runs in isolated sandboxes,
+          safe parallelism becomes possible. Without path boundaries and
+          dependency claims, though, concurrency just gives you faster chaos.
+        </p>
+      </section>
+
+      <footer class="section article-footer" aria-label="Post footer">
+        <div class="series-nav">
+          <a class="nav-link" href="/blog/dark-factory/">Previous post</a>
+          <a class="nav-link" href="/blog/">Back to blog</a>
+          <a class="nav-link" href="/blog/parallel-agents-without-chaos/">Next post</a>
+        </div>
+        <p class="footer-note">
+          Practical question: which parts of your current autonomous workflow are
+          truly warm caches, and which parts are shared mutable state pretending
+          to be optimization?
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>

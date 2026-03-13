@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>From Skills to Blueprints: Where AI Should Stop and Code Should Take Over | CAISI Blog</title>
+    <meta
+      name="description"
+      content="Why the best agent workflows interleave AI reasoning with deterministic code execution and machine-readable handoffs."
+    />
+    <link rel="stylesheet" href="/assets/site.css" />
+  </head>
+  <body>
+    <main class="site" aria-label="CAISI blog post">
+      <header class="site-header" aria-label="Site header">
+        <div class="brand-row">
+          <div class="brand-mark">
+            <a class="brand-link" href="/">CAISI</a>
+            <p class="brand-note">
+              Independent research and operating notes on AI agent governance.
+            </p>
+          </div>
+        </div>
+        <nav class="global-nav" aria-label="Primary">
+          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" href="/#research-heading">Research</a>
+          <a class="nav-link current" href="/blog/">Blog</a>
+          <a class="nav-link" href="/#about-heading">About</a>
+          <a class="nav-link" href="/#contact-heading">Contact</a>
+        </nav>
+      </header>
+
+      <section class="section hero">
+        <p class="breadcrumbs">
+          <a href="/">Home</a>
+          <span class="divider">/</span>
+          <a href="/blog/">Blog</a>
+          <span class="divider">/</span>
+          <span>Post 4</span>
+        </p>
+        <p class="eyebrow">CAISI Blog / Post 4 of 10</p>
+        <h1>From Skills to Blueprints: Where AI Should Stop and Code Should Take Over</h1>
+        <p class="lead">
+          The strongest agent workflows are not fully model-driven. They split
+          the job across two different strengths. AI handles interpretation,
+          planning, ambiguity, and patch synthesis. Deterministic code handles
+          validation, shell choreography, merge mechanics, and anything that
+          must be repeatable regardless of model behavior.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>The operational reality</h2>
+        <p>
+          Many teams start with a "skill" or playbook that tries to describe
+          the whole workflow in one instruction package. It plans the change,
+          edits files, runs commands, checks output, decides whether tests are
+          sufficient, and sometimes even decides how to ship. That can work for
+          a careful human in the loop. It breaks down as soon as you want the
+          workflow to be portable, testable, and reliable across repositories.
+        </p>
+        <p>
+          The reason is simple. Not every step in the workflow is ambiguous.
+          Planning is ambiguous. Validation entrypoints should not be. Deciding
+          how to interpret a ticket is ambiguous. Running the canonical test
+          suite should not be. If you leave deterministic steps inside model
+          behavior, you create variability where the system should have behaved
+          like infrastructure.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>The anti-pattern</h2>
+        <p>
+          The anti-pattern is workflow overloading: letting the model own both
+          judgment and mechanics. That makes success look impressive in demos
+          because the system appears fluid. It also makes failure analysis
+          miserable because every stage depends on what the model happened to do
+          that run.
+        </p>
+        <p>
+          You see the cost when the same task takes a different validation path
+          on different days, or when the model decides to skip the script you
+          intended to be mandatory because it found a faster-looking path. If
+          the workflow cannot tell the difference between "agent discretion" and
+          "non-negotiable mechanics," it is not a mature workflow yet.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>The better system pattern</h2>
+        <p>
+          The better pattern is blueprinting. Use AI where judgment and
+          synthesis are useful. Then hand off to deterministic code for the
+          steps that should never depend on a model. A blueprint is not a long
+          prose recipe. It is a machine-readable sequence of stages with clear
+          inputs and outputs: plan, execute, validate, package, and ship.
+        </p>
+        <p>
+          That handoff matters because it gives each stage a contract. The
+          planner produces a task brief. The executor produces a patch. The
+          validator runs the required scripts. The ship stage decides whether a
+          PR can open, whether a reviewer is required, and what evidence has to
+          be attached. Once these boundaries are explicit, the workflow becomes
+          reusable across teams.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>Why security cares</h2>
+        <p>
+          Security cares because shell choreography and merge mechanics are
+          terrible places to rely on model improvisation. Those stages should be
+          bounded, inspectable, and consistent. The more mechanical the action,
+          the stronger the case for moving it into scripts or policy.
+        </p>
+        <p>
+          This is also where Gait can make sense as implementation context. The
+          value is not that a model "knows" a control. The value is that a
+          deterministic boundary can evaluate an action before it executes and
+          return a policy verdict the workflow must honor.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>Why platform and engineering care</h2>
+        <p>
+          Platform teams care because blueprinting is how workflows scale. Once
+          a large implementation skill is split into planning, execution,
+          validation, and shipping stages, teams can improve one stage without
+          destabilizing the whole system. They can swap validators, add proof
+          steps, or tighten merge rules without rewriting the planner.
+        </p>
+        <p>
+          That modularity also makes failure recovery cleaner. If validation
+          fails, you do not need to rerun the whole task from scratch. You can
+          inspect the handoff artifact, retry the validator, or route the run to
+          a reviewer. That is a better operating model than hoping a single long
+          prompt will do the same thing twice.
+        </p>
+      </section>
+
+      <section class="section">
+        <div class="artifact">
+          <h2>Concrete example: turning a large skill into a blueprint</h2>
+          <p class="body">
+            The shift below is what makes a one-off expert workflow portable.
+          </p>
+          <div class="artifact-flow">
+            <article class="artifact-step">
+              <h3>Plan</h3>
+              <p>
+                The agent interprets the task, identifies affected paths, and
+                writes a machine-readable change brief with constraints.
+              </p>
+            </article>
+            <article class="artifact-step">
+              <h3>Build + validate</h3>
+              <p>
+                The executor edits code, while deterministic scripts run the
+                required checks, scenario tests, and policy gates.
+              </p>
+            </article>
+            <article class="artifact-step">
+              <h3>Ship</h3>
+              <p>
+                The workflow packages proof, residual risk, and reviewer notes
+                into a PR or routes the work for approval instead of guessing.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section article-section">
+        <h2>Practical next step</h2>
+        <p>
+          Take one agent workflow that currently lives in prose and split it
+          into stages.
+        </p>
+        <ul class="list-plain">
+          <li>Identify which decisions genuinely require model judgment.</li>
+          <li>Move every repeatable command, validation path, and merge mechanic into code.</li>
+          <li>Define the artifact each stage hands to the next stage.</li>
+          <li>Decide where policy verdicts and human approvals can interrupt promotion.</li>
+        </ul>
+        <p>
+          Once you do that, the workflow becomes teachable. It also becomes
+          governable, because you can finally tell which stage failed and why.
+        </p>
+        <p>
+          The next post takes that idea out to its natural operating shape: the
+          dark factory. Instead of supervising individual agents, you manage the
+          system that turns work items into bounded, reviewable changes.
+        </p>
+      </section>
+
+      <footer class="section article-footer" aria-label="Post footer">
+        <div class="series-nav">
+          <a class="nav-link" href="/blog/why-giant-instruction-files-fail/">Previous post</a>
+          <a class="nav-link" href="/blog/">Back to blog</a>
+          <a class="nav-link" href="/blog/dark-factory/">Next post</a>
+        </div>
+        <p class="footer-note">
+          Practical question: which step in your current agent workflow should be
+          deterministic code today but is still being delegated to model
+          behavior?
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>
