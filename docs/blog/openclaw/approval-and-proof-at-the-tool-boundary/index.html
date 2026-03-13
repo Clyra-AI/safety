@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Approval and Proof Have to Exist at the Tool Boundary | CAISI Blog</title>
+    <meta
+      name="description"
+      content="Why the OpenClaw governed lane matters: approval must be enforceable and proof must explain what actually happened."
+    />
+    <link rel="stylesheet" href="/assets/site.css" />
+  </head>
+  <body>
+    <main class="site" aria-label="CAISI blog post">
+      <header class="site-header" aria-label="Site header">
+        <div class="brand-row">
+          <div class="brand-mark">
+            <a class="brand-link" href="/">CAISI</a>
+            <p class="brand-note">
+              Independent research and operating notes on AI agent governance.
+            </p>
+          </div>
+        </div>
+        <nav class="global-nav" aria-label="Primary">
+          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" href="/#research-heading">Research</a>
+          <a class="nav-link current" href="/blog/">Blog</a>
+          <a class="nav-link" href="/#about-heading">About</a>
+          <a class="nav-link" href="/#contact-heading">Contact</a>
+        </nav>
+      </header>
+
+      <section class="section hero">
+        <p class="breadcrumbs">
+          <a href="/">Home</a>
+          <span class="divider">/</span>
+          <a href="/blog/">Blog</a>
+          <span class="divider">/</span>
+          <a href="/blog/openclaw/">OpenClaw Series</a>
+          <span class="divider">/</span>
+          <span>Post 3</span>
+        </p>
+        <p class="eyebrow">OpenClaw Series / Post 3 of 4</p>
+        <h1>Approval and Proof Have to Exist at the Tool Boundary</h1>
+        <p class="lead">
+          The OpenClaw baseline gets attention because it is vivid. The governed
+          lane is the more useful engineering lesson. It processed
+          <strong>2,585</strong> lane-specific tool-call decisions and rendered
+          <strong>1,615</strong> of them non-executable. It also reached
+          <strong>99.96%</strong> evidence verification coverage. Those two
+          numbers describe the control model together.
+        </p>
+      </section>
+
+      <section class="section">
+        <div class="quote-card">
+          <h2>Grounding</h2>
+          <p>
+            Run ID: <code>openclaw-live-24h-20260228T143341Z</code><br />
+            Headline numbers: <code>1,615</code> non-executable governed
+            outcomes and <code>99.96%</code> governed evidence verification
+            coverage<br />
+            Artifact paths:
+            <code>reports/openclaw-2026/data/runs/openclaw-live-24h-20260228T143341Z/scenario-summary.json</code>
+            and
+            <code>reports/openclaw-2026/data/runs/openclaw-live-24h-20260228T143341Z/evidence-verification.json</code><br />
+            Scope: one governed lane under a fixed policy set and workload
+          </p>
+        </div>
+      </section>
+
+      <section class="section article-section">
+        <h2>The operational reality</h2>
+        <p>
+          Most teams talk about approval and evidence as if they were adjacent
+          concerns. In practice they break down at the same place: the execution
+          boundary. Approval matters only if the runtime can refuse to execute
+          until the condition is satisfied. Evidence matters only if the system
+          records what it actually did at that same boundary in a way reviewers
+          can inspect later.
+        </p>
+        <p>
+          OpenClaw is useful because the governed lane makes that distinction
+          concrete. Non-allow outcomes were non-executable. Evidence artifacts
+          were written for governed decisions. That turns approval and proof from
+          abstract good intentions into runtime properties.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>What the report actually shows</h2>
+        <p>
+          The governed lane used an external tool-boundary enforcement layer. It
+          intercepted tool-call intent before execution and returned
+          <code>allow</code>, <code>block</code>, or
+          <code>require_approval</code>. In governed evaluation, non-allow
+          outcomes were non-executable. That is the key architecture detail.
+        </p>
+        <p>
+          The report also publishes reason-code distributions and evidence
+          verification artifacts. That matters because "blocked" is not enough
+          by itself. A team still needs to know why the action was blocked, what
+          policy reference applied, and whether the corresponding evidence chain
+          is intact. This is where Gait makes sense as implementation context:
+          policy-as-code and pre-execution decisioning, not just nicer prompt
+          text.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>Why security and platform teams should care</h2>
+        <p>
+          Security buyers should care because this is the difference between an
+          approval process and an approval boundary. If the system cannot hold a
+          write-class action non-executable until approval exists, the workflow
+          still relies on trust and timing rather than enforcement.
+        </p>
+        <p>
+          Platform and engineering leaders should care because proof makes the
+          workflow reviewable. Once the change packet can show the policy verdict
+          and the evidence record together, reviewers spend less time guessing
+          how the run behaved and more time making actual engineering judgments.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>The practical lesson</h2>
+        <p>
+          Approval and proof should be designed as one boundary system. The
+          runtime needs to know whether the action is executable, and the
+          organization needs a durable artifact that explains the result later.
+          If one of those layers is missing, the control story is incomplete.
+        </p>
+        <p>
+          This is why the governed lane is more than a safer baseline. It is a
+          model of what teams should actually try to build: pre-execution
+          mediation plus evidence that survives the run.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>Practical next step</h2>
+        <ul class="list-plain">
+          <li>Identify one write-capable action in your environment that should require approval before execution.</li>
+          <li>Check whether the runtime can truly hold it non-executable, not just log that approval is preferred.</li>
+          <li>Package the policy verdict, reason code, and execution evidence into the same review surface.</li>
+          <li>Test whether a reviewer can explain the run without digging through raw logs.</li>
+        </ul>
+        <p>
+          The final OpenClaw post pulls the lens back. The report is strong
+          because it is precise. It proves some things clearly, and it does not
+          claim to prove everything. That boundary is worth stating openly.
+        </p>
+      </section>
+
+      <footer class="section article-footer" aria-label="Post footer">
+        <div class="series-nav">
+          <a class="nav-link" href="/blog/openclaw/discovery-is-necessary-not-sufficient/">Previous post</a>
+          <a class="nav-link" href="/blog/openclaw/">Back to series</a>
+          <a class="nav-link" href="/blog/openclaw/what-openclaw-proves-and-what-it-doesnt/">Next post</a>
+        </div>
+        <p class="footer-note">
+          Practical question: which approval in your current workflow is still
+          advisory because the runtime cannot actually stop the action at the
+          boundary?
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>

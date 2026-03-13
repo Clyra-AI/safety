@@ -56,12 +56,15 @@
             <p class="eyebrow">Series Promise</p>
             <h2 style="margin-bottom: 0">AI engineering is a systems discipline.</h2>
             <p>
-              The new blog series is written for AppSec, security engineering,
-              and platform leaders who need a practical model for governed
-              autonomy across repositories, workflows, and engineering teams.
+              The blog now has two collections: the 10-part operating-model
+              series for governed autonomy across repos and teams, and a
+              separate OpenClaw case-study series grounded in the report
+              artifacts.
             </p>
             <div class="link-row">
-              <a href="/blog/">See all 10 posts</a>
+              <a href="/blog/">Open the blog hub</a>
+              <span class="divider">|</span>
+              <a href="/blog/openclaw/">OpenClaw series</a>
               <span class="divider">|</span>
               <a href="https://github.com/Clyra-AI/safety">Repository</a>
             </div>
@@ -140,45 +143,40 @@
       <section class="section" aria-labelledby="blog-heading">
         <div class="section-intro">
           <p class="eyebrow">Blog</p>
-          <h2 id="blog-heading">AI engineering operating notes</h2>
+          <h2 id="blog-heading">Blog collections</h2>
           <p class="body">
-            This series is written for teams that have moved past the novelty
-            phase. Each post starts from an operational pain point, names the
-            anti-pattern, and shows the system pattern that security and
-            platform teams can actually implement.
+            The CAISI blog is organized as a unified system with separate
+            collections. The operating-model series explains the general
+            framework. The OpenClaw series extracts lessons directly from one
+            measured report.
           </p>
         </div>
         <div class="blog-grid">
           <article class="post-card">
-            <p class="post-number">Post 1</p>
+            <p class="post-number">Series one</p>
             <h3>
-              <a href="/blog/ai-engineering-control-problem/"
-                >AI Engineering Is a Control Problem, Not a Prompt Problem</a
-              >
+              <a href="/blog/">AI Engineering Operating Notes</a>
             </h3>
             <p>
-              Why the real shift is from "developers chatting with AI" to
-              organizations governing autonomous software work.
+              A 10-part framework on repo contracts, orchestration, isolation,
+              evaluation, proof, and maturity.
             </p>
           </article>
           <article class="post-card">
-            <p class="post-number">Post 2</p>
+            <p class="post-number">Series two</p>
             <h3>
-              <a href="/blog/repository-runtime-contract/"
-                >Your Repository Is the Runtime Contract for Agents</a
-              >
+              <a href="/blog/openclaw/">What OpenClaw Taught Us About Agent Control</a>
             </h3>
             <p>
-              What makes a repo agent-legible, and why repo structure is part
-              of the control surface.
+              A 4-part case-study collection on stop behavior, discovery
+              limits, boundary enforcement, and scope discipline.
             </p>
           </article>
           <article class="post-card">
-            <p class="post-number">Post 5</p>
+            <p class="post-number">Featured post</p>
             <h3>
               <a href="/blog/dark-factory/"
-                >The Dark Factory: Managing Work Instead of Supervising
-                Agents</a
+                >The Dark Factory: Managing Work Instead of Supervising Agents</a
               >
             </h3>
             <p>
@@ -187,20 +185,23 @@
             </p>
           </article>
           <article class="post-card">
-            <p class="post-number">Post 9</p>
+            <p class="post-number">Featured case-study post</p>
             <h3>
-              <a href="/blog/proof-of-work-for-ai-generated-changes/"
-                >Proof of Work for AI-Generated Changes</a
+              <a href="/blog/openclaw/stop-is-not-a-safety-control/"
+                >Stop Is Not a Safety Control If the Runtime Can Ignore It</a
               >
             </h3>
             <p>
-              Why passing CI is not enough, and what evidence a high-trust
-              change packet has to contain.
+              The clearest lesson from the OpenClaw run: stop has to be a
+              runtime state, not a polite request.
             </p>
           </article>
         </div>
         <div class="button-row" style="margin-top: 20px">
-          <a class="button-link secondary" href="/blog/">Browse all 10 posts</a>
+          <a class="button-link secondary" href="/blog/">Open blog hub</a>
+          <a class="button-link secondary" href="/blog/openclaw/"
+            >OpenClaw collection</a
+          >
         </div>
       </section>
 

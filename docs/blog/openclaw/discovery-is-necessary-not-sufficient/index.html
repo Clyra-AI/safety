@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Discovery Is Necessary, Not Sufficient | CAISI Blog</title>
+    <meta
+      name="description"
+      content="Why the OpenClaw pre-test scan mattered, but could not predict the runtime behavior that the governed evaluation surfaced."
+    />
+    <link rel="stylesheet" href="/assets/site.css" />
+  </head>
+  <body>
+    <main class="site" aria-label="CAISI blog post">
+      <header class="site-header" aria-label="Site header">
+        <div class="brand-row">
+          <div class="brand-mark">
+            <a class="brand-link" href="/">CAISI</a>
+            <p class="brand-note">
+              Independent research and operating notes on AI agent governance.
+            </p>
+          </div>
+        </div>
+        <nav class="global-nav" aria-label="Primary">
+          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" href="/#research-heading">Research</a>
+          <a class="nav-link current" href="/blog/">Blog</a>
+          <a class="nav-link" href="/#about-heading">About</a>
+          <a class="nav-link" href="/#contact-heading">Contact</a>
+        </nav>
+      </header>
+
+      <section class="section hero">
+        <p class="breadcrumbs">
+          <a href="/">Home</a>
+          <span class="divider">/</span>
+          <a href="/blog/">Blog</a>
+          <span class="divider">/</span>
+          <a href="/blog/openclaw/">OpenClaw Series</a>
+          <span class="divider">/</span>
+          <span>Post 2</span>
+        </p>
+        <p class="eyebrow">OpenClaw Series / Post 2 of 4</p>
+        <h1>Discovery Is Necessary, Not Sufficient</h1>
+        <p class="lead">
+          The OpenClaw report includes a pre-test discovery scan. That is not a
+          side detail. It is part of the lesson. The scan found
+          <strong>17 tools</strong> and <strong>0 high-risk inventory hits</strong>.
+          Then the runtime still produced destructive and sensitive behaviors
+          during the controlled run. Those two facts belong together.
+        </p>
+      </section>
+
+      <section class="section">
+        <div class="quote-card">
+          <h2>Grounding</h2>
+          <p>
+            Run ID: <code>openclaw-live-24h-20260228T143341Z</code><br />
+            Headline grounding: <code>17</code> tools discovered, <code>0</code>
+            high-risk inventory hits in the pre-test scan<br />
+            Artifact path:
+            <code>reports/openclaw-2026/data/wrkr-scan-output.json</code><br />
+            Scope: static discovery over the local workspace target, not runtime
+            behavioral proof
+          </p>
+        </div>
+      </section>
+
+      <section class="section article-section">
+        <h2>The operational reality</h2>
+        <p>
+          Discovery is the first responsible question most teams ask: what AI
+          tools, connections, or capabilities exist here? That question matters
+          because you cannot govern what you do not know exists. But discovery
+          answers only one layer of the problem. It tells you what is present in
+          the environment, not what an agent will actually do once runtime,
+          workload, and tool-call decisions begin interacting.
+        </p>
+        <p>
+          OpenClaw is a good example of that boundary. The pre-test scan did not
+          "miss" the problem. It did the job it was designed to do. The deeper
+          lesson is that inventory and posture are not the same thing as runtime
+          execution behavior.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>What the report actually shows</h2>
+        <p>
+          The report is careful on this point. Wrkr in the study is used for
+          pre-test discovery and posture scanning over the local OpenClaw
+          workspace target. The high-impact behaviors measured elsewhere in the
+          report, such as delete-email, share-doc-public, approve-payment, and
+          restart-service, come from runtime traces under workload rather than
+          from static repo metadata alone.
+        </p>
+        <p>
+          That distinction is important because it explains why mature AI
+          engineering programs need both layers. Discovery tells you what is
+          there. Runtime control and runtime evidence tell you what actually
+          happened.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>Why security and platform teams should care</h2>
+        <p>
+          Security teams need discovery because unknown tools and undeclared
+          connections are already a governance problem. But the OpenClaw study
+          shows why stopping at inventory creates false comfort. A clean-looking
+          scan is not a runtime guarantee.
+        </p>
+        <p>
+          Platform teams should read the same result as a systems lesson.
+          Inventory, policy scanning, runtime enforcement, and evidence capture
+          are complementary layers. If one of them is missing, the operating
+          model becomes incomplete. Discovery without runtime control tells you
+          what the system could touch, not what it actually did under pressure.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>The practical lesson</h2>
+        <p>
+          Treat discovery as step zero, not the finish line. It is necessary
+          because it reduces ambiguity and surfaces blind spots. It is
+          insufficient because runtime behavior is where the real execution
+          boundary appears.
+        </p>
+        <p>
+          This is also a good example of how Wrkr should be framed in public.
+          It is useful where discovery, orchestration, and workspace visibility
+          matter. It should not be pitched as if inventory alone closes the
+          control problem. The report itself gives a more honest story than
+          that.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>Practical next step</h2>
+        <ul class="list-plain">
+          <li>Run discovery against one real target repo or workspace and record what the scan can say with confidence.</li>
+          <li>List the questions the scan cannot answer because they depend on runtime behavior.</li>
+          <li>Connect that inventory layer to runtime policy and evidence collection instead of treating it as a standalone control.</li>
+          <li>Keep the distinction visible in your internal language: discovery, posture, runtime control, and proof are different layers.</li>
+        </ul>
+        <p>
+          The next post moves to the heart of the governed lane: approval and
+          proof at the tool boundary. That is where the report becomes more than
+          a scary baseline story.
+        </p>
+      </section>
+
+      <footer class="section article-footer" aria-label="Post footer">
+        <div class="series-nav">
+          <a class="nav-link" href="/blog/openclaw/stop-is-not-a-safety-control/">Previous post</a>
+          <a class="nav-link" href="/blog/openclaw/">Back to series</a>
+          <a class="nav-link" href="/blog/openclaw/approval-and-proof-at-the-tool-boundary/">Next post</a>
+        </div>
+        <p class="footer-note">
+          Practical question: where in your current AI stack are you treating
+          inventory as if it were the same thing as runtime governance?
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>

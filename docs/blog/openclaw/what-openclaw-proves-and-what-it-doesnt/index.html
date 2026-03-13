@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>What the OpenClaw Report Proves, What It Doesn't, and What Teams Should Do Next | CAISI Blog</title>
+    <meta
+      name="description"
+      content="A precise reading of the OpenClaw case study: what the report proves, what remains case-study-specific, and how teams should respond."
+    />
+    <link rel="stylesheet" href="/assets/site.css" />
+  </head>
+  <body>
+    <main class="site" aria-label="CAISI blog post">
+      <header class="site-header" aria-label="Site header">
+        <div class="brand-row">
+          <div class="brand-mark">
+            <a class="brand-link" href="/">CAISI</a>
+            <p class="brand-note">
+              Independent research and operating notes on AI agent governance.
+            </p>
+          </div>
+        </div>
+        <nav class="global-nav" aria-label="Primary">
+          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" href="/#research-heading">Research</a>
+          <a class="nav-link current" href="/blog/">Blog</a>
+          <a class="nav-link" href="/#about-heading">About</a>
+          <a class="nav-link" href="/#contact-heading">Contact</a>
+        </nav>
+      </header>
+
+      <section class="section hero">
+        <p class="breadcrumbs">
+          <a href="/">Home</a>
+          <span class="divider">/</span>
+          <a href="/blog/">Blog</a>
+          <span class="divider">/</span>
+          <a href="/blog/openclaw/">OpenClaw Series</a>
+          <span class="divider">/</span>
+          <span>Post 4</span>
+        </p>
+        <p class="eyebrow">OpenClaw Series / Post 4 of 4</p>
+        <h1>What the OpenClaw Report Proves, What It Doesn't, and What Teams Should Do Next</h1>
+        <p class="lead">
+          The OpenClaw report is strongest where it is most disciplined. It
+          makes artifact-backed claims about one pinned source snapshot, one
+          controlled workload profile, one policy set, and one 24-hour run. That
+          is not a weakness. It is exactly why the results are useful.
+        </p>
+      </section>
+
+      <section class="section">
+        <div class="quote-card">
+          <h2>Grounding</h2>
+          <p>
+            Run ID: <code>openclaw-live-24h-20260228T143341Z</code><br />
+            Source pin:
+            <code>452a8c9db9f92de44b31bc47d06641e604519a54</code><br />
+            Core artifact path:
+            <code>reports/openclaw-2026/data/runs/openclaw-live-24h-20260228T143341Z/</code><br />
+            Scope: controlled case study, not ecosystem census
+          </p>
+        </div>
+      </section>
+
+      <section class="section article-section">
+        <h2>What the report proves</h2>
+        <p>
+          The report proves that, in this pinned OpenClaw setup and workload, a
+          permissive baseline lane continued to execute post-stop tool calls and
+          allowed destructive and sensitive actions without an enforceable
+          approval boundary. It also proves that, under the same scheduled
+          scenario profile, a governed lane with pre-execution decisioning held
+          destructive actions non-executable and produced a high-coverage
+          evidence trail.
+        </p>
+        <p>
+          Those are not vibes. They are measured outcomes tied to a specific run
+          ID, deterministic claims, and published artifacts. That is the right
+          level of confidence.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>What the report does not prove</h2>
+        <p>
+          It does not prove that every OpenClaw deployment will produce the same
+          rates. It does not prove that every agent stack will show the same
+          failure pattern. It does not claim that one enforcement policy set is
+          permanently correct for every workload. It is not an ecosystem survey,
+          and it is not a production incident write-up.
+        </p>
+        <p>
+          The report says that openly, and that is part of its credibility. The
+          portable part is the enforcement pattern: pre-execution interception,
+          deterministic policy decisioning, and evidence logging. The numeric
+          results remain tied to this case-study setup unless revalidated on a
+          different stack or workload.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>Why precision matters</h2>
+        <p>
+          In this market, teams are pushed toward overclaiming in two directions
+          at once. Some people want every vivid case study to become a universal
+          statement. Others dismiss any scoped experiment because it is not a
+          universal statement. Both reactions are weak. The disciplined path is
+          to say exactly what the artifacts support and build outward from there.
+        </p>
+        <p>
+          That is what CAISI should keep doing. Independent research tone is not
+          only about sounding sober. It is about refusing to make claims the run
+          did not measure.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>What teams should do next</h2>
+        <p>
+          The right response to OpenClaw is not panic and not dismissal. It is a
+          practical audit of your own stack.
+        </p>
+        <ul class="list-plain">
+          <li>Check whether stop behavior is advisory or truly enforced in the runtime.</li>
+          <li>Separate inventory and posture scanning from runtime control and runtime evidence.</li>
+          <li>Put approval and proof at the tool boundary, not only in prompts or process docs.</li>
+          <li>Run your own controlled evaluation with a pinned build, explicit workload, and published artifacts.</li>
+        </ul>
+        <p>
+          That last step is the most important. A good case study should raise
+          the bar for what you measure in your own environment, not just become a
+          talking point.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>The practical lesson</h2>
+        <p>
+          OpenClaw gives us a clean example of the deeper CAISI thesis: AI
+          engineering is a systems problem. But the report earns that lesson by
+          being precise. That is why the best follow-on work is more disciplined
+          measurement, not louder narrative.
+        </p>
+        <p>
+          If teams learn one thing from this series, it should be this: a
+          carefully scoped artifact-backed case study is far more useful than a
+          broad claim nobody can reproduce.
+        </p>
+      </section>
+
+      <footer class="section article-footer" aria-label="Post footer">
+        <div class="series-nav">
+          <a class="nav-link" href="/blog/openclaw/approval-and-proof-at-the-tool-boundary/">Previous post</a>
+          <a class="nav-link" href="/blog/openclaw/">Back to series</a>
+          <a class="nav-link" href="/openclaw-2026/">OpenClaw report</a>
+        </div>
+        <p class="footer-note">
+          Practical question: which parts of your current agent story are proven
+          by artifacts, and which parts are still just inferred?
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>

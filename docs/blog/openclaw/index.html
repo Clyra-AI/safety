@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>What OpenClaw Taught Us About Agent Control | CAISI Blog</title>
+    <meta
+      name="description"
+      content="A four-part CAISI case-study series extracting the main lessons from the OpenClaw governed evaluation."
+    />
+    <link rel="stylesheet" href="/assets/site.css" />
+  </head>
+  <body>
+    <main class="site" aria-label="OpenClaw blog series">
+      <header class="site-header" aria-label="Site header">
+        <div class="brand-row">
+          <div class="brand-mark">
+            <a class="brand-link" href="/">CAISI</a>
+            <p class="brand-note">
+              Independent research and operating notes on AI agent governance.
+            </p>
+          </div>
+        </div>
+        <nav class="global-nav" aria-label="Primary">
+          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" href="/#research-heading">Research</a>
+          <a class="nav-link current" href="/blog/">Blog</a>
+          <a class="nav-link" href="/#about-heading">About</a>
+          <a class="nav-link" href="/#contact-heading">Contact</a>
+        </nav>
+      </header>
+
+      <section class="section hero">
+        <p class="breadcrumbs">
+          <a href="/">Home</a>
+          <span class="divider">/</span>
+          <a href="/blog/">Blog</a>
+          <span class="divider">/</span>
+          <span>OpenClaw Series</span>
+        </p>
+        <div class="hero-grid">
+          <div class="hero-panel">
+            <p class="eyebrow">CAISI Blog / OpenClaw Case Study Series</p>
+            <h1>What OpenClaw Taught Us About Agent Control</h1>
+            <p class="lead">
+              This four-part series stays tightly anchored to the OpenClaw
+              governed evaluation in this repo. The goal is not to retell the
+              report four times. The goal is to extract the strongest lessons
+              from one artifact-backed run: what stop means, where discovery
+              ends, why approval has to exist at the boundary, and how to speak
+              precisely about scope and generalization.
+            </p>
+            <div class="pill-row">
+              <span class="pill">One pinned 24-hour run</span>
+              <span class="pill">Artifact-backed lessons</span>
+              <span class="pill">Case-study scope, not hype</span>
+            </div>
+            <div class="button-row" style="margin-top: 22px">
+              <a class="button-link" href="/openclaw-2026/">Read the report</a>
+              <a class="button-link secondary" href="/assets/reports/openclaw-2026/report.pdf"
+                >Open PDF</a
+              >
+            </div>
+          </div>
+          <aside class="series-card">
+            <p class="eyebrow">Series design</p>
+            <p>
+              Each post uses the same grounded pattern: one lesson, one
+              headline number, one artifact path, and one practical next step.
+              The point is to help readers move from a memorable headline to a
+              more disciplined operating model.
+            </p>
+            <div class="link-row">
+              <a href="https://github.com/Clyra-AI/safety/tree/main/reports/openclaw-2026"
+                >Report package</a
+              >
+              <span class="divider">|</span>
+              <a href="/blog/">All blog series</a>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="series-why">
+        <h2 id="series-why">Why a separate OpenClaw series</h2>
+        <p class="body">
+          The broader CAISI operating-model series explains how governed AI
+          engineering should work in general. This collection does something
+          narrower. It shows what one controlled case study actually demonstrated
+          and what teams should learn from it without overstating the claim.
+        </p>
+        <p class="body">
+          That distinction matters. OpenClaw gives us a vivid measured example,
+          not a universal census of all agent systems. We keep the lessons sharp
+          by staying close to the run ID, the pinned source snapshot, and the
+          published artifacts.
+        </p>
+      </section>
+
+      <section class="section" aria-labelledby="openclaw-posts">
+        <h2 id="openclaw-posts">The 4 posts</h2>
+        <div class="blog-grid">
+          <article class="post-card">
+            <p class="post-number">OpenClaw Post 1</p>
+            <p class="post-stage">Runtime control</p>
+            <h3>
+              <a href="/blog/openclaw/stop-is-not-a-safety-control/"
+                >Stop Is Not a Safety Control If the Runtime Can Ignore It</a
+              >
+            </h3>
+            <p>
+              The sharpest lesson from the report: a stop signal that the agent
+              can keep working through is not a real control.
+            </p>
+          </article>
+          <article class="post-card">
+            <p class="post-number">OpenClaw Post 2</p>
+            <p class="post-stage">Discovery limits</p>
+            <h3>
+              <a href="/blog/openclaw/discovery-is-necessary-not-sufficient/"
+                >Discovery Is Necessary, Not Sufficient</a
+              >
+            </h3>
+            <p>
+              Why pre-test inventory matters, but cannot tell you by itself what
+              an agent will do at runtime.
+            </p>
+          </article>
+          <article class="post-card">
+            <p class="post-number">OpenClaw Post 3</p>
+            <p class="post-stage">Boundary enforcement</p>
+            <h3>
+              <a href="/blog/openclaw/approval-and-proof-at-the-tool-boundary/"
+                >Approval and Proof Have to Exist at the Tool Boundary</a
+              >
+            </h3>
+            <p>
+              Why the governed lane matters: non-executable outcomes and evidence
+              coverage are both part of the trust story.
+            </p>
+          </article>
+          <article class="post-card">
+            <p class="post-number">OpenClaw Post 4</p>
+            <p class="post-stage">Scope and transfer</p>
+            <h3>
+              <a href="/blog/openclaw/what-openclaw-proves-and-what-it-doesnt/"
+                >What the OpenClaw Report Proves, What It Doesn't, and What Teams
+                Should Do Next</a
+              >
+            </h3>
+            <p>
+              A precise closing post on case-study boundaries, portability, and
+              the practical adoption path for teams that want to learn from the
+              report without overclaiming.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <footer class="section article-footer" aria-label="Page footer">
+        <div class="footer-links">
+          <a href="/">Home</a>
+          <span class="divider">|</span>
+          <a href="/blog/">Blog</a>
+          <span class="divider">|</span>
+          <a href="/openclaw-2026/">OpenClaw report</a>
+          <span class="divider">|</span>
+          <a href="https://github.com/Clyra-AI/safety">Repository</a>
+        </div>
+        <p class="footer-note">
+          This collection is designed as a second series inside the same blog
+          system: one landing page, consistent breadcrumbs, and the same
+          navigation model as the rest of the CAISI site.
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>

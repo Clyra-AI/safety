@@ -13,6 +13,9 @@
     <loc>https://caisi.dev/blog/</loc>
   </url>
   <url>
+    <loc>https://caisi.dev/blog/openclaw/</loc>
+  </url>
+  <url>
     <loc>https://caisi.dev/blog/ai-engineering-control-problem/</loc>
   </url>
   <url>
@@ -41,5 +44,17 @@
   </url>
   <url>
     <loc>https://caisi.dev/blog/ai-engineering-maturity-model/</loc>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/openclaw/stop-is-not-a-safety-control/</loc>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/openclaw/discovery-is-necessary-not-sufficient/</loc>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/openclaw/approval-and-proof-at-the-tool-boundary/</loc>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/openclaw/what-openclaw-proves-and-what-it-doesnt/</loc>
   </url>
 </urlset>

@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>CAISI Blog | AI Engineering Operating Notes</title>
+    <title>CAISI Blog | Research Notes and Series</title>
     <meta
       name="description"
-      content="A 10-part CAISI series on AI engineering as a systems discipline: repo contracts, orchestration, isolation, evidence, and maturity."
+      content="CAISI blog collections on AI engineering operating models and OpenClaw case-study lessons."
     />
     <link rel="stylesheet" href="/assets/site.css" />
   </head>
@@ -39,29 +39,27 @@
         <div class="hero-grid">
           <div class="hero-panel">
             <p class="eyebrow">CAISI Blog / Series</p>
-            <h1>AI Engineering Operating Notes</h1>
+            <h1>Research Notes and Series</h1>
             <p class="lead">
-              This 10-part CAISI series is written for heads of AppSec,
-              security engineering leaders, VP Engineering, and platform teams
-              that need a practical model for governed autonomy. The throughline
-              is simple: AI engineering is not about better prompting. It is
-              about control, determinism, safe automation, and higher
-              engineering throughput.
+              The CAISI blog is organized as collections, not one-off pages.
+              The main 10-part operating-model series explains how governed AI
+              engineering should work across repos and teams. A separate
+              OpenClaw case-study series extracts four focused lessons from the
+              governed evaluation in this repo.
             </p>
             <div class="pill-row">
-              <span class="pill">Posts 1-3 reframe the problem</span>
-              <span class="pill">Posts 4-7 define the operating model</span>
-              <span class="pill">Posts 8-10 define trust and maturity</span>
+              <span class="pill">Long-form operating model series</span>
+              <span class="pill">Case-study sub-series</span>
+              <span class="pill">Unified blog navigation</span>
             </div>
           </div>
           <aside class="series-card">
-            <p class="eyebrow">How to read the series</p>
+            <p class="eyebrow">How to read the blog</p>
             <p>
-              Every post starts with an operational pain point, names the
-              anti-pattern, introduces the better system pattern, explains why
-              security cares, explains why platform and engineering care, shows
-              a concrete artifact or workflow, and ends with a practical next
-              step.
+              Each collection has a different job. The operating-model series
+              builds the general framework. The OpenClaw series stays tightly
+              tied to one measured report and its artifacts. Both use the same
+              site system: shared nav, breadcrumbs, and series landing pages.
             </p>
             <div class="link-row">
               <a href="/openclaw-2026/">See the research</a>
@@ -69,6 +67,35 @@
               <a href="https://github.com/Clyra-AI/safety">Open repository</a>
             </div>
           </aside>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="collections-heading">
+        <h2 id="collections-heading">Blog collections</h2>
+        <div class="summary-grid">
+          <article class="series-card">
+            <p class="post-stage">Series one</p>
+            <h3>AI Engineering Operating Notes</h3>
+            <p>
+              The 10-part framework series on repo contracts, blueprints,
+              orchestration, isolation, evaluation, proof, and maturity.
+            </p>
+            <div class="link-row">
+              <a href="#posts-heading">Browse 10 posts</a>
+            </div>
+          </article>
+          <article class="series-card">
+            <p class="post-stage">Series two</p>
+            <h3>What OpenClaw Taught Us About Agent Control</h3>
+            <p>
+              A 4-part case-study series grounded in the OpenClaw report,
+              focused on stop behavior, discovery limits, boundary enforcement,
+              and scope discipline.
+            </p>
+            <div class="link-row">
+              <a href="/blog/openclaw/">Open the collection</a>
+            </div>
+          </article>
         </div>
       </section>
 
@@ -107,7 +134,7 @@
       </section>
 
       <section class="section" aria-labelledby="posts-heading">
-        <h2 id="posts-heading">The 10 posts</h2>
+        <h2 id="posts-heading">Series One: AI Engineering Operating Notes</h2>
         <div class="blog-grid">
           <article class="post-card">
             <p class="post-number">Post 1</p>
@@ -244,9 +271,71 @@
         </div>
       </section>
 
+      <section class="section" aria-labelledby="openclaw-series-heading">
+        <h2 id="openclaw-series-heading">Series Two: OpenClaw Case Study</h2>
+        <div class="blog-grid">
+          <article class="post-card">
+            <p class="post-number">OpenClaw Post 1</p>
+            <h3>
+              <a href="/blog/openclaw/stop-is-not-a-safety-control/"
+                >Stop Is Not a Safety Control If the Runtime Can Ignore It</a
+              >
+            </h3>
+            <p>
+              The strongest lesson from the baseline lane: stop has to be an
+              execution control, not a polite request.
+            </p>
+          </article>
+          <article class="post-card">
+            <p class="post-number">OpenClaw Post 2</p>
+            <h3>
+              <a href="/blog/openclaw/discovery-is-necessary-not-sufficient/"
+                >Discovery Is Necessary, Not Sufficient</a
+              >
+            </h3>
+            <p>
+              Why inventory and posture scanning are necessary but cannot answer
+              runtime behavior by themselves.
+            </p>
+          </article>
+          <article class="post-card">
+            <p class="post-number">OpenClaw Post 3</p>
+            <h3>
+              <a href="/blog/openclaw/approval-and-proof-at-the-tool-boundary/"
+                >Approval and Proof Have to Exist at the Tool Boundary</a
+              >
+            </h3>
+            <p>
+              The governed lane as an engineering lesson: non-executable
+              outcomes and evidence belong together.
+            </p>
+          </article>
+          <article class="post-card">
+            <p class="post-number">OpenClaw Post 4</p>
+            <h3>
+              <a href="/blog/openclaw/what-openclaw-proves-and-what-it-doesnt/"
+                >What the OpenClaw Report Proves, What It Doesn't, and What Teams
+                Should Do Next</a
+              >
+            </h3>
+            <p>
+              The scope, transfer limits, and practical adoption path readers
+              should take from the report.
+            </p>
+          </article>
+        </div>
+        <div class="button-row" style="margin-top: 20px">
+          <a class="button-link secondary" href="/blog/openclaw/"
+            >View OpenClaw collection</a
+          >
+        </div>
+      </section>
+
       <footer class="section article-footer" aria-label="Page footer">
         <div class="footer-links">
           <a href="/">Home</a>
+          <span class="divider">|</span>
+          <a href="/blog/openclaw/">OpenClaw series</a>
           <span class="divider">|</span>
           <a href="/openclaw-2026/">OpenClaw</a>
           <span class="divider">|</span>
