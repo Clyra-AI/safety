@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI Tool and Agent Sprawl 2026 | CAISI</title>
+    <meta
+      name="description"
+      content="CAISI report on AI tool and agent sprawl across an 890-target public GitHub subset, focused on approval visibility, evidence posture, and governance readiness."
+    />
+    <link rel="stylesheet" href="/assets/site.css" />
+  </head>
+  <body>
+    <main class="site" aria-label="AI Tool and Agent Sprawl 2026 report page">
+      <header class="site-header" aria-label="Site header">
+        <div class="brand-row">
+          <div class="brand-mark">
+            <a class="brand-link" href="/">CAISI</a>
+            <p class="brand-note">
+              Independent research and operating notes on AI agent governance.
+            </p>
+          </div>
+        </div>
+        <nav class="global-nav" aria-label="Primary">
+          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link current" href="/ai-tool-sprawl-v2-2026/">Research</a>
+          <a class="nav-link" href="/blog/">Blog</a>
+          <a class="nav-link" href="/#about-heading">About</a>
+          <a class="nav-link" href="/#contact-heading">Contact</a>
+        </nav>
+      </header>
+
+      <section class="section hero">
+        <p class="breadcrumbs">
+          <a href="/">Home</a>
+          <span class="divider">/</span>
+          <span>Research</span>
+          <span class="divider">/</span>
+          <span>AI Tool and Agent Sprawl 2026</span>
+        </p>
+        <p class="eyebrow">Published Research Report</p>
+        <h1>Public AI Adoption Is Easy to See. Governed Use Is Much Harder to Prove.</h1>
+        <p class="lead">
+          Across an `890`-target publication subset, CAISI found widespread AI
+          tool and agent declarations, but much weaker public evidence for
+          approval, deployability, and control-aligned governance. The strongest
+          signal is not visible runtime abuse. It is evidence and approval
+          opacity.
+        </p>
+        <p class="meta">
+          <a href="/assets/reports/ai-tool-sprawl-v2-2026/report.pdf">Read the full report (PDF)</a>
+          <span class="meta-sep">|</span>
+          <a href="https://github.com/Clyra-AI/safety/tree/main/runs/tool-sprawl/sprawl-v2-full-20260312b"
+            >See the artifact set (GitHub)</a
+          >
+          <span class="meta-sep">|</span>
+          <a href="/blog/sprawl-2026/">Read the sprawl blog series</a>
+        </p>
+      </section>
+
+      <section class="section" aria-labelledby="headline-numbers">
+        <h2 id="headline-numbers">Four headline numbers</h2>
+        <div class="research-grid">
+          <article class="card">
+            <h3>98.2%</h3>
+            <p class="finding">Targets with declared agents</p>
+          </article>
+          <article class="card">
+            <h3>11:1</h3>
+            <p class="finding">Not-baseline-approved to approved tool ratio</p>
+          </article>
+          <article class="card">
+            <h3>47.08%</h3>
+            <p class="finding">Targets without verifiable evidence</p>
+          </article>
+          <article class="card">
+            <h3>17.19%</h3>
+            <p class="finding">Targets with Article 50 proxy gap</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="what-found">
+        <h2 id="what-found">What we found</h2>
+        <p class="body">
+          The completed subset exposed `7,984` declared agents across `874` of
+          `890` targets. Only `36` targets showed any deployable-agent signal,
+          and every detected agent was missing at least one declared binding.
+          In plain terms, public repositories often advertise agent frameworks
+          and agent concepts, but usually do not expose enough operational
+          wiring to prove that those agents are fully deployed and governed.
+        </p>
+        <p class="body">
+          The tool-approval story was also weak. In headline scope, the subset
+          contained `780` non-source AI tools. Only `65` were baseline-approved.
+          `715` were outside that approved baseline, which is why the report
+          frames the core issue as approval proof and evidence readiness rather
+          than panic about one visible exploit class.
+        </p>
+        <p class="body">
+          The compliance proxies point in the same direction. EU AI Act proxy
+          coverage averaged one of three current controls. SOC 2 and PCI DSS
+          proxy coverage were effectively absent in the public artifact set.
+          These are not legal conclusions. They are measurements of what public
+          repositories do and do not evidence.
+        </p>
+      </section>
+
+      <section class="section" aria-labelledby="for-leaders">
+        <h2 id="for-leaders">What this means for leaders</h2>
+        <div class="research-grid">
+          <article class="card">
+            <h3>For AppSec</h3>
+            <p class="finding">
+              The first problem is usually not visible exploitation. It is weak
+              proof of what AI is present, what is approved, and whether the
+              repo exposes enough evidence to support review and incident work.
+            </p>
+          </article>
+          <article class="card">
+            <h3>For CISOs</h3>
+            <p class="finding">
+              The `11:1` ratio is not a danger score. It is a governance signal
+              showing how often public AI usage appears without machine-readable
+              approval proof.
+            </p>
+          </article>
+          <article class="card">
+            <h3>For platform leaders</h3>
+            <p class="finding">
+              A repo that declares agents is not the same thing as a repo that
+              exposes a deployable, bound, and evidence-backed agent surface.
+              Platform contracts still matter.
+            </p>
+          </article>
+          <article class="card">
+            <h3>For all three</h3>
+            <p class="finding">
+              Public `0%` write-capable and exec-capable agent findings are not
+              proof of low internal runtime risk. They show that public repos
+              underexpose those paths.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="scope">
+        <h2 id="scope">What this report is, and what it is not</h2>
+        <p class="body">
+          This report is tied to the `890` completed targets from a frozen
+          `1,000`-target publication cohort. The unfinished `110` targets are
+          all AI-native, so the measured subset likely understates some
+          AI-native-heavy problems such as transparency gaps and weak evidence
+          posture.
+        </p>
+        <p class="body">
+          It is also a public-repository report, not a production-runtime
+          report. That means the strongest conclusions are about discovery,
+          approval visibility, evidence readiness, and control-aligned artifact
+          coverage. It is weaker as a direct measure of internal privilege or
+          active runtime abuse.
+        </p>
+      </section>
+
+      <section class="section" aria-labelledby="takeaways">
+        <h2 id="takeaways">Three takeaways</h2>
+        <p class="body"><strong>01 - Declaration outruns proof.</strong> Agent and tool signals are common. Evidence of governed use is much less common.</p>
+        <p class="body"><strong>02 - Approval needs to be machine-readable.</strong> Most visible AI posture problems in the subset are unresolved approval and evidence questions, not explicit negative approvals.</p>
+        <p class="body"><strong>03 - Public discovery is a starting point.</strong> It gives leadership a measurable baseline, but it does not answer every runtime question.</p>
+      </section>
+
+      <section class="section" aria-labelledby="blog-bridge">
+        <h2 id="blog-bridge">From the CAISI blog</h2>
+        <div class="card" style="margin-bottom: 16px">
+          <p class="post-stage">Sprawl report series</p>
+          <h3>
+            <a href="/blog/sprawl-2026/"
+              >What the Sprawl Report Means for Security and Platform Leaders</a
+            >
+          </h3>
+          <p class="finding">
+            A four-part series for AppSec, CISOs, and platform leaders on how
+            to read the report without overclaiming and what to fix first.
+          </p>
+        </div>
+        <div class="blog-grid">
+          <article class="post-card">
+            <p class="post-number">Sprawl Post 1</p>
+            <h3>
+              <a href="/blog/sprawl-2026/evidence-before-exploitation/"
+                >For AppSec, the First AI Agent Problem Is Evidence Before Exploitation</a
+              >
+            </h3>
+            <p>
+              Why weak evidence posture is often the first concrete control
+              problem visible in public AI adoption.
+            </p>
+          </article>
+          <article class="post-card">
+            <p class="post-number">Sprawl Post 3</p>
+            <h3>
+              <a href="/blog/sprawl-2026/declared-agents-are-not-deployed-agents/"
+                >Declared Agents Are Not Deployed Agents</a
+              >
+            </h3>
+            <p>
+              Why declaration volume and deployable-agent evidence need to be
+              separated in governance conversations.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="methodology">
+        <h2 id="methodology">Methodology and artifacts</h2>
+        <div class="research-grid">
+          <article class="card">
+            <h3>Subset design</h3>
+            <p class="finding">
+              One repository per owner, public GitHub targets, deterministic
+              baseline scan, and a rebuilt aggregate from the completed
+              `890/1000` targets.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Validation status</h3>
+            <p class="finding">
+              Relaxed validation passed. Required threshold checks passed `6/6`.
+              The report remains explicit that this is a completed subset, not
+              the full intended cohort.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Primary assets</h3>
+            <p class="finding">
+              Report PDF, rebuilt campaign summary, claims artifact, and
+              appendix exports are all in the public repository.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Reference links</h3>
+            <p class="finding">
+              <a href="/assets/reports/ai-tool-sprawl-v2-2026/report.pdf">Report PDF</a>,
+              <a href="https://github.com/Clyra-AI/safety/tree/main/reports/ai-tool-sprawl-v2-2026"
+                >report package</a
+              >,
+              <a href="https://github.com/Clyra-AI/safety/tree/main/runs/tool-sprawl/sprawl-v2-full-20260312b"
+                >run artifacts</a
+              >
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <footer class="section article-footer" aria-label="Page footer">
+        <div class="footer-links">
+          <a href="/">Home</a>
+          <span class="divider">|</span>
+          <a href="/blog/">Blog</a>
+          <span class="divider">|</span>
+          <a href="/blog/sprawl-2026/">Sprawl series</a>
+          <span class="divider">|</span>
+          <a href="/ai-tool-sprawl-q1-2026/">Q1 baseline</a>
+          <span class="divider">|</span>
+          <a href="https://github.com/Clyra-AI/safety">Repository</a>
+        </div>
+        <p class="footer-note">
+          The report measures what public AI adoption reveals. The series
+          explains how security and platform teams should interpret that signal.
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>

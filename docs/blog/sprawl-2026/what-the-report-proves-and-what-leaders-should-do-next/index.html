@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>What the Sprawl Report Proves, What It Doesn't, and What Leaders Should Do Next | CAISI Blog</title>
+    <meta
+      name="description"
+      content="A precise reading of the AI Tool and Agent Sprawl report: what the 890-target subset proves, what it does not, and what leaders should fix first."
+    />
+    <link rel="stylesheet" href="/assets/site.css" />
+  </head>
+  <body>
+    <main class="site" aria-label="CAISI blog post">
+      <header class="site-header" aria-label="Site header">
+        <div class="brand-row">
+          <div class="brand-mark">
+            <a class="brand-link" href="/">CAISI</a>
+            <p class="brand-note">
+              Independent research and operating notes on AI agent governance.
+            </p>
+          </div>
+        </div>
+        <nav class="global-nav" aria-label="Primary">
+          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" href="/#research-heading">Research</a>
+          <a class="nav-link current" href="/blog/">Blog</a>
+          <a class="nav-link" href="/#about-heading">About</a>
+          <a class="nav-link" href="/#contact-heading">Contact</a>
+        </nav>
+      </header>
+
+      <section class="section hero">
+        <p class="breadcrumbs">
+          <a href="/">Home</a>
+          <span class="divider">/</span>
+          <a href="/blog/">Blog</a>
+          <span class="divider">/</span>
+          <a href="/blog/sprawl-2026/">Sprawl Series</a>
+          <span class="divider">/</span>
+          <span>Post 4</span>
+        </p>
+        <p class="eyebrow">Sprawl Series / Post 4 of 4 / Leadership</p>
+        <h1>What the Sprawl Report Proves, What It Doesn't, and What Leaders Should Do Next</h1>
+        <p class="lead">
+          The AI Tool and Agent Sprawl report is strongest where it is most
+          disciplined. It tells leaders what a public-repo subset can prove
+          about AI governance readiness, and it refuses to claim more than the
+          artifacts support.
+        </p>
+      </section>
+
+      <section class="section">
+        <div class="quote-card">
+          <h2>Grounding</h2>
+          <p>
+            Run ID: <code>sprawl-v2-full-20260312b</code><br />
+            Scope: <code>890</code> completed public targets from a frozen <code>1000</code>-target cohort<br />
+            Strongest metrics: <code>98.2%</code> targets with agents, <code>47.08%</code> without verifiable evidence, <code>11:1</code> approval gap<br />
+            Core artifact:
+            <code>runs/tool-sprawl/sprawl-v2-full-20260312b/agg/campaign-summary-v2.json</code>
+          </p>
+        </div>
+      </section>
+
+      <section class="section article-section">
+        <h2>What the report proves</h2>
+        <p>
+          It proves that, in this public-repository subset, AI and agent
+          declarations are common, that deployable-agent evidence is much rarer,
+          and that approval and evidence posture are often weak. It proves that
+          public repositories can reveal governance unreadiness even when they
+          do not reveal rich runtime privilege paths.
+        </p>
+        <p>
+          That is already a meaningful leadership result. It tells us the
+          organization-level problem is not only whether AI is present. It is
+          whether AI use is legible, approved, and supportable under review.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>What the report does not prove</h2>
+        <p>
+          It does not prove that internal runtime privilege is low. It does not
+          prove that public zeroes on write-capable or exec-capable agents are
+          equivalent to internal safety. It does not claim that the `890`
+          completed targets are a perfect substitute for the original `1000`,
+          especially because the missing `110` are all AI-native.
+        </p>
+        <p>
+          Those limitations are not a flaw in the report. They are part of why
+          the report remains useful. Leadership should prefer a scoped claim
+          with clear boundaries over a louder claim nobody can reproduce.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>How leaders should act on the result</h2>
+        <p>
+          The right response is not to wait for perfect runtime visibility
+          before acting. The right response is to fix the parts the report makes
+          measurable now.
+        </p>
+        <ul class="list-plain">
+          <li>Reduce unresolved approval status through machine-readable policy and evidence records.</li>
+          <li>Force a clean distinction between agent declaration, deployable-agent evidence, and production elevation.</li>
+          <li>Use public discovery baselines to prioritize deeper internal review, not to replace it.</li>
+          <li>Hold teams to artifact-backed governance language instead of hand-wavy AI inventories.</li>
+        </ul>
+      </section>
+
+      <section class="section article-section">
+        <h2>The leadership lesson</h2>
+        <p>
+          Mature AI governance starts by refusing to confuse visibility with
+          assurance. This report gives leaders a disciplined visibility layer.
+          That is enough to justify action, but not enough to justify
+          complacency.
+        </p>
+        <p>
+          The best next move is not broader rhetoric about AI risk. It is better
+          evidence design, better approval normalization, and better contracts
+          for moving from experimentation to governed operation.
+        </p>
+      </section>
+
+      <footer class="section article-footer" aria-label="Post footer">
+        <div class="series-nav">
+          <a class="nav-link" href="/blog/sprawl-2026/declared-agents-are-not-deployed-agents/">Previous post</a>
+          <a class="nav-link" href="/blog/sprawl-2026/">Back to series</a>
+          <a class="nav-link" href="/ai-tool-sprawl-v2-2026/">Sprawl report</a>
+        </div>
+        <p class="footer-note">
+          Practical question: which parts of your current AI governance story
+          are backed by artifacts, and which parts are still mostly inferred?
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>

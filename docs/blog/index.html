@@ -6,7 +6,7 @@
     <title>CAISI Blog | Research Notes and Series</title>
     <meta
       name="description"
-      content="CAISI blog collections on AI engineering operating models and OpenClaw case-study lessons."
+      content="CAISI blog collections on AI engineering operating models, OpenClaw case-study lessons, and the AI tool and agent sprawl report."
     />
     <link rel="stylesheet" href="/assets/site.css" />
   </head>
@@ -43,13 +43,15 @@
             <p class="lead">
               The CAISI blog is organized as collections, not one-off pages.
               The main 10-part operating-model series explains how governed AI
-              engineering should work across repos and teams. A separate
-              OpenClaw case-study series extracts four focused lessons from the
-              governed evaluation in this repo.
+              engineering should work across repos and teams. Separate report
+              series extract focused lessons from measured work: OpenClaw for
+              governed runtime behavior, and sprawl for public AI adoption,
+              approval visibility, and evidence posture.
             </p>
             <div class="pill-row">
               <span class="pill">Long-form operating model series</span>
               <span class="pill">Case-study sub-series</span>
+              <span class="pill">Leader-facing report essays</span>
               <span class="pill">Unified blog navigation</span>
             </div>
           </div>
@@ -58,11 +60,15 @@
             <p>
               Each collection has a different job. The operating-model series
               builds the general framework. The OpenClaw series stays tightly
-              tied to one measured report and its artifacts. Both use the same
-              site system: shared nav, breadcrumbs, and series landing pages.
+              tied to one runtime case study. The sprawl series translates a
+              public measurement report into specific lessons for AppSec, CISO,
+              and platform audiences. All three use the same site system:
+              shared nav, breadcrumbs, and series landing pages.
             </p>
             <div class="link-row">
               <a href="/openclaw-2026/">See the research</a>
+              <span class="divider">|</span>
+              <a href="/ai-tool-sprawl-v2-2026/">See the sprawl report</a>
               <span class="divider">|</span>
               <a href="https://github.com/Clyra-AI/safety">Open repository</a>
             </div>
@@ -94,6 +100,18 @@
             </p>
             <div class="link-row">
               <a href="/blog/openclaw/">Open the collection</a>
+            </div>
+          </article>
+          <article class="series-card">
+            <p class="post-stage">Series three</p>
+            <h3>What the Sprawl Report Means for Security and Platform Leaders</h3>
+            <p>
+              A 4-part series grounded in the AI Tool and Agent Sprawl report,
+              focused on approval opacity, evidence posture, deployability, and
+              how leaders should interpret public AI adoption data.
+            </p>
+            <div class="link-row">
+              <a href="/blog/sprawl-2026/">Open the collection</a>
             </div>
           </article>
         </div>
@@ -331,15 +349,75 @@
         </div>
       </section>
 
+      <section class="section" aria-labelledby="sprawl-series-heading">
+        <h2 id="sprawl-series-heading">Series Three: Sprawl Report Lessons</h2>
+        <div class="blog-grid">
+          <article class="post-card">
+            <p class="post-number">Sprawl Post 1</p>
+            <h3>
+              <a href="/blog/sprawl-2026/evidence-before-exploitation/"
+                >For AppSec, the First AI Agent Problem Is Evidence Before Exploitation</a
+              >
+            </h3>
+            <p>
+              Why the first public control problem in the sprawl report is weak
+              evidence posture, not an already-proven exploit chain.
+            </p>
+          </article>
+          <article class="post-card">
+            <p class="post-number">Sprawl Post 2</p>
+            <h3>
+              <a href="/blog/sprawl-2026/approval-gap-is-a-proof-gap/"
+                >An 11:1 Approval Gap Is a Proof Gap, Not a Panic Statistic</a
+              >
+            </h3>
+            <p>
+              How CISOs should interpret the approval ratio without turning a
+              governance metric into a fear headline.
+            </p>
+          </article>
+          <article class="post-card">
+            <p class="post-number">Sprawl Post 3</p>
+            <h3>
+              <a href="/blog/sprawl-2026/declared-agents-are-not-deployed-agents/"
+                >Declared Agents Are Not Deployed Agents</a
+              >
+            </h3>
+            <p>
+              Why platform teams should separate declared agent frameworks from
+              deployable, bound, and governable runtime actors.
+            </p>
+          </article>
+          <article class="post-card">
+            <p class="post-number">Sprawl Post 4</p>
+            <h3>
+              <a href="/blog/sprawl-2026/what-the-report-proves-and-what-leaders-should-do-next/"
+                >What the Sprawl Report Proves, What It Doesn't, and What Leaders
+                Should Do Next</a
+              >
+            </h3>
+            <p>
+              The subset boundaries, the valid lessons, and the first fixes
+              leaders should insist on after reading the report.
+            </p>
+          </article>
+        </div>
+        <div class="button-row" style="margin-top: 20px">
+          <a class="button-link secondary" href="/blog/sprawl-2026/"
+            >View sprawl collection</a
+          >
+        </div>
+      </section>
+
       <footer class="section article-footer" aria-label="Page footer">
         <div class="footer-links">
           <a href="/">Home</a>
           <span class="divider">|</span>
           <a href="/blog/openclaw/">OpenClaw series</a>
           <span class="divider">|</span>
-          <a href="/openclaw-2026/">OpenClaw</a>
+          <a href="/blog/sprawl-2026/">Sprawl series</a>
           <span class="divider">|</span>
-          <a href="/ai-tool-sprawl-q1-2026/">Tool Sprawl</a>
+          <a href="/ai-tool-sprawl-v2-2026/">Tool and Agent Sprawl</a>
           <span class="divider">|</span>
           <a href="https://github.com/Clyra-AI/safety">Repository</a>
         </div>

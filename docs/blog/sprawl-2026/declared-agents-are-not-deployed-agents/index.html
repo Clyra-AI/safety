@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Declared Agents Are Not Deployed Agents | CAISI Blog</title>
+    <meta
+      name="description"
+      content="Why platform leaders should separate declared agent frameworks from deployable agent surfaces when reading AI adoption signals."
+    />
+    <link rel="stylesheet" href="/assets/site.css" />
+  </head>
+  <body>
+    <main class="site" aria-label="CAISI blog post">
+      <header class="site-header" aria-label="Site header">
+        <div class="brand-row">
+          <div class="brand-mark">
+            <a class="brand-link" href="/">CAISI</a>
+            <p class="brand-note">
+              Independent research and operating notes on AI agent governance.
+            </p>
+          </div>
+        </div>
+        <nav class="global-nav" aria-label="Primary">
+          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" href="/#research-heading">Research</a>
+          <a class="nav-link current" href="/blog/">Blog</a>
+          <a class="nav-link" href="/#about-heading">About</a>
+          <a class="nav-link" href="/#contact-heading">Contact</a>
+        </nav>
+      </header>
+
+      <section class="section hero">
+        <p class="breadcrumbs">
+          <a href="/">Home</a>
+          <span class="divider">/</span>
+          <a href="/blog/">Blog</a>
+          <span class="divider">/</span>
+          <a href="/blog/sprawl-2026/">Sprawl Series</a>
+          <span class="divider">/</span>
+          <span>Post 3</span>
+        </p>
+        <p class="eyebrow">Sprawl Series / Post 3 of 4 / Platform</p>
+        <h1>Declared Agents Are Not Deployed Agents</h1>
+        <p class="lead">
+          Platform teams should resist the easiest misread in the sprawl
+          report. Near-universal agent declaration does not mean near-universal
+          deployable agent surface.
+        </p>
+      </section>
+
+      <section class="section">
+        <div class="quote-card">
+          <h2>Grounding</h2>
+          <p>
+            Run ID: <code>sprawl-v2-full-20260312b</code><br />
+            Declared-agent prevalence: <code>98.2%</code><br />
+            Deployed-agent prevalence: <code>4.04%</code><br />
+            Binding-complete agents: <code>0</code><br />
+            Core artifact:
+            <code>runs/tool-sprawl/sprawl-v2-full-20260312b/agg/campaign-summary-v2.json</code>
+          </p>
+        </div>
+      </section>
+
+      <section class="section article-section">
+        <h2>The declaration trap</h2>
+        <p>
+          Platform leaders are now surrounded by repos that mention agent
+          frameworks, orchestration libraries, MCP patterns, or agent-specific
+          configuration. Those signals matter. They show where teams are
+          experimenting and where future delivery surface may emerge. But they
+          are not the same thing as deployed, bound, and governable runtime
+          actors.
+        </p>
+        <p>
+          The report makes that distinction measurable. Almost every completed
+          target declared agents. Only a small minority showed deployable-agent
+          signals. And none of the detected agents were binding-complete. That
+          means the public repo surface is rich in declarations and poor in
+          operational completeness.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>Why this matters for platform contracts</h2>
+        <p>
+          Platform work depends on precise contracts. A platform team needs to
+          know what the agent can call, what identity it will use, what data
+          scope it can see, and where approval and evidence handoffs live. A
+          declaration-only agent tells you that adoption pressure exists. It
+          does not tell you that the runtime boundary is ready.
+        </p>
+        <p>
+          That is why the report is useful for platform leadership. It gives a
+          way to separate exploration from operational readiness. Without that
+          separation, organizations end up governing "agents" as a vague
+          category instead of governing concrete execution paths.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>What mature platform teams should do with this signal</h2>
+        <p>
+          The right response is not to ban declarations. It is to make the step
+          from declaration to deployment explicit and reviewable.
+        </p>
+        <ul class="list-plain">
+          <li>Track declaration presence and deployable-agent evidence as different states.</li>
+          <li>Require binding completeness before platform support is considered production-ready.</li>
+          <li>Normalize agent identity, tool invocation, and approval handoff patterns across repos.</li>
+          <li>Keep source-level experimentation cheap, but make runtime elevation deliberate.</li>
+        </ul>
+        <p>
+          Platform discipline is what keeps agent enthusiasm from becoming a
+          diffuse and unreviewable delivery surface.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>The platform lesson</h2>
+        <p>
+          The report is not warning that every repo with agents is already
+          dangerous. It is showing how quickly declaration can outrun the
+          underlying contracts that make deployment governable. That is exactly
+          where platform teams should intervene.
+        </p>
+        <p>
+          If a platform organization can define the path from declaration to
+          deployment clearly, AppSec and leadership get a much better dataset to
+          govern. If it cannot, every later control layer inherits ambiguity.
+        </p>
+      </section>
+
+      <footer class="section article-footer" aria-label="Post footer">
+        <div class="series-nav">
+          <a class="nav-link" href="/blog/sprawl-2026/approval-gap-is-a-proof-gap/">Previous post</a>
+          <a class="nav-link" href="/blog/sprawl-2026/">Back to series</a>
+          <a class="nav-link" href="/blog/sprawl-2026/what-the-report-proves-and-what-leaders-should-do-next/">Next post</a>
+        </div>
+        <p class="footer-note">
+          Practical question: do your current platform standards distinguish
+          clearly between declaring an agent and operating one?
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>

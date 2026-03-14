@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>An 11:1 Approval Gap Is a Proof Gap, Not a Panic Statistic | CAISI Blog</title>
+    <meta
+      name="description"
+      content="Why CISOs should read the sprawl report's 11:1 approval ratio as a proof and governance problem, not a panic headline."
+    />
+    <link rel="stylesheet" href="/assets/site.css" />
+  </head>
+  <body>
+    <main class="site" aria-label="CAISI blog post">
+      <header class="site-header" aria-label="Site header">
+        <div class="brand-row">
+          <div class="brand-mark">
+            <a class="brand-link" href="/">CAISI</a>
+            <p class="brand-note">
+              Independent research and operating notes on AI agent governance.
+            </p>
+          </div>
+        </div>
+        <nav class="global-nav" aria-label="Primary">
+          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" href="/#research-heading">Research</a>
+          <a class="nav-link current" href="/blog/">Blog</a>
+          <a class="nav-link" href="/#about-heading">About</a>
+          <a class="nav-link" href="/#contact-heading">Contact</a>
+        </nav>
+      </header>
+
+      <section class="section hero">
+        <p class="breadcrumbs">
+          <a href="/">Home</a>
+          <span class="divider">/</span>
+          <a href="/blog/">Blog</a>
+          <span class="divider">/</span>
+          <a href="/blog/sprawl-2026/">Sprawl Series</a>
+          <span class="divider">/</span>
+          <span>Post 2</span>
+        </p>
+        <p class="eyebrow">Sprawl Series / Post 2 of 4 / CISO</p>
+        <h1>An 11:1 Approval Gap Is a Proof Gap, Not a Panic Statistic</h1>
+        <p class="lead">
+          The sprawl report's most quotable ratio is easy to misuse. CISOs
+          should read it as a machine-readable governance failure, not as a
+          claim that every unresolved tool in the environment is inherently
+          dangerous.
+        </p>
+      </section>
+
+      <section class="section">
+        <div class="quote-card">
+          <h2>Grounding</h2>
+          <p>
+            Run ID: <code>sprawl-v2-full-20260312b</code><br />
+            Core metric: <code>11:1</code> not-baseline-approved to approved tools<br />
+            Counts: <code>715</code> not-baseline-approved, <code>65</code> approved<br />
+            Scope: non-source tools only<br />
+            Core artifact:
+            <code>runs/tool-sprawl/sprawl-v2-full-20260312b/agg/campaign-summary-v2.json</code>
+          </p>
+        </div>
+      </section>
+
+      <section class="section article-section">
+        <h2>Why CISOs should not overread the ratio</h2>
+        <p>
+          A weak reading of the ratio says: there are eleven bad AI tools for
+          every good one. That is not what the report measured. The report uses
+          a stricter and more useful classification. A tool is counted as
+          baseline-approved only when the deterministic approval policy can
+          resolve it positively. Everything else sits outside that approved
+          baseline.
+        </p>
+        <p>
+          In this subset, there were no explicit-unapproved markers at all.
+          Almost the entire unresolved side of the ratio is approval-unknown.
+          The problem is not that public repositories loudly admit to using
+          prohibited tools. The problem is that they often fail to expose the
+          evidence needed to prove which tools are approved and under what
+          boundary.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>Why that is still a serious leadership problem</h2>
+        <p>
+          From a CISO perspective, unresolved approval is not a cosmetic issue.
+          If the organization cannot produce machine-readable proof of approved
+          AI usage across delivery-adjacent repositories, then every downstream
+          conversation gets weaker: regulatory attestations, internal audit,
+          board reporting, incident response, and policy exception handling.
+        </p>
+        <p>
+          This is especially important because public AI adoption often happens
+          faster than governance systems mature. The ratio is telling leadership
+          where visibility breaks down under that speed.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>How to use the ratio correctly</h2>
+        <p>
+          Use it as a pressure test for governance quality, not as a
+          sensational risk score.
+        </p>
+        <ul class="list-plain">
+          <li>Ask how approval is represented in a machine-readable way today.</li>
+          <li>Ask whether the approval record survives repo, CI, and audit contexts.</li>
+          <li>Ask whether unresolved inventory can be reduced without blocking delivery.</li>
+          <li>Ask whether the same policy model applies consistently to tools and agent frameworks.</li>
+        </ul>
+        <p>
+          A good program will shrink the unresolved side of the ratio over time.
+          That is a more honest maturity target than demanding perfect
+          elimination of every unrecognized signal on day one.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>The leadership lesson</h2>
+        <p>
+          Many AI governance conversations fail because they jump too quickly
+          from discovery to judgment. The report's ratio is useful precisely
+          because it resists that move. It shows the gap between visible AI use
+          and provable approval posture.
+        </p>
+        <p>
+          For CISOs, that is the right place to focus first. If the
+          organization cannot prove what is approved, every later assurance
+          claim rests on weaker ground.
+        </p>
+      </section>
+
+      <footer class="section article-footer" aria-label="Post footer">
+        <div class="series-nav">
+          <a class="nav-link" href="/blog/sprawl-2026/evidence-before-exploitation/">Previous post</a>
+          <a class="nav-link" href="/blog/sprawl-2026/">Back to series</a>
+          <a class="nav-link" href="/blog/sprawl-2026/declared-agents-are-not-deployed-agents/">Next post</a>
+        </div>
+        <p class="footer-note">
+          Practical question: if leadership asked for a defensible approved-AI
+          inventory tomorrow, how much of the answer would still be inferred by
+          hand?
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>
