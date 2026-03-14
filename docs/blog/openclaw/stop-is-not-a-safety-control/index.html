@@ -67,20 +67,48 @@
       </section>
 
       <section class="section article-section">
-        <h2>The operational reality</h2>
+        <h2>Stop has to be a state transition, not a request</h2>
         <p>
           Many teams still reason about stop behavior as if it were part of the
           user interface. They assume a stop command, a cancellation message, or
           a "do not continue" instruction has the same force as a runtime gate.
           The OpenClaw run shows why that is not enough. In the baseline lane,
-          stop existed as an instruction surface, but it did not act as an
-          enforceable execution boundary.
+          stop existed as an instruction surface, but it did not create an
+          enforceable runtime state.
         </p>
         <p>
           That difference matters most when an agent already has tools. Once the
-          system can delete, share, approve, or restart, the question is no
-          longer whether the model "understands" stop. The question is whether
-          anything in the runtime can refuse to execute the next action.
+          system can delete, share, approve, or restart, the relevant question
+          is no longer whether the model "understands" stop. The question is
+          whether anything in the runtime can mark the run non-executable before
+          the next tool call crosses the boundary.
+        </p>
+        <p>
+          Mature delivery systems already understand this idea in other domains.
+          A canceled deployment is supposed to stop scheduling new work. A
+          protected environment is supposed to hold execution until its rules are
+          satisfied. The problem exposed by OpenClaw is that many agent systems
+          still treat stop as conversational intent instead of as a control-plane
+          transition with clear runtime semantics.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>What fails when stop is only advisory</h2>
+        <p>
+          When stop is advisory, incident response logic breaks first. Teams
+          believe they can halt the run, begin containment, and then reason about
+          cleanup. But if the runtime can still emit tool calls after that point,
+          every downstream action is contaminated by uncertainty. You no longer
+          know whether you are investigating a finished event or a still-running
+          one.
+        </p>
+        <p>
+          That ambiguity is not just a security issue. It also breaks platform
+          guarantees around retry, rollback, human review, and customer-facing
+          reliability. A run that can continue making side effects after a stop
+          request is a run whose operational contract is weaker than the product
+          surface suggests.
         </p>
       </section>
 
@@ -100,23 +128,37 @@
           100%. The point is not that a nicer prompt would have closed the gap.
           The point is that a different control layer did.
         </p>
+        <p>
+          The most important word in that sentence is
+          <strong>non-executable</strong>. A real stop control does not merely
+          record operator intent. It changes what the runtime is allowed to do
+          next.
+        </p>
       </section>
 
       <section class="section article-section">
-        <h2>Why security and platform teams should care</h2>
+        <h2>What a credible stop contract should include</h2>
         <p>
-          For security teams, a stop signal that can be ignored is not a safety
-          measure. It is a weak advisory. During incident response, that
-          difference becomes painful very quickly because the organization
-          assumes it can halt the system and discovers instead that execution is
-          still live.
+          A useful way to think about stop is as a small state machine, not a
+          button. The run should move from active, to stop requested, to
+          quiesced, and only then to terminated or reviewed. During the quiesced
+          state, no new write-capable tool call should become executable unless a
+          distinct recovery path authorizes it.
         </p>
         <p>
-          For platform and engineering leaders, the lesson is just as concrete.
-          If stop is not a runtime state, then retry, cancellation, rollback,
-          and review semantics are all less trustworthy. The workflow has no
-          hard boundary between "the run should end" and "the next tool call may
-          still happen."
+          That contract should also produce evidence. Operators should be able to
+          see when the stop was issued, when it was acknowledged, whether any
+          in-flight actions completed, and whether the system prevented new
+          actions after the stop transition. Without that record, teams end up
+          arguing about screenshots, prompts, and logs instead of reviewing one
+          coherent control artifact.
+        </p>
+        <p>
+          This is where OpenClaw is more valuable than a generic "agents are
+          risky" story. It turns stop semantics into something measurable. That
+          is exactly the kind of question serious engineering organizations
+          should be asking of their own orchestrators, copilots, and workflow
+          runners.
         </p>
       </section>
 
@@ -133,6 +175,12 @@
           concept most teams feel they have is often weaker than the stop
           control they actually need.
         </p>
+        <p>
+          If you already have strong deployment controls, borrow that rigor here.
+          Ask what the agent equivalent of "job canceled before secret access" or
+          "environment protection rule not satisfied" should look like. The
+          answer should live in runtime mechanics, not in prompt etiquette.
+        </p>
       </section>
 
       <section class="section article-section">
@@ -141,6 +189,7 @@
           <li>Pick one agent workflow and map what technically happens after a stop request is issued.</li>
           <li>Check whether the runtime can still emit a tool call after the stop signal.</li>
           <li>Define what non-executable state should mean in your orchestrator or boundary layer.</li>
+          <li>Record stop-issued, stop-acknowledged, and post-stop-attempted events as reviewable artifacts.</li>
           <li>Make stop behavior testable with artifact-backed traces, not only UI behavior.</li>
         </ul>
         <p>

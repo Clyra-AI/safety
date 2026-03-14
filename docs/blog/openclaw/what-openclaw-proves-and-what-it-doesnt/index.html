@@ -80,6 +80,12 @@
           ID, deterministic claims, and published artifacts. That is the right
           level of confidence.
         </p>
+        <p>
+          The strongest causal statement in the report is not "all agents are
+          unsafe." It is narrower and more useful: when the control layer
+          changed, the executable behavior changed. That is what gives the case
+          study engineering value instead of just narrative value.
+        </p>
       </section>
 
       <section class="section article-section">
@@ -98,6 +104,13 @@
           results remain tied to this case-study setup unless revalidated on a
           different stack or workload.
         </p>
+        <p>
+          This is the distinction more teams should learn to make in public.
+          Mechanisms can generalize even when rates do not. A stop failure pattern
+          or approval-boundary design can travel across stacks. A 24-hour count
+          from one pinned workload should not be advertised as if it were an
+          ecosystem average.
+        </p>
       </section>
 
       <section class="section article-section">
@@ -114,13 +127,39 @@
           only about sounding sober. It is about refusing to make claims the run
           did not measure.
         </p>
+        <p>
+          That discipline also makes the report easier to reuse internally. A
+          skeptical engineering leader can disagree with your interpretation, but
+          still trust the artifact package because the boundaries of the claim are
+          visible. That is much harder to do with vendor-style language or with
+          generalized AI risk commentary that never names the measured scope.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>How to evaluate transferability in your own stack</h2>
+        <p>
+          The right response to OpenClaw is not panic and not dismissal. It is a
+          practical audit of whether your own stack exposes the same structural
+          conditions.
+        </p>
+        <ul class="list-plain">
+          <li>Can your runtime intercept intent before a write-capable tool call executes?</li>
+          <li>Can it make non-allow outcomes genuinely non-executable?</li>
+          <li>Can it show reviewers why a decision was made and whether the evidence chain is intact?</li>
+          <li>Can it prove stop, approval, and review semantics under workload rather than only in docs?</li>
+        </ul>
+        <p>
+          If the answer to those questions is no, then the numeric rates in
+          OpenClaw matter less than the structural lesson. You have a control gap
+          worth measuring in your own environment.
+        </p>
       </section>
 
       <section class="section article-section">
         <h2>What teams should do next</h2>
         <p>
-          The right response to OpenClaw is not panic and not dismissal. It is a
-          practical audit of your own stack.
+          The right follow-on is still a practical audit of your own stack.
         </p>
         <ul class="list-plain">
           <li>Check whether stop behavior is advisory or truly enforced in the runtime.</li>

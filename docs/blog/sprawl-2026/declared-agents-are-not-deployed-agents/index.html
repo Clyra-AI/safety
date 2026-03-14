@@ -80,6 +80,31 @@
           means the public repo surface is rich in declarations and poor in
           operational completeness.
         </p>
+        <p>
+          The mistake many organizations make is collapsing all of those states
+          into one idea called "agent adoption." That turns a useful platform
+          question into an ambiguous governance label. The better move is to
+          preserve the lifecycle stages.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>A better platform lifecycle for agents</h2>
+        <p>
+          One practical model is to separate at least five states:
+          declared, bound, runnable, privileged, and production-supported. The
+          report shows plenty of the first state and very little evidence for the
+          later ones. That is not a failure. It is a sign that platform teams
+          need clearer promotion rules.
+        </p>
+        <p>
+          Declared means the repo references an agent framework or configuration.
+          Bound means the repo exposes the tool, identity, and data contracts
+          that make the agent legible. Runnable means the path appears complete
+          enough to operate. Privileged means it can write, execute, or access
+          higher-risk surfaces. Production-supported means the organization is
+          willing to stand behind it operationally.
+        </p>
       </section>
 
       <section class="section article-section">
@@ -97,6 +122,12 @@
           separation, organizations end up governing "agents" as a vague
           category instead of governing concrete execution paths.
         </p>
+        <p>
+          The platform contract is where AppSec and developer experience finally
+          meet. If the platform can standardize identity, invocation surfaces,
+          approval handoffs, and event logging, then security stops getting a new
+          one-off control problem every time a repo declares an agent.
+        </p>
       </section>
 
       <section class="section article-section">
@@ -110,6 +141,7 @@
           <li>Require binding completeness before platform support is considered production-ready.</li>
           <li>Normalize agent identity, tool invocation, and approval handoff patterns across repos.</li>
           <li>Keep source-level experimentation cheap, but make runtime elevation deliberate.</li>
+          <li>Define which platform features are unavailable until the agent reaches a higher promotion state.</li>
         </ul>
         <p>
           Platform discipline is what keeps agent enthusiasm from becoming a
@@ -129,6 +161,11 @@
           If a platform organization can define the path from declaration to
           deployment clearly, AppSec and leadership get a much better dataset to
           govern. If it cannot, every later control layer inherits ambiguity.
+        </p>
+        <p>
+          In other words, platform maturity is not measured by how many agent
+          frameworks teams can import. It is measured by how legibly the
+          organization promotes an experiment into a governed execution path.
         </p>
       </section>
 

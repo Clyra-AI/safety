@@ -82,10 +82,16 @@
           evidence needed to prove which tools are approved and under what
           boundary.
         </p>
+        <p>
+          That is why the ratio is better understood as a proof ratio than as a
+          danger ratio. It tells leadership how much visible AI use can be
+          defended with a machine-readable approval record versus how much still
+          sits in the unresolved bucket.
+        </p>
       </section>
 
       <section class="section article-section">
-        <h2>Why that is still a serious leadership problem</h2>
+        <h2>Why unknown approval state is expensive</h2>
         <p>
           From a CISO perspective, unresolved approval is not a cosmetic issue.
           If the organization cannot produce machine-readable proof of approved
@@ -97,6 +103,32 @@
           This is especially important because public AI adoption often happens
           faster than governance systems mature. The ratio is telling leadership
           where visibility breaks down under that speed.
+        </p>
+        <p>
+          Unknown approval state also pushes cost into the worst possible places:
+          audit exceptions, manual follow-up, policy disputes, and executive
+          reviews conducted under time pressure. A ratio like this is useful
+          because it points to a systems weakness before it becomes a crisis
+          response problem.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>What good approval normalization looks like</h2>
+        <p>
+          Mature approval is not just a list on an internal wiki. It has states,
+          scope, inheritance, and reviewability. A CISO should expect to know at
+          least four things: whether a tool is approved, what that approval
+          covers, what exceptions exist, and where the evidence lives when the
+          question comes back six months later.
+        </p>
+        <p>
+          This is one reason the ratio is strategically useful. It creates a
+          defensible numerator and denominator for a governance program that might
+          otherwise stay qualitative. You can ask whether the unresolved side is
+          shrinking, whether new approved states are actually machine-readable,
+          and whether the same control logic applies across repos, CI, and
+          internal developer tooling.
         </p>
       </section>
 
@@ -111,6 +143,7 @@
           <li>Ask whether the approval record survives repo, CI, and audit contexts.</li>
           <li>Ask whether unresolved inventory can be reduced without blocking delivery.</li>
           <li>Ask whether the same policy model applies consistently to tools and agent frameworks.</li>
+          <li>Track the ratio over time as an operating metric, not as a one-off headline.</li>
         </ul>
         <p>
           A good program will shrink the unresolved side of the ratio over time.
@@ -131,6 +164,13 @@
           For CISOs, that is the right place to focus first. If the
           organization cannot prove what is approved, every later assurance
           claim rests on weaker ground.
+        </p>
+        <p>
+          That makes this a memory problem as much as a policy problem. Strong
+          security organizations are able to preserve the reasoning behind an
+          approval decision long after the original conversation is over. Weak
+          ones end up re-litigating approvals because the evidence never traveled
+          with the workflow.
         </p>
       </section>
 

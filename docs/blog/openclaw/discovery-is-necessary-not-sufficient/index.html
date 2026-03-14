@@ -67,7 +67,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>The operational reality</h2>
+        <h2>Inventory gives you nouns. Governance needs verbs.</h2>
         <p>
           Discovery is the first responsible question most teams ask: what AI
           tools, connections, or capabilities exist here? That question matters
@@ -82,40 +82,63 @@
           lesson is that inventory and posture are not the same thing as runtime
           execution behavior.
         </p>
+        <p>
+          That distinction is easy to lose because discovery outputs look tidy.
+          They resemble the kinds of inventory tables security teams already know
+          how to consume. But a clean table of tools and integrations is still a
+          table of potentials. It is not a record of which action path was
+          chosen, under what prompt and state, with what approval posture, and
+          with what observable side effect.
+        </p>
       </section>
 
       <section class="section article-section">
-        <h2>What the report actually shows</h2>
+        <h2>What discovery can say with confidence</h2>
         <p>
           The report is careful on this point. Wrkr in the study is used for
           pre-test discovery and posture scanning over the local OpenClaw
-          workspace target. The high-impact behaviors measured elsewhere in the
-          report, such as delete-email, share-doc-public, approve-payment, and
-          restart-service, come from runtime traces under workload rather than
-          from static repo metadata alone.
+          workspace target. That gives a useful baseline: what tools are present,
+          what frameworks are declared, and what visible posture signals the repo
+          exposes before the experiment begins.
         </p>
         <p>
-          That distinction is important because it explains why mature AI
-          engineering programs need both layers. Discovery tells you what is
-          there. Runtime control and runtime evidence tell you what actually
-          happened.
+          The high-impact behaviors measured elsewhere in the report, such as
+          delete-email, share-doc-public, approve-payment, and restart-service,
+          come from runtime traces under workload rather than from static repo
+          metadata alone. That is the part many organizations still compress into
+          one bucket even though it should stay separate.
+        </p>
+        <p>
+          Software supply-chain teams learned a similar lesson when provenance
+          became important. An ingredient list tells you what might be involved.
+          A provenance record tells you <a href="https://slsa.dev/spec/v1.1/provenance">where, when, and how something was produced</a>.
+          Discovery for agents plays the same role as the ingredient list. It is
+          essential, but it is not the full execution story.
         </p>
       </section>
 
       <section class="section article-section">
-        <h2>Why security and platform teams should care</h2>
+        <h2>Why teams overtrust discovery</h2>
         <p>
-          Security teams need discovery because unknown tools and undeclared
-          connections are already a governance problem. But the OpenClaw study
-          shows why stopping at inventory creates false comfort. A clean-looking
-          scan is not a runtime guarantee.
+          Security teams overtrust discovery because it is often the first layer
+          they can make consistent. It scales, it produces counts, and it
+          supports governance language like inventory, approval, and exception
+          handling. Those are all useful properties. They are just not sufficient
+          to stand in for runtime truth.
         </p>
         <p>
-          Platform teams should read the same result as a systems lesson.
-          Inventory, policy scanning, runtime enforcement, and evidence capture
-          are complementary layers. If one of them is missing, the operating
-          model becomes incomplete. Discovery without runtime control tells you
-          what the system could touch, not what it actually did under pressure.
+          Platform teams can fall into the same trap from the opposite direction.
+          If the declared tools and bindings look reasonable, it is tempting to
+          assume the runtime behavior will stay within that envelope. But once an
+          agent starts selecting actions over time, the real question becomes how
+          those declared capabilities were exercised in practice and what
+          decisioning happened at each boundary.
+        </p>
+        <p>
+          Inventory, boundary mapping, runtime mediation, and evidence capture
+          are complementary layers. If one is missing, the operating model
+          becomes incomplete. Discovery without runtime control tells you what
+          the system could touch, not what it actually did under pressure.
         </p>
       </section>
 
@@ -134,6 +157,11 @@
           control problem. The report itself gives a more honest story than
           that.
         </p>
+        <p>
+          A good internal shorthand is: discovery tells you what exists, runtime
+          evidence tells you what occurred, and policy tells you what should have
+          been executable. Mature governance needs all three.
+        </p>
       </section>
 
       <section class="section article-section">
@@ -141,6 +169,7 @@
         <ul class="list-plain">
           <li>Run discovery against one real target repo or workspace and record what the scan can say with confidence.</li>
           <li>List the questions the scan cannot answer because they depend on runtime behavior.</li>
+          <li>Separate your own review template into three columns: present, reachable, and exercised.</li>
           <li>Connect that inventory layer to runtime policy and evidence collection instead of treating it as a standalone control.</li>
           <li>Keep the distinction visible in your internal language: discovery, posture, runtime control, and proof are different layers.</li>
         </ul>

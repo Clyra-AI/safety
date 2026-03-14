@@ -70,7 +70,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>The operational reality</h2>
+        <h2>Approval only matters if it changes what can execute</h2>
         <p>
           Most teams talk about approval and evidence as if they were adjacent
           concerns. In practice they break down at the same place: the execution
@@ -84,6 +84,15 @@
           concrete. Non-allow outcomes were non-executable. Evidence artifacts
           were written for governed decisions. That turns approval and proof from
           abstract good intentions into runtime properties.
+        </p>
+        <p>
+          The cleanest analogy is ordinary software delivery. In GitHub Actions,
+          a job that targets a protected environment must satisfy that
+          environment's protection rules before it can run or access environment
+          secrets. GitHub's own docs describe those rules in terms of
+          <a href="https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment">deployment protection rules and required reviewers</a>.
+          That is what real approval looks like: execution changes because a
+          gate exists.
         </p>
       </section>
 
@@ -105,10 +114,17 @@
           policy-as-code and pre-execution decisioning, not just nicer prompt
           text.
         </p>
+        <p>
+          This is the part many governance programs miss. Approval without
+          evidence becomes a process claim nobody can inspect later. Evidence
+          without enforcement becomes a forensic record of a failure that still
+          executed. The governed lane matters because it keeps both in the same
+          system.
+        </p>
       </section>
 
       <section class="section article-section">
-        <h2>Why security and platform teams should care</h2>
+        <h2>Why proof should sit next to the gate</h2>
         <p>
           Security buyers should care because this is the difference between an
           approval process and an approval boundary. If the system cannot hold a
@@ -121,10 +137,18 @@
           and the evidence record together, reviewers spend less time guessing
           how the run behaved and more time making actual engineering judgments.
         </p>
+        <p>
+          This also mirrors a broader software-supply-chain lesson. Provenance
+          became important because teams needed durable records of how an artifact
+          was produced, not just faith that the right process had probably run.
+          The same logic applies to agent actions. A boundary decision should
+          produce an artifact a reviewer can actually inspect, not merely a claim
+          that the system "has approvals."
+        </p>
       </section>
 
       <section class="section article-section">
-        <h2>The practical lesson</h2>
+        <h2>The design pattern worth copying</h2>
         <p>
           Approval and proof should be designed as one boundary system. The
           runtime needs to know whether the action is executable, and the
@@ -136,6 +160,13 @@
           model of what teams should actually try to build: pre-execution
           mediation plus evidence that survives the run.
         </p>
+        <p>
+          The specific implementation can vary. The deeper pattern is stable:
+          intercept intent before execution, evaluate against explicit policy,
+          make non-allow outcomes non-executable, and emit a reasoned artifact
+          that survives the run. That pattern is much more portable than any one
+          benchmark number.
+        </p>
       </section>
 
       <section class="section article-section">
@@ -144,6 +175,7 @@
           <li>Identify one write-capable action in your environment that should require approval before execution.</li>
           <li>Check whether the runtime can truly hold it non-executable, not just log that approval is preferred.</li>
           <li>Package the policy verdict, reason code, and execution evidence into the same review surface.</li>
+          <li>Review whether your approval system behaves more like a ticket comment or more like a protected deployment environment.</li>
           <li>Test whether a reviewer can explain the run without digging through raw logs.</li>
         </ul>
         <p>
