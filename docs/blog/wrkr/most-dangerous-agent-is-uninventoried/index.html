@@ -49,12 +49,12 @@
         </div>
         <h1>The Most Dangerous AI Agent Is the One Security Never Inventoried</h1>
         <p class="lead">
-          Most AppSec teams are not losing sleep because an agent became too
-          intelligent. They are losing sleep because adoption has outpaced
-          inventory. Someone enabled a coding assistant, installed an MCP
-          server, added a workflow action, or wired a write-capable path into a
-          repo, and nobody in security can say exactly where that path now
-          exists or what it can touch.
+          The agent most likely to surprise security is usually not the most
+          advanced one. It is the one that quietly acquired a write-capable path
+          across a laptop, repo, MCP config, or CI workflow before anyone
+          normalized it into inventory. That is why the unknown-to-security
+          surface matters more than the approved surface when leaders are trying
+          to understand current exposure.
         </p>
       </section>
 
@@ -115,6 +115,13 @@
           matters is narrower and more operational: which of those tools can
           currently change code, mutate CI behavior, touch credentials, or
           inherit production reach through the systems around them?
+        </p>
+        <p>
+          In practice the unknown path is usually cross-surface. A developer
+          enables a local tool, a repo adds a skills file, an MCP server gets
+          declared with broad permissions, and a workflow quietly turns the
+          pattern into unattended execution. No single team thinks it launched
+          an agent program. The combined path still exists.
         </p>
       </section>
 

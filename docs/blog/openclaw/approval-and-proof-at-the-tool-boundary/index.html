@@ -49,12 +49,12 @@
         </div>
         <h1>Approval and Proof Have to Exist at the Tool Boundary</h1>
         <p class="lead">
-          The OpenClaw baseline gets attention because it is vivid. The governed
-          lane is the more useful engineering lesson. It processed
-          <strong>2,585</strong> lane-specific tool-call decisions and rendered
-          <strong>1,615</strong> of them non-executable. It also reached
-          <strong>99.96%</strong> evidence verification coverage. Those two
-          numbers describe the control model together.
+          Approval programs sound mature until you ask a harder question: what
+          does approval actually change at execution time? If the answer is
+          unclear, the control is weaker than the policy language suggests. The
+          governed lane in OpenClaw is useful because it shows approval and
+          proof working together at the moment a tool call would otherwise
+          become a side effect.
         </p>
       </section>
 
@@ -143,6 +143,13 @@
           without enforcement becomes a forensic record of a failure that still
           executed. The governed lane matters because it keeps both in the same
           system.
+        </p>
+        <p>
+          That is also a useful evaluation lens for buyers. Ask whether
+          approval changes execution state, whether non-allow outcomes are
+          genuinely non-executable, and whether the proof record survives
+          outside the original runtime. If those answers are vague, the control
+          surface is still too soft.
         </p>
       </section>
 

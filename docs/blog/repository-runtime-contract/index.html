@@ -49,12 +49,12 @@
         </div>
         <h1>Your Repository Is the Runtime Contract for Agents</h1>
         <p class="lead">
-          When an agent enters a codebase, it is not meeting "the product." It
-          is meeting a runtime contract. The docs, scripts, test entrypoints,
-          fixtures, boundaries, and failure messages together define whether the
-          work is legible or ambiguous. If the repository behaves like a clean
-          interface, agents tend to look competent. If it behaves like folklore,
-          agents look erratic and expensive.
+          Ask a platform team why one agent workflow succeeds in one repo and
+          collapses in another, and the answer is usually not model quality. It
+          is repo shape. A clean repository gives humans and agents the same
+          things: stable entrypoints, legible boundaries, clear validation
+          paths, and local docs that tell the truth. A messy one forces hidden
+          supervision, inconsistent behavior, and security ambiguity.
         </p>
       </section>
 
@@ -132,6 +132,13 @@
           to define enough stable interfaces that an agent can operate safely
           without pretending to be a senior maintainer on day one. In a healthy
           repo, the best path is the easiest path to discover.
+        </p>
+        <p>
+          The absence of that contract is usually obvious once you look for it.
+          Setup instructions depend on oral tradition. Risky scripts sit beside
+          safe ones with similar names. Product invariants live in chats instead
+          of docs. Tests only pass when a maintainer remembers hidden sequencing.
+          Humans can work around that mess with judgment. Agents amplify it.
         </p>
       </section>
 

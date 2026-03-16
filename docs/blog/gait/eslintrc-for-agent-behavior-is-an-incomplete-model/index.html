@@ -49,11 +49,11 @@
         </div>
         <h1>".eslintrc for Agent Behavior" Is a Useful Hook and an Incomplete Model</h1>
         <p class="lead">
-          The phrase works because it gives busy leaders a fast mental model.
-          A policy file for agents. Rules engineers can understand. Guardrails
-          captured in code instead of tribal memory. That part is helpful. The
-          problem is that linting is not execution control, and the analogy can
-          hide the difference at exactly the wrong moment.
+          The .eslintrc analogy is helpful because it gives busy leaders a fast
+          handle on the idea of codified behavioral rules. It also fails quickly
+          if taken too literally. Lint can complain after the fact. A runtime
+          boundary has to change what is allowed to execute before the side
+          effect happens.
         </p>
       </section>
 
@@ -118,6 +118,13 @@
           guardrails. They hear "runtime boundary" and infer an actual control.
           The organization needs the second interpretation if the agent can
           write code, invoke sensitive tools, or cross a permission boundary.
+        </p>
+        <p>
+          A concrete example helps. A lint rule can warn that a workflow should
+          not call a production write tool. A runtime gate can stop that exact
+          call from executing when the intent reaches the boundary. Those are
+          different classes of control, and leadership should budget for the one
+          it actually needs.
         </p>
       </section>
 

@@ -49,12 +49,11 @@
         </div>
         <h1>Stop Is Not a Safety Control If the Runtime Can Ignore It</h1>
         <p class="lead">
-          The most memorable number in the OpenClaw report is not subtle:
-          <strong>515 of 515</strong> post-stop tool calls still executed in the
-          baseline lane. That matters because it strips away a common illusion.
-          A stop button, stop prompt, or stop instruction is not a safety
-          control if the runtime continues to honor tool execution after that
-          signal arrives.
+          A stop button feels like a safety control until the day an incident
+          commander tries to use it under pressure. Then the only thing that
+          matters is whether the runtime changes state quickly enough to prevent
+          the next side effect from crossing the boundary. OpenClaw is valuable
+          because it turns that question from intuition into measurement.
         </p>
       </section>
 
@@ -157,6 +156,13 @@
           <strong>non-executable</strong>. A real stop control does not merely
           record operator intent. It changes what the runtime is allowed to do
           next.
+        </p>
+        <p>
+          For buyers evaluating internal platforms or external tools, that turns
+          into a simple diligence question: what exact state transition makes a
+          stopped run non-executable, and where is that transition recorded? If
+          the answer points back to prompts, UI labels, or human expectation,
+          the stop story is weaker than it looks in a demo.
         </p>
       </section>
 

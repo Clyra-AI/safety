@@ -49,12 +49,12 @@
         </div>
         <h1>The AI Engineering Maturity Model</h1>
         <p class="lead">
-          Teams do not jump from ad hoc prompting to governed autonomy in one
-          move. They climb through stages, and each stage has different
-          technical requirements, approval posture, and organizational risks.
-          The useful question is not whether a team is "good at AI." The useful
-          question is whether the next level of autonomy is justified by the
-          controls and evidence they already have.
+          Most organizations are not deciding whether to adopt AI engineering.
+          They are deciding how much autonomy to tolerate before the surrounding
+          controls are ready. That is a maturity problem, not a model-comparison
+          problem. The useful model is the one that helps AppSec, platform, and
+          engineering leaders agree on what level of autonomy the current
+          evidence actually supports.
         </p>
       </section>
 
@@ -130,6 +130,13 @@
           None of those levels is moralized. They are implementation states. A
           team can be effective at one level for a long time. Trouble starts
           when the organization claims a higher level than its controls support.
+        </p>
+        <p>
+          Each level should also have an exit test. Do not claim repo-aware if
+          critical commands are still discovered by memory. Do not claim
+          governed delivery if non-allow outcomes can still execute. Do not
+          claim dark-factory capability if approvals, retries, and proof still
+          depend on manual reconstruction after the fact.
         </p>
       </section>
 

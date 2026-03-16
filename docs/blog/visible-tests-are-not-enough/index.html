@@ -49,11 +49,11 @@
         </div>
         <h1>Why Visible Tests Are Not Enough</h1>
         <p class="lead">
-          An agent that can see the tests can often learn to satisfy the tests.
-          That is useful inside the build loop. It is not the same thing as
-          trustworthy behavior. If your workflow promotes autonomous changes only
-          because visible checks passed, you are grading the system with an open
-          book and then acting surprised when it studies the answer key.
+          A passing test suite can mean two very different things. It can mean
+          the change behaves safely under the conditions you care about, or it
+          can mean the system learned how to satisfy the tests it was allowed to
+          see. Human reviewers already understand this distinction intuitively.
+          Agent workflows need to build it into the validation system.
         </p>
       </section>
 

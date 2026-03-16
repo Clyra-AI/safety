@@ -49,11 +49,12 @@
         </div>
         <h1>Proof of Work for AI-Generated Changes</h1>
         <p class="lead">
-          A green CI badge is useful. It is not a trust model. Autonomous
-          software work needs a proof packet that explains what changed, what
-          ran, why the system believed the change was in bounds, and what
-          residual risk remains. Without that packet, every pull request asks a
-          reviewer to reconstruct the story from scraps.
+          One of the fastest ways to lose confidence in autonomous software work
+          is to hand a reviewer a green CI badge and ask them to trust the rest.
+          That is not enough for AppSec, and it is not enough for the platform
+          team debugging a bad run two weeks later. Autonomous change needs a
+          proof packet: what changed, what ran, what was blocked, what remains
+          uncertain, and why the system promoted the work at all.
         </p>
       </section>
 
@@ -142,6 +143,12 @@
           into a defensible unit. The packet does not need to be verbose. It
           does need to be complete enough that a third party can understand what
           happened without privileged context sitting in someone's head.
+        </p>
+        <p>
+          This is also where review quality and audit quality should converge.
+          The best proof packets work for the PR reviewer, the incident
+          responder, and the auditor at the same time. If each audience still
+          needs a different reconstruction, the packet is not finished yet.
         </p>
       </section>
 

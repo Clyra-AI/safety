@@ -49,11 +49,11 @@
         </div>
         <h1>If Policy Runs After the Tool Call, It Isn't a Control</h1>
         <p class="lead">
-          This is the place where many AI governance programs quietly become
-          decorative. The organization has policies. The prompt mentions those
-          policies. Logs exist after the fact. But when the tool call actually
-          happens, nothing at the boundary can stop it. That is not a control.
-          That is a hope wrapped in process language.
+          Most AI policy programs sound stronger in committee than they behave
+          at runtime. A system can have a policy file, a prompt rule, and a
+          review checklist and still allow the unsafe action to execute before
+          anyone intervenes. That is why the real control question sits at the
+          tool boundary, not in the wording of the policy.
         </p>
       </section>
 
@@ -145,6 +145,13 @@
           an action requires approval, the runtime can hold it non-executable
           until approval exists. That looks much more like a protected
           environment than a polite note in a runbook.
+        </p>
+        <p>
+          Good boundary design also has to survive friction. Teams need to know
+          who can approve, what counts as break-glass, how false positives are
+          triaged, and how blocked work re-enters the workflow. Without that
+          operating detail, even a correct gate will be bypassed the first time
+          it slows something important.
         </p>
       </section>
 
