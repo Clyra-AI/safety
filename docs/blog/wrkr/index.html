@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Invisible Write Paths | CAISI Blog</title>
+    <meta
+      name="description"
+      content="A four-part CAISI series using the current Wrkr repo as the implementation context for AI tooling discovery, MCP posture, CI drift, and audit-ready evidence."
+    />
+    <link rel="stylesheet" href="/assets/site.css" />
+  </head>
+  <body>
+    <main class="site" aria-label="Wrkr blog series">
+      <header class="site-header" aria-label="Site header">
+        <div class="brand-row">
+          <div class="brand-mark">
+            <a class="brand-link" href="/">CAISI</a>
+            <p class="brand-note">
+              Independent research and operating notes on AI agent governance.
+            </p>
+          </div>
+        </div>
+        <nav class="global-nav" aria-label="Primary">
+          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" href="/#research-heading">Research</a>
+          <a class="nav-link current" href="/blog/">Blog</a>
+          <a class="nav-link" href="/#about-heading">About</a>
+          <a class="nav-link" href="/#contact-heading">Contact</a>
+        </nav>
+      </header>
+
+      <section class="section hero">
+        <p class="breadcrumbs">
+          <a href="/">Home</a>
+          <span class="divider">/</span>
+          <a href="/blog/">Blog</a>
+          <span class="divider">/</span>
+          <span>Wrkr Series</span>
+        </p>
+        <div class="hero-grid">
+          <div class="hero-panel">
+            <p class="eyebrow">CAISI Blog / Wrkr Implementation Series</p>
+            <h1>Invisible Write Paths</h1>
+            <p class="lead">
+              This four-part series uses the current Wrkr repo as implementation
+              context for a problem AppSec leaders already recognize: AI tooling
+              is spreading through local developer setups, repositories, MCP
+              configurations, and CI workflows faster than most organizations
+              can inventory or explain it. The point is not to pitch a tool.
+              The point is to describe what a sane discovery and evidence layer
+              should look like when invisible write paths start to matter.
+            </p>
+            <div class="pill-row">
+              <span class="pill">Discovery before judgment</span>
+              <span class="pill">MCP, local, repo, and CI surfaces</span>
+              <span class="pill">Evidence an auditor can use</span>
+            </div>
+            <div class="button-row" style="margin-top: 22px">
+              <a class="button-link" href="https://github.com/Clyra-AI/wrkr">Open Wrkr repo</a>
+              <a class="button-link secondary" href="/blog/gait/">See the Gait series</a>
+            </div>
+          </div>
+          <aside class="series-card">
+            <p class="eyebrow">Series design</p>
+            <p>
+              Each post starts with a familiar operational pressure point for
+              AppSec, security engineering, or a CISO. Then it names the
+              anti-pattern, shows the better system pattern, and uses Wrkr only
+              as implementation context for the discovery, posture, and
+              evidence layer.
+            </p>
+            <div class="link-row">
+              <a href="/blog/">All blog series</a>
+              <span class="divider">|</span>
+              <a href="https://github.com/Clyra-AI/wrkr">Repo source</a>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="series-why">
+        <h2 id="series-why">Why a separate Wrkr series</h2>
+        <p class="body">
+          The broader CAISI operating-model series explains how governed AI
+          engineering should work in general. This collection does something
+          narrower. It focuses on discovery and posture: what teams need to see
+          before they can even start a serious approval, control, or evidence
+          conversation.
+        </p>
+        <p class="body">
+          That distinction matters because discovery is often underestimated.
+          Leaders jump straight to runtime control and miss the simpler failure:
+          nobody can say which AI tools, agents, and MCP servers are already on
+          write-capable paths across the organization. Wrkr is useful here
+          because the repo is explicit about scope: deterministic inventory,
+          privilege mapping, drift review, and evidence output, not live
+          runtime enforcement.
+        </p>
+      </section>
+
+      <section class="section" aria-labelledby="wrkr-posts">
+        <h2 id="wrkr-posts">The 4 posts</h2>
+        <div class="blog-grid">
+          <article class="post-card">
+            <p class="post-number">Wrkr Post 1</p>
+            <p class="post-stage">AppSec</p>
+            <h3>
+              <a href="/blog/wrkr/most-dangerous-agent-is-uninventoried/"
+                >The Most Dangerous AI Agent Is the One Security Never Inventoried</a
+              >
+            </h3>
+            <p>
+              Why the first AI control failure is often not model behavior but
+              unknown-to-security tooling already sitting on a write path.
+            </p>
+          </article>
+          <article class="post-card">
+            <p class="post-number">Wrkr Post 2</p>
+            <p class="post-stage">Security architecture</p>
+            <h3>
+              <a href="/blog/wrkr/mcp-config-is-part-of-security-boundary/"
+                >Your MCP Config Is Already Part of Your Security Boundary</a
+              >
+            </h3>
+            <p>
+              Why MCP declarations, transport, requested permissions, and trust
+              posture belong in the same inventory conversation as code and CI.
+            </p>
+          </article>
+          <article class="post-card">
+            <p class="post-number">Wrkr Post 3</p>
+            <p class="post-stage">Platform</p>
+            <h3>
+              <a href="/blog/wrkr/ci-is-where-ai-tooling-becomes-infrastructure/"
+                >CI Is Where AI Tooling Quietly Becomes Infrastructure</a
+              >
+            </h3>
+            <p>
+              Why agent execution in workflows is no longer experimentation once
+              it can mutate code, policy, or deploy state unattended.
+            </p>
+          </article>
+          <article class="post-card">
+            <p class="post-number">Wrkr Post 4</p>
+            <p class="post-stage">CISO</p>
+            <h3>
+              <a href="/blog/wrkr/npm-audit-for-ai-agents-is-the-wrong-endpoint/"
+                >Why "npm audit for AI agents" Is the Right Instinct and the Wrong Endpoint</a
+              >
+            </h3>
+            <p>
+              A closing piece on why inventory, privilege mapping, drift, and
+              proof matter more than forcing AI tooling into the wrong security
+              category.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <footer class="section article-footer" aria-label="Page footer">
+        <div class="footer-links">
+          <a href="/">Home</a>
+          <span class="divider">|</span>
+          <a href="/blog/">Blog</a>
+          <span class="divider">|</span>
+          <a href="/blog/gait/">Gait series</a>
+          <span class="divider">|</span>
+          <a href="https://github.com/Clyra-AI/wrkr">Wrkr repo</a>
+        </div>
+        <p class="footer-note">
+          This collection stays in the same CAISI system as the rest of the
+          blog: one landing page, consistent breadcrumbs, shared nav, and an
+          emphasis on operating patterns over product promotion.
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>

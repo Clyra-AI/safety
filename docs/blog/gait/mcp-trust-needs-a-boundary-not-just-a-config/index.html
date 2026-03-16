@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MCP Trust Needs a Boundary, Not Just a Config File | CAISI Blog</title>
+    <meta
+      name="description"
+      content="Why MCP trust should be enforced at the boundary, not just reviewed at declaration time."
+    />
+    <link rel="stylesheet" href="/assets/site.css" />
+  </head>
+  <body>
+    <main class="site" aria-label="CAISI blog post">
+      <header class="site-header" aria-label="Site header">
+        <div class="brand-row">
+          <div class="brand-mark">
+            <a class="brand-link" href="/">CAISI</a>
+            <p class="brand-note">
+              Independent research and operating notes on AI agent governance.
+            </p>
+          </div>
+        </div>
+        <nav class="global-nav" aria-label="Primary">
+          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" href="/#research-heading">Research</a>
+          <a class="nav-link current" href="/blog/">Blog</a>
+          <a class="nav-link" href="/#about-heading">About</a>
+          <a class="nav-link" href="/#contact-heading">Contact</a>
+        </nav>
+      </header>
+
+      <section class="section hero">
+        <p class="breadcrumbs">
+          <a href="/">Home</a>
+          <span class="divider">/</span>
+          <a href="/blog/">Blog</a>
+          <span class="divider">/</span>
+          <a href="/blog/gait/">Gait Series</a>
+          <span class="divider">/</span>
+          <span>Post 3</span>
+        </p>
+        <p class="eyebrow">Gait Series / Post 3 of 4 / MCP Trust</p>
+        <h1>MCP Trust Needs a Boundary, Not Just a Config File</h1>
+        <p class="lead">
+          Discovery can tell you that an MCP server exists. Config review can
+          tell you how it is declared. Neither answer is enough once a live tool
+          call is about to cross the boundary. That moment needs a verdict, not
+          just a memory of what the declaration looked like when someone first
+          reviewed it.
+        </p>
+      </section>
+
+      <section class="section">
+        <div class="quote-card">
+          <h2>Repo grounding</h2>
+          <p>
+            Gait's current repo scope includes <code>gait mcp verify</code> for
+            trust preflight and <code>gait mcp proxy</code> or
+            <code>gait mcp serve</code> for transport-aware boundary adapters
+            that route through policy evaluation.
+          </p>
+        </div>
+      </section>
+
+      <section class="section article-section">
+        <h2>The operational reality</h2>
+        <p>
+          MCP trust is easy to oversimplify because the declaration layer feels
+          concrete. Teams can point to a config file, a package name, an
+          endpoint, or a permission note and feel like they have contained the
+          question. The deeper issue appears when the model is actually about to
+          use that path. At that point, the organization is no longer evaluating
+          metadata. It is deciding whether a real action may proceed.
+        </p>
+        <p>
+          This is where many teams still have a gap. They can inventory and
+          review declarations, but they do not have a consistent runtime
+          mechanism to say, "this call is allowed," "this one is blocked," or
+          "this one requires approval because the context is different now than
+          it was when the declaration was first reviewed."
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>The anti-pattern</h2>
+        <p>
+          The anti-pattern is static trust with dynamic behavior. A declaration
+          gets approved once, and that approval is quietly treated as if it
+          generalizes to every later invocation no matter the context, tool
+          arguments, or surrounding permissions. That is attractive because it
+          keeps governance light. It is weak because the real risk materializes
+          at invocation time.
+        </p>
+        <p>
+          Another version of the same mistake is to assume observability later
+          will cover the gap. But a log of an unsafe call is not the same as a
+          boundary that could have refused it.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>The better system pattern</h2>
+        <p>
+          The better pattern is layered trust. Discovery and declaration review
+          still matter. They tell you what exists and how it is supposed to be
+          used. But that layer feeds a boundary that can evaluate the actual
+          invocation in context before side effects occur.
+        </p>
+        <p>
+          Gait is useful here because the repo makes that progression concrete:
+          verify trust inputs, then route calls through a policy-aware boundary.
+          That model is healthier than pretending declaration review alone is a
+          sufficient enforcement mechanism.
+        </p>
+        <p>
+          It also creates a much clearer division of labor. Discovery tools
+          surface the path. Boundary tools decide whether this call can proceed.
+          Evidence artifacts preserve the answer later.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>Why security cares</h2>
+        <p>
+          Security teams should care because MCP is a classic place for
+          permission drift to hide. The integration may look stable while the
+          surrounding execution context changes: new credentials, broader repo
+          reach, new workflows, different approvals, or new agents invoking the
+          same path for different reasons.
+        </p>
+        <p>
+          A boundary makes those changing conditions governable. Without it, the
+          organization is relying on stale intent and partial memory.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>Why platform and engineering care</h2>
+        <p>
+          Platform teams need this because MCP without a boundary becomes hard
+          to reason about operationally. When calls fail or behave differently
+          under different contexts, engineers need a consistent place to inspect
+          the verdict. Otherwise, debugging collapses into a mix of prompt
+          guesses, config diffing, and permission archaeology.
+        </p>
+        <p>
+          Boundary-aware MCP handling is therefore not just safer. It is also a
+          cleaner platform primitive.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>Practical next step</h2>
+        <ul class="list-plain">
+          <li>Separate MCP declaration review from MCP invocation control in your design.</li>
+          <li>Choose one declared server and test whether you can evaluate a real invocation before execution.</li>
+          <li>Capture the verdict and trust inputs in a durable artifact.</li>
+          <li>Review where your current process relies on stale approval rather than current context.</li>
+          <li>Make that distinction visible to both security and platform teams.</li>
+        </ul>
+        <p>
+          The last piece is what makes the whole control model durable: proof
+          that survives the run and regressions that survive the incident.
+        </p>
+      </section>
+
+      <footer class="section article-footer" aria-label="Post footer">
+        <div class="series-nav">
+          <a class="nav-link" href="/blog/gait/eslintrc-for-agent-behavior-is-an-incomplete-model/">Previous post</a>
+          <a class="nav-link" href="/blog/gait/">Back to series</a>
+          <a class="nav-link" href="/blog/gait/signed-traces-and-regressions-make-policy-real/">Next post</a>
+        </div>
+        <p class="footer-note">
+          Practical question: which MCP approvals in your environment still
+          assume that one past review is enough for every future invocation?
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>

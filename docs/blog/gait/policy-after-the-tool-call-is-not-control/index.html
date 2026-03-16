@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>If Policy Runs After the Tool Call, It Isn't a Control | CAISI Blog</title>
+    <meta
+      name="description"
+      content="Why AI policy only becomes real when it can change what executes before the tool call fires."
+    />
+    <link rel="stylesheet" href="/assets/site.css" />
+  </head>
+  <body>
+    <main class="site" aria-label="CAISI blog post">
+      <header class="site-header" aria-label="Site header">
+        <div class="brand-row">
+          <div class="brand-mark">
+            <a class="brand-link" href="/">CAISI</a>
+            <p class="brand-note">
+              Independent research and operating notes on AI agent governance.
+            </p>
+          </div>
+        </div>
+        <nav class="global-nav" aria-label="Primary">
+          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" href="/#research-heading">Research</a>
+          <a class="nav-link current" href="/blog/">Blog</a>
+          <a class="nav-link" href="/#about-heading">About</a>
+          <a class="nav-link" href="/#contact-heading">Contact</a>
+        </nav>
+      </header>
+
+      <section class="section hero">
+        <p class="breadcrumbs">
+          <a href="/">Home</a>
+          <span class="divider">/</span>
+          <a href="/blog/">Blog</a>
+          <span class="divider">/</span>
+          <a href="/blog/gait/">Gait Series</a>
+          <span class="divider">/</span>
+          <span>Post 1</span>
+        </p>
+        <p class="eyebrow">Gait Series / Post 1 of 4 / AppSec</p>
+        <h1>If Policy Runs After the Tool Call, It Isn't a Control</h1>
+        <p class="lead">
+          This is the place where many AI governance programs quietly become
+          decorative. The organization has policies. The prompt mentions those
+          policies. Logs exist after the fact. But when the tool call actually
+          happens, nothing at the boundary can stop it. That is not a control.
+          That is a hope wrapped in process language.
+        </p>
+      </section>
+
+      <section class="section">
+        <div class="quote-card">
+          <h2>Repo grounding</h2>
+          <p>
+            The Gait repo centers the boundary explicitly: evaluate structured
+            tool-call intent with <code>gait gate eval</code>, return
+            <code>allow</code>, <code>block</code>, or
+            <code>require_approval</code>, and treat non-allow as non-execute.
+          </p>
+        </div>
+      </section>
+
+      <section class="section article-section">
+        <h2>The operational reality</h2>
+        <p>
+          Ask an AppSec lead whether an agent is allowed to touch a certain
+          internal system and the answer often comes back in policy language:
+          "it should not," "that workflow requires approval," "the agent was
+          instructed not to do that." Those answers sound responsible until the
+          obvious follow-up appears: what happens if the agent tries anyway?
+        </p>
+        <p>
+          If the system can still execute the action while policy gets enforced
+          later in review, then the boundary is not where the policy lives. The
+          policy lives in documentation, coaching, or retrospective judgment.
+          That may still be useful, but it is not the same thing as an
+          execution control.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>The anti-pattern</h2>
+        <p>
+          The anti-pattern is advisory policy. Teams write excellent guidance,
+          maybe even collect reviewer approvals, but the actual tool path stays
+          live unless a human catches the issue in time. This is the same
+          mistake earlier automation programs made when they confused runbooks
+          and guardrails. One tells the system what should happen. The other
+          changes what may happen.
+        </p>
+        <p>
+          Prompt rules are especially easy to overtrust here because they feel
+          close to the model. But the model is not the boundary. The tool call
+          is. By the time the action reaches a real system, the only question
+          that matters is whether something outside the model can still say no.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>The better system pattern</h2>
+        <p>
+          The better pattern is boundary-first policy. The agent expresses
+          intent. A gate evaluates that intent against explicit rules. The
+          runtime receives a verdict before the side effect executes. If the
+          verdict is not <code>allow</code>, the action does not happen. That is
+          the point where policy stops being commentary and becomes an operating
+          control.
+        </p>
+        <p>
+          Gait is useful implementation context because the repo is explicit
+          about that exact split. The policy is YAML. The decision happens at
+          the tool boundary. The artifact trail survives the decision. Those are
+          the right ingredients for a system that AppSec can evaluate without
+          pretending the prompt itself is a sufficient fence.
+        </p>
+        <p>
+          This pattern also makes approvals much more honest. If a policy says
+          an action requires approval, the runtime can hold it non-executable
+          until approval exists. That looks much more like a protected
+          environment than a polite note in a runbook.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>Why security and the CISO care</h2>
+        <p>
+          Security leaders need this distinction because it changes how risk is
+          priced. An advisory workflow can still be valuable, but it should not
+          be reported upward as if it were a hard boundary. The CISO needs to
+          know which controls can actually block unsafe execution and which ones
+          merely help the team notice mistakes afterward.
+        </p>
+        <p>
+          That difference becomes brutal during incidents. If the only evidence
+          of policy is a prompt, a wiki page, or a human expectation, the
+          organization is left defending intent rather than describing an
+          enforceable mechanism.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>Why platform and engineering care</h2>
+        <p>
+          Platform teams benefit because explicit boundary verdicts reduce
+          ambiguity. Instead of asking whether the agent "usually behaves" or
+          whether reviewers "would probably catch it," the workflow has a clear
+          decision point. That clarity makes automation more reusable and less
+          political across teams.
+        </p>
+        <p>
+          It also improves debugging. When a step is blocked, a reviewer can see
+          that it was blocked and why. That is much better than arguing over
+          whether the model misunderstood an instruction.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>Practical next step</h2>
+        <ul class="list-plain">
+          <li>Choose one write-capable action that currently depends on policy language or reviewer attention alone.</li>
+          <li>Move the control question to the tool boundary: can the runtime allow, block, or require approval before execution?</li>
+          <li>Record the verdict and reason code as a durable artifact instead of leaving the decision buried in logs.</li>
+          <li>Review which controls in your current program are truly blocking controls and which are advisory.</li>
+          <li>Report that difference upward honestly.</li>
+        </ul>
+        <p>
+          Once teams accept that policy has to run at the boundary, another
+          common shortcut needs correcting too: the idea that this is just an
+          ".eslintrc for agents."
+        </p>
+      </section>
+
+      <footer class="section article-footer" aria-label="Post footer">
+        <div class="series-nav">
+          <a class="nav-link" href="/blog/gait/">Back to series</a>
+          <a class="nav-link" href="/blog/gait/eslintrc-for-agent-behavior-is-an-incomplete-model/">Next post</a>
+        </div>
+        <p class="footer-note">
+          Practical question: which one of your current AI controls still fails
+          the simple test of changing what can execute before the action fires?
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>

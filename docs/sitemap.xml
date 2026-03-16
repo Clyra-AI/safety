@@ -10,10 +10,22 @@
     <loc>https://caisi.dev/ai-tool-sprawl-q1-2026/</loc>
   </url>
   <url>
+    <loc>https://caisi.dev/ai-tool-sprawl-v2-2026/</loc>
+  </url>
+  <url>
     <loc>https://caisi.dev/blog/</loc>
   </url>
   <url>
     <loc>https://caisi.dev/blog/openclaw/</loc>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/sprawl-2026/</loc>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/wrkr/</loc>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/gait/</loc>
   </url>
   <url>
     <loc>https://caisi.dev/blog/ai-engineering-control-problem/</loc>
@@ -56,5 +68,41 @@
   </url>
   <url>
     <loc>https://caisi.dev/blog/openclaw/what-openclaw-proves-and-what-it-doesnt/</loc>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/sprawl-2026/evidence-before-exploitation/</loc>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/sprawl-2026/approval-gap-is-a-proof-gap/</loc>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/sprawl-2026/declared-agents-are-not-deployed-agents/</loc>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/sprawl-2026/what-the-report-proves-and-what-leaders-should-do-next/</loc>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/wrkr/most-dangerous-agent-is-uninventoried/</loc>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/wrkr/mcp-config-is-part-of-security-boundary/</loc>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/wrkr/ci-is-where-ai-tooling-becomes-infrastructure/</loc>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/wrkr/npm-audit-for-ai-agents-is-the-wrong-endpoint/</loc>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/gait/policy-after-the-tool-call-is-not-control/</loc>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/gait/eslintrc-for-agent-behavior-is-an-incomplete-model/</loc>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/gait/mcp-trust-needs-a-boundary-not-just-a-config/</loc>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/gait/signed-traces-and-regressions-make-policy-real/</loc>
   </url>
 </urlset>

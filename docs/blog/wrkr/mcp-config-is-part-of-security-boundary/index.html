@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Your MCP Config Is Already Part of Your Security Boundary | CAISI Blog</title>
+    <meta
+      name="description"
+      content="Why security leaders should treat MCP declarations, transports, permissions, and trust posture as part of the agent boundary."
+    />
+    <link rel="stylesheet" href="/assets/site.css" />
+  </head>
+  <body>
+    <main class="site" aria-label="CAISI blog post">
+      <header class="site-header" aria-label="Site header">
+        <div class="brand-row">
+          <div class="brand-mark">
+            <a class="brand-link" href="/">CAISI</a>
+            <p class="brand-note">
+              Independent research and operating notes on AI agent governance.
+            </p>
+          </div>
+        </div>
+        <nav class="global-nav" aria-label="Primary">
+          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" href="/#research-heading">Research</a>
+          <a class="nav-link current" href="/blog/">Blog</a>
+          <a class="nav-link" href="/#about-heading">About</a>
+          <a class="nav-link" href="/#contact-heading">Contact</a>
+        </nav>
+      </header>
+
+      <section class="section hero">
+        <p class="breadcrumbs">
+          <a href="/">Home</a>
+          <span class="divider">/</span>
+          <a href="/blog/">Blog</a>
+          <span class="divider">/</span>
+          <a href="/blog/wrkr/">Wrkr Series</a>
+          <span class="divider">/</span>
+          <span>Post 2</span>
+        </p>
+        <p class="eyebrow">Wrkr Series / Post 2 of 4 / Security Architecture</p>
+        <h1>Your MCP Config Is Already Part of Your Security Boundary</h1>
+        <p class="lead">
+          MCP still gets treated like developer plumbing in many organizations.
+          That is a mistake. The moment a model-facing tool declaration can
+          request permissions, name transports, and route actions into systems
+          outside the editor, it has joined the boundary conversation whether
+          security reviewed it or not.
+        </p>
+      </section>
+
+      <section class="section">
+        <div class="quote-card">
+          <h2>Repo grounding</h2>
+          <p>
+            Wrkr's current repo scope includes MCP server cataloging with
+            transport, requested permissions, trust overlay, posture notes, and
+            saved-state projection through <code>wrkr mcp-list</code>. That is
+            a useful signal because it treats MCP declarations as inventory and
+            posture data, not as harmless editor decoration.
+          </p>
+        </div>
+      </section>
+
+      <section class="section article-section">
+        <h2>The operational reality</h2>
+        <p>
+          Security leaders are increasingly asked some version of the same
+          question: what exactly can these AI assistants call? The answer often
+          drifts immediately toward models, providers, and procurement. But the
+          more practical answer usually sits in the config layer. MCP
+          declarations describe which tools the agent can see, what transport
+          they use, and what kind of permission shape they request.
+        </p>
+        <p>
+          That matters because a harmless-looking config file can quietly become
+          the route by which AI tooling reaches internal systems, third-party
+          services, or developer-local capabilities that security never modeled
+          as part of the production-adjacent surface. By the time the issue is
+          discovered, the organization is no longer debating a theory. It is
+          debating an already-expanded boundary.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>The anti-pattern</h2>
+        <p>
+          The anti-pattern is to treat MCP as a convenience layer that belongs
+          entirely to the developer-experience side of the house. Under that
+          view, security reviews the SaaS product, maybe glances at the IDE
+          plugin, and assumes the integration details are too low-level to
+          matter unless an incident happens later.
+        </p>
+        <p>
+          That assumption breaks for the same reason API gateways, CI runners,
+          and deployment environments eventually became security topics. The
+          abstraction is useful right until it starts carrying real authority.
+          Once it does, the declaration surface matters. Transport matters.
+          Trust assumptions matter. Missing parse coverage matters. None of that
+          is exotic. It is standard boundary hygiene applied to a new path.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>The better system pattern</h2>
+        <p>
+          The better pattern is to treat MCP declarations as boundary metadata.
+          That means inventorying them, classifying them, and reviewing them in
+          the same posture program that already covers repos, workflows, and
+          access inheritance. A strong inventory should tell you at least four
+          things: which servers are declared, how they are reached, what they
+          appear to request, and how trustworthy the declaration looks from a
+          supply-chain perspective.
+        </p>
+        <p>
+          That is where Wrkr's posture framing is useful. It does not pretend to
+          solve runtime enforcement from static inventory. It does something
+          earlier and necessary. It makes the declaration layer visible enough
+          that the organization can decide which paths deserve stricter runtime
+          control later.
+        </p>
+        <p>
+          This is also a better way to talk to engineering. "Security wants to
+          review every MCP config" sounds like drag. "We need a consistent view
+          of which declared tool paths already expand the agent boundary" sounds
+          like system design, because it is.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>Why security cares</h2>
+        <p>
+          An unreviewed MCP declaration is risky for the same reason any hidden
+          tool path is risky: it creates capability without governance memory.
+          If there is no durable record of what was declared, what permissions
+          were implied, and whether the path was approved, every later question
+          gets harder. That includes internal review, external audit, and plain
+          old incident response.
+        </p>
+        <p>
+          For AppSec specifically, MCP also creates a new location where policy
+          intent and supply-chain trust intersect. A declaration can look simple
+          while still inheriting risk from packaging, pinning, endpoint trust,
+          or surrounding tool access. Security needs the declaration in view
+          before it can make a mature judgment.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>Why platform and engineering care</h2>
+        <p>
+          Platform teams benefit because MCP drift is an operability problem as
+          much as a security problem. Engineers lose confidence when local and
+          shared tool boundaries differ invisibly across machines, repos, and
+          environments. A structured inventory reduces that uncertainty and
+          makes later debugging less political.
+        </p>
+        <p>
+          It also clarifies the split between discovery and runtime control.
+          Discovery tells you which declared edges exist. Later enforcement can
+          decide which ones may execute under what policy. Keeping those layers
+          separate is healthier than pretending a config review alone solves the
+          execution problem.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>Practical next step</h2>
+        <ul class="list-plain">
+          <li>Collect MCP declarations from one representative engineering group rather than discussing the topic abstractly.</li>
+          <li>Record transport type, requested permissions, package or endpoint trust assumptions, and parse failures.</li>
+          <li>Separate approved declarations from declarations security has never reviewed.</li>
+          <li>Decide which declaration patterns need runtime enforcement later and which just need visibility.</li>
+          <li>Make the resulting inventory part of the same review surface as repo and CI posture.</li>
+        </ul>
+        <p>
+          Once MCP enters the same posture map as the rest of software delivery,
+          another blind spot becomes harder to ignore: unattended execution in
+          CI.
+        </p>
+      </section>
+
+      <footer class="section article-footer" aria-label="Post footer">
+        <div class="series-nav">
+          <a class="nav-link" href="/blog/wrkr/most-dangerous-agent-is-uninventoried/">Previous post</a>
+          <a class="nav-link" href="/blog/wrkr/">Back to series</a>
+          <a class="nav-link" href="/blog/wrkr/ci-is-where-ai-tooling-becomes-infrastructure/">Next post</a>
+        </div>
+        <p class="footer-note">
+          Practical question: which MCP declarations in your environment are
+          already expanding tool reach without a durable approval record?
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>

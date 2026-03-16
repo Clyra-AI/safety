@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Policy Before Action | CAISI Blog</title>
+    <meta
+      name="description"
+      content="A four-part CAISI series using the current Gait repo as the implementation context for tool-boundary policy, MCP enforcement, signed traces, and CI regressions."
+    />
+    <link rel="stylesheet" href="/assets/site.css" />
+  </head>
+  <body>
+    <main class="site" aria-label="Gait blog series">
+      <header class="site-header" aria-label="Site header">
+        <div class="brand-row">
+          <div class="brand-mark">
+            <a class="brand-link" href="/">CAISI</a>
+            <p class="brand-note">
+              Independent research and operating notes on AI agent governance.
+            </p>
+          </div>
+        </div>
+        <nav class="global-nav" aria-label="Primary">
+          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" href="/#research-heading">Research</a>
+          <a class="nav-link current" href="/blog/">Blog</a>
+          <a class="nav-link" href="/#about-heading">About</a>
+          <a class="nav-link" href="/#contact-heading">Contact</a>
+        </nav>
+      </header>
+
+      <section class="section hero">
+        <p class="breadcrumbs">
+          <a href="/">Home</a>
+          <span class="divider">/</span>
+          <a href="/blog/">Blog</a>
+          <span class="divider">/</span>
+          <span>Gait Series</span>
+        </p>
+        <div class="hero-grid">
+          <div class="hero-panel">
+            <p class="eyebrow">CAISI Blog / Gait Implementation Series</p>
+            <h1>Policy Before Action</h1>
+            <p class="lead">
+              This four-part series uses the current Gait repo as implementation
+              context for a problem many teams still avoid naming clearly:
+              policy only becomes real when it can change what an agent is
+              allowed to do before the action executes. YAML policy, boundary
+              verdicts, signed traces, and CI regressions matter because they
+              turn AI governance from advisory language into operating
+              discipline.
+            </p>
+            <div class="pill-row">
+              <span class="pill">Boundary before side effect</span>
+              <span class="pill">Signed traces, not screenshots</span>
+              <span class="pill">Fail-closed runtime control</span>
+            </div>
+            <div class="button-row" style="margin-top: 22px">
+              <a class="button-link" href="https://github.com/Clyra-AI/gait">Open Gait repo</a>
+              <a class="button-link secondary" href="/blog/wrkr/">See the Wrkr series</a>
+            </div>
+          </div>
+          <aside class="series-card">
+            <p class="eyebrow">Series design</p>
+            <p>
+              Each post starts with a practical control failure: policy after
+              the fact, oversimplified lint analogies, unmanaged MCP trust, or
+              weak proof in CI. Gait appears as implementation context for the
+              enforcement and evidence layer, not as the thesis itself.
+            </p>
+            <div class="link-row">
+              <a href="/blog/">All blog series</a>
+              <span class="divider">|</span>
+              <a href="https://github.com/Clyra-AI/gait">Repo source</a>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="series-why">
+        <h2 id="series-why">Why a separate Gait series</h2>
+        <p class="body">
+          The CAISI research and operating-model posts already argue that
+          execution boundaries matter. This collection narrows the lens to the
+          enforcement layer itself: the moment a tool call is allowed, blocked,
+          or held for approval, and the artifact trail that proves what
+          happened.
+        </p>
+        <p class="body">
+          That is worth separating because teams routinely collapse policy into
+          prompts, style guides, or after-the-fact observability. Gait is useful
+          implementation context precisely because the repo is explicit about a
+          different model: tool-boundary verdicts before side effects, signed
+          evidence, and CI regressions that turn incidents into durable tests.
+        </p>
+      </section>
+
+      <section class="section" aria-labelledby="gait-posts">
+        <h2 id="gait-posts">The 4 posts</h2>
+        <div class="blog-grid">
+          <article class="post-card">
+            <p class="post-number">Gait Post 1</p>
+            <p class="post-stage">AppSec</p>
+            <h3>
+              <a href="/blog/gait/policy-after-the-tool-call-is-not-control/"
+                >If Policy Runs After the Tool Call, It Isn't a Control</a
+              >
+            </h3>
+            <p>
+              Why prompts and post-hoc review are not enough once an agent can
+              execute write-capable actions.
+            </p>
+          </article>
+          <article class="post-card">
+            <p class="post-number">Gait Post 2</p>
+            <p class="post-stage">Security leadership</p>
+            <h3>
+              <a href="/blog/gait/eslintrc-for-agent-behavior-is-an-incomplete-model/"
+                >".eslintrc for Agent Behavior" Is a Useful Hook and an Incomplete Model</a
+              >
+            </h3>
+            <p>
+              Why the analogy helps people start, but hides the difference
+              between static rules and execution-time enforcement.
+            </p>
+          </article>
+          <article class="post-card">
+            <p class="post-number">Gait Post 3</p>
+            <p class="post-stage">MCP trust</p>
+            <h3>
+              <a href="/blog/gait/mcp-trust-needs-a-boundary-not-just-a-config/"
+                >MCP Trust Needs a Boundary, Not Just a Config File</a
+              >
+            </h3>
+            <p>
+              Why MCP trust cannot stop at declaration review once real tool
+              calls are crossing the boundary.
+            </p>
+          </article>
+          <article class="post-card">
+            <p class="post-number">Gait Post 4</p>
+            <p class="post-stage">Proof and CI</p>
+            <h3>
+              <a href="/blog/gait/signed-traces-and-regressions-make-policy-real/"
+                >Signed Traces and Regressions Are How Agent Policy Becomes Real</a
+              >
+            </h3>
+            <p>
+              Why signed artifacts and deterministic regressions are the bridge
+              from policy aspiration to durable operational proof.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <footer class="section article-footer" aria-label="Page footer">
+        <div class="footer-links">
+          <a href="/">Home</a>
+          <span class="divider">|</span>
+          <a href="/blog/">Blog</a>
+          <span class="divider">|</span>
+          <a href="/blog/wrkr/">Wrkr series</a>
+          <span class="divider">|</span>
+          <a href="https://github.com/Clyra-AI/gait">Gait repo</a>
+        </div>
+        <p class="footer-note">
+          This collection uses the same CAISI navigation and page system as the
+          rest of the site so the implementation essays stay connected to the
+          broader research and operating-model work.
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>

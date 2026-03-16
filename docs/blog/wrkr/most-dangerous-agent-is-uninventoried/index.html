@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>The Most Dangerous AI Agent Is the One Security Never Inventoried | CAISI Blog</title>
+    <meta
+      name="description"
+      content="Why AppSec leaders should worry first about unknown-to-security AI tooling paths before they worry about agent cleverness."
+    />
+    <link rel="stylesheet" href="/assets/site.css" />
+  </head>
+  <body>
+    <main class="site" aria-label="CAISI blog post">
+      <header class="site-header" aria-label="Site header">
+        <div class="brand-row">
+          <div class="brand-mark">
+            <a class="brand-link" href="/">CAISI</a>
+            <p class="brand-note">
+              Independent research and operating notes on AI agent governance.
+            </p>
+          </div>
+        </div>
+        <nav class="global-nav" aria-label="Primary">
+          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" href="/#research-heading">Research</a>
+          <a class="nav-link current" href="/blog/">Blog</a>
+          <a class="nav-link" href="/#about-heading">About</a>
+          <a class="nav-link" href="/#contact-heading">Contact</a>
+        </nav>
+      </header>
+
+      <section class="section hero">
+        <p class="breadcrumbs">
+          <a href="/">Home</a>
+          <span class="divider">/</span>
+          <a href="/blog/">Blog</a>
+          <span class="divider">/</span>
+          <a href="/blog/wrkr/">Wrkr Series</a>
+          <span class="divider">/</span>
+          <span>Post 1</span>
+        </p>
+        <p class="eyebrow">Wrkr Series / Post 1 of 4 / AppSec</p>
+        <h1>The Most Dangerous AI Agent Is the One Security Never Inventoried</h1>
+        <p class="lead">
+          Most AppSec teams are not losing sleep because an agent became too
+          intelligent. They are losing sleep because adoption has outpaced
+          inventory. Someone enabled a coding assistant, installed an MCP
+          server, added a workflow action, or wired a write-capable path into a
+          repo, and nobody in security can say exactly where that path now
+          exists or what it can touch.
+        </p>
+      </section>
+
+      <section class="section">
+        <div class="quote-card">
+          <h2>Repo grounding</h2>
+          <p>
+            The current Wrkr repo is explicit about this layer of the problem:
+            deterministic discovery across local setup, repositories, GitHub
+            orgs, MCP declarations, and CI execution patterns, with
+            machine-readable states such as <code>approved</code>,
+            <code>known_unapproved</code>, and
+            <code>unknown_to_security</code>.
+          </p>
+        </div>
+      </section>
+
+      <section class="section article-section">
+        <h2>The operational reality</h2>
+        <p>
+          A CISO asks a reasonable question: how many AI coding tools and
+          agents are currently on write-capable paths in our delivery system?
+          The room usually answers with fragments. Someone knows the official
+          standard. Someone else knows what is allowed in CI. A platform lead
+          knows what was piloted. A few engineers know what is really running on
+          their machines. The organization has policies. It does not have one
+          inventory.
+        </p>
+        <p>
+          That gap is what makes the unknown path dangerous. An agent that is
+          already documented, scoped, and reviewed may still deserve controls,
+          but at least it can enter a serious governance conversation. The
+          unknown-to-security path is worse because it collapses three problems
+          together: missing approval context, unclear privilege boundary, and no
+          durable evidence trail if something goes wrong later.
+        </p>
+        <p>
+          This is also why the argument cannot stop at "developers are using AI
+          tools." That observation is too broad to be useful. The question that
+          matters is narrower and more operational: which of those tools can
+          currently change code, mutate CI behavior, touch credentials, or
+          inherit production reach through the systems around them?
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>The anti-pattern</h2>
+        <p>
+          The anti-pattern is treating AI tooling like a software-procurement
+          list. Security keeps a rough catalog of approved products, engineering
+          assumes that anything not explicitly blocked is low-risk, and the real
+          execution surfaces spread underneath both groups. That might have been
+          survivable when the tools only generated text. It breaks once those
+          tools participate in software delivery.
+        </p>
+        <p>
+          The practical failure is not just incomplete coverage. It is false
+          confidence. Leaders can say "we know our approved tools" while
+          unknown-to-security paths already exist in skills directories, MCP
+          config files, repository scaffolds, local IDE settings, or CI actions
+          that nobody thinks of as agent infrastructure. The absence of a
+          coherent inventory is what lets these paths become normal before they
+          become visible.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>The better system pattern</h2>
+        <p>
+          The better pattern starts with inventory as a control surface. Not a
+          vanity dashboard. Not a once-a-year review. A deterministic answer to
+          four questions: what exists, where it is declared, what it can touch,
+          and how its approval status is represented. That is the point where a
+          tool like Wrkr becomes useful implementation context. The important
+          idea is not the brand. It is the shape of the output.
+        </p>
+        <p>
+          Good output for this problem is machine-readable and specific. It
+          should separate local setup from repo-scoped declarations. It should
+          identify CI execution patterns separately from interactive developer
+          tooling. It should tell you whether a path is already write-capable or
+          becomes effectively write-capable once it inherits access from the
+          surrounding environment. And it should make "unknown to security" a
+          first-class state instead of a fuzzy concern raised in meetings.
+        </p>
+        <p>
+          Once that structure exists, governance gets much less theatrical.
+          AppSec can review something concrete. Platform can reduce ambiguity.
+          Leadership can ask whether the unresolved inventory is shrinking over
+          time rather than arguing abstractly about whether the organization is
+          "good at AI governance."
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>Why security and the CISO care</h2>
+        <p>
+          Unknown inventory is expensive because it poisons every later control.
+          Approval programs degrade into exceptions-by-memory. Audit prep turns
+          into spreadsheet archaeology. Incident review begins with basic
+          reconstruction rather than decision-making. Even strong teams end up
+          answering executive questions with inference instead of evidence.
+        </p>
+        <p>
+          For a CISO, this is not just a tooling problem. It is a trust problem.
+          If the organization cannot say where write-capable AI paths already
+          exist, then every later assurance statement is weaker than it sounds.
+          You cannot govern what you cannot enumerate.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>Why platform and engineering care</h2>
+        <p>
+          Platform teams often feel the operational cost of missing inventory
+          before security does. They are the ones untangling workflow drift,
+          reconciling overlapping tool assumptions, and cleaning up local setup
+          differences that only surface once CI behaves unexpectedly. A unified
+          inventory helps because it turns hidden differences into visible
+          inputs.
+        </p>
+        <p>
+          That is also the moment when discovery stops feeling bureaucratic.
+          Good discovery reduces onboarding time, clarifies repo expectations,
+          and makes later runtime control more precise because the organization
+          finally knows which paths deserve attention first.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>Practical next step</h2>
+        <ul class="list-plain">
+          <li>Pick one engineering group and enumerate every AI tool, agent, MCP server, and CI path currently involved in software delivery.</li>
+          <li>Separate local setup, repo declarations, and workflow execution into different inventory buckets.</li>
+          <li>Add an explicit state for paths security has never reviewed.</li>
+          <li>Mark which of those paths are write-capable now versus conditionally write-capable after environment inheritance.</li>
+          <li>Review whether that output is machine-readable enough to survive an audit or an incident six months from now.</li>
+        </ul>
+        <p>
+          Once that baseline exists, the next question gets sharper: which
+          seemingly small config surfaces are already expanding your boundary?
+          MCP is the clearest example.
+        </p>
+      </section>
+
+      <footer class="section article-footer" aria-label="Post footer">
+        <div class="series-nav">
+          <a class="nav-link" href="/blog/wrkr/">Back to series</a>
+          <a class="nav-link" href="/blog/wrkr/mcp-config-is-part-of-security-boundary/">Next post</a>
+        </div>
+        <p class="footer-note">
+          Practical question: if your CISO asked for the list of unknown-to-security
+          write paths this afternoon, could anyone produce it without a manual
+          scramble?
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>

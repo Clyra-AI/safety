@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Signed Traces and Regressions Are How Agent Policy Becomes Real | CAISI Blog</title>
+    <meta
+      name="description"
+      content="Why signed traces and deterministic CI regressions turn agent policy from aspiration into durable proof."
+    />
+    <link rel="stylesheet" href="/assets/site.css" />
+  </head>
+  <body>
+    <main class="site" aria-label="CAISI blog post">
+      <header class="site-header" aria-label="Site header">
+        <div class="brand-row">
+          <div class="brand-mark">
+            <a class="brand-link" href="/">CAISI</a>
+            <p class="brand-note">
+              Independent research and operating notes on AI agent governance.
+            </p>
+          </div>
+        </div>
+        <nav class="global-nav" aria-label="Primary">
+          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" href="/#research-heading">Research</a>
+          <a class="nav-link current" href="/blog/">Blog</a>
+          <a class="nav-link" href="/#about-heading">About</a>
+          <a class="nav-link" href="/#contact-heading">Contact</a>
+        </nav>
+      </header>
+
+      <section class="section hero">
+        <p class="breadcrumbs">
+          <a href="/">Home</a>
+          <span class="divider">/</span>
+          <a href="/blog/">Blog</a>
+          <span class="divider">/</span>
+          <a href="/blog/gait/">Gait Series</a>
+          <span class="divider">/</span>
+          <span>Post 4</span>
+        </p>
+        <p class="eyebrow">Gait Series / Post 4 of 4 / Proof and CI</p>
+        <h1>Signed Traces and Regressions Are How Agent Policy Becomes Real</h1>
+        <p class="lead">
+          Many policy programs die in the handoff between intention and proof.
+          The team has rules. People believe the boundary exists. But when an
+          incident, audit, or executive review arrives, nobody can produce a
+          durable artifact that explains what was decided, what executed, and
+          how the same failure will be prevented next time. That is where signed
+          traces and regressions stop being nice-to-have details.
+        </p>
+      </section>
+
+      <section class="section">
+        <div class="quote-card">
+          <h2>Repo grounding</h2>
+          <p>
+            Gait's current repo scope includes signed traces, packs, and
+            callpacks that can be verified offline, plus
+            <code>gait capture</code>, <code>gait regress add</code>, and
+            <code>gait regress bootstrap</code> for turning real failures into
+            deterministic CI gates with stable exit behavior.
+          </p>
+        </div>
+      </section>
+
+      <section class="section article-section">
+        <h2>The operational reality</h2>
+        <p>
+          A control only becomes credible when it survives two moments of
+          pressure: the incident and the repeat. During the incident, a reviewer
+          needs to know what was decided at the boundary and what evidence backs
+          that claim. During the repeat, engineering needs a way to make sure
+          the same class of failure does not silently return.
+        </p>
+        <p>
+          Teams often address only one side. Some keep logs or screenshots that
+          help during an incident but do not translate into durable tests. Others
+          add CI checks without preserving a clear artifact trail that security,
+          audit, or leadership can inspect later. Both halves matter.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>The anti-pattern</h2>
+        <p>
+          The anti-pattern is policy without portable proof. A dashboard says a
+          call was blocked. A ticket says approval existed. A reviewer remembers
+          the exception. But there is no self-contained artifact that survives
+          outside the originating system, and no deterministic regression that
+          locks the lesson into CI.
+        </p>
+        <p>
+          That failure hurts both sides of the house. Security cannot defend the
+          control later, and engineering cannot reliably turn the incident into a
+          reusable test. The organization learns the lesson socially, not
+          mechanically.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>The better system pattern</h2>
+        <p>
+          The better pattern is proof plus regression. The boundary decision
+          emits a durable artifact. That artifact can be verified without asking
+          anyone to trust a live dashboard. Then the failure mode becomes a
+          deterministic regression so the lesson enters CI and stays there.
+        </p>
+        <p>
+          Gait is useful implementation context because the repo ties those
+          layers together directly. Signed traces and packs support the proof
+          conversation. Regression commands support the repeatability
+          conversation. Together they give teams a way to move from "we think we
+          fixed it" to "we have a portable record and a lasting test."
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>Why security and audit care</h2>
+        <p>
+          Auditors, insurers, and internal review functions care less about the
+          elegance of the policy than about the quality of the evidence. A
+          signed artifact that can be verified offline is much easier to defend
+          than a screenshot or a memory of what the dashboard showed at the
+          time.
+        </p>
+        <p>
+          The same is true for the CISO. When the question comes back months
+          later, leadership needs something that survived the original runtime,
+          the original team, and the original system state.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>Why platform and engineering care</h2>
+        <p>
+          Engineering leaders need the regression side because it is how a
+          control program compounds instead of resetting after every incident.
+          If failures can be captured and turned into CI gates with stable
+          behavior, the control plane becomes part of normal software delivery
+          rather than a separate policy ritual.
+        </p>
+        <p>
+          That also helps platform credibility. Teams are much more willing to
+          adopt a control when it comes with understandable artifacts and
+          reproducible failure modes.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>Practical next step</h2>
+        <ul class="list-plain">
+          <li>Pick one recent agent-related failure, approval dispute, or unsafe action that your team still talks about informally.</li>
+          <li>Ask whether you have a portable artifact that proves what the boundary decided.</li>
+          <li>Ask whether you have a deterministic regression that prevents the same failure class from returning quietly.</li>
+          <li>If one of those is missing, treat the control as incomplete.</li>
+          <li>Make proof and repeatability part of the same operating review.</li>
+        </ul>
+        <p>
+          That is the real end state for this series. Policy is not mature when
+          it is written down. It is mature when it can stop actions, explain
+          itself, and keep the lesson alive in the delivery system.
+        </p>
+      </section>
+
+      <footer class="section article-footer" aria-label="Post footer">
+        <div class="series-nav">
+          <a class="nav-link" href="/blog/gait/mcp-trust-needs-a-boundary-not-just-a-config/">Previous post</a>
+          <a class="nav-link" href="/blog/gait/">Back to series</a>
+          <a class="nav-link" href="/blog/">Open blog hub</a>
+        </div>
+        <p class="footer-note">
+          Practical question: if one of your agent controls failed tomorrow,
+          what artifact and what regression would prove that the team actually
+          learned from it?
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>

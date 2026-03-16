@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>".eslintrc for Agent Behavior" Is a Useful Hook and an Incomplete Model | CAISI Blog</title>
+    <meta
+      name="description"
+      content="Why the '.eslintrc for agent behavior' analogy is useful, but hides the difference between linting and runtime enforcement."
+    />
+    <link rel="stylesheet" href="/assets/site.css" />
+  </head>
+  <body>
+    <main class="site" aria-label="CAISI blog post">
+      <header class="site-header" aria-label="Site header">
+        <div class="brand-row">
+          <div class="brand-mark">
+            <a class="brand-link" href="/">CAISI</a>
+            <p class="brand-note">
+              Independent research and operating notes on AI agent governance.
+            </p>
+          </div>
+        </div>
+        <nav class="global-nav" aria-label="Primary">
+          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" href="/#research-heading">Research</a>
+          <a class="nav-link current" href="/blog/">Blog</a>
+          <a class="nav-link" href="/#about-heading">About</a>
+          <a class="nav-link" href="/#contact-heading">Contact</a>
+        </nav>
+      </header>
+
+      <section class="section hero">
+        <p class="breadcrumbs">
+          <a href="/">Home</a>
+          <span class="divider">/</span>
+          <a href="/blog/">Blog</a>
+          <span class="divider">/</span>
+          <a href="/blog/gait/">Gait Series</a>
+          <span class="divider">/</span>
+          <span>Post 2</span>
+        </p>
+        <p class="eyebrow">Gait Series / Post 2 of 4 / Security Leadership</p>
+        <h1>".eslintrc for Agent Behavior" Is a Useful Hook and an Incomplete Model</h1>
+        <p class="lead">
+          The phrase works because it gives busy leaders a fast mental model.
+          A policy file for agents. Rules engineers can understand. Guardrails
+          captured in code instead of tribal memory. That part is helpful. The
+          problem is that linting is not execution control, and the analogy can
+          hide the difference at exactly the wrong moment.
+        </p>
+      </section>
+
+      <section class="section">
+        <div class="quote-card">
+          <h2>Repo grounding</h2>
+          <p>
+            Gait bootstraps repo policy with <code>gait init</code> and
+            validates it with <code>gait check</code>, but the repo's core claim
+            is stronger than a config analogy: structured intent is evaluated at
+            runtime and non-allow outcomes are non-executable.
+          </p>
+        </div>
+      </section>
+
+      <section class="section article-section">
+        <h2>Why the analogy helps</h2>
+        <p>
+          Leaders need an entry point when a new control category shows up. The
+          ".eslintrc" analogy helps because it signals three healthy instincts:
+          policy should be explicit, versioned, reviewable, and close enough to
+          engineering workflows that teams can reason about it in code.
+        </p>
+        <p>
+          Those instincts are worth keeping. Most organizations do need a more
+          legible way to express what agents may and may not do, and YAML policy
+          is easier to govern than instructions scattered across prompts, wiki
+          pages, and exception emails.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>Where the analogy breaks</h2>
+        <p>
+          Linting tells you something about code quality or style before merge.
+          It does not usually decide whether a production-side effect may happen
+          right now. Agent policy at the tool boundary is closer to a deployment
+          protection rule, an authorization gate, or a fail-closed runtime
+          check. That is why the analogy becomes incomplete the moment the
+          action can change something real.
+        </p>
+        <p>
+          This matters because executives hear "linting" and infer low-stakes
+          guardrails. They hear "runtime boundary" and infer an actual control.
+          The organization needs the second interpretation if the agent can
+          write code, invoke sensitive tools, or cross a permission boundary.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>The better system pattern</h2>
+        <p>
+          A stronger model is: policy-as-code plus runtime enforcement plus
+          proof. The policy file still matters. It makes intent explicit. But
+          the policy is only one layer. The runtime has to evaluate the action
+          before execution, and the system has to retain a signed or otherwise
+          durable artifact showing what verdict was reached and why.
+        </p>
+        <p>
+          That is what makes Gait a useful example. The repo does not stop at
+          "define the rules." It ties rules to a boundary decision and then ties
+          that decision to artifacts that can be reused in CI, audit, and
+          incident handling. That is much closer to how mature security controls
+          actually behave.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>Why security leadership should care</h2>
+        <p>
+          If leadership embraces the analogy too literally, it can underfund the
+          real control layer. Teams end up with policy files that look mature
+          while still lacking the enforcement point, reasoned decision record,
+          or durable proof needed to defend the system later.
+        </p>
+        <p>
+          The CISO does not need semantic perfection here. The useful move is to
+          keep the analogy as an opener while being precise about the actual
+          capability being bought: not better style guidance, but an execution
+          boundary with artifacts.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>Why engineering leadership should care</h2>
+        <p>
+          Engineering leaders benefit from the analogy when it lowers adoption
+          friction. But they also need to avoid reducing the system to a config
+          exercise. The real payoff comes when the policy file becomes one piece
+          of a reusable control plane: versioned rules, stable verdicts, clear
+          failure modes, and CI-friendly artifacts.
+        </p>
+        <p>
+          That is the difference between a nice repository convention and a
+          platform capability other teams can rely on.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>Practical next step</h2>
+        <ul class="list-plain">
+          <li>Keep the ".eslintrc" analogy for introductory conversations, but stop there.</li>
+          <li>Document for leadership where your policy becomes a runtime verdict rather than a static rule file.</li>
+          <li>Show one example where non-allow means non-execute.</li>
+          <li>Attach the resulting artifact to the same review surface engineers already use.</li>
+          <li>Measure whether the policy program can survive an incident review, not just a repository tour.</li>
+        </ul>
+        <p>
+          The next pressure point is one of the most practical ones: MCP trust.
+          Config review is a start. It is not the whole story once the calls are
+          actually crossing the boundary.
+        </p>
+      </section>
+
+      <footer class="section article-footer" aria-label="Post footer">
+        <div class="series-nav">
+          <a class="nav-link" href="/blog/gait/policy-after-the-tool-call-is-not-control/">Previous post</a>
+          <a class="nav-link" href="/blog/gait/">Back to series</a>
+          <a class="nav-link" href="/blog/gait/mcp-trust-needs-a-boundary-not-just-a-config/">Next post</a>
+        </div>
+        <p class="footer-note">
+          Practical question: are your leaders buying a policy file, or are
+          they buying a runtime control that can actually change what happens?
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>

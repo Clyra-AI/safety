@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Why "npm audit for AI agents" Is the Right Instinct and the Wrong Endpoint | CAISI Blog</title>
+    <meta
+      name="description"
+      content="Why security leaders should use the 'npm audit for AI agents' analogy carefully and focus on inventory, privilege mapping, drift, and evidence instead."
+    />
+    <link rel="stylesheet" href="/assets/site.css" />
+  </head>
+  <body>
+    <main class="site" aria-label="CAISI blog post">
+      <header class="site-header" aria-label="Site header">
+        <div class="brand-row">
+          <div class="brand-mark">
+            <a class="brand-link" href="/">CAISI</a>
+            <p class="brand-note">
+              Independent research and operating notes on AI agent governance.
+            </p>
+          </div>
+        </div>
+        <nav class="global-nav" aria-label="Primary">
+          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" href="/#research-heading">Research</a>
+          <a class="nav-link current" href="/blog/">Blog</a>
+          <a class="nav-link" href="/#about-heading">About</a>
+          <a class="nav-link" href="/#contact-heading">Contact</a>
+        </nav>
+      </header>
+
+      <section class="section hero">
+        <p class="breadcrumbs">
+          <a href="/">Home</a>
+          <span class="divider">/</span>
+          <a href="/blog/">Blog</a>
+          <span class="divider">/</span>
+          <a href="/blog/wrkr/">Wrkr Series</a>
+          <span class="divider">/</span>
+          <span>Post 4</span>
+        </p>
+        <p class="eyebrow">Wrkr Series / Post 4 of 4 / CISO</p>
+        <h1>Why "npm audit for AI agents" Is the Right Instinct and the Wrong Endpoint</h1>
+        <p class="lead">
+          Security buyers naturally reach for familiar categories. The phrase
+          "npm audit for AI agents" works because it signals urgency,
+          discoverability, and hygiene at once. It is also incomplete. If teams
+          force AI tooling into the vulnerability-scanner frame, they will miss
+          the more important problem: inventory, privilege shape, drift, and
+          proof.
+        </p>
+      </section>
+
+      <section class="section">
+        <div class="quote-card">
+          <h2>Repo grounding</h2>
+          <p>
+            The Wrkr repo is explicit that it does not replace package or
+            vulnerability scanners. Its scope is discovery, posture scoring,
+            privilege mapping, deterministic drift review, and signed evidence
+            bundles for audit and CI workflows.
+          </p>
+        </div>
+      </section>
+
+      <section class="section article-section">
+        <h2>Why the instinct is right</h2>
+        <p>
+          The instinct behind the phrase is sound. Security wants a compact way
+          to ask: what do we have, what changed, what looks risky, and can we
+          review it before it becomes an incident? That is exactly the right
+          shape of question for AI tooling.
+        </p>
+        <p>
+          The phrase is also a clue that buyers want something operational, not
+          academic. They are not asking for another philosophy of AI governance.
+          They want the equivalent of a dependable hygiene layer that can enter
+          CI, produce structured output, and help them speak concretely with
+          engineering and auditors.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>Why the endpoint is wrong</h2>
+        <p>
+          The trouble starts when the analogy becomes the architecture.
+          Vulnerability scanning is built around known package identities,
+          version relationships, and published defect records. The first
+          governance problem in AI tooling is different. Security often does not
+          know which tools and agent paths exist, which ones are write-capable,
+          how they are wired into software delivery, or whether the approval
+          state can be proven at all.
+        </p>
+        <p>
+          That means the real first step is not "find the CVEs." It is "find the
+          paths." Inventory comes before judgment. Privilege mapping comes before
+          residual risk ranking. Drift review comes before maturity claims.
+          Evidence packaging comes before audit confidence.
+        </p>
+        <p>
+          This is why the Wrkr framing is more useful than the analogy itself.
+          It starts with posture and proof rather than pretending the market
+          already has one settled security category for AI delivery tooling.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>The better system pattern</h2>
+        <p>
+          A better way to think about this layer is: inventory plus boundary
+          context plus evidence. First, you enumerate the local, repo, MCP, and
+          CI surfaces where AI tooling is declared or executed. Then you map
+          what those paths can touch and whether security has ever reviewed
+          them. Then you preserve the result as machine-readable output that can
+          survive a later dispute.
+        </p>
+        <p>
+          That model is more honest for buyers because it admits what teams
+          actually need. An AppSec lead needs to know where invisible write
+          paths exist. A CISO needs to know whether approval posture and evidence
+          quality are improving over time. An auditor needs something stronger
+          than screenshots and memory. None of that is captured well by the
+          vulnerability-scanner metaphor alone.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>Why leadership should care</h2>
+        <p>
+          Leaders get hurt by category mistakes. If they buy into the wrong
+          frame, they fund the wrong process and declare success too early. A
+          team might add a few AI scanner steps to CI and feel more mature while
+          still lacking a defensible answer to the basic questions: which agent
+          paths exist, who approved them, and what proof survives when someone
+          asks six months from now?
+        </p>
+        <p>
+          That is why the real value here is not semantic purity. It is better
+          budget and control decisions. The right framing helps the buyer invest
+          in posture, evidence, and later runtime control rather than overfitting
+          to the closest old category.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>Practical next step</h2>
+        <ul class="list-plain">
+          <li>Use the "npm audit for AI agents" phrase only as an opener for stakeholders who need a quick mental model.</li>
+          <li>Immediately translate that opener into four operational requirements: inventory, privilege mapping, drift review, and evidence output.</li>
+          <li>Separate vulnerability scanning from posture scanning in your control design.</li>
+          <li>Measure whether your current output can answer approval and evidence questions, not just package questions.</li>
+          <li>Pick one business unit and test whether the resulting inventory is strong enough to hand to audit without a spreadsheet rewrite.</li>
+        </ul>
+        <p>
+          Discovery alone is still not the full control story. But it is the
+          layer that makes every later conversation less confused. That is the
+          right place to end this Wrkr series and hand the next question to the
+          Gait series: what happens when policy has to stop an action before it
+          executes?
+        </p>
+      </section>
+
+      <footer class="section article-footer" aria-label="Post footer">
+        <div class="series-nav">
+          <a class="nav-link" href="/blog/wrkr/ci-is-where-ai-tooling-becomes-infrastructure/">Previous post</a>
+          <a class="nav-link" href="/blog/wrkr/">Back to series</a>
+          <a class="nav-link" href="/blog/gait/">See the Gait series</a>
+        </div>
+        <p class="footer-note">
+          Practical question: if your current AI-tooling program is using the
+          wrong category as its foundation, which important question is still
+          going unanswered?
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>
