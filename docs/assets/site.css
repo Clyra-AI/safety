@@ -183,6 +183,38 @@ h3 {
   margin-bottom: 12px;
 }
 
+.post-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.author-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 999px;
+  object-fit: cover;
+  flex: 0 0 auto;
+}
+
+.author-byline {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.author-byline a {
+  color: var(--text);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.author-byline a:hover {
+  color: var(--accent-dark);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 .breadcrumbs {
   display: flex;
   flex-wrap: wrap;
@@ -403,6 +435,10 @@ h3 {
 .footer-note {
   margin-top: 14px;
   max-width: 72ch;
+}
+
+.repo-note {
+  margin-top: 0;
 }
 
 .article-footer {
