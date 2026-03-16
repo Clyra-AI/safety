@@ -23,7 +23,7 @@
         </div>
         <nav class="global-nav" aria-label="Primary">
           <a class="nav-link current" href="/">Home</a>
-          <a class="nav-link" href="/#research-heading">Research</a>
+          <a class="nav-link" href="/research/">Research</a>
           <a class="nav-link" href="/blog/">Blog</a>
           <a class="nav-link" href="/#about-heading">About</a>
           <a class="nav-link" href="/#contact-heading">Contact</a>
@@ -33,7 +33,7 @@
       <section class="section hero">
         <div class="hero-grid">
           <div class="hero-panel">
-            <p class="eyebrow">CAISI / Research + Operating Model</p>
+            <p class="eyebrow">CAISI / Research + Operating Notes</p>
             <h1>Clyra AI Safety Initiative</h1>
             <p class="lead">
               We publish independent, reproducible research on AI agent
@@ -46,30 +46,29 @@
               <span class="pill">Proof over narrative</span>
             </div>
             <div class="button-row" style="margin-top: 22px">
-              <a class="button-link" href="/blog/">Open the blog hub</a>
-              <a class="button-link secondary" href="/ai-tool-sprawl-v2-2026/"
-                >AI tool and agent sprawl</a
-              >
+              <a class="button-link" href="/research/">Start with research</a>
+              <a class="button-link" href="/blog/operating-notes/">Start with operating notes</a>
+              <a class="button-link secondary" href="/blog/">Browse all blog collections</a>
             </div>
           </div>
           <aside class="series-card">
-            <p class="eyebrow">Blog Overview</p>
-            <h2 style="margin-bottom: 0">AI engineering is a systems discipline.</h2>
+            <p class="eyebrow">Start Here</p>
             <p>
-              The blog now has five collections: the 10-part operating-model
-              series, the OpenClaw case-study series, the sprawl report series,
-              a Wrkr series on invisible write paths, and a Gait series on
-              policy before action at the tool boundary.
+              The fastest way to orient on CAISI is to choose the artifact type
+              first. Research pages hold the measured evidence and methodology.
+              Blog collections explain the operating model, control patterns,
+              and implementation lessons behind that evidence.
             </p>
             <div class="link-row">
-              <a href="/blog/">Open the blog hub</a>
+              <a href="/research/">Research hub</a>
               <span class="divider">|</span>
-              <a href="/blog/wrkr/">Wrkr series</a>
-              <span class="divider">|</span>
-              <a href="/blog/gait/">Gait series</a>
-              <span class="divider">|</span>
-              <a href="https://github.com/Clyra-AI/safety">Repository</a>
+              <a href="/blog/">Blog hub</a>
             </div>
+            <p class="body" style="margin-top: 14px">
+              AppSec: <a href="/openclaw-2026/">OpenClaw</a> and <a href="/blog/wrkr/">Invisible Write Paths</a><br />
+              CISO: <a href="/ai-tool-sprawl-v2-2026/">Sprawl report</a> and <a href="/blog/sprawl-2026/">sprawl series</a><br />
+              Platform: <a href="/blog/operating-notes/">Operating Notes</a> and <a href="/blog/gait/">Policy Before Action</a>
+            </p>
           </aside>
         </div>
       </section>
@@ -87,17 +86,21 @@
           control problem visible and measurable.
         </p>
         <p class="body">
-          Our research pages publish artifacts and evidence. Our blog explains
-          the operating model behind those results: repo contracts, orchestrator
-          design, sandbox isolation, evaluation discipline, and proof of work
-          for AI-generated change.
+          Use the research hub when you want the primary artifact, the claims,
+          and the study framing. Use the blog when you want the operating
+          implications: repo contracts, orchestration, isolation, evaluation,
+          discovery, policy, and proof of work for AI-generated change.
         </p>
       </section>
 
       <section class="section" aria-labelledby="research-heading">
         <div class="section-intro">
           <p class="eyebrow">Research</p>
-          <h2 id="research-heading">Published and in-progress studies</h2>
+          <h2 id="research-heading">Published reports and live builds</h2>
+          <p class="body">
+            The research hub is the canonical entry point for report pages,
+            methodology, and artifact-backed findings.
+          </p>
         </div>
         <div class="research-grid">
           <article class="card">
@@ -116,7 +119,7 @@
             <div class="link-row">
               <a href="/openclaw-2026/">Open report page</a>
               <span class="divider">|</span>
-              <a href="/assets/reports/openclaw-2026/report.pdf">Read PDF</a>
+              <a href="/blog/openclaw/">Interpretation series</a>
             </div>
           </article>
           <article class="card">
@@ -134,32 +137,45 @@
             <div class="link-row">
               <a href="/ai-tool-sprawl-v2-2026/">Open report page</a>
               <span class="divider">|</span>
-              <a href="/assets/reports/ai-tool-sprawl-v2-2026/report.pdf">Read PDF</a>
+              <a href="/blog/sprawl-2026/">Interpretation series</a>
             </div>
           </article>
+          <article class="card">
+            <p class="post-stage">Live build archive</p>
+            <h3>
+              <a href="/ai-tool-sprawl-q1-2026/">AI Tool Sprawl Q1 2026</a>
+            </h3>
+            <p>
+              The earlier live-build page remains available as background on the
+              flagship sprawl study's pre-publication phase.
+            </p>
+            <div class="link-row">
+              <a href="/ai-tool-sprawl-q1-2026/">Open archive page</a>
+              <span class="divider">|</span>
+              <a href="/research/">All research</a>
+            </div>
+          </article>
+        </div>
+        <div class="button-row" style="margin-top: 20px">
+          <a class="button-link secondary" href="/research/">Open the research hub</a>
         </div>
       </section>
 
       <section class="section" aria-labelledby="blog-heading">
         <div class="section-intro">
           <p class="eyebrow">Blog</p>
-          <h2 id="blog-heading">Blog collections</h2>
+          <h2 id="blog-heading">Collection-based operating notes</h2>
           <p class="body">
-            The CAISI blog is organized as a unified system with separate
-            collections. The operating-model series explains the general
-            framework. The OpenClaw series extracts lessons from one controlled
-            runtime case study. The sprawl series translates a public
-            measurement report into governance lessons for security and
-            platform leaders. The Wrkr and Gait series use current open source
-            repos as implementation context for discovery, evidence, and
-            tool-boundary policy.
+            The blog is organized as a set of collections with clear jobs: one
+            framework series, two report interpretation series, and two
+            implementation series.
           </p>
         </div>
         <div class="blog-grid">
           <article class="post-card">
-            <p class="post-number">Series one</p>
+            <p class="post-number">Framework series</p>
             <h3>
-              <a href="/blog/">AI Engineering Operating Notes</a>
+              <a href="/blog/operating-notes/">AI Engineering Operating Notes</a>
             </h3>
             <p>
               A 10-part framework on repo contracts, orchestration, isolation,
@@ -167,73 +183,50 @@
             </p>
           </article>
           <article class="post-card">
-            <p class="post-number">Series two</p>
+            <p class="post-number">Case-study series</p>
             <h3>
               <a href="/blog/openclaw/">What OpenClaw Taught Us About Agent Control</a>
             </h3>
             <p>
-              A 4-part case-study collection on stop behavior, discovery
-              limits, boundary enforcement, and scope discipline.
+              Four posts on stop behavior, discovery limits, boundary
+              enforcement, and scope discipline.
             </p>
           </article>
           <article class="post-card">
-            <p class="post-number">Series three</p>
+            <p class="post-number">Report series</p>
             <h3>
               <a href="/blog/sprawl-2026/"
                 >What the Sprawl Report Means for Security and Platform Leaders</a
               >
             </h3>
             <p>
-              A 4-part collection on approval opacity, evidence posture,
-              deployability, and how to read public AI adoption data without
-              overclaiming.
+              Four posts on approval opacity, evidence posture, deployability,
+              and how to read public AI adoption data without overclaiming.
             </p>
           </article>
           <article class="post-card">
-            <p class="post-number">Featured post</p>
+            <p class="post-number">Implementation series</p>
             <h3>
-              <a href="/blog/dark-factory/"
-                >The Dark Factory: Managing Work Instead of Supervising Agents</a
-              >
+              <a href="/blog/wrkr/">Invisible Write Paths</a>
             </h3>
             <p>
-              The orchestrator model for turning work items into validated PRs
-              with audit trails and human review states.
+              Discovery across local setup, repos, MCP configs, CI workflows,
+              and the evidence layer security can defend.
             </p>
           </article>
           <article class="post-card">
-            <p class="post-number">Series four</p>
+            <p class="post-number">Implementation series</p>
             <h3>
-              <a href="/blog/wrkr/"
-                >Invisible Write Paths</a
-              >
+              <a href="/blog/gait/">Policy Before Action</a>
             </h3>
             <p>
-              A 4-part collection on discovery across local setup, repos, MCP
-              configs, CI workflows, and the evidence layer security can defend.
-            </p>
-          </article>
-          <article class="post-card">
-            <p class="post-number">Series five</p>
-            <h3>
-              <a href="/blog/gait/"
-                >Policy Before Action</a
-              >
-            </h3>
-            <p>
-              A 4-part collection on tool-boundary policy, MCP enforcement,
-              signed traces, and deterministic regressions in CI.
+              Tool-boundary policy, MCP enforcement, signed traces, and
+              deterministic regressions in CI.
             </p>
           </article>
         </div>
         <div class="button-row" style="margin-top: 20px">
-          <a class="button-link secondary" href="/blog/">Open blog hub</a>
-          <a class="button-link secondary" href="/blog/wrkr/"
-            >Wrkr collection</a
-          >
-          <a class="button-link secondary" href="/blog/gait/"
-            >Gait collection</a
-          >
+          <a class="button-link secondary" href="/blog/">Open the blog hub</a>
         </div>
       </section>
 
@@ -277,18 +270,17 @@
 
       <footer class="section article-footer" aria-label="Site footer">
         <div class="footer-links">
+          <a href="/research/">Research</a>
+          <span class="divider">|</span>
           <a href="/blog/">Blog</a>
           <span class="divider">|</span>
-          <a href="/openclaw-2026/">OpenClaw</a>
-          <span class="divider">|</span>
-          <a href="/ai-tool-sprawl-v2-2026/">Tool and Agent Sprawl</a>
+          <a href="/blog/operating-notes/">Operating Notes</a>
           <span class="divider">|</span>
           <a href="https://github.com/Clyra-AI/safety">GitHub</a>
         </div>
         <p class="footer-note">
-          The tools used in CAISI research are open source. Wrkr is relevant
-          where discovery, orchestration, and workspace flow matter. Gait is
-          relevant where policy verdicts and pre-execution control matter.
+          The research pages publish the evidence. The blog explains the
+          operating model and implementation lessons behind that evidence.
         </p>
       </footer>
     </main>

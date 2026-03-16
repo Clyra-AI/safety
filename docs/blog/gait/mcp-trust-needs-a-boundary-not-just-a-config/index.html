@@ -23,7 +23,7 @@
         </div>
         <nav class="global-nav" aria-label="Primary">
           <a class="nav-link" href="/">Home</a>
-          <a class="nav-link" href="/#research-heading">Research</a>
+          <a class="nav-link" href="/research/">Research</a>
           <a class="nav-link current" href="/blog/">Blog</a>
           <a class="nav-link" href="/#about-heading">About</a>
           <a class="nav-link" href="/#contact-heading">Contact</a>
@@ -38,7 +38,7 @@
           <span class="divider">/</span>
           <a href="/blog/gait/">Gait Series</a>
           <span class="divider">/</span>
-          <span>Post 3</span>
+          <span>MCP Trust Needs a Boundary, Not Just a Config File</span>
         </p>
         <p class="eyebrow">Gait Series / Post 3 of 4 / MCP Trust</p>
         <div class="post-author">
@@ -57,9 +57,27 @@
         </p>
       </section>
 
+      <section class="section page-nav" aria-labelledby="page-nav-heading">
+        <h2 id="page-nav-heading">In this piece</h2>
+        <div class="page-nav-list">
+          <a href="#repo-grounding">Repo grounding</a>
+          <a href="#the-operational-reality">The operational reality</a>
+          <a href="#the-anti-pattern">The anti-pattern</a>
+          <a href="#the-better-system-pattern">The better system pattern</a>
+          <a href="#why-security-cares">Why security cares</a>
+          <a href="#why-platform-and-engineering-care">Why platform and engineering care</a>
+          <a href="#practical-next-step">Practical next step</a>
+        </div>
+        <div class="link-row">
+          <a href="/blog/gait/">Series home</a>
+          <span class="divider">|</span>
+          <a href="/blog/">All blog collections</a>
+        </div>
+      </section>
+
       <section class="section">
         <div class="quote-card">
-          <h2>Repo grounding</h2>
+          <h2 id="repo-grounding">Repo grounding</h2>
           <p>
             Gait's current repo scope includes <code>gait mcp verify</code> for
             trust preflight and <code>gait mcp proxy</code> or
@@ -70,7 +88,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>The operational reality</h2>
+        <h2 id="the-operational-reality">The operational reality</h2>
         <p>
           MCP trust is easy to oversimplify because the declaration layer feels
           concrete. Teams can point to a config file, a package name, an
@@ -89,7 +107,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>The anti-pattern</h2>
+        <h2 id="the-anti-pattern">The anti-pattern</h2>
         <p>
           The anti-pattern is static trust with dynamic behavior. A declaration
           gets approved once, and that approval is quietly treated as if it
@@ -106,7 +124,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>The better system pattern</h2>
+        <h2 id="the-better-system-pattern">The better system pattern</h2>
         <p>
           The better pattern is layered trust. Discovery and declaration review
           still matter. They tell you what exists and how it is supposed to be
@@ -127,7 +145,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>Why security cares</h2>
+        <h2 id="why-security-cares">Why security cares</h2>
         <p>
           Security teams should care because MCP is a classic place for
           permission drift to hide. The integration may look stable while the
@@ -142,7 +160,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>Why platform and engineering care</h2>
+        <h2 id="why-platform-and-engineering-care">Why platform and engineering care</h2>
         <p>
           Platform teams need this because MCP without a boundary becomes hard
           to reason about operationally. When calls fail or behave differently
@@ -157,7 +175,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>Practical next step</h2>
+        <h2 id="practical-next-step">Practical next step</h2>
         <ul class="list-plain">
           <li>Separate MCP declaration review from MCP invocation control in your design.</li>
           <li>Choose one declared server and test whether you can evaluate a real invocation before execution.</li>

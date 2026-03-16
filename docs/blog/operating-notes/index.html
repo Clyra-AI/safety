@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI Engineering Operating Notes | CAISI Blog</title>
+    <meta
+      name="description"
+      content="The 10-part CAISI operating-model series on repo contracts, orchestration, isolation, evaluation, proof, and maturity."
+    />
+    <link rel="stylesheet" href="/assets/site.css" />
+  </head>
+  <body>
+    <main class="site" aria-label="Operating Notes collection">
+      <header class="site-header" aria-label="Site header">
+        <div class="brand-row">
+          <div class="brand-mark">
+            <a class="brand-link" href="/">CAISI</a>
+            <p class="brand-note">
+              Independent research and operating notes on AI agent governance.
+            </p>
+          </div>
+        </div>
+        <nav class="global-nav" aria-label="Primary">
+          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" href="/research/">Research</a>
+          <a class="nav-link current" href="/blog/">Blog</a>
+          <a class="nav-link" href="/#about-heading">About</a>
+          <a class="nav-link" href="/#contact-heading">Contact</a>
+        </nav>
+      </header>
+
+      <section class="section hero">
+        <p class="breadcrumbs">
+          <a href="/">Home</a>
+          <span class="divider">/</span>
+          <a href="/blog/">Blog</a>
+          <span class="divider">/</span>
+          <span>AI Engineering Operating Notes</span>
+        </p>
+        <div class="hero-grid">
+          <div class="hero-panel">
+            <p class="eyebrow">CAISI Blog / Framework Series</p>
+            <h1>AI Engineering Operating Notes</h1>
+            <p class="lead">
+              This 10-part series explains the core operating model behind
+              governed AI engineering: repo contracts, context loading,
+              blueprints, orchestration, isolation, evaluation, proof, and
+              maturity. It is the main framework collection in the CAISI blog.
+            </p>
+            <div class="pill-row">
+              <span class="pill">Posts 1 to 3 reframe the problem</span>
+              <span class="pill">Posts 4 to 7 define the operating model</span>
+              <span class="pill">Posts 8 to 10 define trust and maturity</span>
+            </div>
+            <div class="button-row" style="margin-top: 22px">
+              <a class="button-link" href="/blog/ai-engineering-control-problem/">Start with post 1</a>
+              <a class="button-link secondary" href="/blog/">All blog collections</a>
+            </div>
+          </div>
+          <aside class="series-card">
+            <p class="eyebrow">How to read this series</p>
+            <p>
+              Read it straight through if you want the full operating model.
+              Jump in at posts 4 and 5 if you already agree that the problem is
+              workflow design rather than prompting. Jump to posts 8 and 9 if
+              you need the trust and evidence layer first.
+            </p>
+            <p class="body" style="margin-top: 14px">
+              AppSec: start with posts <a href="/blog/ai-engineering-control-problem/">1</a> and <a href="/blog/proof-of-work-for-ai-generated-changes/">9</a><br />
+              Platform: start with posts <a href="/blog/from-skills-to-blueprints/">4</a> and <a href="/blog/dark-factory/">5</a><br />
+              Engineering leadership: start with posts <a href="/blog/visible-tests-are-not-enough/">8</a> and <a href="/blog/ai-engineering-maturity-model/">10</a>
+            </p>
+          </aside>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="series-arcs">
+        <h2 id="series-arcs">Narrative arc</h2>
+        <div class="summary-grid">
+          <article class="series-card">
+            <p class="post-stage">Posts 1 to 3</p>
+            <h3>Reframe the problem</h3>
+            <p>
+              Move from prompts and demos to repo contracts, context
+              architecture, and control as the real unit of design.
+            </p>
+          </article>
+          <article class="series-card">
+            <p class="post-stage">Posts 4 to 7</p>
+            <h3>Define the operating model</h3>
+            <p>
+              Show how blueprints, orchestrators, warm isolation, and safe
+              parallelism turn sessions into a delivery system.
+            </p>
+          </article>
+          <article class="series-card">
+            <p class="post-stage">Posts 8 to 10</p>
+            <h3>Define trust and maturity</h3>
+            <p>
+              Explain hidden evaluations, proof packets, and what staged
+              maturity actually looks like in practice.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="operating-posts">
+        <h2 id="operating-posts">The 10 posts</h2>
+        <div class="blog-grid">
+          <article class="post-card">
+            <p class="post-number">Post 1</p>
+            <p class="post-stage">Reframe the problem</p>
+            <h3>
+              <a href="/blog/ai-engineering-control-problem/"
+                >AI Engineering Is a Control Problem, Not a Prompt Problem</a
+              >
+            </h3>
+            <p>
+              Why unmanaged agents create new change risk, supply-chain risk,
+              and evidence gaps that prompting alone cannot solve.
+            </p>
+          </article>
+          <article class="post-card">
+            <p class="post-number">Post 2</p>
+            <p class="post-stage">Reframe the problem</p>
+            <h3>
+              <a href="/blog/repository-runtime-contract/"
+                >Your Repository Is the Runtime Contract for Agents</a
+              >
+            </h3>
+            <p>
+              What makes a repo agent-legible, and why repo structure is part
+              of the security control surface.
+            </p>
+          </article>
+          <article class="post-card">
+            <p class="post-number">Post 3</p>
+            <p class="post-stage">Reframe the problem</p>
+            <h3>
+              <a href="/blog/why-giant-instruction-files-fail/"
+                >Why Giant Instruction Files Fail</a
+              >
+            </h3>
+            <p>
+              The architecture problem behind context sprawl, weak
+              enforceability, and slow, expensive agent workflows.
+            </p>
+          </article>
+          <article class="post-card">
+            <p class="post-number">Post 4</p>
+            <p class="post-stage">Define the operating model</p>
+            <h3>
+              <a href="/blog/from-skills-to-blueprints/"
+                >From Skills to Blueprints: Where AI Should Stop and Code Should
+                Take Over</a
+              >
+            </h3>
+            <p>
+              How to split planning, execution, validation, and shipping across
+              AI reasoning and deterministic code.
+            </p>
+          </article>
+          <article class="post-card">
+            <p class="post-number">Post 5</p>
+            <p class="post-stage">Define the operating model</p>
+            <h3>
+              <a href="/blog/dark-factory/"
+                >The Dark Factory: Managing Work Instead of Supervising Agents</a
+              >
+            </h3>
+            <p>
+              The orchestrator model for turning work items into validated PRs
+              with human review states and rollback paths.
+            </p>
+          </article>
+          <article class="post-card">
+            <p class="post-number">Post 6</p>
+            <p class="post-stage">Define the operating model</p>
+            <h3>
+              <a href="/blog/isolated-warm-sandboxes/"
+                >Why Isolated, Warm Sandboxes Are Non-Negotiable</a
+              >
+            </h3>
+            <p>
+              Why shared checkouts and mutable environments undermine both
+              control and throughput.
+            </p>
+          </article>
+          <article class="post-card">
+            <p class="post-number">Post 7</p>
+            <p class="post-stage">Define the operating model</p>
+            <h3>
+              <a href="/blog/parallel-agents-without-chaos/"
+                >Parallel Agents Without Chaos</a
+              >
+            </h3>
+            <p>
+              How safe concurrency depends on path boundaries, dependency DAGs,
+              claims, retries, and reconciliation.
+            </p>
+          </article>
+          <article class="post-card">
+            <p class="post-number">Post 8</p>
+            <p class="post-stage">Define trust</p>
+            <h3>
+              <a href="/blog/visible-tests-are-not-enough/"
+                >Why Visible Tests Are Not Enough</a
+              >
+            </h3>
+            <p>
+              Why agents overfit to what they can see and why hidden evals and
+              digital twins matter.
+            </p>
+          </article>
+          <article class="post-card">
+            <p class="post-number">Post 9</p>
+            <p class="post-stage">Define trust</p>
+            <h3>
+              <a href="/blog/proof-of-work-for-ai-generated-changes/"
+                >Proof of Work for AI-Generated Changes</a
+              >
+            </h3>
+            <p>
+              What a trustworthy autonomous change packet has to contain beyond
+              green CI checks.
+            </p>
+          </article>
+          <article class="post-card">
+            <p class="post-number">Post 10</p>
+            <p class="post-stage">Define maturity</p>
+            <h3>
+              <a href="/blog/ai-engineering-maturity-model/"
+                >The AI Engineering Maturity Model</a
+              >
+            </h3>
+            <p>
+              A roadmap from prompt-first experiments to orchestrated,
+              evidence-rich, dark-factory capable autonomy.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="recurring-themes">
+        <h2 id="recurring-themes">Recurring themes</h2>
+        <div class="summary-grid">
+          <article class="series-card">
+            <h3>Systems over prompting</h3>
+            <p>
+              The unit of analysis is not prompt quality. It is the system that
+              turns work into changes, approvals, evidence, and recovery paths.
+            </p>
+          </article>
+          <article class="series-card">
+            <h3>Security and velocity can align</h3>
+            <p>
+              When workflows are designed correctly, the same controls that
+              reduce blast radius also remove ambiguity and scale throughput.
+            </p>
+          </article>
+          <article class="series-card">
+            <h3>Deterministic code owns deterministic steps</h3>
+            <p>
+              The best agent workflows interleave reasoning with scripts,
+              validators, and policies that do not depend on model behavior.
+            </p>
+          </article>
+          <article class="series-card">
+            <h3>Proof is part of the product</h3>
+            <p>
+              A governed system produces a reviewable packet from trigger to
+              merge. Passing CI is necessary, but never sufficient.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <footer class="section article-footer" aria-label="Page footer">
+        <div class="footer-links">
+          <a href="/">Home</a>
+          <span class="divider">|</span>
+          <a href="/blog/">All blog collections</a>
+          <span class="divider">|</span>
+          <a href="/research/">Research hub</a>
+          <span class="divider">|</span>
+          <a href="https://github.com/Clyra-AI/safety">Repository</a>
+        </div>
+        <p class="footer-note">
+          This collection is the framework layer of the CAISI blog. The report
+          series and implementation series apply the same ideas to specific
+          artifacts and systems.
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>

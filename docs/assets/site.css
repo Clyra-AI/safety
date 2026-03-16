@@ -100,8 +100,8 @@ code {
 .button-link {
   display: inline-flex;
   align-items: center;
-  min-height: auto;
-  padding: 0;
+  min-height: 32px;
+  padding: 4px 0;
   border: 0;
   border-radius: 0;
   background: none;
@@ -128,6 +128,11 @@ code {
 .button-link.secondary {
   color: var(--accent-dark);
   font-weight: 600;
+}
+
+.button-link.secondary {
+  color: var(--muted);
+  font-weight: 500;
 }
 
 .section {
@@ -251,7 +256,9 @@ h3 {
 .artifact-flow,
 .research-grid,
 .team-grid,
-.series-grid {
+.series-grid,
+.quick-grid,
+.route-grid {
   display: grid;
   gap: 16px;
 }
@@ -268,7 +275,9 @@ h3 {
 .blog-grid,
 .team-grid,
 .series-grid,
-.artifact-flow {
+.artifact-flow,
+.quick-grid,
+.route-grid {
   grid-template-columns: 1fr;
 }
 
@@ -446,15 +455,50 @@ h3 {
   gap: 14px;
 }
 
+.page-nav {
+  display: grid;
+  gap: 12px;
+}
+
+.page-nav h2 {
+  margin-bottom: 0;
+  font-size: 1rem;
+}
+
+.page-nav-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  align-items: center;
+}
+
+.page-nav-list a {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.page-nav-list a:hover {
+  color: var(--accent-dark);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 .spacious {
   display: grid;
   gap: 18px;
 }
 
 @media (min-width: 820px) {
+  .hero-grid {
+    grid-template-columns: minmax(0, 1.6fr) minmax(260px, 1fr);
+    align-items: start;
+  }
+
   .research-grid,
   .blog-grid,
-  .summary-grid {
+  .summary-grid,
+  .quick-grid,
+  .route-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }

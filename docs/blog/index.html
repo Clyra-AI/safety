@@ -6,7 +6,7 @@
     <title>CAISI Blog | Research Notes and Series</title>
     <meta
       name="description"
-      content="CAISI blog collections on AI engineering operating models, OpenClaw, sprawl, Wrkr discovery, and Gait policy enforcement."
+      content="The CAISI blog hub for operating notes, case-study series, report interpretation, and implementation collections."
     />
     <link rel="stylesheet" href="/assets/site.css" />
   </head>
@@ -23,7 +23,7 @@
         </div>
         <nav class="global-nav" aria-label="Primary">
           <a class="nav-link" href="/">Home</a>
-          <a class="nav-link" href="/#research-heading">Research</a>
+          <a class="nav-link" href="/research/">Research</a>
           <a class="nav-link current" href="/blog/">Blog</a>
           <a class="nav-link" href="/#about-heading">About</a>
           <a class="nav-link" href="/#contact-heading">Contact</a>
@@ -38,70 +38,56 @@
         </p>
         <div class="hero-grid">
           <div class="hero-panel">
-            <p class="eyebrow">CAISI Blog / Series</p>
+            <p class="eyebrow">CAISI Blog / Collections</p>
             <h1>Research Notes and Series</h1>
             <p class="lead">
-              The CAISI blog is organized as collections, not one-off pages.
-              The main 10-part operating-model series explains how governed AI
-              engineering should work across repos and teams. Separate report
-              series extract focused lessons from measured work: OpenClaw for
-              governed runtime behavior, sprawl for public AI adoption,
-              approval visibility, and evidence posture, Wrkr for discovery and
-              invisible write paths, and Gait for policy before action at the
-              tool boundary.
+              The CAISI blog is organized as collections with clear jobs. The
+              framework series explains the operating model. The report series
+              interpret measured research. The implementation series stay close
+              to open source systems without turning into product pages.
             </p>
-            <div class="pill-row">
-              <span class="pill">Long-form operating model series</span>
-              <span class="pill">Case-study sub-series</span>
-              <span class="pill">Leader-facing report essays</span>
-              <span class="pill">Implementation series</span>
-              <span class="pill">Unified blog navigation</span>
+            <div class="button-row" style="margin-top: 22px">
+              <a class="button-link" href="/blog/operating-notes/">Start with Operating Notes</a>
+              <a class="button-link" href="/research/">Go to the research hub</a>
+              <a class="button-link secondary" href="/blog/openclaw/">OpenClaw series</a>
             </div>
           </div>
           <aside class="series-card">
-            <p class="eyebrow">How to read the blog</p>
+            <p class="eyebrow">Start by audience</p>
             <p>
-              Each collection has a different job. The operating-model series
-              builds the general framework. The OpenClaw series stays tightly
-              tied to one runtime case study. The sprawl series translates a
-              public measurement report into specific lessons for AppSec, CISO,
-              and platform audiences. The Wrkr and Gait series stay closer to
-              open source implementation context without turning into product
-              pages. All five use the same site system: shared nav, breadcrumbs,
-              and series landing pages.
+              AppSec usually starts with control failure and evidence quality.
+              CISOs usually start with approval opacity and proof posture.
+              Platform teams usually start with repo contracts, orchestration,
+              and boundary design.
             </p>
-            <div class="link-row">
-              <a href="/openclaw-2026/">See the research</a>
-              <span class="divider">|</span>
-              <a href="/ai-tool-sprawl-v2-2026/">See the sprawl report</a>
-              <span class="divider">|</span>
-              <a href="/blog/wrkr/">Wrkr series</a>
-              <span class="divider">|</span>
-              <a href="/blog/gait/">Gait series</a>
-            </div>
+            <p class="body" style="margin-top: 14px">
+              AppSec: <a href="/blog/openclaw/">OpenClaw series</a> and <a href="/blog/wrkr/">Invisible Write Paths</a><br />
+              CISO: <a href="/blog/sprawl-2026/">Sprawl series</a><br />
+              Platform: <a href="/blog/operating-notes/">Operating Notes</a> and <a href="/blog/gait/">Policy Before Action</a>
+            </p>
           </aside>
         </div>
       </section>
 
       <section class="section" aria-labelledby="collections-heading">
-        <h2 id="collections-heading">Blog collections</h2>
+        <h2 id="collections-heading">Collections</h2>
         <div class="summary-grid">
           <article class="series-card">
-            <p class="post-stage">Series one</p>
+            <p class="post-stage">Framework series</p>
             <h3>AI Engineering Operating Notes</h3>
             <p>
-              The 10-part framework series on repo contracts, blueprints,
+              The 10-part framework on repo contracts, blueprints,
               orchestration, isolation, evaluation, proof, and maturity.
             </p>
             <div class="link-row">
-              <a href="#posts-heading">Browse 10 posts</a>
+              <a href="/blog/operating-notes/">Open the collection</a>
             </div>
           </article>
           <article class="series-card">
-            <p class="post-stage">Series two</p>
+            <p class="post-stage">Case-study series</p>
             <h3>What OpenClaw Taught Us About Agent Control</h3>
             <p>
-              A 4-part case-study series grounded in the OpenClaw report,
+              A 4-part case-study series grounded in one runtime evaluation,
               focused on stop behavior, discovery limits, boundary enforcement,
               and scope discipline.
             </p>
@@ -110,7 +96,7 @@
             </div>
           </article>
           <article class="series-card">
-            <p class="post-stage">Series three</p>
+            <p class="post-stage">Report series</p>
             <h3>What the Sprawl Report Means for Security and Platform Leaders</h3>
             <p>
               A 4-part series grounded in the AI Tool and Agent Sprawl report,
@@ -122,7 +108,7 @@
             </div>
           </article>
           <article class="series-card">
-            <p class="post-stage">Series four</p>
+            <p class="post-stage">Implementation series</p>
             <h3>Invisible Write Paths</h3>
             <p>
               A 4-part series using Wrkr as implementation context for AI
@@ -134,7 +120,7 @@
             </div>
           </article>
           <article class="series-card">
-            <p class="post-stage">Series five</p>
+            <p class="post-stage">Implementation series</p>
             <h3>Policy Before Action</h3>
             <p>
               A 4-part series using Gait as implementation context for
@@ -148,295 +134,75 @@
         </div>
       </section>
 
-      <section class="section" aria-labelledby="themes-heading">
-        <h2 id="themes-heading">Recurring themes</h2>
-        <div class="summary-grid">
-          <article class="series-card">
-            <h3>Systems over prompting</h3>
+      <section class="section" aria-labelledby="audience-heading">
+        <h2 id="audience-heading">Start by audience</h2>
+        <div class="route-grid">
+          <article class="card">
+            <p class="post-stage">AppSec</p>
+            <h3>Start with control that fails or holds</h3>
             <p>
-              The unit of analysis is not prompt quality. It is the system that
-              turns work into changes, approvals, evidence, and recovery paths.
+              The fastest route is a measured case study plus one discovery
+              collection. That gives you both runtime failure evidence and the
+              inventory problem underneath it.
             </p>
+            <div class="link-row">
+              <a href="/blog/openclaw/">OpenClaw series</a>
+              <span class="divider">|</span>
+              <a href="/blog/wrkr/">Invisible Write Paths</a>
+            </div>
           </article>
-          <article class="series-card">
-            <h3>Security and velocity can align</h3>
+          <article class="card">
+            <p class="post-stage">CISO</p>
+            <h3>Start with approval and proof posture</h3>
             <p>
-              When workflows are designed correctly, the same controls that
-              reduce blast radius also remove ambiguity and scale throughput.
+              The sprawl collection is the cleanest entry point if you need a
+              governance-first reading on visible adoption, approval opacity,
+              and evidence quality.
             </p>
+            <div class="link-row">
+              <a href="/blog/sprawl-2026/">Sprawl series</a>
+              <span class="divider">|</span>
+              <a href="/ai-tool-sprawl-v2-2026/">Sprawl report</a>
+            </div>
           </article>
-          <article class="series-card">
-            <h3>Deterministic code owns deterministic steps</h3>
+          <article class="card">
+            <p class="post-stage">Platform</p>
+            <h3>Start with the operating model</h3>
             <p>
-              The best agent workflows interleave reasoning with scripts,
-              validators, and policies that do not depend on model behavior.
+              The framework series explains the repo, workflow, and proof
+              patterns. The Gait collection is the follow-on if you need the
+              runtime boundary and CI proof layer.
             </p>
-          </article>
-          <article class="series-card">
-            <h3>Proof is part of the product</h3>
-            <p>
-              A governed system produces a reviewable packet from trigger to
-              merge. Passing CI is necessary, but never sufficient.
-            </p>
-          </article>
-        </div>
-      </section>
-
-      <section class="section" aria-labelledby="posts-heading">
-        <h2 id="posts-heading">Series One: AI Engineering Operating Notes</h2>
-        <div class="blog-grid">
-          <article class="post-card">
-            <p class="post-number">Post 1</p>
-            <p class="post-stage">Reframe the problem</p>
-            <h3>
-              <a href="/blog/ai-engineering-control-problem/"
-                >AI Engineering Is a Control Problem, Not a Prompt Problem</a
-              >
-            </h3>
-            <p>
-              Why unmanaged agents create new change risk, supply-chain risk,
-              and evidence gaps that prompting alone cannot solve.
-            </p>
-          </article>
-          <article class="post-card">
-            <p class="post-number">Post 2</p>
-            <p class="post-stage">Reframe the problem</p>
-            <h3>
-              <a href="/blog/repository-runtime-contract/"
-                >Your Repository Is the Runtime Contract for Agents</a
-              >
-            </h3>
-            <p>
-              What makes a repo agent-legible, and why repo structure is part
-              of the security control surface.
-            </p>
-          </article>
-          <article class="post-card">
-            <p class="post-number">Post 3</p>
-            <p class="post-stage">Reframe the problem</p>
-            <h3>
-              <a href="/blog/why-giant-instruction-files-fail/"
-                >Why Giant Instruction Files Fail</a
-              >
-            </h3>
-            <p>
-              The architecture problem behind context sprawl, weak
-              enforceability, and slow, expensive agent workflows.
-            </p>
-          </article>
-          <article class="post-card">
-            <p class="post-number">Post 4</p>
-            <p class="post-stage">Define the operating model</p>
-            <h3>
-              <a href="/blog/from-skills-to-blueprints/"
-                >From Skills to Blueprints: Where AI Should Stop and Code Should
-                Take Over</a
-              >
-            </h3>
-            <p>
-              How to split planning, execution, validation, and shipping across
-              AI reasoning and deterministic code.
-            </p>
-          </article>
-          <article class="post-card">
-            <p class="post-number">Post 5</p>
-            <p class="post-stage">Define the operating model</p>
-            <h3>
-              <a href="/blog/dark-factory/"
-                >The Dark Factory: Managing Work Instead of Supervising
-                Agents</a
-              >
-            </h3>
-            <p>
-              The orchestrator model for turning work items into validated PRs
-              with human review states and rollback paths.
-            </p>
-          </article>
-          <article class="post-card">
-            <p class="post-number">Post 6</p>
-            <p class="post-stage">Define the operating model</p>
-            <h3>
-              <a href="/blog/isolated-warm-sandboxes/"
-                >Why Isolated, Warm Sandboxes Are Non-Negotiable</a
-              >
-            </h3>
-            <p>
-              Why shared checkouts and mutable environments undermine both
-              control and throughput.
-            </p>
-          </article>
-          <article class="post-card">
-            <p class="post-number">Post 7</p>
-            <p class="post-stage">Define the operating model</p>
-            <h3>
-              <a href="/blog/parallel-agents-without-chaos/"
-                >Parallel Agents Without Chaos</a
-              >
-            </h3>
-            <p>
-              How safe concurrency depends on path boundaries, dependency DAGs,
-              claims, retries, and reconciliation.
-            </p>
-          </article>
-          <article class="post-card">
-            <p class="post-number">Post 8</p>
-            <p class="post-stage">Define trust</p>
-            <h3>
-              <a href="/blog/visible-tests-are-not-enough/"
-                >Why Visible Tests Are Not Enough</a
-              >
-            </h3>
-            <p>
-              Why agents overfit to what they can see and why hidden evals and
-              digital twins matter.
-            </p>
-          </article>
-          <article class="post-card">
-            <p class="post-number">Post 9</p>
-            <p class="post-stage">Define trust</p>
-            <h3>
-              <a href="/blog/proof-of-work-for-ai-generated-changes/"
-                >Proof of Work for AI-Generated Changes</a
-              >
-            </h3>
-            <p>
-              What a trustworthy autonomous change packet has to contain beyond
-              green CI checks.
-            </p>
-          </article>
-          <article class="post-card">
-            <p class="post-number">Post 10</p>
-            <p class="post-stage">Define maturity</p>
-            <h3>
-              <a href="/blog/ai-engineering-maturity-model/"
-                >The AI Engineering Maturity Model</a
-              >
-            </h3>
-            <p>
-              A roadmap from prompt-first experiments to orchestrated,
-              evidence-rich, dark-factory capable autonomy.
-            </p>
+            <div class="link-row">
+              <a href="/blog/operating-notes/">Operating Notes</a>
+              <span class="divider">|</span>
+              <a href="/blog/gait/">Policy Before Action</a>
+            </div>
           </article>
         </div>
       </section>
 
-      <section class="section" aria-labelledby="openclaw-series-heading">
-        <h2 id="openclaw-series-heading">Series Two: OpenClaw Case Study</h2>
-        <div class="blog-grid">
-          <article class="post-card">
-            <p class="post-number">OpenClaw Post 1</p>
-            <h3>
-              <a href="/blog/openclaw/stop-is-not-a-safety-control/"
-                >Stop Is Not a Safety Control If the Runtime Can Ignore It</a
-              >
-            </h3>
+      <section class="section" aria-labelledby="bridge-heading">
+        <h2 id="bridge-heading">Research and blog together</h2>
+        <div class="quick-grid">
+          <article class="card">
+            <p class="post-stage">Primary artifacts</p>
+            <h3><a href="/research/">Open the research hub</a></h3>
             <p>
-              The strongest lesson from the baseline lane: stop has to be an
-              execution control, not a polite request.
+              Use the research hub when you want the measured report, the
+              artifact links, and the exact scope of the claim before reading
+              the interpretation layer.
             </p>
           </article>
-          <article class="post-card">
-            <p class="post-number">OpenClaw Post 2</p>
-            <h3>
-              <a href="/blog/openclaw/discovery-is-necessary-not-sufficient/"
-                >Discovery Is Necessary, Not Sufficient</a
-              >
-            </h3>
+          <article class="card">
+            <p class="post-stage">Most direct bridge</p>
+            <h3><a href="/blog/operating-notes/">Read the framework series</a></h3>
             <p>
-              Why inventory and posture scanning are necessary but cannot answer
-              runtime behavior by themselves.
+              The main 10-part series is the shortest path from a measured
+              result to the operating model that could make that result
+              governable in practice.
             </p>
           </article>
-          <article class="post-card">
-            <p class="post-number">OpenClaw Post 3</p>
-            <h3>
-              <a href="/blog/openclaw/approval-and-proof-at-the-tool-boundary/"
-                >Approval and Proof Have to Exist at the Tool Boundary</a
-              >
-            </h3>
-            <p>
-              The governed lane as an engineering lesson: non-executable
-              outcomes and evidence belong together.
-            </p>
-          </article>
-          <article class="post-card">
-            <p class="post-number">OpenClaw Post 4</p>
-            <h3>
-              <a href="/blog/openclaw/what-openclaw-proves-and-what-it-doesnt/"
-                >What the OpenClaw Report Proves, What It Doesn't, and What Teams
-                Should Do Next</a
-              >
-            </h3>
-            <p>
-              The scope, transfer limits, and practical adoption path readers
-              should take from the report.
-            </p>
-          </article>
-        </div>
-        <div class="button-row" style="margin-top: 20px">
-          <a class="button-link secondary" href="/blog/openclaw/"
-            >View OpenClaw collection</a
-          >
-        </div>
-      </section>
-
-      <section class="section" aria-labelledby="sprawl-series-heading">
-        <h2 id="sprawl-series-heading">Series Three: Sprawl Report Lessons</h2>
-        <div class="blog-grid">
-          <article class="post-card">
-            <p class="post-number">Sprawl Post 1</p>
-            <h3>
-              <a href="/blog/sprawl-2026/evidence-before-exploitation/"
-                >For AppSec, the First AI Agent Problem Is Evidence Before Exploitation</a
-              >
-            </h3>
-            <p>
-              Why the first public control problem in the sprawl report is weak
-              evidence posture, not an already-proven exploit chain.
-            </p>
-          </article>
-          <article class="post-card">
-            <p class="post-number">Sprawl Post 2</p>
-            <h3>
-              <a href="/blog/sprawl-2026/approval-gap-is-a-proof-gap/"
-                >An 11:1 Approval Gap Is a Proof Gap, Not a Panic Statistic</a
-              >
-            </h3>
-            <p>
-              How CISOs should interpret the approval ratio without turning a
-              governance metric into a fear headline.
-            </p>
-          </article>
-          <article class="post-card">
-            <p class="post-number">Sprawl Post 3</p>
-            <h3>
-              <a href="/blog/sprawl-2026/declared-agents-are-not-deployed-agents/"
-                >Declared Agents Are Not Deployed Agents</a
-              >
-            </h3>
-            <p>
-              Why platform teams should separate declared agent frameworks from
-              deployable, bound, and governable runtime actors.
-            </p>
-          </article>
-          <article class="post-card">
-            <p class="post-number">Sprawl Post 4</p>
-            <h3>
-              <a href="/blog/sprawl-2026/what-the-report-proves-and-what-leaders-should-do-next/"
-                >What the Sprawl Report Proves, What It Doesn't, and What Leaders
-                Should Do Next</a
-              >
-            </h3>
-            <p>
-              The subset boundaries, the valid lessons, and the first fixes
-              leaders should insist on after reading the report.
-            </p>
-          </article>
-        </div>
-        <div class="button-row" style="margin-top: 20px">
-          <a class="button-link secondary" href="/blog/sprawl-2026/"
-            >View sprawl collection</a
-          >
         </div>
       </section>
 
@@ -444,17 +210,16 @@
         <div class="footer-links">
           <a href="/">Home</a>
           <span class="divider">|</span>
-          <a href="/blog/openclaw/">OpenClaw series</a>
+          <a href="/research/">Research</a>
           <span class="divider">|</span>
-          <a href="/blog/sprawl-2026/">Sprawl series</a>
-          <span class="divider">|</span>
-          <a href="/ai-tool-sprawl-v2-2026/">Tool and Agent Sprawl</a>
+          <a href="/blog/operating-notes/">Operating Notes</a>
           <span class="divider">|</span>
           <a href="https://github.com/Clyra-AI/safety">Repository</a>
         </div>
         <p class="footer-note">
-          We use the blog to explain the operating model. We use the research
-          pages to publish the evidence behind that model.
+          Research pages publish the artifacts. Blog collections translate them
+          into operating lessons, role-specific guidance, and implementation
+          patterns.
         </p>
       </footer>
     </main>

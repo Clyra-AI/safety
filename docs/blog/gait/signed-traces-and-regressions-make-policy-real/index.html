@@ -23,7 +23,7 @@
         </div>
         <nav class="global-nav" aria-label="Primary">
           <a class="nav-link" href="/">Home</a>
-          <a class="nav-link" href="/#research-heading">Research</a>
+          <a class="nav-link" href="/research/">Research</a>
           <a class="nav-link current" href="/blog/">Blog</a>
           <a class="nav-link" href="/#about-heading">About</a>
           <a class="nav-link" href="/#contact-heading">Contact</a>
@@ -38,7 +38,7 @@
           <span class="divider">/</span>
           <a href="/blog/gait/">Gait Series</a>
           <span class="divider">/</span>
-          <span>Post 4</span>
+          <span>Signed Traces and Regressions Are How Agent Policy Becomes Real</span>
         </p>
         <p class="eyebrow">Gait Series / Post 4 of 4 / Proof and CI</p>
         <div class="post-author">
@@ -58,9 +58,27 @@
         </p>
       </section>
 
+      <section class="section page-nav" aria-labelledby="page-nav-heading">
+        <h2 id="page-nav-heading">In this piece</h2>
+        <div class="page-nav-list">
+          <a href="#repo-grounding">Repo grounding</a>
+          <a href="#the-operational-reality">The operational reality</a>
+          <a href="#the-anti-pattern">The anti-pattern</a>
+          <a href="#the-better-system-pattern">The better system pattern</a>
+          <a href="#why-security-and-audit-care">Why security and audit care</a>
+          <a href="#why-platform-and-engineering-care">Why platform and engineering care</a>
+          <a href="#practical-next-step">Practical next step</a>
+        </div>
+        <div class="link-row">
+          <a href="/blog/gait/">Series home</a>
+          <span class="divider">|</span>
+          <a href="/blog/">All blog collections</a>
+        </div>
+      </section>
+
       <section class="section">
         <div class="quote-card">
-          <h2>Repo grounding</h2>
+          <h2 id="repo-grounding">Repo grounding</h2>
           <p>
             Gait's current repo scope includes signed traces, packs, and
             callpacks that can be verified offline, plus
@@ -72,7 +90,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>The operational reality</h2>
+        <h2 id="the-operational-reality">The operational reality</h2>
         <p>
           A control only becomes credible when it survives two moments of
           pressure: the incident and the repeat. During the incident, a reviewer
@@ -89,7 +107,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>The anti-pattern</h2>
+        <h2 id="the-anti-pattern">The anti-pattern</h2>
         <p>
           The anti-pattern is policy without portable proof. A dashboard says a
           call was blocked. A ticket says approval existed. A reviewer remembers
@@ -106,7 +124,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>The better system pattern</h2>
+        <h2 id="the-better-system-pattern">The better system pattern</h2>
         <p>
           The better pattern is proof plus regression. The boundary decision
           emits a durable artifact. That artifact can be verified without asking
@@ -123,7 +141,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>Why security and audit care</h2>
+        <h2 id="why-security-and-audit-care">Why security and audit care</h2>
         <p>
           Auditors, insurers, and internal review functions care less about the
           elegance of the policy than about the quality of the evidence. A
@@ -139,7 +157,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>Why platform and engineering care</h2>
+        <h2 id="why-platform-and-engineering-care">Why platform and engineering care</h2>
         <p>
           Engineering leaders need the regression side because it is how a
           control program compounds instead of resetting after every incident.
@@ -155,7 +173,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>Practical next step</h2>
+        <h2 id="practical-next-step">Practical next step</h2>
         <ul class="list-plain">
           <li>Pick one recent agent-related failure, approval dispute, or unsafe action that your team still talks about informally.</li>
           <li>Ask whether you have a portable artifact that proves what the boundary decided.</li>

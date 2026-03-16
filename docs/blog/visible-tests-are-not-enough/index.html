@@ -23,7 +23,7 @@
         </div>
         <nav class="global-nav" aria-label="Primary">
           <a class="nav-link" href="/">Home</a>
-          <a class="nav-link" href="/#research-heading">Research</a>
+          <a class="nav-link" href="/research/">Research</a>
           <a class="nav-link current" href="/blog/">Blog</a>
           <a class="nav-link" href="/#about-heading">About</a>
           <a class="nav-link" href="/#contact-heading">Contact</a>
@@ -36,9 +36,11 @@
           <span class="divider">/</span>
           <a href="/blog/">Blog</a>
           <span class="divider">/</span>
-          <span>Post 8</span>
+          <a href="/blog/operating-notes/">Operating Notes</a>
+          <span class="divider">/</span>
+          <span>Why Visible Tests Are Not Enough</span>
         </p>
-        <p class="eyebrow">CAISI Blog / Post 8 of 10</p>
+        <p class="eyebrow">AI Engineering Operating Notes / Post 8 of 10</p>
         <div class="post-author">
           <img class="author-avatar" src="/assets/david-ahmann-headshot.png" alt="David Ahmann" />
           <p class="author-byline">
@@ -55,8 +57,26 @@
         </p>
       </section>
 
+      <section class="section page-nav" aria-labelledby="page-nav-heading">
+        <h2 id="page-nav-heading">In this piece</h2>
+        <div class="page-nav-list">
+          <a href="#the-operational-reality">The operational reality</a>
+          <a href="#the-anti-pattern">The anti-pattern</a>
+          <a href="#the-better-system-pattern">The better system pattern</a>
+          <a href="#why-security-cares">Why security cares</a>
+          <a href="#why-platform-and-engineering-care">Why platform and engineering care</a>
+          <a href="#concrete-example-build-loop-tests-vs-decision-tests">Concrete example: build-loop tests vs decision tests</a>
+          <a href="#practical-next-step">Practical next step</a>
+        </div>
+        <div class="link-row">
+          <a href="/blog/operating-notes/">Series home</a>
+          <span class="divider">|</span>
+          <a href="/blog/">All blog collections</a>
+        </div>
+      </section>
+
       <section class="section article-section">
-        <h2>The operational reality</h2>
+        <h2 id="the-operational-reality">The operational reality</h2>
         <p>
           Engineering teams rely on tests for a good reason. Tests compress
           domain knowledge into executable checks. Agents can use them too. That
@@ -76,7 +96,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>The anti-pattern</h2>
+        <h2 id="the-anti-pattern">The anti-pattern</h2>
         <p>
           The anti-pattern is evaluation collapse: treating unit tests,
           integration tests, and final trust decisions as if they were the same
@@ -94,7 +114,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>The better system pattern</h2>
+        <h2 id="the-better-system-pattern">The better system pattern</h2>
         <p>
           The better pattern is layered evaluation. Let the agent use visible
           tests during the build loop. Then evaluate the result against a second
@@ -112,7 +132,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>Why security cares</h2>
+        <h2 id="why-security-cares">Why security cares</h2>
         <p>
           Security teams care because this is the difference between "passes CI"
           and "actually safe." An agent can learn the visible checks of a repo
@@ -129,7 +149,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>Why platform and engineering care</h2>
+        <h2 id="why-platform-and-engineering-care">Why platform and engineering care</h2>
         <p>
           Platform teams care because hidden evaluation reduces false confidence.
           It surfaces failure patterns earlier and makes autonomous delivery less
@@ -148,7 +168,7 @@
 
       <section class="section">
         <div class="artifact">
-          <h2>Concrete example: build-loop tests vs decision tests</h2>
+          <h2 id="concrete-example-build-loop-tests-vs-decision-tests">Concrete example: build-loop tests vs decision tests</h2>
           <p class="body">
             The trust model gets cleaner when the workflow separates the tests
             that help the agent build from the tests that decide whether the
@@ -181,7 +201,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>Practical next step</h2>
+        <h2 id="practical-next-step">Practical next step</h2>
         <p>
           Review one autonomous workflow and separate the evaluation layers on
           purpose.
@@ -206,7 +226,7 @@
       <footer class="section article-footer" aria-label="Post footer">
         <div class="series-nav">
           <a class="nav-link" href="/blog/parallel-agents-without-chaos/">Previous post</a>
-          <a class="nav-link" href="/blog/">Back to blog</a>
+          <a class="nav-link" href="/blog/operating-notes/">Back to series</a>
           <a class="nav-link" href="/blog/proof-of-work-for-ai-generated-changes/">Next post</a>
         </div>
         <p class="footer-note repo-note">

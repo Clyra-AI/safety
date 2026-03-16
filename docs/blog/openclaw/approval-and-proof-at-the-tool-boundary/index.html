@@ -23,7 +23,7 @@
         </div>
         <nav class="global-nav" aria-label="Primary">
           <a class="nav-link" href="/">Home</a>
-          <a class="nav-link" href="/#research-heading">Research</a>
+          <a class="nav-link" href="/research/">Research</a>
           <a class="nav-link current" href="/blog/">Blog</a>
           <a class="nav-link" href="/#about-heading">About</a>
           <a class="nav-link" href="/#contact-heading">Contact</a>
@@ -38,7 +38,7 @@
           <span class="divider">/</span>
           <a href="/blog/openclaw/">OpenClaw Series</a>
           <span class="divider">/</span>
-          <span>Post 3</span>
+          <span>Approval and Proof Have to Exist at the Tool Boundary</span>
         </p>
         <p class="eyebrow">OpenClaw Series / Post 3 of 4</p>
         <div class="post-author">
@@ -58,9 +58,26 @@
         </p>
       </section>
 
+      <section class="section page-nav" aria-labelledby="page-nav-heading">
+        <h2 id="page-nav-heading">In this piece</h2>
+        <div class="page-nav-list">
+          <a href="#grounding">Grounding</a>
+          <a href="#approval-only-matters-if-it-changes-what-can-execute">Approval only matters if it changes what can execute</a>
+          <a href="#what-the-report-actually-shows">What the report actually shows</a>
+          <a href="#why-proof-should-sit-next-to-the-gate">Why proof should sit next to the gate</a>
+          <a href="#the-design-pattern-worth-copying">The design pattern worth copying</a>
+          <a href="#practical-next-step">Practical next step</a>
+        </div>
+        <div class="link-row">
+          <a href="/blog/openclaw/">Series home</a>
+          <span class="divider">|</span>
+          <a href="/blog/">All blog collections</a>
+        </div>
+      </section>
+
       <section class="section">
         <div class="quote-card">
-          <h2>Grounding</h2>
+          <h2 id="grounding">Grounding</h2>
           <p>
             Run ID: <code>openclaw-live-24h-20260228T143341Z</code><br />
             Headline numbers: <code>1,615</code> non-executable governed
@@ -76,7 +93,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>Approval only matters if it changes what can execute</h2>
+        <h2 id="approval-only-matters-if-it-changes-what-can-execute">Approval only matters if it changes what can execute</h2>
         <p>
           Most teams talk about approval and evidence as if they were adjacent
           concerns. In practice they break down at the same place: the execution
@@ -103,7 +120,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>What the report actually shows</h2>
+        <h2 id="what-the-report-actually-shows">What the report actually shows</h2>
         <p>
           The governed lane used an external tool-boundary enforcement layer. It
           intercepted tool-call intent before execution and returned
@@ -130,7 +147,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>Why proof should sit next to the gate</h2>
+        <h2 id="why-proof-should-sit-next-to-the-gate">Why proof should sit next to the gate</h2>
         <p>
           Security buyers should care because this is the difference between an
           approval process and an approval boundary. If the system cannot hold a
@@ -154,7 +171,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>The design pattern worth copying</h2>
+        <h2 id="the-design-pattern-worth-copying">The design pattern worth copying</h2>
         <p>
           Approval and proof should be designed as one boundary system. The
           runtime needs to know whether the action is executable, and the
@@ -176,7 +193,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>Practical next step</h2>
+        <h2 id="practical-next-step">Practical next step</h2>
         <ul class="list-plain">
           <li>Identify one write-capable action in your environment that should require approval before execution.</li>
           <li>Check whether the runtime can truly hold it non-executable, not just log that approval is preferred.</li>

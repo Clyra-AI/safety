@@ -23,7 +23,7 @@
         </div>
         <nav class="global-nav" aria-label="Primary">
           <a class="nav-link" href="/">Home</a>
-          <a class="nav-link" href="/#research-heading">Research</a>
+          <a class="nav-link" href="/research/">Research</a>
           <a class="nav-link current" href="/blog/">Blog</a>
           <a class="nav-link" href="/#about-heading">About</a>
           <a class="nav-link" href="/#contact-heading">Contact</a>
@@ -38,7 +38,7 @@
           <span class="divider">/</span>
           <a href="/blog/wrkr/">Wrkr Series</a>
           <span class="divider">/</span>
-          <span>Post 3</span>
+          <span>CI Is Where AI Tooling Quietly Becomes Infrastructure</span>
         </p>
         <p class="eyebrow">Wrkr Series / Post 3 of 4 / Platform</p>
         <div class="post-author">
@@ -58,9 +58,27 @@
         </p>
       </section>
 
+      <section class="section page-nav" aria-labelledby="page-nav-heading">
+        <h2 id="page-nav-heading">In this piece</h2>
+        <div class="page-nav-list">
+          <a href="#repo-grounding">Repo grounding</a>
+          <a href="#the-operational-reality">The operational reality</a>
+          <a href="#the-anti-pattern">The anti-pattern</a>
+          <a href="#the-better-system-pattern">The better system pattern</a>
+          <a href="#why-security-cares">Why security cares</a>
+          <a href="#why-platform-and-engineering-care">Why platform and engineering care</a>
+          <a href="#practical-next-step">Practical next step</a>
+        </div>
+        <div class="link-row">
+          <a href="/blog/wrkr/">Series home</a>
+          <span class="divider">|</span>
+          <a href="/blog/">All blog collections</a>
+        </div>
+      </section>
+
       <section class="section">
         <div class="quote-card">
-          <h2>Repo grounding</h2>
+          <h2 id="repo-grounding">Repo grounding</h2>
           <p>
             Wrkr's repo scope explicitly includes CI agent usage in workflow
             files, headless execution patterns, deterministic baseline drift
@@ -71,7 +89,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>The operational reality</h2>
+        <h2 id="the-operational-reality">The operational reality</h2>
         <p>
           AppSec often learns about AI in CI in the least efficient way
           possible. A workflow starts using a new action, a review bot writes
@@ -91,7 +109,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>The anti-pattern</h2>
+        <h2 id="the-anti-pattern">The anti-pattern</h2>
         <p>
           The anti-pattern is to keep classifying CI-bound AI tooling as an
           extension of developer preference. That framing is attractive because
@@ -110,7 +128,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>The better system pattern</h2>
+        <h2 id="the-better-system-pattern">The better system pattern</h2>
         <p>
           The better pattern is to inventory AI execution in CI as
           infrastructure. That means treating workflow declarations, agent
@@ -134,7 +152,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>Why security cares</h2>
+        <h2 id="why-security-cares">Why security cares</h2>
         <p>
           For security, AI in CI creates a familiar governance problem in a new
           wrapper: invisible infrastructure change. If the workflow can mutate
@@ -151,7 +169,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>Why platform and engineering care</h2>
+        <h2 id="why-platform-and-engineering-care">Why platform and engineering care</h2>
         <p>
           Platform teams should care because AI in CI affects reliability and
           operability long before it triggers a formal security review. Hidden
@@ -168,7 +186,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>Practical next step</h2>
+        <h2 id="practical-next-step">Practical next step</h2>
         <ul class="list-plain">
           <li>Enumerate AI execution patterns in your CI system as separate infrastructure objects, not as incidental workflow details.</li>
           <li>Create a known-good baseline for those paths and compare new scans against it.</li>

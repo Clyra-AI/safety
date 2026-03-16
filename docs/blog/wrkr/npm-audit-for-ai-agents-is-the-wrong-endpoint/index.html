@@ -23,7 +23,7 @@
         </div>
         <nav class="global-nav" aria-label="Primary">
           <a class="nav-link" href="/">Home</a>
-          <a class="nav-link" href="/#research-heading">Research</a>
+          <a class="nav-link" href="/research/">Research</a>
           <a class="nav-link current" href="/blog/">Blog</a>
           <a class="nav-link" href="/#about-heading">About</a>
           <a class="nav-link" href="/#contact-heading">Contact</a>
@@ -38,7 +38,7 @@
           <span class="divider">/</span>
           <a href="/blog/wrkr/">Wrkr Series</a>
           <span class="divider">/</span>
-          <span>Post 4</span>
+          <span>Why "npm audit for AI agents" Is the Right Instinct and the Wrong Endpoint</span>
         </p>
         <p class="eyebrow">Wrkr Series / Post 4 of 4 / CISO</p>
         <div class="post-author">
@@ -58,9 +58,26 @@
         </p>
       </section>
 
+      <section class="section page-nav" aria-labelledby="page-nav-heading">
+        <h2 id="page-nav-heading">In this piece</h2>
+        <div class="page-nav-list">
+          <a href="#repo-grounding">Repo grounding</a>
+          <a href="#why-the-instinct-is-right">Why the instinct is right</a>
+          <a href="#why-the-endpoint-is-wrong">Why the endpoint is wrong</a>
+          <a href="#the-better-system-pattern">The better system pattern</a>
+          <a href="#why-leadership-should-care">Why leadership should care</a>
+          <a href="#practical-next-step">Practical next step</a>
+        </div>
+        <div class="link-row">
+          <a href="/blog/wrkr/">Series home</a>
+          <span class="divider">|</span>
+          <a href="/blog/">All blog collections</a>
+        </div>
+      </section>
+
       <section class="section">
         <div class="quote-card">
-          <h2>Repo grounding</h2>
+          <h2 id="repo-grounding">Repo grounding</h2>
           <p>
             The Wrkr repo is explicit that it does not replace package or
             vulnerability scanners. Its scope is discovery, posture scoring,
@@ -71,7 +88,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>Why the instinct is right</h2>
+        <h2 id="why-the-instinct-is-right">Why the instinct is right</h2>
         <p>
           The instinct behind the phrase is sound. Security wants a compact way
           to ask: what do we have, what changed, what looks risky, and can we
@@ -88,7 +105,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>Why the endpoint is wrong</h2>
+        <h2 id="why-the-endpoint-is-wrong">Why the endpoint is wrong</h2>
         <p>
           The trouble starts when the analogy becomes the architecture.
           Vulnerability scanning is built around known package identities,
@@ -112,7 +129,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>The better system pattern</h2>
+        <h2 id="the-better-system-pattern">The better system pattern</h2>
         <p>
           A better way to think about this layer is: inventory plus boundary
           context plus evidence. First, you enumerate the local, repo, MCP, and
@@ -132,7 +149,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>Why leadership should care</h2>
+        <h2 id="why-leadership-should-care">Why leadership should care</h2>
         <p>
           Leaders get hurt by category mistakes. If they buy into the wrong
           frame, they fund the wrong process and declare success too early. A
@@ -150,7 +167,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>Practical next step</h2>
+        <h2 id="practical-next-step">Practical next step</h2>
         <ul class="list-plain">
           <li>Use the "npm audit for AI agents" phrase only as an opener for stakeholders who need a quick mental model.</li>
           <li>Immediately translate that opener into four operational requirements: inventory, privilege mapping, drift review, and evidence output.</li>

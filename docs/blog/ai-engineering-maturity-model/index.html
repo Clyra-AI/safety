@@ -23,7 +23,7 @@
         </div>
         <nav class="global-nav" aria-label="Primary">
           <a class="nav-link" href="/">Home</a>
-          <a class="nav-link" href="/#research-heading">Research</a>
+          <a class="nav-link" href="/research/">Research</a>
           <a class="nav-link current" href="/blog/">Blog</a>
           <a class="nav-link" href="/#about-heading">About</a>
           <a class="nav-link" href="/#contact-heading">Contact</a>
@@ -36,9 +36,11 @@
           <span class="divider">/</span>
           <a href="/blog/">Blog</a>
           <span class="divider">/</span>
-          <span>Post 10</span>
+          <a href="/blog/operating-notes/">Operating Notes</a>
+          <span class="divider">/</span>
+          <span>The AI Engineering Maturity Model</span>
         </p>
-        <p class="eyebrow">CAISI Blog / Post 10 of 10</p>
+        <p class="eyebrow">AI Engineering Operating Notes / Post 10 of 10</p>
         <div class="post-author">
           <img class="author-avatar" src="/assets/david-ahmann-headshot.png" alt="David Ahmann" />
           <p class="author-byline">
@@ -56,8 +58,27 @@
         </p>
       </section>
 
+      <section class="section page-nav" aria-labelledby="page-nav-heading">
+        <h2 id="page-nav-heading">In this piece</h2>
+        <div class="page-nav-list">
+          <a href="#the-operational-reality">The operational reality</a>
+          <a href="#the-anti-pattern">The anti-pattern</a>
+          <a href="#the-better-system-pattern">The better system pattern</a>
+          <a href="#how-to-use-the-model-without-theater">How to use the model without theater</a>
+          <a href="#why-security-cares">Why security cares</a>
+          <a href="#why-platform-and-engineering-care">Why platform and engineering care</a>
+          <a href="#concrete-example-a-realistic-90-day-progression">Concrete example: a realistic 90-day progression</a>
+          <a href="#practical-next-step">Practical next step</a>
+        </div>
+        <div class="link-row">
+          <a href="/blog/operating-notes/">Series home</a>
+          <span class="divider">|</span>
+          <a href="/blog/">All blog collections</a>
+        </div>
+      </section>
+
       <section class="section article-section">
-        <h2>The operational reality</h2>
+        <h2 id="the-operational-reality">The operational reality</h2>
         <p>
           We see the same pattern across teams. They start with interactive
           prompting and a few strong engineers. Then they add repository
@@ -76,7 +97,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>The anti-pattern</h2>
+        <h2 id="the-anti-pattern">The anti-pattern</h2>
         <p>
           The anti-pattern is autonomy inflation: assuming that once an agent is
           useful interactively, the organization is ready for background
@@ -93,7 +114,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>The better system pattern</h2>
+        <h2 id="the-better-system-pattern">The better system pattern</h2>
         <p>
           The better pattern is staged capability growth. We find it useful to
           think in five levels.
@@ -113,7 +134,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>How to use the model without theater</h2>
+        <h2 id="how-to-use-the-model-without-theater">How to use the model without theater</h2>
         <p>
           A maturity model becomes theater when it turns into a labeling
           exercise. The point is not to declare a level in a slide deck. The
@@ -131,7 +152,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>Why security cares</h2>
+        <h2 id="why-security-cares">Why security cares</h2>
         <p>
           AppSec and security engineering need this model because approval
           posture should change with maturity. Level 1 may allow interactive
@@ -149,7 +170,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>Why platform and engineering care</h2>
+        <h2 id="why-platform-and-engineering-care">Why platform and engineering care</h2>
         <p>
           Platform and engineering teams need a roadmap that matches
           implementation reality. The first investments should usually be repo
@@ -169,7 +190,7 @@
 
       <section class="section">
         <div class="artifact">
-          <h2>Concrete example: a realistic 90-day progression</h2>
+          <h2 id="concrete-example-a-realistic-90-day-progression">Concrete example: a realistic 90-day progression</h2>
           <p class="body">
             Most teams do not need to build a dark factory in one quarter. They
             do need to move out of the prompt-first zone deliberately.
@@ -201,7 +222,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>Practical next step</h2>
+        <h2 id="practical-next-step">Practical next step</h2>
         <p>
           Assess one team or one repo against the five levels and be strict
           about what evidence counts.
@@ -227,7 +248,7 @@
       <footer class="section article-footer" aria-label="Post footer">
         <div class="series-nav">
           <a class="nav-link" href="/blog/proof-of-work-for-ai-generated-changes/">Previous post</a>
-          <a class="nav-link" href="/blog/">Back to blog</a>
+          <a class="nav-link" href="/blog/operating-notes/">Back to series</a>
         </div>
         <p class="footer-note repo-note">
           We are working on that control layer in <a href="https://github.com/Clyra-AI/gait">Gait</a> if you want to look.

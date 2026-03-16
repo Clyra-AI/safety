@@ -23,7 +23,7 @@
         </div>
         <nav class="global-nav" aria-label="Primary">
           <a class="nav-link" href="/">Home</a>
-          <a class="nav-link" href="/#research-heading">Research</a>
+          <a class="nav-link" href="/research/">Research</a>
           <a class="nav-link current" href="/blog/">Blog</a>
           <a class="nav-link" href="/#about-heading">About</a>
           <a class="nav-link" href="/#contact-heading">Contact</a>
@@ -36,9 +36,11 @@
           <span class="divider">/</span>
           <a href="/blog/">Blog</a>
           <span class="divider">/</span>
-          <span>Post 6</span>
+          <a href="/blog/operating-notes/">Operating Notes</a>
+          <span class="divider">/</span>
+          <span>Why Isolated, Warm Sandboxes Are Non-Negotiable</span>
         </p>
-        <p class="eyebrow">CAISI Blog / Post 6 of 10</p>
+        <p class="eyebrow">AI Engineering Operating Notes / Post 6 of 10</p>
         <div class="post-author">
           <img class="author-avatar" src="/assets/david-ahmann-headshot.png" alt="David Ahmann" />
           <p class="author-byline">
@@ -55,8 +57,26 @@
         </p>
       </section>
 
+      <section class="section page-nav" aria-labelledby="page-nav-heading">
+        <h2 id="page-nav-heading">In this piece</h2>
+        <div class="page-nav-list">
+          <a href="#the-operational-reality">The operational reality</a>
+          <a href="#the-anti-pattern">The anti-pattern</a>
+          <a href="#the-better-system-pattern">The better system pattern</a>
+          <a href="#why-security-cares">Why security cares</a>
+          <a href="#why-platform-and-engineering-care">Why platform and engineering care</a>
+          <a href="#concrete-example-workspace-lifecycle-hooks">Concrete example: workspace lifecycle hooks</a>
+          <a href="#practical-next-step">Practical next step</a>
+        </div>
+        <div class="link-row">
+          <a href="/blog/operating-notes/">Series home</a>
+          <span class="divider">|</span>
+          <a href="/blog/">All blog collections</a>
+        </div>
+      </section>
+
       <section class="section article-section">
-        <h2>The operational reality</h2>
+        <h2 id="the-operational-reality">The operational reality</h2>
         <p>
           Teams usually discover the sandbox problem through pain. One run
           rebases over another. A cached dependency masks a broken install path.
@@ -75,7 +95,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>The anti-pattern</h2>
+        <h2 id="the-anti-pattern">The anti-pattern</h2>
         <p>
           The anti-pattern is convenient reuse without boundaries. Teams try to
           save time by letting agents share the same checkout, the same branch,
@@ -93,7 +113,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>The better system pattern</h2>
+        <h2 id="the-better-system-pattern">The better system pattern</h2>
         <p>
           The better pattern is per-issue or per-run isolation with warm starts.
           Each work item gets its own workspace, branch, and lifecycle hooks.
@@ -111,7 +131,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>Why security cares</h2>
+        <h2 id="why-security-cares">Why security cares</h2>
         <p>
           Isolation reduces blast radius. It keeps secrets, temp files, and side
           effects bounded to the run that produced them. It also improves
@@ -128,7 +148,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>Why platform and engineering care</h2>
+        <h2 id="why-platform-and-engineering-care">Why platform and engineering care</h2>
         <p>
           Platform teams care because warm isolation eliminates a large class of
           non-deterministic failures. It reduces git conflicts, makes retries
@@ -147,7 +167,7 @@
 
       <section class="section">
         <div class="artifact">
-          <h2>Concrete example: workspace lifecycle hooks</h2>
+          <h2 id="concrete-example-workspace-lifecycle-hooks">Concrete example: workspace lifecycle hooks</h2>
           <p class="body">
             A clean sandbox model declares exactly what happens before, during,
             and after execution.
@@ -180,7 +200,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>Practical next step</h2>
+        <h2 id="practical-next-step">Practical next step</h2>
         <p>
           Audit one existing agent workflow and answer four environment
           questions.
@@ -205,7 +225,7 @@
       <footer class="section article-footer" aria-label="Post footer">
         <div class="series-nav">
           <a class="nav-link" href="/blog/dark-factory/">Previous post</a>
-          <a class="nav-link" href="/blog/">Back to blog</a>
+          <a class="nav-link" href="/blog/operating-notes/">Back to series</a>
           <a class="nav-link" href="/blog/parallel-agents-without-chaos/">Next post</a>
         </div>
         <p class="footer-note repo-note">

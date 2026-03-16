@@ -23,7 +23,7 @@
         </div>
         <nav class="global-nav" aria-label="Primary">
           <a class="nav-link" href="/">Home</a>
-          <a class="nav-link" href="/#research-heading">Research</a>
+          <a class="nav-link" href="/research/">Research</a>
           <a class="nav-link current" href="/blog/">Blog</a>
           <a class="nav-link" href="/#about-heading">About</a>
           <a class="nav-link" href="/#contact-heading">Contact</a>
@@ -36,9 +36,11 @@
           <span class="divider">/</span>
           <a href="/blog/">Blog</a>
           <span class="divider">/</span>
-          <span>Post 5</span>
+          <a href="/blog/operating-notes/">Operating Notes</a>
+          <span class="divider">/</span>
+          <span>The Dark Factory: Managing Work Instead of Supervising Agents</span>
         </p>
-        <p class="eyebrow">CAISI Blog / Post 5 of 10</p>
+        <p class="eyebrow">AI Engineering Operating Notes / Post 5 of 10</p>
         <div class="post-author">
           <img class="author-avatar" src="/assets/david-ahmann-headshot.png" alt="David Ahmann" />
           <p class="author-byline">
@@ -55,8 +57,27 @@
         </p>
       </section>
 
+      <section class="section page-nav" aria-labelledby="page-nav-heading">
+        <h2 id="page-nav-heading">In this piece</h2>
+        <div class="page-nav-list">
+          <a href="#the-operational-reality">The operational reality</a>
+          <a href="#the-anti-pattern">The anti-pattern</a>
+          <a href="#the-better-system-pattern">The better system pattern</a>
+          <a href="#what-changes-for-human-reviewers">What changes for human reviewers</a>
+          <a href="#why-security-cares">Why security cares</a>
+          <a href="#why-platform-and-engineering-care">Why platform and engineering care</a>
+          <a href="#concrete-example-from-agent-ready-issue-to-review-handoff">Concrete example: from agent-ready issue to review handoff</a>
+          <a href="#practical-next-step">Practical next step</a>
+        </div>
+        <div class="link-row">
+          <a href="/blog/operating-notes/">Series home</a>
+          <span class="divider">|</span>
+          <a href="/blog/">All blog collections</a>
+        </div>
+      </section>
+
       <section class="section article-section">
-        <h2>The operational reality</h2>
+        <h2 id="the-operational-reality">The operational reality</h2>
         <p>
           Most current agent usage still depends on direct supervision. A person
           starts the session, steers the work, reruns failed commands, and
@@ -74,7 +95,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>The anti-pattern</h2>
+        <h2 id="the-anti-pattern">The anti-pattern</h2>
         <p>
           The anti-pattern is agent supervision as a scaling strategy. Teams
           imagine they can get more leverage by adding more agent sessions while
@@ -91,7 +112,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>The better system pattern</h2>
+        <h2 id="the-better-system-pattern">The better system pattern</h2>
         <p>
           The better pattern is the dark factory: an orchestrated system that
           turns work items into bounded execution runs with explicit states. A
@@ -110,7 +131,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>What changes for human reviewers</h2>
+        <h2 id="what-changes-for-human-reviewers">What changes for human reviewers</h2>
         <p>
           The dark factory does not remove humans from software delivery. It
           changes the shape of their work. Reviewers stop acting as traffic
@@ -129,7 +150,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>Why security cares</h2>
+        <h2 id="why-security-cares">Why security cares</h2>
         <p>
           The dark factory creates a governable approval surface. Security teams
           do not need to supervise every keystroke if the system can prove what
@@ -146,7 +167,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>Why platform and engineering care</h2>
+        <h2 id="why-platform-and-engineering-care">Why platform and engineering care</h2>
         <p>
           Platform leaders care because this is how one team scales output
           without linearly scaling human supervision. The orchestrator absorbs
@@ -164,7 +185,7 @@
 
       <section class="section">
         <div class="artifact">
-          <h2>Concrete example: from <code>agent-ready</code> issue to review handoff</h2>
+          <h2 id="concrete-example-from-agent-ready-issue-to-review-handoff">Concrete example: from <code>agent-ready</code> issue to review handoff</h2>
           <p class="body">
             The dark factory is easier to understand when the work item becomes
             the unit of motion.
@@ -196,7 +217,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>Practical next step</h2>
+        <h2 id="practical-next-step">Practical next step</h2>
         <p>
           Look at your current issue-to-PR flow and ask whether the system or
           the humans own the work states.
@@ -222,7 +243,7 @@
       <footer class="section article-footer" aria-label="Post footer">
         <div class="series-nav">
           <a class="nav-link" href="/blog/from-skills-to-blueprints/">Previous post</a>
-          <a class="nav-link" href="/blog/">Back to blog</a>
+          <a class="nav-link" href="/blog/operating-notes/">Back to series</a>
           <a class="nav-link" href="/blog/isolated-warm-sandboxes/">Next post</a>
         </div>
         <p class="footer-note repo-note">

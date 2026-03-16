@@ -23,7 +23,7 @@
         </div>
         <nav class="global-nav" aria-label="Primary">
           <a class="nav-link" href="/">Home</a>
-          <a class="nav-link" href="/#research-heading">Research</a>
+          <a class="nav-link" href="/research/">Research</a>
           <a class="nav-link current" href="/blog/">Blog</a>
           <a class="nav-link" href="/#about-heading">About</a>
           <a class="nav-link" href="/#contact-heading">Contact</a>
@@ -38,7 +38,7 @@
           <span class="divider">/</span>
           <a href="/blog/gait/">Gait Series</a>
           <span class="divider">/</span>
-          <span>Post 1</span>
+          <span>If Policy Runs After the Tool Call, It Isn't a Control</span>
         </p>
         <p class="eyebrow">Gait Series / Post 1 of 4 / AppSec</p>
         <div class="post-author">
@@ -57,9 +57,27 @@
         </p>
       </section>
 
+      <section class="section page-nav" aria-labelledby="page-nav-heading">
+        <h2 id="page-nav-heading">In this piece</h2>
+        <div class="page-nav-list">
+          <a href="#repo-grounding">Repo grounding</a>
+          <a href="#the-operational-reality">The operational reality</a>
+          <a href="#the-anti-pattern">The anti-pattern</a>
+          <a href="#the-better-system-pattern">The better system pattern</a>
+          <a href="#why-security-and-the-ciso-care">Why security and the CISO care</a>
+          <a href="#why-platform-and-engineering-care">Why platform and engineering care</a>
+          <a href="#practical-next-step">Practical next step</a>
+        </div>
+        <div class="link-row">
+          <a href="/blog/gait/">Series home</a>
+          <span class="divider">|</span>
+          <a href="/blog/">All blog collections</a>
+        </div>
+      </section>
+
       <section class="section">
         <div class="quote-card">
-          <h2>Repo grounding</h2>
+          <h2 id="repo-grounding">Repo grounding</h2>
           <p>
             The Gait repo centers the boundary explicitly: evaluate structured
             tool-call intent with <code>gait gate eval</code>, return
@@ -70,7 +88,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>The operational reality</h2>
+        <h2 id="the-operational-reality">The operational reality</h2>
         <p>
           Ask an AppSec lead whether an agent is allowed to touch a certain
           internal system and the answer often comes back in policy language:
@@ -88,7 +106,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>The anti-pattern</h2>
+        <h2 id="the-anti-pattern">The anti-pattern</h2>
         <p>
           The anti-pattern is advisory policy. Teams write excellent guidance,
           maybe even collect reviewer approvals, but the actual tool path stays
@@ -106,7 +124,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>The better system pattern</h2>
+        <h2 id="the-better-system-pattern">The better system pattern</h2>
         <p>
           The better pattern is boundary-first policy. The agent expresses
           intent. A gate evaluates that intent against explicit rules. The
@@ -131,7 +149,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>Why security and the CISO care</h2>
+        <h2 id="why-security-and-the-ciso-care">Why security and the CISO care</h2>
         <p>
           Security leaders need this distinction because it changes how risk is
           priced. An advisory workflow can still be valuable, but it should not
@@ -148,7 +166,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>Why platform and engineering care</h2>
+        <h2 id="why-platform-and-engineering-care">Why platform and engineering care</h2>
         <p>
           Platform teams benefit because explicit boundary verdicts reduce
           ambiguity. Instead of asking whether the agent "usually behaves" or
@@ -164,7 +182,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>Practical next step</h2>
+        <h2 id="practical-next-step">Practical next step</h2>
         <ul class="list-plain">
           <li>Choose one write-capable action that currently depends on policy language or reviewer attention alone.</li>
           <li>Move the control question to the tool boundary: can the runtime allow, block, or require approval before execution?</li>

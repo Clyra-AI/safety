@@ -23,7 +23,7 @@
         </div>
         <nav class="global-nav" aria-label="Primary">
           <a class="nav-link" href="/">Home</a>
-          <a class="nav-link" href="/#research-heading">Research</a>
+          <a class="nav-link" href="/research/">Research</a>
           <a class="nav-link current" href="/blog/">Blog</a>
           <a class="nav-link" href="/#about-heading">About</a>
           <a class="nav-link" href="/#contact-heading">Contact</a>
@@ -38,7 +38,7 @@
           <span class="divider">/</span>
           <a href="/blog/openclaw/">OpenClaw Series</a>
           <span class="divider">/</span>
-          <span>Post 1</span>
+          <span>Stop Is Not a Safety Control If the Runtime Can Ignore It</span>
         </p>
         <p class="eyebrow">OpenClaw Series / Post 1 of 4</p>
         <div class="post-author">
@@ -58,9 +58,27 @@
         </p>
       </section>
 
+      <section class="section page-nav" aria-labelledby="page-nav-heading">
+        <h2 id="page-nav-heading">In this piece</h2>
+        <div class="page-nav-list">
+          <a href="#grounding">Grounding</a>
+          <a href="#stop-has-to-be-a-state-transition-not-a-request">Stop has to be a state transition, not a request</a>
+          <a href="#what-fails-when-stop-is-only-advisory">What fails when stop is only advisory</a>
+          <a href="#what-the-report-actually-shows">What the report actually shows</a>
+          <a href="#what-a-credible-stop-contract-should-include">What a credible stop contract should include</a>
+          <a href="#the-practical-lesson">The practical lesson</a>
+          <a href="#practical-next-step">Practical next step</a>
+        </div>
+        <div class="link-row">
+          <a href="/blog/openclaw/">Series home</a>
+          <span class="divider">|</span>
+          <a href="/blog/">All blog collections</a>
+        </div>
+      </section>
+
       <section class="section">
         <div class="quote-card">
-          <h2>Grounding</h2>
+          <h2 id="grounding">Grounding</h2>
           <p>
             Run ID: <code>openclaw-live-24h-20260228T143341Z</code><br />
             Headline number: <code>515/515</code> post-stop calls executed in
@@ -73,7 +91,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>Stop has to be a state transition, not a request</h2>
+        <h2 id="stop-has-to-be-a-state-transition-not-a-request">Stop has to be a state transition, not a request</h2>
         <p>
           Many teams still reason about stop behavior as if it were part of the
           user interface. They assume a stop command, a cancellation message, or
@@ -100,7 +118,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>What fails when stop is only advisory</h2>
+        <h2 id="what-fails-when-stop-is-only-advisory">What fails when stop is only advisory</h2>
         <p>
           When stop is advisory, incident response logic breaks first. Teams
           believe they can halt the run, begin containment, and then reason about
@@ -119,7 +137,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>What the report actually shows</h2>
+        <h2 id="what-the-report-actually-shows">What the report actually shows</h2>
         <p>
           The baseline lane executed every recorded post-stop tool call. That
           does not mean every possible system would do the same thing. It does
@@ -143,7 +161,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>What a credible stop contract should include</h2>
+        <h2 id="what-a-credible-stop-contract-should-include">What a credible stop contract should include</h2>
         <p>
           A useful way to think about stop is as a small state machine, not a
           button. The run should move from active, to stop requested, to
@@ -169,7 +187,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>The practical lesson</h2>
+        <h2 id="the-practical-lesson">The practical lesson</h2>
         <p>
           Treat stop as a control-plane concern, not a prompt concern. A serious
           workflow should be able to mark a run as non-executable, and the
@@ -190,7 +208,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>Practical next step</h2>
+        <h2 id="practical-next-step">Practical next step</h2>
         <ul class="list-plain">
           <li>Pick one agent workflow and map what technically happens after a stop request is issued.</li>
           <li>Check whether the runtime can still emit a tool call after the stop signal.</li>

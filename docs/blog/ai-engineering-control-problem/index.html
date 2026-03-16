@@ -23,7 +23,7 @@
         </div>
         <nav class="global-nav" aria-label="Primary">
           <a class="nav-link" href="/">Home</a>
-          <a class="nav-link" href="/#research-heading">Research</a>
+          <a class="nav-link" href="/research/">Research</a>
           <a class="nav-link current" href="/blog/">Blog</a>
           <a class="nav-link" href="/#about-heading">About</a>
           <a class="nav-link" href="/#contact-heading">Contact</a>
@@ -36,9 +36,11 @@
           <span class="divider">/</span>
           <a href="/blog/">Blog</a>
           <span class="divider">/</span>
-          <span>Post 1</span>
+          <a href="/blog/operating-notes/">Operating Notes</a>
+          <span class="divider">/</span>
+          <span>AI Engineering Is a Control Problem, Not a Prompt Problem</span>
         </p>
-        <p class="eyebrow">CAISI Blog / Post 1 of 10</p>
+        <p class="eyebrow">AI Engineering Operating Notes / Post 1 of 10</p>
         <div class="post-author">
           <img class="author-avatar" src="/assets/david-ahmann-headshot.png" alt="David Ahmann" />
           <p class="author-byline">
@@ -56,8 +58,27 @@
         </p>
       </section>
 
+      <section class="section page-nav" aria-labelledby="page-nav-heading">
+        <h2 id="page-nav-heading">In this piece</h2>
+        <div class="page-nav-list">
+          <a href="#the-operational-reality">The operational reality</a>
+          <a href="#the-anti-pattern">The anti-pattern</a>
+          <a href="#the-better-system-pattern">The better system pattern</a>
+          <a href="#what-leaders-should-optimize-for-instead">What leaders should optimize for instead</a>
+          <a href="#why-security-cares">Why security cares</a>
+          <a href="#why-platform-and-engineering-care">Why platform and engineering care</a>
+          <a href="#concrete-example-manual-steering-vs-governed-issue-to-pr-flow">Concrete example: manual steering vs governed issue-to-PR flow</a>
+          <a href="#practical-next-step">Practical next step</a>
+        </div>
+        <div class="link-row">
+          <a href="/blog/operating-notes/">Series home</a>
+          <span class="divider">|</span>
+          <a href="/blog/">All blog collections</a>
+        </div>
+      </section>
+
       <section class="section article-section">
-        <h2>The operational reality</h2>
+        <h2 id="the-operational-reality">The operational reality</h2>
         <p>
           A prompt is cheap to improve. A production incident is not. That is
           why the "better prompting" conversation starts to feel thin the moment
@@ -83,7 +104,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>The anti-pattern</h2>
+        <h2 id="the-anti-pattern">The anti-pattern</h2>
         <p>
           The anti-pattern is prompt-centrism: treating the quality of the
           instructions as if it were the same thing as control. It is not. A
@@ -107,7 +128,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>The better system pattern</h2>
+        <h2 id="the-better-system-pattern">The better system pattern</h2>
         <p>
           The better pattern is to treat AI engineering as a governed software
           delivery system. The model still matters, but it sits inside a larger
@@ -134,7 +155,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>What leaders should optimize for instead</h2>
+        <h2 id="what-leaders-should-optimize-for-instead">What leaders should optimize for instead</h2>
         <p>
           Once autonomy becomes part of software delivery, the right metrics
           change. Demo quality matters less than bounded throughput. A strong
@@ -154,7 +175,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>Why security cares</h2>
+        <h2 id="why-security-cares">Why security cares</h2>
         <p>
           Unmanaged agents create three security problems at once. First, they
           expand the change surface. The system is no longer just generating
@@ -176,7 +197,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>Why platform and engineering care</h2>
+        <h2 id="why-platform-and-engineering-care">Why platform and engineering care</h2>
         <p>
           The internal ally sees a different pain first: ad hoc prompting does
           not scale across teams or repositories. One strong engineer can drive
@@ -196,7 +217,7 @@
 
       <section class="section">
         <div class="artifact">
-          <h2>Concrete example: manual steering vs governed issue-to-PR flow</h2>
+          <h2 id="concrete-example-manual-steering-vs-governed-issue-to-pr-flow">Concrete example: manual steering vs governed issue-to-PR flow</h2>
           <p class="body">
             The contrast below is the shift that matters. One path depends on a
             single operator carrying the workflow in their head. The other turns
@@ -229,7 +250,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>Practical next step</h2>
+        <h2 id="practical-next-step">Practical next step</h2>
         <p>
           Pick one agent workflow your team already uses. Ignore the prompt for
           a moment and map the control surface instead.
@@ -256,7 +277,7 @@
 
       <footer class="section article-footer" aria-label="Post footer">
         <div class="series-nav">
-          <a class="nav-link" href="/blog/">Back to blog</a>
+          <a class="nav-link" href="/blog/operating-notes/">Back to series</a>
           <a class="nav-link" href="/blog/repository-runtime-contract/">Next post</a>
         </div>
         <p class="footer-note repo-note">

@@ -23,7 +23,7 @@
         </div>
         <nav class="global-nav" aria-label="Primary">
           <a class="nav-link" href="/">Home</a>
-          <a class="nav-link" href="/#research-heading">Research</a>
+          <a class="nav-link" href="/research/">Research</a>
           <a class="nav-link current" href="/blog/">Blog</a>
           <a class="nav-link" href="/#about-heading">About</a>
           <a class="nav-link" href="/#contact-heading">Contact</a>
@@ -36,9 +36,11 @@
           <span class="divider">/</span>
           <a href="/blog/">Blog</a>
           <span class="divider">/</span>
-          <span>Post 9</span>
+          <a href="/blog/operating-notes/">Operating Notes</a>
+          <span class="divider">/</span>
+          <span>Proof of Work for AI-Generated Changes</span>
         </p>
-        <p class="eyebrow">CAISI Blog / Post 9 of 10</p>
+        <p class="eyebrow">AI Engineering Operating Notes / Post 9 of 10</p>
         <div class="post-author">
           <img class="author-avatar" src="/assets/david-ahmann-headshot.png" alt="David Ahmann" />
           <p class="author-byline">
@@ -55,8 +57,27 @@
         </p>
       </section>
 
+      <section class="section page-nav" aria-labelledby="page-nav-heading">
+        <h2 id="page-nav-heading">In this piece</h2>
+        <div class="page-nav-list">
+          <a href="#the-operational-reality">The operational reality</a>
+          <a href="#the-anti-pattern">The anti-pattern</a>
+          <a href="#the-better-system-pattern">The better system pattern</a>
+          <a href="#what-a-reviewer-should-never-need-to-do">What a reviewer should never need to do</a>
+          <a href="#why-security-cares">Why security cares</a>
+          <a href="#why-platform-and-engineering-care">Why platform and engineering care</a>
+          <a href="#concrete-example-what-a-proof-packet-should-contain">Concrete example: what a proof packet should contain</a>
+          <a href="#practical-next-step">Practical next step</a>
+        </div>
+        <div class="link-row">
+          <a href="/blog/operating-notes/">Series home</a>
+          <span class="divider">|</span>
+          <a href="/blog/">All blog collections</a>
+        </div>
+      </section>
+
       <section class="section article-section">
-        <h2>The operational reality</h2>
+        <h2 id="the-operational-reality">The operational reality</h2>
         <p>
           Reviewers already struggle to understand complex human-generated pull
           requests. Autonomous changes raise the bar because the reviewer did not
@@ -74,7 +95,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>The anti-pattern</h2>
+        <h2 id="the-anti-pattern">The anti-pattern</h2>
         <p>
           The anti-pattern is evidence minimalism: treating the diff and the CI
           status as if they were enough. That leaves crucial questions open. Why
@@ -90,7 +111,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>The better system pattern</h2>
+        <h2 id="the-better-system-pattern">The better system pattern</h2>
         <p>
           The better pattern is a proof packet attached to every autonomous
           change. The packet should connect the trigger, plan, patch summary,
@@ -108,7 +129,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>What a reviewer should never need to do</h2>
+        <h2 id="what-a-reviewer-should-never-need-to-do">What a reviewer should never need to do</h2>
         <p>
           A reviewer should never need to reconstruct the workflow from scattered
           logs, diff through unrelated files just to infer intent, or ask in a
@@ -125,7 +146,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>Why security cares</h2>
+        <h2 id="why-security-cares">Why security cares</h2>
         <p>
           Security buyers need evidence chains, not just approvals. They need to
           see what policy applied, what the system attempted, what it was
@@ -142,7 +163,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>Why platform and engineering care</h2>
+        <h2 id="why-platform-and-engineering-care">Why platform and engineering care</h2>
         <p>
           Platform leaders care because proof packets reduce debugging time and
           review friction. If the patch summary, validation output, and residual
@@ -159,7 +180,7 @@
 
       <section class="section">
         <div class="artifact">
-          <h2>Concrete example: what a proof packet should contain</h2>
+          <h2 id="concrete-example-what-a-proof-packet-should-contain">Concrete example: what a proof packet should contain</h2>
           <p class="body">
             The exact format can vary. The fields should not.
           </p>
@@ -190,7 +211,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>Practical next step</h2>
+        <h2 id="practical-next-step">Practical next step</h2>
         <p>
           Take the last autonomous or semi-autonomous PR your team produced and
           ask whether a third party could review it cold.
@@ -216,7 +237,7 @@
       <footer class="section article-footer" aria-label="Post footer">
         <div class="series-nav">
           <a class="nav-link" href="/blog/visible-tests-are-not-enough/">Previous post</a>
-          <a class="nav-link" href="/blog/">Back to blog</a>
+          <a class="nav-link" href="/blog/operating-notes/">Back to series</a>
           <a class="nav-link" href="/blog/ai-engineering-maturity-model/">Next post</a>
         </div>
         <p class="footer-note repo-note">

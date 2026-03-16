@@ -23,7 +23,7 @@
         </div>
         <nav class="global-nav" aria-label="Primary">
           <a class="nav-link" href="/">Home</a>
-          <a class="nav-link" href="/#research-heading">Research</a>
+          <a class="nav-link" href="/research/">Research</a>
           <a class="nav-link current" href="/blog/">Blog</a>
           <a class="nav-link" href="/#about-heading">About</a>
           <a class="nav-link" href="/#contact-heading">Contact</a>
@@ -38,7 +38,7 @@
           <span class="divider">/</span>
           <a href="/blog/wrkr/">Wrkr Series</a>
           <span class="divider">/</span>
-          <span>Post 2</span>
+          <span>Your MCP Config Is Already Part of Your Security Boundary</span>
         </p>
         <p class="eyebrow">Wrkr Series / Post 2 of 4 / Security Architecture</p>
         <div class="post-author">
@@ -57,9 +57,27 @@
         </p>
       </section>
 
+      <section class="section page-nav" aria-labelledby="page-nav-heading">
+        <h2 id="page-nav-heading">In this piece</h2>
+        <div class="page-nav-list">
+          <a href="#repo-grounding">Repo grounding</a>
+          <a href="#the-operational-reality">The operational reality</a>
+          <a href="#the-anti-pattern">The anti-pattern</a>
+          <a href="#the-better-system-pattern">The better system pattern</a>
+          <a href="#why-security-cares">Why security cares</a>
+          <a href="#why-platform-and-engineering-care">Why platform and engineering care</a>
+          <a href="#practical-next-step">Practical next step</a>
+        </div>
+        <div class="link-row">
+          <a href="/blog/wrkr/">Series home</a>
+          <span class="divider">|</span>
+          <a href="/blog/">All blog collections</a>
+        </div>
+      </section>
+
       <section class="section">
         <div class="quote-card">
-          <h2>Repo grounding</h2>
+          <h2 id="repo-grounding">Repo grounding</h2>
           <p>
             Wrkr's current repo scope includes MCP server cataloging with
             transport, requested permissions, trust overlay, posture notes, and
@@ -71,7 +89,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>The operational reality</h2>
+        <h2 id="the-operational-reality">The operational reality</h2>
         <p>
           Security leaders are increasingly asked some version of the same
           question: what exactly can these AI assistants call? The answer often
@@ -91,7 +109,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>The anti-pattern</h2>
+        <h2 id="the-anti-pattern">The anti-pattern</h2>
         <p>
           The anti-pattern is to treat MCP as a convenience layer that belongs
           entirely to the developer-experience side of the house. Under that
@@ -110,7 +128,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>The better system pattern</h2>
+        <h2 id="the-better-system-pattern">The better system pattern</h2>
         <p>
           The better pattern is to treat MCP declarations as boundary metadata.
           That means inventorying them, classifying them, and reviewing them in
@@ -136,7 +154,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>Why security cares</h2>
+        <h2 id="why-security-cares">Why security cares</h2>
         <p>
           An unreviewed MCP declaration is risky for the same reason any hidden
           tool path is risky: it creates capability without governance memory.
@@ -155,7 +173,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>Why platform and engineering care</h2>
+        <h2 id="why-platform-and-engineering-care">Why platform and engineering care</h2>
         <p>
           Platform teams benefit because MCP drift is an operability problem as
           much as a security problem. Engineers lose confidence when local and
@@ -173,7 +191,7 @@
       </section>
 
       <section class="section article-section">
-        <h2>Practical next step</h2>
+        <h2 id="practical-next-step">Practical next step</h2>
         <ul class="list-plain">
           <li>Collect MCP declarations from one representative engineering group rather than discussing the topic abstractly.</li>
           <li>Record transport type, requested permissions, package or endpoint trust assumptions, and parse failures.</li>

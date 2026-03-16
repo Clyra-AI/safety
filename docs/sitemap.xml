@@ -4,6 +4,9 @@
     <loc>https://caisi.dev/</loc>
   </url>
   <url>
+    <loc>https://caisi.dev/research/</loc>
+  </url>
+  <url>
     <loc>https://caisi.dev/openclaw-2026/</loc>
   </url>
   <url>
@@ -14,6 +17,9 @@
   </url>
   <url>
     <loc>https://caisi.dev/blog/</loc>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/operating-notes/</loc>
   </url>
   <url>
     <loc>https://caisi.dev/blog/openclaw/</loc>
