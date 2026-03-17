@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI Agent Governance: A Field Guide to Control, Proof, and Safe Adoption | CAISI Blog</title>
+    <meta
+      name="description"
+      content="A CAISI field guide to AI agent governance for AppSec, platform, and engineering leaders covering control, proof, execution boundaries, and safe adoption."
+    />
+    <!-- SEO_META_START -->
+    <link rel="canonical" href="https://caisi.dev/blog/ai-agent-governance/" />
+    <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+    <meta property="og:site_name" content="CAISI" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="AI Agent Governance: A Field Guide to Control, Proof, and Safe Adoption | CAISI Blog" />
+    <meta property="og:description" content="A CAISI field guide to AI agent governance for AppSec, platform, and engineering leaders covering control, proof, execution boundaries, and safe adoption." />
+    <meta property="og:url" content="https://caisi.dev/blog/ai-agent-governance/" />
+    <meta property="og:image" content="https://caisi.dev/assets/caisi-social.png" />
+    <meta property="og:image:alt" content="AI Agent Governance: A Field Guide to Control, Proof, and Safe Adoption | CAISI Blog" />
+    <meta property="og:image:width" content="1600" />
+    <meta property="og:image:height" content="900" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="AI Agent Governance: A Field Guide to Control, Proof, and Safe Adoption | CAISI Blog" />
+    <meta name="twitter:description" content="A CAISI field guide to AI agent governance for AppSec, platform, and engineering leaders covering control, proof, execution boundaries, and safe adoption." />
+    <meta name="twitter:image" content="https://caisi.dev/assets/caisi-social.png" />
+    <meta name="author" content="David Ahmann" />
+    <link rel="author" href="https://caisi.dev/authors/david-ahmann/" />
+    <meta property="article:published_time" content="2026-03-17" />
+    <meta property="article:modified_time" content="2026-03-17" />
+    <!-- SEO_META_END -->
+<link rel="stylesheet" href="/assets/site.css" />
+    <!-- SEO_SCHEMA_START -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://caisi.dev/blog/ai-agent-governance/#webpage",
+          "url": "https://caisi.dev/blog/ai-agent-governance/",
+          "name": "AI Agent Governance: A Field Guide to Control, Proof, and Safe Adoption | CAISI Blog",
+          "description": "A CAISI field guide to AI agent governance for AppSec, platform, and engineering leaders covering control, proof, execution boundaries, and safe adoption.",
+          "inLanguage": "en",
+          "isPartOf": {
+            "@id": "https://caisi.dev#website"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": "https://caisi.dev/blog/ai-agent-governance/#breadcrumb",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://caisi.dev"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Blog",
+              "item": "https://caisi.dev/blog/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "AI Agent Governance Guide"
+            }
+          ]
+        },
+        {
+          "@type": "BlogPosting",
+          "headline": "AI Agent Governance: A Field Guide to Control, Proof, and Safe Adoption",
+          "description": "A CAISI field guide to AI agent governance for AppSec, platform, and engineering leaders covering control, proof, execution boundaries, and safe adoption.",
+          "mainEntityOfPage": "https://caisi.dev/blog/ai-agent-governance/",
+          "url": "https://caisi.dev/blog/ai-agent-governance/",
+          "image": "https://caisi.dev/assets/caisi-social.png",
+          "datePublished": "2026-03-17",
+          "dateModified": "2026-03-17",
+          "inLanguage": "en",
+          "author": {
+            "@type": "Person",
+            "name": "David Ahmann",
+            "url": "https://caisi.dev/authors/david-ahmann/",
+            "image": "https://caisi.dev/assets/david-ahmann-headshot.png",
+            "sameAs": [
+              "https://www.linkedin.com/in/dahmann/"
+            ],
+            "jobTitle": "Head of Cloud & AI Platforms",
+            "worksFor": {
+              "@type": "Organization",
+              "name": "CDW"
+            }
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "Clyra AI Safety Initiative (CAISI)",
+            "url": "https://caisi.dev",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://caisi.dev/assets/caisi-logo.png"
+            },
+            "sameAs": [
+              "https://github.com/Clyra-AI/safety"
+            ]
+          }
+        }
+      ]
+    }
+    </script>
+    <!-- SEO_SCHEMA_END -->
+</head>
+  <body>
+    <main class="site" aria-label="CAISI reference guide">
+      <header class="site-header" aria-label="Site header">
+        <div class="brand-row">
+          <div class="brand-mark">
+            <a class="brand-link" href="/">CAISI</a>
+            <p class="brand-note">
+              Independent research and operating notes on AI agent governance.
+            </p>
+          </div>
+        </div>
+        <nav class="global-nav" aria-label="Primary">
+          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" href="/research/">Research</a>
+          <a class="nav-link current" href="/blog/">Blog</a>
+          <a class="nav-link" href="/#about-heading">About</a>
+          <a class="nav-link" href="/#contact-heading">Contact</a>
+        </nav>
+      </header>
+
+      <section class="section hero">
+        <p class="breadcrumbs">
+          <a href="/">Home</a>
+          <span class="divider">/</span>
+          <a href="/blog/">Blog</a>
+          <span class="divider">/</span>
+          <span>AI Agent Governance Guide</span>
+        </p>
+        <p class="eyebrow">Reference Guide</p>
+        <div class="post-author">
+          <img class="author-avatar" src="/assets/david-ahmann-headshot.png" alt="David Ahmann" />
+          <p class="author-byline">
+            By <a href="https://www.linkedin.com/in/dahmann/">David Ahmann (LinkedIn)</a>
+          </p>
+        </div>
+        <h1>AI Agent Governance: A Field Guide to Control, Proof, and Safe Adoption</h1>
+        <p class="lead">
+          AI agent governance is not a policy deck and it is not a better prompt.
+          It is the operating discipline that lets an organization approve,
+          bound, observe, and reconstruct autonomous work once that work can
+          touch code, tools, CI, or infrastructure.
+        </p>
+      </section>
+
+      <section class="section page-nav" aria-labelledby="page-nav-heading">
+        <h2 id="page-nav-heading">In this guide</h2>
+        <div class="page-nav-list">
+          <a href="#what-it-means">What it means</a>
+          <a href="#the-10-minute-accountability-test">The 10-minute accountability test</a>
+          <a href="#the-core-control-layers">The core control layers</a>
+          <a href="#where-teams-go-wrong">Where teams go wrong</a>
+          <a href="#start-by-role">Start by role</a>
+          <a href="#where-to-go-next">Where to go next</a>
+        </div>
+        <div class="link-row">
+          <a href="/blog/">All blog collections</a>
+          <span class="divider">|</span>
+          <a href="/blog/glossary/">Open the glossary</a>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="summary-grid">
+          <article class="card">
+            <p class="post-stage">What this is</p>
+            <h3>A practical reference page</h3>
+            <p>
+              This guide pulls together the main ideas that recur across CAISI:
+              control, evidence, repo contracts, isolated execution, and proof
+              of work for AI-generated change.
+            </p>
+          </article>
+          <article class="card">
+            <p class="post-stage">What this is not</p>
+            <h3>Not generic AI governance</h3>
+            <p>
+              This page stays focused on software-delivery systems, coding
+              agents, MCP and tool use, CI workflows, and approval and proof at
+              the execution boundary.
+            </p>
+          </article>
+          <article class="card">
+            <p class="post-stage">Who this is for</p>
+            <h3>AppSec, CISO, platform, and engineering leaders</h3>
+            <p>
+              Use this page when you need one shared language for control
+              quality, evidence quality, and safe adoption decisions.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="what-it-means">What AI agent governance means</h2>
+        <p>
+          AI agent governance begins the moment a system can change something
+          real. Before that, you are mostly dealing with assistance. After that,
+          you are dealing with permissioned autonomy across deterministic
+          systems.
+        </p>
+        <p>
+          The practical question is simple: if the system took an action that
+          mattered, could your team explain what it knew, what it tried to do,
+          what was allowed, what executed, and what proof remains? If the answer
+          is no, the organization does not have a serious governance layer yet.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="the-10-minute-accountability-test">The 10-minute accountability test</h2>
+        <p>
+          A useful way to judge maturity is the 10-minute accountability test.
+          During an incident or audit, can your team answer these questions
+          quickly without relying on screenshots or memory?
+        </p>
+        <ul class="list-plain">
+          <li>What did the system know when it decided?</li>
+          <li>Which policy applied and what verdict did it return?</li>
+          <li>Was the action allowed before execution?</li>
+          <li>What actually executed or stayed non-executable?</li>
+          <li>What proof exists and would it survive outside the product UI?</li>
+        </ul>
+        <p>
+          If those answers take hours to rebuild, the control surface is weaker
+          than it looks in a demo.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="the-core-control-layers">The core control layers</h2>
+        <div class="summary-grid">
+          <article class="card">
+            <p class="post-stage">Discovery</p>
+            <h3>Know what exists</h3>
+            <p>
+              Inventory unknown-to-security tools, MCP configs, repo entrypoints,
+              local AI tooling, and CI workflows before you pretend the stack is
+              governed.
+            </p>
+          </article>
+          <article class="card">
+            <p class="post-stage">Boundary enforcement</p>
+            <h3>Put the gate before the action</h3>
+            <p>
+              Controls matter when they can change runtime behavior before the
+              tool call crosses the execution boundary.
+            </p>
+          </article>
+          <article class="card">
+            <p class="post-stage">Deterministic workflow</p>
+            <h3>Let code own deterministic steps</h3>
+            <p>
+              Planning can stay flexible. Validation, shipping, and merge
+              mechanics should be in code, not left to model improvisation.
+            </p>
+          </article>
+          <article class="card">
+            <p class="post-stage">Proof</p>
+            <h3>The approval is not the proof</h3>
+            <p>
+              Every meaningful run should leave a packet that a reviewer,
+              auditor, or incident responder can understand cold.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="where-teams-go-wrong">Where teams go wrong</h2>
+        <p>
+          Most organizations do not fail because they forgot the word
+          governance. They fail because they solve the wrong layer first. They
+          buy a tool before they define evaluation language. They write prompts
+          before they design the runtime contract. They talk about approvals
+          before they check whether approval actually changes execution state.
+        </p>
+        <p>
+          The safer path is not to slow everything down. It is to sequence the
+          work correctly: know what exists, define what can execute, make
+          deterministic steps explicit, and generate proof by construction.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="start-by-role">Start by role</h2>
+        <div class="route-grid">
+          <article class="card">
+            <p class="post-stage">AppSec</p>
+            <h3>Start with control that fails or holds</h3>
+            <p>
+              OpenClaw and the benchmark series are the fastest route if you
+              need runtime control evidence and a sharper buying language.
+            </p>
+            <div class="link-row">
+              <a href="/openclaw-2026/">OpenClaw report</a>
+              <span class="divider">|</span>
+              <a href="/blog/control-benchmarks/">Control benchmarks</a>
+            </div>
+          </article>
+          <article class="card">
+            <p class="post-stage">CISO</p>
+            <h3>Start with approval and proof posture</h3>
+            <p>
+              The sprawl report and benchmark series are the best entry point if
+              you need adoption visibility, evidence posture, and pilot language.
+            </p>
+            <div class="link-row">
+              <a href="/ai-tool-sprawl-v2-2026/">Sprawl report</a>
+              <span class="divider">|</span>
+              <a href="/blog/control-benchmarks/">Control benchmarks</a>
+            </div>
+          </article>
+          <article class="card">
+            <p class="post-stage">Platform</p>
+            <h3>Start with the operating model</h3>
+            <p>
+              The framework series and the Gait and Wrkr collections show how
+              discovery, enforcement, orchestration, and proof fit together.
+            </p>
+            <div class="link-row">
+              <a href="/blog/operating-notes/">Operating Notes</a>
+              <span class="divider">|</span>
+              <a href="/blog/gait/">Policy Before Action</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="where-to-go-next">Where to go next</h2>
+        <p>
+          If you want the measured artifact, start with the research hub. If you
+          want the framework, start with the Operating Notes. If you want a
+          shared vocabulary first, open the glossary.
+        </p>
+        <div class="link-row">
+          <a href="/research/">Research hub</a>
+          <span class="divider">|</span>
+          <a href="/blog/operating-notes/">Operating Notes</a>
+          <span class="divider">|</span>
+          <a href="/blog/glossary/">Glossary</a>
+          <span class="divider">|</span>
+          <a href="/authors/david-ahmann/">Author profile</a>
+        </div>
+      </section>
+
+      <footer class="section article-footer" aria-label="Guide footer">
+        <div class="footer-links">
+          <a href="/blog/">Blog</a>
+          <span class="divider">|</span>
+          <a href="/blog/glossary/">Glossary</a>
+          <span class="divider">|</span>
+          <a href="/research/">Research</a>
+        </div>
+        <p class="footer-note">
+          Practical question: if your team had to explain one high-stakes agent
+          action in ten minutes, where would the proof come from?
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>

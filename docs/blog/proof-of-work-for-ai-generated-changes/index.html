@@ -8,8 +8,115 @@
       name="description"
       content="Why passing CI is necessary but insufficient, and what evidence should accompany every autonomous code change."
     />
-    <link rel="stylesheet" href="/assets/site.css" />
-  </head>
+    <!-- SEO_META_START -->
+    <link rel="canonical" href="https://caisi.dev/blog/proof-of-work-for-ai-generated-changes/" />
+    <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+    <meta property="og:site_name" content="CAISI" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Proof of Work for AI-Generated Changes | CAISI Blog" />
+    <meta property="og:description" content="Why passing CI is necessary but insufficient, and what evidence should accompany every autonomous code change." />
+    <meta property="og:url" content="https://caisi.dev/blog/proof-of-work-for-ai-generated-changes/" />
+    <meta property="og:image" content="https://caisi.dev/assets/caisi-social.png" />
+    <meta property="og:image:alt" content="Proof of Work for AI-Generated Changes | CAISI Blog" />
+    <meta property="og:image:width" content="1600" />
+    <meta property="og:image:height" content="900" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Proof of Work for AI-Generated Changes | CAISI Blog" />
+    <meta name="twitter:description" content="Why passing CI is necessary but insufficient, and what evidence should accompany every autonomous code change." />
+    <meta name="twitter:image" content="https://caisi.dev/assets/caisi-social.png" />
+    <meta name="author" content="David Ahmann" />
+    <link rel="author" href="https://caisi.dev/authors/david-ahmann/" />
+    <meta property="article:published_time" content="2026-03-13" />
+    <meta property="article:modified_time" content="2026-03-17" />
+    <!-- SEO_META_END -->
+<link rel="stylesheet" href="/assets/site.css" />
+    <!-- SEO_SCHEMA_START -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://caisi.dev/blog/proof-of-work-for-ai-generated-changes/#webpage",
+          "url": "https://caisi.dev/blog/proof-of-work-for-ai-generated-changes/",
+          "name": "Proof of Work for AI-Generated Changes | CAISI Blog",
+          "description": "Why passing CI is necessary but insufficient, and what evidence should accompany every autonomous code change.",
+          "inLanguage": "en",
+          "isPartOf": {
+            "@id": "https://caisi.dev#website"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": "https://caisi.dev/blog/proof-of-work-for-ai-generated-changes/#breadcrumb",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://caisi.dev"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Blog",
+              "item": "https://caisi.dev/blog/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Operating Notes",
+              "item": "https://caisi.dev/blog/operating-notes/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 4,
+              "name": "Proof of Work for AI-Generated Changes"
+            }
+          ]
+        },
+        {
+          "@type": "BlogPosting",
+          "headline": "Proof of Work for AI-Generated Changes",
+          "description": "Why passing CI is necessary but insufficient, and what evidence should accompany every autonomous code change.",
+          "mainEntityOfPage": "https://caisi.dev/blog/proof-of-work-for-ai-generated-changes/",
+          "url": "https://caisi.dev/blog/proof-of-work-for-ai-generated-changes/",
+          "image": "https://caisi.dev/assets/caisi-social.png",
+          "datePublished": "2026-03-13",
+          "dateModified": "2026-03-17",
+          "inLanguage": "en",
+          "author": {
+            "@type": "Person",
+            "name": "David Ahmann",
+            "url": "https://caisi.dev/authors/david-ahmann/",
+            "image": "https://caisi.dev/assets/david-ahmann-headshot.png",
+            "sameAs": [
+              "https://www.linkedin.com/in/dahmann/"
+            ],
+            "jobTitle": "Head of Cloud & AI Platforms",
+            "worksFor": {
+              "@type": "Organization",
+              "name": "CDW"
+            }
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "Clyra AI Safety Initiative (CAISI)",
+            "url": "https://caisi.dev",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://caisi.dev/assets/caisi-logo.png"
+            },
+            "sameAs": [
+              "https://github.com/Clyra-AI/safety"
+            ]
+          }
+        }
+      ]
+    }
+    </script>
+    <!-- SEO_SCHEMA_END -->
+</head>
   <body>
     <main class="site" aria-label="CAISI blog post">
       <header class="site-header" aria-label="Site header">
@@ -72,6 +179,36 @@
           <a href="/blog/operating-notes/">Series home</a>
           <span class="divider">|</span>
           <a href="/blog/">All blog collections</a>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="quick-read">
+        <h2 id="quick-read">Quick read</h2>
+        <div class="summary-grid">
+          <article class="card">
+            <p class="post-stage">The rule</p>
+            <h3>CI passing is necessary, not sufficient</h3>
+            <p>
+              Autonomous change needs a portable packet that explains scope,
+              policy, execution, validation, and residual risk.
+            </p>
+          </article>
+          <article class="card">
+            <p class="post-stage">Why it matters</p>
+            <h3>Review quality and audit quality should converge</h3>
+            <p>
+              The same proof packet should help the PR reviewer, incident
+              responder, and auditor understand the run without reconstruction.
+            </p>
+          </article>
+          <article class="card">
+            <p class="post-stage">Best next step</p>
+            <h3>Score your last autonomous change</h3>
+            <p>
+              Check whether the latest packet explains what changed, what
+              executed, what was blocked, and what remains uncertain.
+            </p>
+          </article>
         </div>
       </section>
 

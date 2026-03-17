@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI Agent Governance Glossary | CAISI Blog</title>
+    <meta
+      name="description"
+      content="A CAISI glossary of practical terms for AI agent governance, including write path, execution boundary, proof packet, non-executable, approval mediation, and more."
+    />
+    <!-- SEO_META_START -->
+    <link rel="canonical" href="https://caisi.dev/blog/glossary/" />
+    <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+    <meta property="og:site_name" content="CAISI" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="AI Agent Governance Glossary | CAISI Blog" />
+    <meta property="og:description" content="A CAISI glossary of practical terms for AI agent governance, including write path, execution boundary, proof packet, non-executable, approval mediation, and more." />
+    <meta property="og:url" content="https://caisi.dev/blog/glossary/" />
+    <meta property="og:image" content="https://caisi.dev/assets/caisi-social.png" />
+    <meta property="og:image:alt" content="AI Agent Governance Glossary | CAISI Blog" />
+    <meta property="og:image:width" content="1600" />
+    <meta property="og:image:height" content="900" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="AI Agent Governance Glossary | CAISI Blog" />
+    <meta name="twitter:description" content="A CAISI glossary of practical terms for AI agent governance, including write path, execution boundary, proof packet, non-executable, approval mediation, and more." />
+    <meta name="twitter:image" content="https://caisi.dev/assets/caisi-social.png" />
+    <meta name="author" content="David Ahmann" />
+    <link rel="author" href="https://caisi.dev/authors/david-ahmann/" />
+    <meta property="article:published_time" content="2026-03-17" />
+    <meta property="article:modified_time" content="2026-03-17" />
+    <!-- SEO_META_END -->
+<link rel="stylesheet" href="/assets/site.css" />
+    <!-- SEO_SCHEMA_START -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://caisi.dev/blog/glossary/#webpage",
+          "url": "https://caisi.dev/blog/glossary/",
+          "name": "AI Agent Governance Glossary | CAISI Blog",
+          "description": "A CAISI glossary of practical terms for AI agent governance, including write path, execution boundary, proof packet, non-executable, approval mediation, and more.",
+          "inLanguage": "en",
+          "isPartOf": {
+            "@id": "https://caisi.dev#website"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": "https://caisi.dev/blog/glossary/#breadcrumb",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://caisi.dev"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Blog",
+              "item": "https://caisi.dev/blog/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Glossary"
+            }
+          ]
+        },
+        {
+          "@type": "BlogPosting",
+          "headline": "AI Agent Governance Glossary",
+          "description": "A CAISI glossary of practical terms for AI agent governance, including write path, execution boundary, proof packet, non-executable, approval mediation, and more.",
+          "mainEntityOfPage": "https://caisi.dev/blog/glossary/",
+          "url": "https://caisi.dev/blog/glossary/",
+          "image": "https://caisi.dev/assets/caisi-social.png",
+          "datePublished": "2026-03-17",
+          "dateModified": "2026-03-17",
+          "inLanguage": "en",
+          "author": {
+            "@type": "Person",
+            "name": "David Ahmann",
+            "url": "https://caisi.dev/authors/david-ahmann/",
+            "image": "https://caisi.dev/assets/david-ahmann-headshot.png",
+            "sameAs": [
+              "https://www.linkedin.com/in/dahmann/"
+            ],
+            "jobTitle": "Head of Cloud & AI Platforms",
+            "worksFor": {
+              "@type": "Organization",
+              "name": "CDW"
+            }
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "Clyra AI Safety Initiative (CAISI)",
+            "url": "https://caisi.dev",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://caisi.dev/assets/caisi-logo.png"
+            },
+            "sameAs": [
+              "https://github.com/Clyra-AI/safety"
+            ]
+          }
+        }
+      ]
+    }
+    </script>
+    <!-- SEO_SCHEMA_END -->
+</head>
+  <body>
+    <main class="site" aria-label="CAISI glossary">
+      <header class="site-header" aria-label="Site header">
+        <div class="brand-row">
+          <div class="brand-mark">
+            <a class="brand-link" href="/">CAISI</a>
+            <p class="brand-note">
+              Independent research and operating notes on AI agent governance.
+            </p>
+          </div>
+        </div>
+        <nav class="global-nav" aria-label="Primary">
+          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" href="/research/">Research</a>
+          <a class="nav-link current" href="/blog/">Blog</a>
+          <a class="nav-link" href="/#about-heading">About</a>
+          <a class="nav-link" href="/#contact-heading">Contact</a>
+        </nav>
+      </header>
+
+      <section class="section hero">
+        <p class="breadcrumbs">
+          <a href="/">Home</a>
+          <span class="divider">/</span>
+          <a href="/blog/">Blog</a>
+          <span class="divider">/</span>
+          <span>Glossary</span>
+        </p>
+        <p class="eyebrow">Reference / Glossary</p>
+        <div class="post-author">
+          <img class="author-avatar" src="/assets/david-ahmann-headshot.png" alt="David Ahmann" />
+          <p class="author-byline">
+            By <a href="https://www.linkedin.com/in/dahmann/">David Ahmann (LinkedIn)</a>
+          </p>
+        </div>
+        <h1>AI Agent Governance Glossary</h1>
+        <p class="lead">
+          This glossary keeps the CAISI vocabulary plain. The point is not to
+          invent jargon. The point is to give AppSec, platform, and engineering
+          leaders a small set of terms they can reuse without losing the
+          underlying mechanism.
+        </p>
+      </section>
+
+      <section class="section page-nav" aria-labelledby="page-nav-heading">
+        <h2 id="page-nav-heading">In this glossary</h2>
+        <div class="page-nav-list">
+          <a href="#decision-and-proof">Decision and proof</a>
+          <a href="#execution-and-boundaries">Execution and boundaries</a>
+          <a href="#workflows-and-repos">Workflows and repos</a>
+          <a href="#evaluation-and-trust">Evaluation and trust</a>
+        </div>
+        <div class="link-row">
+          <a href="/blog/ai-agent-governance/">Open the field guide</a>
+          <span class="divider">|</span>
+          <a href="/blog/">All blog collections</a>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="summary-grid">
+          <article class="card">
+            <p class="post-stage">How to use this</p>
+            <h3>Plain language first</h3>
+            <p>
+              Each term here is written in normal English first, with the
+              technical meaning attached to it rather than hidden inside it.
+            </p>
+          </article>
+          <article class="card">
+            <p class="post-stage">Best fit</p>
+            <h3>Use it in evaluations and internal memos</h3>
+            <p>
+              These are the terms that show up most often when teams are trying
+              to compare tools, define controls, or explain incidents.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="decision-and-proof">
+        <h2 id="decision-and-proof">Decision and proof</h2>
+        <div class="summary-grid">
+          <article class="card">
+            <h3>Approval mediation</h3>
+            <p>
+              Whether approval actually changes execution state. If approval
+              only leaves a record and the action can still execute anyway, the
+              mediation is weak.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Proof packet</h3>
+            <p>
+              The artifact bundle a reviewer, auditor, or incident responder can
+              inspect cold. It should explain scope, policy, execution,
+              validation, and residual risk without side-channel narration.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Receipts vs proof</h3>
+            <p>
+              A receipt shows that something was approved or requested. Proof
+              shows what actually happened. Mature workflows need both.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Residual risk</h3>
+            <p>
+              What remains uncertain, deferred, or dependent on human review
+              after the run. Good proof makes residual risk explicit instead of
+              implying certainty.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="execution-and-boundaries">
+        <h2 id="execution-and-boundaries">Execution and boundaries</h2>
+        <div class="summary-grid">
+          <article class="card">
+            <h3>Execution boundary</h3>
+            <p>
+              The moment before an agent can change something real. This is
+              where meaningful policy has to run if the goal is prevention, not
+              documentation after the fact.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Non-executable</h3>
+            <p>
+              A state where the requested action cannot run. This matters
+              because "deny" or "approval required" is only credible if it
+              actually makes the action non-executable.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Write path</h3>
+            <p>
+              Any route an agent can use to change code, systems, data, or other
+              production reality. Repos, MCP tools, CI jobs, and local runners
+              can all be write paths.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Stop semantics</h3>
+            <p>
+              The runtime contract that determines what happens after a stop
+              request. A stop control is only strong if it prevents new side
+              effects after the state transition.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="workflows-and-repos">
+        <h2 id="workflows-and-repos">Workflows and repos</h2>
+        <div class="summary-grid">
+          <article class="card">
+            <h3>Repo contract</h3>
+            <p>
+              The docs, commands, fixtures, tests, and boundaries that tell both
+              humans and agents how work is supposed to happen in a repo.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Dark factory</h3>
+            <p>
+              A background delivery system that turns bounded work items into
+              reviewable artifacts and pull requests with explicit states,
+              retries, and handoff points.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Blueprint</h3>
+            <p>
+              The deterministic workflow around the model: planning, execution,
+              validation, evidence packaging, and shipping. It is what makes the
+              work reusable across teams and repos.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Warm sandbox</h3>
+            <p>
+              An isolated workspace that is already bootstrapped enough to run
+              quickly, but still separate enough to keep retries, secrets, and
+              side effects bounded.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="evaluation-and-trust">
+        <h2 id="evaluation-and-trust">Evaluation and trust</h2>
+        <div class="summary-grid">
+          <article class="card">
+            <h3>Hidden evaluation</h3>
+            <p>
+              Tests or scenarios the agent cannot overfit to during the build
+              loop. These matter when visible tests alone are too easy to game.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Control efficacy</h3>
+            <p>
+              The measured ability of the control layer to change what can
+              execute and leave behind proof that survives review.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Proof completeness</h3>
+            <p>
+              Whether the evidence packet is complete enough for a third party to
+              reconstruct what happened without guessing.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Transferability</h3>
+            <p>
+              The question of whether a lesson from one stack or run applies to
+              your own environment. Mechanisms often transfer farther than raw
+              rates.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <footer class="section article-footer" aria-label="Glossary footer">
+        <div class="footer-links">
+          <a href="/blog/ai-agent-governance/">Field guide</a>
+          <span class="divider">|</span>
+          <a href="/research/">Research</a>
+          <span class="divider">|</span>
+          <a href="/authors/david-ahmann/">Author profile</a>
+        </div>
+        <p class="footer-note">
+          Practical question: which one of these terms would help your team make
+          a current AI-tooling decision more clearly this week?
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>
