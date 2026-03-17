@@ -49,11 +49,12 @@
         </div>
         <h1>Stop Is Not a Safety Control If the Runtime Can Ignore It</h1>
         <p class="lead">
-          A stop button feels like a safety control until the day an incident
-          commander tries to use it under pressure. Then the only thing that
-          matters is whether the runtime changes state quickly enough to prevent
-          the next side effect from crossing the boundary. OpenClaw is valuable
-          because it turns that question from intuition into measurement.
+          A common leadership failure mode looks like this: incident command
+          says "stop all autonomous actions now," engineering assumes that
+          happened, and an hour later new side effects still appear in the
+          timeline. At that point, nobody cares what the UI label said. The
+          only thing that matters is whether stop changed runtime execution
+          state. OpenClaw is useful because it measures that boundary directly.
         </p>
       </section>
 
@@ -119,19 +120,20 @@
       <section class="section article-section">
         <h2 id="what-fails-when-stop-is-only-advisory">What fails when stop is only advisory</h2>
         <p>
-          When stop is advisory, incident response logic breaks first. Teams
-          believe they can halt the run, begin containment, and then reason about
-          cleanup. But if the runtime can still emit tool calls after that point,
-          every downstream action is contaminated by uncertainty. You no longer
-          know whether you are investigating a finished event or a still-running
-          one.
+          When stop is advisory, the first failure is governance, not software.
+          The org starts making decisions based on a false premise that work has
+          halted. Incident response assumes the blast radius is fixed. AppSec
+          starts classification and communication. Platform starts rollback
+          planning. If tool calls can still execute, all three tracks are
+          operating on stale facts.
         </p>
         <p>
-          That ambiguity is not just a security issue. It also breaks platform
-          guarantees around retry, rollback, human review, and customer-facing
-          reliability. A run that can continue making side effects after a stop
-          request is a run whose operational contract is weaker than the product
-          surface suggests.
+          The second failure is accountability. Reviewers cannot cleanly separate
+          pre-stop and post-stop actions, which makes root-cause analysis and
+          ownership harder than it needs to be. In practical terms, advisory
+          stop turns a bounded incident into an argument about timing, logs, and
+          operator intent. That is expensive for security and exhausting for
+          engineering.
         </p>
       </section>
 
@@ -170,18 +172,22 @@
         <h2 id="what-a-credible-stop-contract-should-include">What a credible stop contract should include</h2>
         <p>
           A useful way to think about stop is as a small state machine, not a
-          button. The run should move from active, to stop requested, to
-          quiesced, and only then to terminated or reviewed. During the quiesced
-          state, no new write-capable tool call should become executable unless a
-          distinct recovery path authorizes it.
+          button. The run should move from active to stop requested to quiesced,
+          and only then to terminated or reviewed. During quiesced state, no new
+          write-capable tool call should become executable unless a distinct
+          recovery path authorizes it.
         </p>
         <p>
-          That contract should also produce evidence. Operators should be able to
-          see when the stop was issued, when it was acknowledged, whether any
-          in-flight actions completed, and whether the system prevented new
-          actions after the stop transition. Without that record, teams end up
-          arguing about screenshots, prompts, and logs instead of reviewing one
-          coherent control artifact.
+          A credible stop contract should also define ownership. Who can assert
+          stop? Who can clear stop? Who can grant narrow recovery execution?
+          Most teams document only the first action and leave the rest to
+          "human judgment." Under pressure, that creates policy drift.
+        </p>
+        <p>
+          Finally, the contract needs artifacts. Teams should be able to show
+          stop-issued time, stop-acknowledged time, any in-flight completions,
+          and blocked post-stop attempts. Without that record, postmortems turn
+          into reconciliation work instead of decision work.
         </p>
         <p>
           This is where OpenClaw is more valuable than a generic "agents are
@@ -216,11 +222,11 @@
       <section class="section article-section">
         <h2 id="practical-next-step">Practical next step</h2>
         <ul class="list-plain">
-          <li>Pick one agent workflow and map what technically happens after a stop request is issued.</li>
-          <li>Check whether the runtime can still emit a tool call after the stop signal.</li>
-          <li>Define what non-executable state should mean in your orchestrator or boundary layer.</li>
-          <li>Record stop-issued, stop-acknowledged, and post-stop-attempted events as reviewable artifacts.</li>
-          <li>Make stop behavior testable with artifact-backed traces, not only UI behavior.</li>
+          <li>Choose one critical workflow and run a stop drill with Security, Platform, and the service owner present.</li>
+          <li>Document the exact runtime transition that makes post-stop tool calls non-executable.</li>
+          <li>Define explicit ownership for stop issue, stop clear, and recovery override.</li>
+          <li>Capture stop-issued, stop-acknowledged, and post-stop-attempted events in one review packet.</li>
+          <li>Make the stop drill repeatable in CI or simulation so the contract is testable, not narrative.</li>
         </ul>
         <p>
           The next OpenClaw post moves one step earlier in the lifecycle:

@@ -49,11 +49,10 @@
         </div>
         <h1>Why Visible Tests Are Not Enough</h1>
         <p class="lead">
-          A passing test suite can mean two very different things. It can mean
-          the change behaves safely under the conditions you care about, or it
-          can mean the system learned how to satisfy the tests it was allowed to
-          see. Human reviewers already understand this distinction intuitively.
-          Agent workflows need to build it into the validation system.
+          A green check can mean "safe behavior" or "successful test gaming."
+          Human reviewers know this intuitively when they see suspiciously clean
+          diffs. Agent workflows need to encode that skepticism directly into the
+          validation architecture.
         </p>
       </section>
 
@@ -93,6 +92,10 @@
           third-party integration assumptions nobody modeled in the visible
           test set.
         </p>
+        <p>
+          This is not a hypothetical corner case. Any optimization system will
+          optimize against the signal you expose most clearly.
+        </p>
       </section>
 
       <section class="section article-section">
@@ -111,6 +114,11 @@
           separate promotion gate that asks whether the behavior generalizes
           beyond what the agent just saw.
         </p>
+        <p>
+          An objection you will hear is "hidden evals reduce transparency." They
+          reduce predictability for the generator by design, while remaining
+          fully transparent to evaluators and reviewers.
+        </p>
       </section>
 
       <section class="section article-section">
@@ -128,6 +136,10 @@
           itself toward. And it makes testing honest again. The visible suite
           helps the agent build. The hidden suite helps the organization decide
           whether it should trust the result.
+        </p>
+        <p>
+          The rule to keep: build-loop tests optimize iteration speed;
+          decision-loop tests protect promotion quality.
         </p>
       </section>
 
@@ -163,6 +175,11 @@
           third-party integrations, infrastructure behaviors, or policy-sensitive
           operations without letting the agent learn directly on the production
           dependency itself.
+        </p>
+        <p>
+          Over time this also improves suite quality. Holdout failures identify
+          weak assumptions in visible tests and feed back into better test
+          design.
         </p>
       </section>
 

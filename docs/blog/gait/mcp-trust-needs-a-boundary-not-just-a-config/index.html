@@ -49,11 +49,11 @@
         </div>
         <h1>MCP Trust Needs a Boundary, Not Just a Config File</h1>
         <p class="lead">
-          Trust in MCP is easy to overstate because the declaration is visible
-          and the runtime path is not. A config file can tell you that a server
-          exists. It cannot tell you whether the live tool call should be
-          trusted when credentials, transports, or third-party systems are
-          actually in play. That decision needs a boundary.
+          Teams often feel confident when MCP declarations are reviewed and
+          versioned. Confidence drops when a live invocation crosses into a
+          higher-risk context and nobody can explain the runtime decision logic.
+          That is the core problem: declaration review is necessary, but trust
+          enforcement has to happen at the boundary where calls execute.
         </p>
       </section>
 
@@ -90,102 +90,106 @@
       <section class="section article-section">
         <h2 id="the-operational-reality">The operational reality</h2>
         <p>
-          MCP trust is easy to oversimplify because the declaration layer feels
-          concrete. Teams can point to a config file, a package name, an
-          endpoint, or a permission note and feel like they have contained the
-          question. The deeper issue appears when the model is actually about to
-          use that path. At that point, the organization is no longer evaluating
-          metadata. It is deciding whether a real action may proceed.
+          MCP trust conversations usually begin with static facts: config entries,
+          package names, endpoints, and permission notes. That is valuable
+          inventory. The decisive question appears later: should this invocation
+          proceed in this context, with this requested action, and these current
+          credentials?
         </p>
         <p>
-          This is where many teams still have a gap. They can inventory and
-          review declarations, but they do not have a consistent runtime
-          mechanism to say, "this call is allowed," "this one is blocked," or
-          "this one requires approval because the context is different now than
-          it was when the declaration was first reviewed."
+          Many teams still lack a consistent answer to that runtime question.
+          They can review declarations, but they cannot reliably issue and record
+          pre-execution verdicts such as allow, block, or require approval when
+          context changes from original review assumptions.
+        </p>
+        <p>
+          Context drift is common: new repo permissions, new workflow execution
+          paths, different caller identity, or altered endpoint trust posture.
+          Static approval can lag behind these shifts unless invocation control
+          is explicit.
         </p>
       </section>
 
       <section class="section article-section">
         <h2 id="the-anti-pattern">The anti-pattern</h2>
         <p>
-          The anti-pattern is static trust with dynamic behavior. A declaration
-          gets approved once, and that approval is quietly treated as if it
-          generalizes to every later invocation no matter the context, tool
-          arguments, or surrounding permissions. That is attractive because it
-          keeps governance light. It is weak because the real risk materializes
-          at invocation time.
+          The anti-pattern is one-time trust for dynamic behavior. A declaration
+          is approved once, then treated as if every future invocation is
+          equivalent. This keeps governance lightweight early, but it ignores
+          that risk materializes at invocation time, not declaration time.
         </p>
         <p>
-          Another version of the same mistake is to assume observability later
-          will cover the gap. But a log of an unsafe call is not the same as a
-          boundary that could have refused it.
+          Another anti-pattern is observability-only control: collect logs and
+          alerts, then treat that as sufficient. Evidence after execution is
+          useful for learning, but it is not a substitute for the ability to
+          refuse unsafe calls before side effects occur.
         </p>
       </section>
 
       <section class="section article-section">
         <h2 id="the-better-system-pattern">The better system pattern</h2>
         <p>
-          The better pattern is layered trust. Discovery and declaration review
-          still matter. They tell you what exists and how it is supposed to be
-          used. But that layer feeds a boundary that can evaluate the actual
-          invocation in context before side effects occur.
+          The better pattern is layered trust with explicit lifecycle boundaries.
+          Discovery and declaration review establish baseline visibility. Runtime
+          boundary evaluation governs invocation based on current context.
+          Evidence artifacts preserve decisions for later review and dispute
+          handling.
         </p>
         <p>
-          Gait is useful here because the repo makes that progression concrete:
-          verify trust inputs, then route calls through a policy-aware boundary.
-          That model is healthier than pretending declaration review alone is a
-          sufficient enforcement mechanism.
+          Gait is useful implementation context because the repo makes this
+          sequence concrete: trust preflight, then policy-aware routing at the
+          boundary. The key lesson is architectural. Declaration review and
+          invocation enforcement are complementary layers with different jobs.
         </p>
         <p>
-          It also creates a much clearer division of labor. Discovery tools
-          surface the path. Boundary tools decide whether this call can proceed.
-          Evidence artifacts preserve the answer later.
+          This layered model also clarifies ownership. Discovery tooling can be
+          operated by posture and platform teams. Boundary policy can be governed
+          by AppSec and platform jointly. Evidence handling can align with audit
+          and incident workflows. Clear ownership reduces bypass pressure.
         </p>
       </section>
 
       <section class="section article-section">
         <h2 id="why-security-cares">Why security cares</h2>
         <p>
-          Security teams should care because MCP is a classic place for
-          permission drift to hide. The integration may look stable while the
-          surrounding execution context changes: new credentials, broader repo
-          reach, new workflows, different approvals, or new agents invoking the
-          same path for different reasons.
+          Security should care because MCP is a natural hiding place for
+          permission drift. Integrations may look unchanged while surrounding
+          execution conditions evolve: new credentials, broader repo scope,
+          shifted ownership, or new agents invoking old endpoints.
         </p>
         <p>
-          A boundary makes those changing conditions governable. Without it, the
-          organization is relying on stale intent and partial memory.
+          Boundary enforcement turns that drift into governable decisions. Without
+          it, organizations rely on stale approval intent and partial memory
+          during moments that require high-confidence control.
         </p>
       </section>
 
       <section class="section article-section">
         <h2 id="why-platform-and-engineering-care">Why platform and engineering care</h2>
         <p>
-          Platform teams need this because MCP without a boundary becomes hard
-          to reason about operationally. When calls fail or behave differently
-          under different contexts, engineers need a consistent place to inspect
-          the verdict. Otherwise, debugging collapses into a mix of prompt
-          guesses, config diffing, and permission archaeology.
+          Platform teams care because boundaryless MCP becomes expensive to
+          operate. When behavior differs by context, engineers need one reliable
+          decision point to inspect. Without it, debugging fragments across
+          prompts, configs, and permission logs.
         </p>
         <p>
-          Boundary-aware MCP handling is therefore not just safer. It is also a
-          cleaner platform primitive.
+          Boundary-aware invocation handling is therefore not just safer. It is a
+          cleaner platform primitive that improves reliability and supportability.
         </p>
       </section>
 
       <section class="section article-section">
         <h2 id="practical-next-step">Practical next step</h2>
         <ul class="list-plain">
-          <li>Separate MCP declaration review from MCP invocation control in your design.</li>
-          <li>Choose one declared server and test whether you can evaluate a real invocation before execution.</li>
-          <li>Capture the verdict and trust inputs in a durable artifact.</li>
-          <li>Review where your current process relies on stale approval rather than current context.</li>
-          <li>Make that distinction visible to both security and platform teams.</li>
+          <li>Document the full MCP decision lifecycle: declaration discovery, trust review, invocation verdict, and evidence retention.</li>
+          <li>Select one high-impact server and enforce pre-execution verdicts for real invocation paths.</li>
+          <li>Record trust inputs and runtime verdicts in durable artifacts tied to normal engineering review.</li>
+          <li>Identify where static approvals are currently standing in for invocation-time decisions.</li>
+          <li>Set an explicit owner for MCP boundary policy across AppSec and platform.</li>
         </ul>
         <p>
-          The last piece is what makes the whole control model durable: proof
-          that survives the run and regressions that survive the incident.
+          Once invocation control is in place, durability depends on proof
+          quality and regression discipline. That is the final piece.
         </p>
       </section>
 

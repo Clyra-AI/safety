@@ -49,12 +49,10 @@
         </div>
         <h1>Proof of Work for AI-Generated Changes</h1>
         <p class="lead">
-          One of the fastest ways to lose confidence in autonomous software work
-          is to hand a reviewer a green CI badge and ask them to trust the rest.
-          That is not enough for AppSec, and it is not enough for the platform
-          team debugging a bad run two weeks later. Autonomous change needs a
-          proof packet: what changed, what ran, what was blocked, what remains
-          uncertain, and why the system promoted the work at all.
+          A green CI badge is a status signal, not an accountability artifact.
+          For autonomous changes, reviewers need more than pass/fail output. They
+          need a compact proof packet that explains what changed, what executed,
+          what was blocked, what remains uncertain, and why promotion happened.
         </p>
       </section>
 
@@ -93,6 +91,10 @@
           can debug. Engineers need enough context to review quickly without
           losing confidence in the merge path.
         </p>
+        <p>
+          If review time rises as autonomous volume rises, proof packaging is
+          usually the missing layer.
+        </p>
       </section>
 
       <section class="section article-section">
@@ -108,6 +110,10 @@
         <p>
           Teams sometimes call that overhead. It is not overhead. It is the
           thing that makes autonomous change reviewable at all.
+        </p>
+        <p>
+          The hidden cost of skipping proof is predictable: slower approvals,
+          more side-channel questions, and weaker incident reconstruction later.
         </p>
       </section>
 
@@ -126,6 +132,10 @@
           explain itself later during a dispute, an audit, or a debugging
           session. Proof packets are the trust layer between "the run completed"
           and "the organization can defend the outcome."
+        </p>
+        <p>
+          The rule is straightforward: every autonomous change should carry its
+          own explanation and evidence, not depend on reviewers to assemble them.
         </p>
       </section>
 
@@ -182,6 +192,11 @@
           It also lets engineering teams move faster with less politics. The
           reviewer is not being asked to trust the agent. They are being given a
           compact artifact that makes the review decision legible.
+        </p>
+        <p>
+          Strong packets also enable better service-level expectations for
+          review. Teams can set faster review targets when the input quality is
+          consistent and complete.
         </p>
       </section>
 

@@ -49,11 +49,10 @@
         </div>
         <h1>Parallel Agents Without Chaos</h1>
         <p class="lead">
-          Every autonomy pitch eventually arrives at the same promise: more work
-          moving in parallel. That is also the point where weak systems stop
-          looking exciting and start looking dangerous. Parallel agent work only
-          compounds when the orchestrator owns claims, boundaries, dependencies,
-          and recovery. Otherwise the throughput story becomes a blame story.
+          Parallelism is where agent programs either become a platform capability
+          or a coordination crisis. Running more workers is easy. Running more
+          workers with clear ownership, dependency awareness, and recoverable
+          state is the hard part.
         </p>
       </section>
 
@@ -92,6 +91,10 @@
           agents are inherently chaotic when the real problem is the missing
           control layer above them.
         </p>
+        <p>
+          The practical signal is simple: queue volume rises, but completed and
+          mergeable work does not rise proportionally.
+        </p>
       </section>
 
       <section class="section article-section">
@@ -108,6 +111,10 @@
           If the orchestrator cannot answer those questions, more agents simply
           means more hidden contention. The queue appears busy while actual
           delivery quality gets worse.
+        </p>
+        <p>
+          The sharpest failure mode is stale parallelism: a run keeps going even
+          after upstream issue state changed and invalidated its assumptions.
         </p>
       </section>
 
@@ -126,6 +133,10 @@
           concurrency becomes a policy decision instead of a guess. You can
           block overlapping claims, reuse workspaces across retries, and
           re-evaluate the run when a parent issue or dependency changes state.
+        </p>
+        <p>
+          The rule is straightforward: concurrency should be earned by explicit
+          non-overlap, not assumed by default.
         </p>
       </section>
 
@@ -160,6 +171,11 @@
           Platform leaders should think of this as traffic control, not raw
           compute scaling. The value is not "more runs." The value is more safe
           work completed per review cycle.
+        </p>
+        <p>
+          This also improves accountability. When claims and dependencies are
+          explicit, post-incident reviews can explain why overlapping work was
+          allowed, blocked, retried, or cancelled.
         </p>
       </section>
 

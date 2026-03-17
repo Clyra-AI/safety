@@ -49,11 +49,12 @@
         </div>
         <h1>Your MCP Config Is Already Part of Your Security Boundary</h1>
         <p class="lead">
-          MCP still gets treated like developer plumbing, but security teams
-          should read it more like a boundary declaration. It names tools,
-          transports, requested permissions, and trust assumptions that shape
-          what an agent may try to reach. Once that is true, the config is no
-          longer a convenience file. It is part of the control surface.
+          An architecture review says the team only "added MCP config." A month
+          later, security is trying to explain why new tool paths are reachable
+          in places nobody modeled. That gap happens because MCP declarations are
+          often treated as convenience plumbing when they are really boundary
+          metadata. If the file can expand what an agent can reach, it belongs
+          in security design, not just developer setup.
         </p>
       </section>
 
@@ -91,118 +92,116 @@
       <section class="section article-section">
         <h2 id="the-operational-reality">The operational reality</h2>
         <p>
-          Security leaders are increasingly asked some version of the same
-          question: what exactly can these AI assistants call? The answer often
-          drifts immediately toward models, providers, and procurement. But the
-          more practical answer usually sits in the config layer. MCP
-          declarations describe which tools the agent can see, what transport
-          they use, and what kind of permission shape they request.
+          Security leaders keep getting the same operational question in
+          different words: what can this agent call right now? The response
+          often drifts to model brand, licensing, or prompt policy. The more
+          useful answer lives in declaration and execution context. MCP entries
+          define discoverable tool paths, transport assumptions, and requested
+          permissions that directly influence boundary reach.
         </p>
         <p>
-          That matters because a harmless-looking config file can quietly become
-          the route by which AI tooling reaches internal systems, third-party
-          services, or developer-local capabilities that security never modeled
-          as part of the production-adjacent surface. By the time the issue is
-          discovered, the organization is no longer debating a theory. It is
-          debating an already-expanded boundary.
+          The practical risk is quiet expansion, not dramatic compromise. A file
+          that looked harmless during setup can become the route to internal
+          services, third-party endpoints, or privileged local capabilities. By
+          the time someone notices, the organization is no longer deciding
+          whether to expand the boundary. The boundary already expanded.
+        </p>
+        <p>
+          This is also where ownership gets blurry. Platform may consider MCP a
+          productivity layer, while AppSec treats reachable tool paths as a
+          control concern. Both views are correct in part. The failure is when
+          neither team owns the full declaration-to-invocation lifecycle.
         </p>
       </section>
 
       <section class="section article-section">
         <h2 id="the-anti-pattern">The anti-pattern</h2>
         <p>
-          The anti-pattern is to treat MCP as a convenience layer that belongs
-          entirely to the developer-experience side of the house. Under that
-          view, security reviews the SaaS product, maybe glances at the IDE
-          plugin, and assumes the integration details are too low-level to
-          matter unless an incident happens later.
+          The anti-pattern is "trust by declaration." Teams review the broad
+          tool choice, skim config shape, and assume runtime use will stay inside
+          that envelope. This keeps early adoption fast, but it mistakes setup
+          metadata for control.
         </p>
         <p>
-          That assumption breaks for the same reason API gateways, CI runners,
-          and deployment environments eventually became security topics. The
-          abstraction is useful right until it starts carrying real authority.
-          Once it does, the declaration surface matters. Transport matters.
-          Trust assumptions matter. Missing parse coverage matters. None of that
-          is exotic. It is standard boundary hygiene applied to a new path.
+          The analogy to earlier platform shifts is direct. API gateways,
+          runners, and deployment environments were once "engineering details"
+          too. They became security topics once they mediated authority. MCP is
+          the same pattern. Declaration completeness, transport choice, and trust
+          assumptions stop being implementation trivia when they shape reachable
+          actions.
         </p>
       </section>
 
       <section class="section article-section">
         <h2 id="the-better-system-pattern">The better system pattern</h2>
         <p>
-          The better pattern is to treat MCP declarations as boundary metadata.
-          That means inventorying them, classifying them, and reviewing them in
-          the same posture program that already covers repos, workflows, and
-          access inheritance. A strong inventory should tell you at least four
-          things: which servers are declared, how they are reached, what they
-          appear to request, and how trustworthy the declaration looks from a
-          supply-chain perspective.
+          The better pattern is layered control. First, inventory MCP
+          declarations as boundary metadata. Second, classify trust and transport
+          posture in the same system you use for repo and workflow posture.
+          Third, feed high-risk declarations into runtime gating where actual
+          invocations can be allowed, blocked, or held for approval.
         </p>
         <p>
-          That is where Wrkr's posture framing is useful. It does not pretend to
-          solve runtime enforcement from static inventory. It does something
-          earlier and necessary. It makes the declaration layer visible enough
-          that the organization can decide which paths deserve stricter runtime
-          control later.
+          Wrkr is useful implementation context because it does the first two
+          layers without pretending static inventory solves runtime control.
+          That distinction matters. Discovery reveals edges. Enforcement governs
+          action. Teams that blur the two either overclaim safety or overbuild
+          policy before they have basic visibility.
         </p>
         <p>
-          This is also a better way to talk to engineering. "Security wants to
-          review every MCP config" sounds like drag. "We need a consistent view
-          of which declared tool paths already expand the agent boundary" sounds
-          like system design, because it is.
+          This framing also improves collaboration language. "Security wants to
+          approve config files" feels like bureaucracy. "We need a deterministic
+          map of declared tool paths and trust posture before we can set
+          selective runtime controls" reads as platform design, because it is.
         </p>
       </section>
 
       <section class="section article-section">
         <h2 id="why-security-cares">Why security cares</h2>
         <p>
-          An unreviewed MCP declaration is risky for the same reason any hidden
-          tool path is risky: it creates capability without governance memory.
-          If there is no durable record of what was declared, what permissions
-          were implied, and whether the path was approved, every later question
-          gets harder. That includes internal review, external audit, and plain
-          old incident response.
+          Unreviewed declarations create capability without governance memory.
+          If security cannot show what was declared, what was requested, and
+          what was approved, every later control conversation gets weaker. That
+          includes audit readiness, incident reconstruction, and executive
+          reporting on exposure.
         </p>
         <p>
-          For AppSec specifically, MCP also creates a new location where policy
-          intent and supply-chain trust intersect. A declaration can look simple
-          while still inheriting risk from packaging, pinning, endpoint trust,
-          or surrounding tool access. Security needs the declaration in view
-          before it can make a mature judgment.
+          MCP is also where policy intent meets supply-chain trust. A declaration
+          may look simple while inheriting risk from package source, endpoint
+          trust, pinning discipline, or adjacent permissions. Security cannot
+          make mature risk decisions if that layer stays invisible.
         </p>
       </section>
 
       <section class="section article-section">
         <h2 id="why-platform-and-engineering-care">Why platform and engineering care</h2>
         <p>
-          Platform teams benefit because MCP drift is an operability problem as
-          much as a security problem. Engineers lose confidence when local and
-          shared tool boundaries differ invisibly across machines, repos, and
-          environments. A structured inventory reduces that uncertainty and
-          makes later debugging less political.
+          Platform teams feel this as operability debt. Different machines and
+          repos accumulate different declarations, then behavior diverges in ways
+          that are hard to diagnose quickly. Structured inventory makes those
+          differences explicit before they become debugging emergencies.
         </p>
         <p>
-          It also clarifies the split between discovery and runtime control.
-          Discovery tells you which declared edges exist. Later enforcement can
-          decide which ones may execute under what policy. Keeping those layers
-          separate is healthier than pretending a config review alone solves the
-          execution problem.
+          It also clarifies investment sequencing. Discovery should land first
+          and stay cheap. Runtime control should be selective and focused on
+          high-consequence paths. That balance protects throughput while still
+          improving control quality.
         </p>
       </section>
 
       <section class="section article-section">
         <h2 id="practical-next-step">Practical next step</h2>
         <ul class="list-plain">
-          <li>Collect MCP declarations from one representative engineering group rather than discussing the topic abstractly.</li>
-          <li>Record transport type, requested permissions, package or endpoint trust assumptions, and parse failures.</li>
-          <li>Separate approved declarations from declarations security has never reviewed.</li>
-          <li>Decide which declaration patterns need runtime enforcement later and which just need visibility.</li>
-          <li>Make the resulting inventory part of the same review surface as repo and CI posture.</li>
+          <li>Pick one business-critical engineering group and collect all MCP declarations across local and repo scopes.</li>
+          <li>Capture transport, requested permissions, trust assumptions, and parse confidence as first-class fields.</li>
+          <li>Separate approved, known-unapproved, and unknown-to-security declarations in the same view.</li>
+          <li>Identify which declarations need runtime gating now versus inventory-only monitoring.</li>
+          <li>Review this output jointly between AppSec and platform, then set a two-week drift check cadence.</li>
         </ul>
         <p>
-          Once MCP enters the same posture map as the rest of software delivery,
-          another blind spot becomes harder to ignore: unattended execution in
-          CI.
+          If that process feels heavier than expected, it is usually because MCP
+          has already become part of production-adjacent infrastructure. That is
+          exactly why the next blind spot is CI.
         </p>
       </section>
 

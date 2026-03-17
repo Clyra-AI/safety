@@ -49,12 +49,11 @@
         </div>
         <h1>CI Is Where AI Tooling Quietly Becomes Infrastructure</h1>
         <p class="lead">
-          Most AI tooling conversations still revolve around editors and
-          copilots. The more consequential shift happens when agent behavior
-          lands in CI. That is the moment experimentation becomes unattended
-          infrastructure, and the question changes from 'who is trying a tool?'
-          to 'what automated path now inherits write, secret, or deployment
-          reach?'
+          The hardest governance surprises are rarely in the IDE. They appear in
+          CI after a useful experiment becomes unattended execution. Once that
+          happens, the question is no longer "who is trying an AI tool?" It is
+          "which automated path now has inherited authority to change shared
+          systems?"
         </p>
       </section>
 
@@ -91,120 +90,114 @@
       <section class="section article-section">
         <h2 id="the-operational-reality">The operational reality</h2>
         <p>
-          AppSec often learns about AI in CI in the least efficient way
-          possible. A workflow starts using a new action, a review bot writes
-          comments under automation, a patch-generation step appears in a
-          pipeline, or a repository suddenly has autonomous execution patterns
-          nobody remembers approving. By then the tooling has already crossed
-          the line from personal productivity to shared infrastructure.
+          CI governance conversations often begin too late. A workflow quietly
+          adopts a new action. A bot starts opening or editing artifacts. A
+          generation step appears in a reusable pipeline template. Nobody sees a
+          single dramatic launch, but unattended behavior is already in the
+          delivery path by the time AppSec gets looped in.
         </p>
         <p>
-          CI matters because it amplifies authority. Local experimentation can
-          still cause trouble, but workflow automation can act repeatedly,
-          inherit credentials, and affect shared systems while fewer humans are
-          watching. That changes the risk conversation. The organization is no
-          longer evaluating a personal assistant. It is evaluating an unattended
-          change participant.
+          CI changes the economics of risk because it amplifies authority and
+          repetition. A local assistant can make one bad suggestion. A workflow
+          can execute repeatedly with inherited secrets and write permissions
+          while fewer humans are watching each step. At that point, teams are no
+          longer evaluating user preference. They are evaluating infrastructure
+          behavior.
         </p>
         <p>
-          That is the moment where inherited privilege starts to matter more
-          than user intent. A workflow does not need to look dramatic to be
-          consequential. If it can write to the repo, update policy, comment on
-          reviews, or touch deployment-adjacent systems under automation, it has
-          already crossed into infrastructure territory.
+          Inherited privilege also outlives individual intent. Even if the
+          original author was careful, future edits and template reuse can
+          broaden scope without explicit re-approval. This is why CI governance
+          needs deterministic drift detection, not one-time workflow review.
         </p>
       </section>
 
       <section class="section article-section">
         <h2 id="the-anti-pattern">The anti-pattern</h2>
         <p>
-          The anti-pattern is to keep classifying CI-bound AI tooling as an
-          extension of developer preference. That framing is attractive because
-          it avoids policy friction. It is also wrong the moment the workflow
-          can write code, change pipeline behavior, approve steps, or influence
-          deployment-adjacent state.
+          The anti-pattern is treating CI-bound agent behavior as an extension
+          of developer experimentation. That framing keeps onboarding easy, but
+          it hides the moment a path becomes unattended and write capable.
+          Controls then arrive reactively, after behaviors are already embedded
+          in templates and shared workflows.
         </p>
         <p>
-          Another version of the same anti-pattern is to rely on workflow review
-          alone. A repository may have normal pull request rules and still
-          accumulate agent behaviors inside workflow YAML, reusable actions, or
-          surrounding scripts that nobody tracks as a separate posture problem.
-          The delivery system then becomes more autonomous without anyone
-          updating the governance model.
+          A second anti-pattern is review-only governance. Repository PR rules
+          can be strict while automation still accumulates in YAML, reusable
+          actions, and helper scripts outside clear ownership. The result is
+          perceived control with weak runtime accountability.
         </p>
       </section>
 
       <section class="section article-section">
         <h2 id="the-better-system-pattern">The better system pattern</h2>
         <p>
-          The better pattern is to inventory AI execution in CI as
-          infrastructure. That means treating workflow declarations, agent
-          actions, and headless tool paths as first-class discovery targets,
-          then comparing them against a known-good baseline so drift becomes
-          visible early.
+          The better pattern is to treat AI in CI as infrastructure posture.
+          Inventory workflow-level agent execution explicitly, baseline it, and
+          continuously diff against that baseline. Drift should be visible as a
+          concrete infrastructure delta, not as a vague concern raised during an
+          incident.
         </p>
         <p>
-          This is where Wrkr's deterministic posture model is useful. It gives
-          teams a way to talk about CI change in machine-readable terms rather
-          than relying on memory. If a new agent execution path appears in a
-          workflow, that should look less like vague "tool sprawl" and more like
-          a concrete infrastructure delta that deserves review.
+          Wrkr is useful implementation context because its deterministic posture
+          model makes CI change machine-readable. When a new headless path
+          appears, the discussion can move straight to impact and approval state
+          instead of spending days reconstructing what changed.
         </p>
         <p>
-          Good posture here also separates interactive tooling from unattended
-          workflow execution. Those are different operational realities. One is
-          a developer sitting at a keyboard. The other is the delivery system
-          acting with inherited authority after the commit lands.
+          A mature model also separates interaction modes: human-in-loop tooling
+          versus unattended execution. That distinction enables selective
+          controls. High-throughput teams keep local experimentation flexible
+          while applying stricter gates only where automation inherits broad
+          authority.
         </p>
       </section>
 
       <section class="section article-section">
         <h2 id="why-security-cares">Why security cares</h2>
         <p>
-          For security, AI in CI creates a familiar governance problem in a new
-          wrapper: invisible infrastructure change. If the workflow can mutate
-          code, policy, or deployment-adjacent state, then missing inventory is
-          no longer a documentation gap. It is a control gap.
+          For security, this is invisible infrastructure change in a new wrapper.
+          If workflow paths can mutate code or policy with inherited authority,
+          missing inventory is not a reporting issue. It is a control issue with
+          direct implications for incident response and approval posture.
         </p>
         <p>
-          The audit angle is straightforward too. CI is one of the first places
-          where leadership will expect disciplined answers: what changed, when
-          did it appear, who approved it, and what proof exists that the current
-          workflow still matches policy? Without deterministic posture and drift
-          signals, those answers degrade quickly into manual reconstruction.
+          The audit angle is equally practical. Leadership eventually asks: what
+          changed, when, who approved it, and what evidence proves current state
+          still aligns with policy. Without deterministic drift records, those
+          answers degrade into manual timeline reconstruction.
         </p>
       </section>
 
       <section class="section article-section">
         <h2 id="why-platform-and-engineering-care">Why platform and engineering care</h2>
         <p>
-          Platform teams should care because AI in CI affects reliability and
-          operability long before it triggers a formal security review. Hidden
-          automation creates nondeterministic debugging paths, inconsistent
-          expectations across repos, and fragile ownership lines when something
-          breaks at scale.
+          Platform teams care because hidden automation creates unstable
+          debugging paths and unclear ownership. Failures become harder to route
+          when nobody can quickly distinguish between model behavior, workflow
+          logic, and permission context.
         </p>
         <p>
-          A baseline-and-drift model helps because it turns these workflow
-          changes into explicit reviewable units. That is healthier than
-          discovering them through regressions, outages, or awkward approvals at
-          release time.
+          Baseline-and-drift control reduces those costs. It turns CI evolution
+          into explicit review units and catches risky additions before release
+          windows. That improves reliability and keeps security review targeted
+          instead of disruptive.
         </p>
       </section>
 
       <section class="section article-section">
         <h2 id="practical-next-step">Practical next step</h2>
         <ul class="list-plain">
-          <li>Enumerate AI execution patterns in your CI system as separate infrastructure objects, not as incidental workflow details.</li>
-          <li>Create a known-good baseline for those paths and compare new scans against it.</li>
-          <li>Separate interactive assistant use from headless or unattended execution in your reporting.</li>
-          <li>Mark which workflow paths can write code, affect policy, or influence deployment-adjacent systems.</li>
-          <li>Make CI posture drift something security and platform can review together before it becomes a release-time surprise.</li>
+          <li>Create a CI inventory slice dedicated to agent execution paths and treat it as infrastructure state.</li>
+          <li>Baseline that state and diff every workflow change against it, including reusable actions.</li>
+          <li>Split reporting between interactive assistant use and unattended execution with inherited privileges.</li>
+          <li>Tag each path by impact class: read-only, write-capable, policy-affecting, or deployment-adjacent.</li>
+          <li>Run a joint weekly triage between AppSec and platform until unknown paths trend toward zero.</li>
         </ul>
         <p>
-          Once teams see the boundary clearly, a final framing issue becomes
-          easier to fix: the temptation to treat the whole category as if it
-          were just "npm audit for AI agents."
+          Once CI posture is explicit, framing quality becomes the next issue.
+          This is where many organizations still overfit to the "npm audit for
+          AI agents" shorthand.
         </p>
       </section>
 

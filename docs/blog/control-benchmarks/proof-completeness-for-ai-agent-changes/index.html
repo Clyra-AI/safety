@@ -49,11 +49,12 @@
         </div>
         <h1>Proof Completeness: What Evidence Must Exist Before an AI Agent Change Is Trustworthy</h1>
         <p class="lead">
-          A green CI badge is a useful signal. It is not enough evidence for a
-          write-capable agent workflow. Buyers and reviewers need a more exact
-          question: what evidence would have to exist for a third party to
-          understand what happened, what was approved, what executed, and what
-          still remains risky?
+          The proof problem usually shows up late. The pilot looked good, the
+          change merged, and everyone moved on. Then a reviewer, auditor, or
+          incident responder asks a simple question about what happened and the
+          answer turns into screenshots, memory, and partial logs. A green CI
+          badge is a useful signal. It is not enough evidence for a write-capable
+          agent workflow.
         </p>
       </section>
 
@@ -106,6 +107,13 @@
           reconstruct the change and discovers that the workflow left a trail of
           fragments instead of one inspectable packet.
         </p>
+        <p>
+          We keep coming back to the same rule at CAISI: the approval is not
+          the proof. Authorization tells you what the system was allowed to try.
+          Proof tells you what actually happened. Mature buyers need both
+          because they answer different questions and they tend to fail in
+          different ways.
+        </p>
       </section>
 
       <section class="section article-section">
@@ -123,6 +131,14 @@
           logged into one product surface, the buyer still has an explanation
           problem. Proof should survive time, tool changes, and disputes.
         </p>
+        <p>
+          A subtler anti-pattern is to optimize proof only for happy-path
+          review. That creates neat summaries for successful runs and brittle
+          evidence for the moments that matter most: contested outcomes, failed
+          validations, disputed approvals, or questions that arrive weeks later.
+          Buyers should judge proof by how it behaves under scrutiny, not just
+          by how cleanly it renders in a demo.
+        </p>
       </section>
 
       <section class="section article-section">
@@ -131,7 +147,7 @@
           We think a buyer-grade proof packet should include seven fields.
         </p>
         <ul class="list-plain">
-          <li><strong>Trigger and scope.</strong> What initiated the work, and what paths or systems were in scope?</li>
+          <li><strong>Trigger and scope.</strong> What initiated the work, and what paths, tools, or systems were in scope?</li>
           <li><strong>Context and intent.</strong> What the system knew and what it was trying to do.</li>
           <li><strong>Policy and approval state.</strong> Which rules applied, what verdict was returned, and what approvals existed or were required.</li>
           <li><strong>Execution record.</strong> What actually executed or stayed non-executable.</li>
@@ -144,6 +160,13 @@
           complete enough that a third party could review the run cold. That is
           the standard that separates a proof artifact from a collection of
           traces.
+        </p>
+        <p>
+          Another useful test is portability. If the packet only works while
+          you are logged into one product and already know the internal naming,
+          it is not complete enough yet. Proof has to survive time, vendor
+          boundaries, and the fact that future reviewers will not share the
+          original operator's context.
         </p>
       </section>
 
@@ -159,6 +182,13 @@
           A completeness model changes that. It lets AppSec state what evidence
           must travel with the workflow before the organization expands the
           approved scope.
+        </p>
+        <p>
+          It also changes incident posture. When proof is incomplete, security
+          has to reconstruct events by interviewing people and stitching logs.
+          When proof is complete, the team can start with one coherent packet
+          and spend more of its time deciding what to do next instead of
+          arguing about what happened.
         </p>
       </section>
 
@@ -176,6 +206,12 @@
           stable proof rubric, two tools can be compared on whether they produce
           reviewable artifacts, not just on whether they completed the task.
         </p>
+        <p>
+          This is one of the least appreciated productivity benefits in the
+          category. Good proof is not extra paperwork layered on top of
+          engineering work. It is the thing that reduces re-review, cuts cold
+          debugging time, and keeps later questions from turning into archaeology.
+        </p>
       </section>
 
       <section class="section">
@@ -183,7 +219,8 @@
           <h2 id="concrete-artifact-a-proof-completeness-rubric">Concrete artifact: a proof completeness rubric</h2>
           <p class="body">
             A simple rubric can score each field as missing, partial, or
-            reviewable.
+            reviewable, but the important part is that the rubric is portable
+            enough to use across tools and pilots.
           </p>
           <div class="artifact-flow">
             <article class="artifact-step">
@@ -207,6 +244,13 @@
                 party to inspect without guessing.
               </p>
             </article>
+            <article class="artifact-step">
+              <h3>Residual risk</h3>
+              <p>
+                The packet names what remains uncertain so the reviewer does not
+                mistake completeness for certainty.
+              </p>
+            </article>
           </div>
         </div>
       </section>
@@ -215,12 +259,15 @@
         <h2 id="practical-next-step">Practical next step</h2>
         <p>
           Take the last autonomous or semi-autonomous change your team produced
-          and score it against the seven fields above.
+          and score it against the seven fields above. Do it with someone who
+          was not involved in the original run. That is usually when the gaps
+          become obvious.
         </p>
         <ul class="list-plain">
           <li>Mark which fields are missing entirely.</li>
           <li>Mark which fields exist but would not survive external review.</li>
           <li>Decide which fields are required before the next pilot expands.</li>
+          <li>Check whether the packet would still make sense outside the product UI.</li>
         </ul>
         <p>
           That exercise usually reveals quickly whether the workflow produces

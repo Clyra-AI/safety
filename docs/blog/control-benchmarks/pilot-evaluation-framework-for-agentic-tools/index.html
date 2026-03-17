@@ -49,11 +49,12 @@
         </div>
         <h1>A Practical Pilot Evaluation Framework for Agentic Tools</h1>
         <p class="lead">
-          Most agent pilots answer the easiest question first: was the tool
-          useful? That is not enough for a buyer-grade decision. A serious pilot
-          needs to answer a harder set of questions at the same time: what
-          actions were in scope, how did the controls behave, what evidence was
-          produced, and what would justify widening the deployment?
+          Most agent pilots end with the wrong kind of confidence. The team
+          learned that a strong operator could get useful output, but nobody can
+          say exactly what was proven about control, proof, or widening safety.
+          That is not a useless pilot. It is just not a buyer-grade one. A
+          serious pilot has to answer a harder question than "was this useful?"
+          It has to answer "what would justify expanding this safely?"
         </p>
       </section>
 
@@ -104,6 +105,16 @@
           make the team comfortable expanding the pilot from one repo to many,
           or from read assistance to write-capable work?
         </p>
+        <p>
+          In practice, many pilots are still trying to settle three different
+          questions with one loose exercise: is the tool useful, is it
+          governable, and is it worth integrating? Those questions overlap, but
+          they do not collapse into each other. A pilot that proves usefulness
+          may still leave control quality ambiguous. A pilot that proves control
+          quality may still be too operationally heavy to justify rollout. A
+          serious framework makes those tradeoffs visible instead of hiding them
+          under one thumbs-up or thumbs-down verdict.
+        </p>
       </section>
 
       <section class="section article-section">
@@ -121,6 +132,13 @@
           If platform is absent, the pilot misses operability and integration
           questions. If engineering management is absent, the exit criteria stay
           too vague to drive a real deployment decision.
+        </p>
+        <p>
+          A third weak pattern is to postpone the exit memo until after the
+          pilot. That sounds efficient but usually guarantees ambiguity. Teams
+          end up reverse-engineering success criteria from a run they already
+          want to like. The right time to decide what would count as expand,
+          hold narrow, or fail is before the first workflow is exercised.
         </p>
       </section>
 
@@ -142,6 +160,14 @@
           whether the tool "felt good." Usability matters, but it should sit
           beside control quality and evidence quality, not replace them.
         </p>
+        <p>
+          The reason this framework works is that it produces a decision shape,
+          not just a learning exercise. Security can see whether the control
+          assumptions held. Platform can see whether the workflow is operable
+          enough to maintain. Engineering leadership can see whether the upside
+          justifies the integration cost. Procurement gets a cleaner record of
+          why the organization expanded, paused, or walked away.
+        </p>
       </section>
 
       <section class="section article-section">
@@ -157,6 +183,14 @@
           That is what turns a pilot into organizational knowledge. The next
           vendor or internal platform experiment should not have to restart the
           benchmark conversation from the beginning.
+        </p>
+        <p>
+          We would add one more requirement: the output should name the next
+          control investment plainly. If the pilot stayed narrow because stop
+          behavior was weak, say that. If it stayed narrow because the proof
+          packet was incomplete, say that. If it failed because the human review
+          path was too heavy to scale, say that. The best pilot outputs are
+          useful even when they do not recommend expansion.
         </p>
       </section>
 
@@ -176,6 +210,13 @@
           one saying the tool is powerful, and one saying the risk is still too
           unclear to proceed.
         </p>
+        <p>
+          Engineering leadership matters here too because someone has to own the
+          deployment decision and the widening economics. A control that works
+          only with constant heroics is not mature enough yet. A productive tool
+          that nobody can explain after the fact is not mature enough either.
+          Co-ownership keeps the pilot anchored to both truths at once.
+        </p>
       </section>
 
       <section class="section">
@@ -183,7 +224,8 @@
           <h2 id="concrete-artifact-a-pilot-scorecard">Concrete artifact: a pilot scorecard</h2>
           <p class="body">
             A useful scorecard should force one final decision, not just collect
-            observations.
+            observations. The categories should be defined before the pilot
+            starts, not interpreted after the fact.
           </p>
           <div class="artifact-flow">
             <article class="artifact-step">
@@ -207,6 +249,13 @@
                 operational fit to justify expansion.
               </p>
             </article>
+            <article class="artifact-step">
+              <h3>Next control investment</h3>
+              <p>
+                The scorecard should name the single most important mechanism or
+                artifact the team must improve before widening.
+              </p>
+            </article>
           </div>
         </div>
       </section>
@@ -214,12 +263,15 @@
       <section class="section article-section">
         <h2 id="practical-next-step">Practical next step</h2>
         <p>
-          For the next pilot, write the exit memo before the work starts.
+          For the next pilot, write the exit memo before the work starts. If
+          that feels premature, it usually means the team has not decided what
+          the pilot is supposed to prove.
         </p>
         <ul class="list-plain">
           <li>Define the three possible outcomes: expand, hold narrow, fail.</li>
           <li>State which scenario, control, and proof conditions correspond to each outcome.</li>
           <li>Make security and platform sign off on the criteria before the first run.</li>
+          <li>Name the next control investment that would matter most if the pilot stays narrow.</li>
         </ul>
         <p>
           If the team cannot do that, it is not running a real evaluation yet.

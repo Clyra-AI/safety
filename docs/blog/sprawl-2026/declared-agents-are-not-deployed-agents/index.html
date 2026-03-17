@@ -49,12 +49,12 @@
         </div>
         <h1>Declared Agents Are Not Deployed Agents</h1>
         <p class="lead">
-          Platform leaders are about to inherit a new version of an old problem:
-          declarations that look operational long before they are operational.
-          In the sprawl data, agent declarations are everywhere. Deployable,
-          bounded, evidence-backed agent surfaces are not. That gap matters
-          because platform contracts are written against what actually runs, not
-          what repositories gesture toward.
+          A recurring platform mistake is treating declarations as operational
+          truth. Repos mention agents early because experimentation is cheap.
+          Runtime-ready, bounded, supportable agents arrive much later. The
+          sprawl data makes that gap explicit, and that is useful because
+          platform contracts are built on what can run, not on what a repo
+          references.
         </p>
       </section>
 
@@ -102,8 +102,8 @@
         <p>
           The report makes that distinction measurable. Almost every completed
           target declared agents. Only a small minority showed deployable-agent
-          signals. And none of the detected agents were binding-complete. That
-          means the public repo surface is rich in declarations and poor in
+          signals. None of the detected agents were binding-complete. The
+          public repo surface is therefore rich in declarations and thin on
           operational completeness.
         </p>
         <p>
@@ -117,11 +117,10 @@
       <section class="section article-section">
         <h2 id="a-better-platform-lifecycle-for-agents">A better platform lifecycle for agents</h2>
         <p>
-          One practical model is to separate at least five states:
-          declared, bound, runnable, privileged, and production-supported. The
-          report shows plenty of the first state and very little evidence for the
-          later ones. That is not a failure. It is a sign that platform teams
-          need clearer promotion rules.
+          A practical model is to separate at least five states: declared,
+          bound, runnable, privileged, and production-supported. The report
+          shows plenty of the first state and little evidence for the later
+          ones. That is not a moral failure. It is a lifecycle signal.
         </p>
         <p>
           Declared means the repo references an agent framework or configuration.
@@ -149,10 +148,10 @@
           category instead of governing concrete execution paths.
         </p>
         <p>
-          The platform contract is where AppSec and developer experience finally
-          meet. If the platform can standardize identity, invocation surfaces,
-          approval handoffs, and event logging, then security stops getting a new
-          one-off control problem every time a repo declares an agent.
+          The platform contract is where AppSec and developer experience meet.
+          If platform can standardize identity, invocation surfaces, approval
+          handoffs, and event logging, security stops inheriting a new one-off
+          control problem every time a repo declares an agent.
         </p>
       </section>
 
@@ -163,15 +162,19 @@
           from declaration to deployment explicit and reviewable.
         </p>
         <ul class="list-plain">
-          <li>Track declaration presence and deployable-agent evidence as different states.</li>
-          <li>Require binding completeness before platform support is considered production-ready.</li>
+          <li>Track declaration presence and deployable-agent evidence as separate lifecycle states.</li>
+          <li>Require binding completeness before platform support is treated as production-ready.</li>
           <li>Normalize agent identity, tool invocation, and approval handoff patterns across repos.</li>
-          <li>Keep source-level experimentation cheap, but make runtime elevation deliberate.</li>
-          <li>Define which platform features are unavailable until the agent reaches a higher promotion state.</li>
+          <li>Keep experimentation cheap, but make runtime elevation explicit and reviewable.</li>
+          <li>Tie higher-risk platform features to promotion state, not to declaration alone.</li>
         </ul>
         <p>
           Platform discipline is what keeps agent enthusiasm from becoming a
           diffuse and unreviewable delivery surface.
+        </p>
+        <p>
+          Management implication: this is primarily an operating-model decision,
+          not a framework-selection decision.
         </p>
       </section>
 

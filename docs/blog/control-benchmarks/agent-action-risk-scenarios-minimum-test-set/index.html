@@ -49,11 +49,13 @@
         </div>
         <h1>Agent Action Risk Scenarios: The Minimum Test Set Every Buyer Should Use</h1>
         <p class="lead">
-          Most agent demos are designed to prove usefulness, not control. That
-          leaves buyers with the wrong evidence. They see task completion, maybe
-          a little policy language, and not much else. If the system can take
-          actions with real side effects, the buyer needs a scenario set that
-          exercises the action classes most likely to matter under pressure.
+          Vendor demos are almost always optimized for the moment everyone in
+          the room nods. The task completes, the workflow looks clean, and the
+          operator seems productive. None of that tells a buyer what will happen
+          when the system tries to delete, share, restart, or write without the
+          right boundary in place. If the tool can take actions with real side
+          effects, the evaluation needs a scenario set designed for pressure,
+          not applause.
         </p>
       </section>
 
@@ -106,6 +108,17 @@
           internal platform ally a more defensible way to explain what the pilot
           did and did not actually test.
         </p>
+        <p>
+          That matters because different action classes reveal different failure
+          modes. Stop behavior tests whether the runtime can change state under
+          pressure. Approval-dependent writes test whether process actually
+          mediates execution. Share or publication tests exposure widening.
+          Operational mutation tests whether the tool can affect the systems
+          around the code, not just the code itself. Proof reconstruction tests
+          whether the organization could explain the run later. Without a
+          scenario family for each, buyers end up generalizing from the easiest
+          case.
+        </p>
       </section>
 
       <section class="section article-section">
@@ -124,6 +137,13 @@
           need a small but varied set of scenarios that reveal different failure
           modes.
         </p>
+        <p>
+          A third weak pattern is to treat a scenario as one scripted moment
+          instead of a family with a denominator. One successful approval demo
+          is not the same as repeated approval-dependent attempts across a
+          defined sample. Buyers need enough repetition to learn whether the
+          control is consistent or just capable of passing a stage-managed case.
+        </p>
       </section>
 
       <section class="section article-section">
@@ -133,11 +153,11 @@
           families.
         </p>
         <ul class="list-plain">
-          <li><strong>Stop after escalation.</strong> Can the runtime prevent further side effects after a stop signal once the run is already active?</li>
-          <li><strong>Share or exfiltrate.</strong> Can the system block public sharing, outbound publication, or similar actions that widen exposure?</li>
-          <li><strong>Approval-dependent write.</strong> Can it hold a write-class action non-executable until approval exists?</li>
+          <li><strong>Stop after escalation.</strong> Can the runtime prevent further side effects after a stop signal once the run is already active, or does stop remain mostly conversational?</li>
+          <li><strong>Share or exfiltrate.</strong> Can the system block public sharing, outbound publication, or similar actions that widen exposure beyond the original audience?</li>
+          <li><strong>Approval-dependent write.</strong> Can it hold a write-class action non-executable until approval exists, and can it prove the approval changed state?</li>
           <li><strong>Operational mutation.</strong> Can it stop restart, deployment, or environment-affecting actions when the policy should deny them?</li>
-          <li><strong>Proof reconstruction.</strong> Can a reviewer inspect what happened without relying on screenshots or memory?</li>
+          <li><strong>Proof reconstruction.</strong> Can a reviewer inspect what happened without relying on screenshots, memory, or a vendor employee to narrate the run?</li>
         </ul>
         <p>
           Those scenarios are deliberately simple. The point is not exhaustive
@@ -145,6 +165,14 @@
           reveals whether the control layer can handle the kinds of actions that
           change organizational risk, not just the kinds of actions that make a
           good demo.
+        </p>
+        <p>
+          "Minimum" matters here. Buyers do not need a thousand-case harness
+          before they can learn something useful. They do need enough range to
+          avoid being fooled by a tool that looks controlled only because it was
+          tested on low-consequence workflows. The right first step is a small,
+          explicit set of scenarios with clear expected outcomes and evidence
+          requirements.
         </p>
       </section>
 
@@ -163,6 +191,14 @@
           scope. That is much more useful than one vague approval statement
           attached to the entire category.
         </p>
+        <p>
+          It is also how a security leader avoids getting trapped between two
+          bad positions. Without scenarios, the team either says no to
+          everything because the unknowns are too large, or says yes to a pilot
+          that never tested the actions most likely to matter later. A stable
+          scenario set creates a middle path: selective control, not blanket
+          slowdown.
+        </p>
       </section>
 
       <section class="section article-section">
@@ -179,14 +215,22 @@
           a credible action-risk matrix, the next team does not have to start
           the buying conversation from zero.
         </p>
+        <p>
+          There is a design benefit too. Scenario families help platform teams
+          decide what the orchestrator, repo contract, and validation path
+          should own. If a stop scenario keeps failing, that points to runtime
+          state. If proof reconstruction keeps failing, that points to evidence
+          packaging. A scenario set is not just a buying tool. It is a roadmap
+          for the next control improvements.
+        </p>
       </section>
 
       <section class="section">
         <div class="artifact">
           <h2 id="concrete-artifact-a-scenario-matrix">Concrete artifact: a scenario matrix</h2>
           <p class="body">
-            A useful scenario matrix should answer three questions for each
-            action class.
+            A useful scenario matrix should answer four questions for each
+            action class and make the denominator explicit.
           </p>
           <div class="artifact-flow">
             <article class="artifact-step">
@@ -210,6 +254,13 @@
                 scenario outcome cold?
               </p>
             </article>
+            <article class="artifact-step">
+              <h3>Threshold to widen</h3>
+              <p>
+                What result would be strong enough to expand the pilot and what
+                result would hold the scope narrow?
+              </p>
+            </article>
           </div>
         </div>
       </section>
@@ -219,11 +270,13 @@
         <p>
           Before the next pilot, ask the tool owner to write down the five
           scenario families above and fill in the matrix before the first demo.
+          If the team objects that this is too much process, that is usually a
+          sign the current evaluation is too dependent on performance theater.
         </p>
         <ul class="list-plain">
           <li>Mark which scenarios are in scope for the pilot.</li>
-          <li>Mark the expected control verdict for each one.</li>
-          <li>Mark what proof a reviewer should receive.</li>
+          <li>Mark the expected control verdict and what would count as failure for each one.</li>
+          <li>Mark what proof a reviewer should receive after each scenario.</li>
           <li>Mark which scenarios are intentionally deferred and why.</li>
         </ul>
         <p>

@@ -50,10 +50,11 @@
         <h1>How to Measure Control Efficacy for AI Agents</h1>
         <p class="lead">
           "We have controls" is one of the least useful sentences in this
-          market. Buyers do not need to know whether policy exists in the
-          abstract. They need to know whether the control changes what can
-          execute, how quickly it reacts, how consistently it holds, and whether
-          the evidence survives review.
+          market because it can mean almost anything. A policy file exists. A
+          reviewer eventually signs off. A dashboard shows a verdict somewhere.
+          None of that answers the question a buyer actually cares about: when
+          the system tries to do something risky, what changes at execution
+          time, how quickly does it change, and what proof survives afterward?
         </p>
       </section>
 
@@ -105,6 +106,13 @@
           the unsafe action while policy gets discussed later, the control may
           be useful for learning, but it is weak as an execution boundary.
         </p>
+        <p>
+          The easiest way to remember the distinction is this: control presence
+          tells you what the product claims to have. Control efficacy tells you
+          what the runtime actually prevented, delayed, or required in a tested
+          scenario. Buyers should care about the second much more than the
+          first.
+        </p>
       </section>
 
       <section class="section article-section">
@@ -123,6 +131,14 @@
           tested against the actions that matter most. Efficacy needs a small
           set of related metrics, not one vanity number.
         </p>
+        <p>
+          A third weak pattern is to separate efficacy from operational cost.
+          A team can produce a gate that blocks aggressively and still fail the
+          organization if every review turns into an exception queue. Buyers
+          should not confuse "blocks a lot" with "works well." A credible
+          control has to change runtime behavior and remain operable enough that
+          teams will actually keep it turned on.
+        </p>
       </section>
 
       <section class="section article-section">
@@ -131,17 +147,25 @@
           We think buyers should start with five efficacy metrics.
         </p>
         <ul class="list-plain">
-          <li><strong>Non-allow non-executable rate.</strong> When the control says block or require approval, how often does the action actually stay non-executable?</li>
-          <li><strong>Stop-to-halt behavior.</strong> After a stop signal, how quickly and reliably does the runtime stop making new side effects possible?</li>
-          <li><strong>Destructive-action block rate.</strong> Across delete, share, restart, or similar actions, how often does the system hold the unsafe action?</li>
-          <li><strong>Approval mediation quality.</strong> Does approval change execution state, or does it only leave a process record?</li>
-          <li><strong>Evidence verification rate.</strong> After the decision, how often is the proof artifact complete and verifiable enough to support review?</li>
+          <li><strong>Non-allow non-executable rate.</strong> When the control says block or require approval, how often does the action actually stay non-executable? This is the core fail-closed test.</li>
+          <li><strong>Stop-to-halt behavior.</strong> After a stop signal, how quickly and reliably does the runtime stop making new side effects possible? This is where "stop" becomes a control contract instead of a UI affordance.</li>
+          <li><strong>Destructive-action block rate.</strong> Across delete, share, restart, or similar actions, how often does the system hold the unsafe action? This shows whether the boundary works on the classes buyers care about most.</li>
+          <li><strong>Approval mediation quality.</strong> Does approval change execution state, or does it only leave a process record? This is how buyers tell the difference between workflow theater and actual mediation.</li>
+          <li><strong>Evidence verification rate.</strong> After the decision, how often is the proof artifact complete and verifiable enough to support review? This is how efficacy survives outside the live run.</li>
         </ul>
         <p>
           Buyers do not need to start with perfect statistical sophistication.
           They do need to stop comparing control quality with slogans. These
           five measures already force much better conversations than "they have
           policy-as-code" or "they support approvals."
+        </p>
+        <p>
+          The useful habit is to read the metrics together, not one by one. A
+          tool can show strong destructive blocking and weak proof. It can show
+          strong proof and weak approval mediation. It can even show strong
+          blocking and still be operationally brittle because the stop contract
+          or human escalation path is too vague. Buyers are not looking for a
+          single magic number. They are looking for a believable control profile.
         </p>
       </section>
 
@@ -160,6 +184,13 @@
           proof completeness. It can have great proof and weak stop behavior.
           Buyers need that kind of precision if they want to expand safely.
         </p>
+        <p>
+          That precision is what lets AppSec say yes to a narrower scope without
+          pretending the entire category is solved. It is also what keeps the
+          approval posture defensible later. A security leader should be able to
+          point to the measured control profile and say exactly why a workflow
+          was approved, what was withheld, and what would have to improve next.
+        </p>
       </section>
 
       <section class="section article-section">
@@ -176,13 +207,22 @@
           a stable scorecard, it can compare versions, policy changes, and pilot
           expansions with less hand-waving.
         </p>
+        <p>
+          This is especially important for platform teams that will own the
+          system after the pilot ends. They need to know whether a control is
+          merely present, truly effective, or effective but too costly in its
+          current form. Efficacy metrics turn that into engineering work instead
+          of organizational argument.
+        </p>
       </section>
 
       <section class="section">
         <div class="artifact">
           <h2 id="concrete-artifact-a-control-efficacy-scorecard">Concrete artifact: a control efficacy scorecard</h2>
           <p class="body">
-            A usable scorecard should capture more than "pass" or "fail."
+            A usable scorecard should capture more than "pass" or "fail." It
+            should explain the denominator, the runtime effect, and the
+            operational consequence.
           </p>
           <div class="artifact-flow">
             <article class="artifact-step">
@@ -196,7 +236,7 @@
               <h3>Boundary outcome</h3>
               <p>
                 How often did block or approval-required outcomes actually stay
-                non-executable?
+                non-executable, and where is that runtime verdict recorded?
               </p>
             </article>
             <article class="artifact-step">
@@ -204,6 +244,13 @@
               <p>
                 How often did the resulting record remain reviewable and
                 verifiable later?
+              </p>
+            </article>
+            <article class="artifact-step">
+              <h3>Operational cost</h3>
+              <p>
+                What human intervention, delay, or exception handling was
+                required to keep the control effective?
               </p>
             </article>
           </div>
@@ -214,16 +261,19 @@
         <h2 id="practical-next-step">Practical next step</h2>
         <p>
           Take one current agent pilot and rewrite the success criteria in
-          control-efficacy terms.
+          control-efficacy terms. The goal is to make the next steering
+          conversation about what the system did at the boundary, not just how
+          useful it felt to the operator.
         </p>
         <ul class="list-plain">
           <li>Define the denominator for each risk scenario.</li>
           <li>Track whether non-allow outcomes were actually non-executable.</li>
           <li>Track whether stop behavior changed runtime state in time.</li>
           <li>Track whether the proof package remained reviewable.</li>
+          <li>Track the human cost required to keep those controls effective.</li>
         </ul>
         <p>
-          If the pilot cannot answer those four questions, it still knows more
+          If the pilot cannot answer those five questions, it still knows more
           about usability than it does about control.
         </p>
       </section>

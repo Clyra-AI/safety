@@ -49,12 +49,12 @@
         </div>
         <h1>Why Giant Instruction Files Fail</h1>
         <p class="lead">
-          Big instruction files feel responsible because they look
-          comprehensive. Security sees a thick rulebook. Engineering sees a
-          single place to update behavior. In practice they often create the
-          opposite of control: too much irrelevant context, weak enforceability,
-          and a system that knows many rules shallowly instead of the right
-          rules deeply when it matters.
+          Large instruction files often look like maturity because they look
+          complete. In review meetings, everyone feels safer when the rulebook
+          is thick. In runtime, that same file usually degrades control. The
+          agent receives too much irrelevant context, reviewers cannot tell which
+          rules were active, and teams confuse documentation mass with
+          enforceability.
         </p>
       </section>
 
@@ -88,9 +88,14 @@
         <p>
           The result is predictable. The agent spends effort sorting signal from
           noise. Maintainers stop trusting that any specific rule will actually
-          be followed. Updates become risky because one change affects every
+          be followed. Updates become risky because one edit affects every
           workflow. Eventually the file stops being a contract and becomes an
           archive of good intentions.
+        </p>
+        <p>
+          The operational cost is not abstract. Run time increases, inconsistent
+          behavior rises, and ownership gets blurry because no team can safely
+          edit a giant global file without worrying about unrelated breakage.
         </p>
       </section>
 
@@ -111,6 +116,12 @@
           should not inherit operational runbooks. Least-privilege context is as
           important as least-privilege access.
         </p>
+        <p>
+          A common objection is "one file keeps policy consistent." In practice,
+          one file usually keeps policy ambiguous. Consistency comes from clear
+          scope and deterministic enforcement, not from putting every sentence in
+          one place.
+        </p>
       </section>
 
       <section class="section article-section">
@@ -128,6 +139,11 @@
           one file and call that architecture. We scope config to the place
           where it applies. Agent instructions should follow the same design
           principle.
+        </p>
+        <p>
+          The rule to remember is simple: global rules should be rare and
+          durable. Local rules should be frequent and close to the code they
+          govern.
         </p>
       </section>
 
@@ -164,6 +180,11 @@
           a prompt-writing hobby. The win is not clever wording. The win is
           shaping the repository and workflow so the right context loads
           automatically.
+        </p>
+        <p>
+          It also changes planning quality. Once context is scoped, teams can
+          version and review instruction surfaces like any other interface,
+          instead of treating prompt content as an ungoverned prose artifact.
         </p>
       </section>
 

@@ -49,12 +49,11 @@
         </div>
         <h1>Why "npm audit for AI agents" Is the Right Instinct and the Wrong Endpoint</h1>
         <p class="lead">
-          The phrase works because it compresses the buyer instinct into four
-          words. People want a familiar way to inventory AI tooling, spot
-          problems early, and produce something defensible for review. The
-          danger is treating that phrase as the category itself. The real
-          category is broader: inventory, privilege mapping, approval state,
-          drift, and evidence.
+          A CISO asks for "npm audit for AI agents" because it sounds actionable
+          and familiar. That instinct is correct. The mistake is stopping at the
+          analogy. The real control layer for AI tooling is broader than package
+          vulnerability scanning: inventory, privilege mapping, approval status,
+          drift review, and evidence quality.
         </p>
       </section>
 
@@ -90,97 +89,96 @@
       <section class="section article-section">
         <h2 id="why-the-instinct-is-right">Why the instinct is right</h2>
         <p>
-          The instinct behind the phrase is sound. Security wants a compact way
-          to ask: what do we have, what changed, what looks risky, and can we
-          review it before it becomes an incident? That is exactly the right
-          shape of question for AI tooling.
+          The phrase succeeds because it encodes the buyer's real need: a
+          repeatable hygiene layer that can answer what exists, what changed,
+          what deserves review, and what proof survives external scrutiny. Those
+          are exactly the right operational questions for AI delivery tooling.
         </p>
         <p>
-          The phrase is also a clue that buyers want something operational, not
-          academic. They are not asking for another philosophy of AI governance.
-          They want the equivalent of a dependable hygiene layer that can enter
-          CI, produce structured output, and help them speak concretely with
-          engineering and auditors.
+          It is also a signal that leaders want implementation, not rhetoric.
+          They are asking for something that can run in CI, produce structured
+          outputs, and support budget and audit conversations without a custom
+          slide deck every quarter.
         </p>
       </section>
 
       <section class="section article-section">
         <h2 id="why-the-endpoint-is-wrong">Why the endpoint is wrong</h2>
         <p>
-          The trouble starts when the analogy becomes the architecture.
-          Vulnerability scanning is built around known package identities,
-          version relationships, and published defect records. The first
-          governance problem in AI tooling is different. Security often does not
-          know which tools and agent paths exist, which ones are write-capable,
-          how they are wired into software delivery, or whether the approval
-          state can be proven at all.
+          The analogy breaks when it becomes architecture. Package scanners assume
+          stable identities and known vulnerability records. AI tooling programs
+          usually fail earlier: teams cannot reliably enumerate active paths,
+          determine real authority, or prove review state across local, repo,
+          MCP, and CI surfaces.
         </p>
         <p>
-          That means the real first step is not "find the CVEs." It is "find the
-          paths." Inventory comes before judgment. Privilege mapping comes before
-          residual risk ranking. Drift review comes before maturity claims.
-          Evidence packaging comes before audit confidence.
+          That sequencing matters. Path discovery comes before risk scoring.
+          Privilege mapping comes before residual-risk language. Drift review
+          comes before maturity claims. Evidence packaging comes before audit
+          confidence. Teams that skip these steps often end up with scanner
+          outputs but no defensible governance narrative.
         </p>
         <p>
-          This is why the Wrkr framing is more useful than the analogy itself.
-          It starts with posture and proof rather than pretending the market
-          already has one settled security category for AI delivery tooling.
+          This is why Wrkr's framing is useful implementation context. It does
+          not claim to replace vulnerability scanning. It focuses on posture
+          visibility and evidence capture where buyer adoption actually stalls.
         </p>
       </section>
 
       <section class="section article-section">
         <h2 id="the-better-system-pattern">The better system pattern</h2>
         <p>
-          A better way to think about this layer is: inventory plus boundary
-          context plus evidence. First, you enumerate the local, repo, MCP, and
-          CI surfaces where AI tooling is declared or executed. Then you map
-          what those paths can touch and whether security has ever reviewed
-          them. Then you preserve the result as machine-readable output that can
-          survive a later dispute.
+          A stronger pattern is five connected capabilities: inventory,
+          privilege mapping, approval-state tracking, drift detection, and
+          evidence output. Together these provide a control baseline that both
+          security and platform can reuse without changing mental models per
+          team.
         </p>
         <p>
-          That model is more honest for buyers because it admits what teams
-          actually need. An AppSec lead needs to know where invisible write
-          paths exist. A CISO needs to know whether approval posture and evidence
-          quality are improving over time. An auditor needs something stronger
-          than screenshots and memory. None of that is captured well by the
-          vulnerability-scanner metaphor alone.
+          This model is also clearer about tradeoffs. It costs more up front
+          than a single scanner step. It saves significant time later by
+          reducing manual reconstruction, false assurances, and policy disputes.
+          AppSec gets actionable unknown-path visibility. Platform gets stable
+          posture diffs. Leadership gets trendable evidence quality.
+        </p>
+        <p>
+          Importantly, this does not devalue existing vuln tooling. It places it
+          correctly. Vulnerability scanning remains necessary, but it is one part
+          of a broader AI control posture rather than the category definition.
         </p>
       </section>
 
       <section class="section article-section">
         <h2 id="why-leadership-should-care">Why leadership should care</h2>
         <p>
-          Leaders get hurt by category mistakes. If they buy into the wrong
-          frame, they fund the wrong process and declare success too early. A
-          team might add a few AI scanner steps to CI and feel more mature while
-          still lacking a defensible answer to the basic questions: which agent
-          paths exist, who approved them, and what proof survives when someone
-          asks six months from now?
+          Category mistakes create expensive false confidence. If leadership
+          funds only scanner-like controls, teams may report progress while still
+          lacking answers to core governance questions: which write-capable paths
+          exist, who approved them, what changed, and what evidence remains six
+          months later.
         </p>
         <p>
-          That is why the real value here is not semantic purity. It is better
-          budget and control decisions. The right framing helps the buyer invest
-          in posture, evidence, and later runtime control rather than overfitting
-          to the closest old category.
+          The decision impact is practical, not semantic. The right framing
+          shifts budget toward posture quality and boundary readiness. The wrong
+          framing keeps teams trapped in recurring discovery and remediation
+          cycles they thought they had already solved.
         </p>
       </section>
 
       <section class="section article-section">
         <h2 id="practical-next-step">Practical next step</h2>
         <ul class="list-plain">
-          <li>Use the "npm audit for AI agents" phrase only as an opener for stakeholders who need a quick mental model.</li>
-          <li>Immediately translate that opener into four operational requirements: inventory, privilege mapping, drift review, and evidence output.</li>
-          <li>Separate vulnerability scanning from posture scanning in your control design.</li>
-          <li>Measure whether your current output can answer approval and evidence questions, not just package questions.</li>
-          <li>Pick one business unit and test whether the resulting inventory is strong enough to hand to audit without a spreadsheet rewrite.</li>
+          <li>Use the phrase as onboarding shorthand, then immediately define the full control scope in writing.</li>
+          <li>Run a pilot that produces five outputs: inventory, privilege map, approval state, drift report, and evidence bundle.</li>
+          <li>Keep vulnerability scanning and AI posture scanning separate but linked in governance reporting.</li>
+          <li>Test whether your output can answer an auditor's evidence request without manual spreadsheet rebuild.</li>
+          <li>Set trend metrics on unknown-to-security paths and evidence completeness before scaling program claims.</li>
         </ul>
         <p>
-          Discovery alone is still not the full control story. But it is the
-          layer that makes every later conversation less confused. That is the
-          right place to end this Wrkr series and hand the next question to the
-          Gait series: what happens when policy has to stop an action before it
-          executes?
+          Discovery is not the full control story, but it is the prerequisite
+          that makes all later controls credible. From there, the next question
+          is execution-time: what happens when policy needs to stop an action
+          before it runs?
         </p>
       </section>
 

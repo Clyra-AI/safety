@@ -49,12 +49,12 @@
         </div>
         <h1>Discovery Is Necessary, Not Sufficient</h1>
         <p class="lead">
-          Static discovery is one of the first things a serious security program
-          wants from agent infrastructure, and it should. But discovery answers
-          a different question from runtime control. OpenClaw makes that
-          separation visible: a clean inventory can coexist with dangerous
-          execution behavior if nothing at runtime changes what the system is
-          allowed to do next.
+          In most organizations, the first executive request is simple: "show me
+          where agents are." Discovery is the right answer to that first
+          question, but it is a bad answer to the second question: "what can
+          execute right now and under what boundary?" OpenClaw is useful because
+          it keeps those questions separate instead of pretending inventory is
+          runtime control.
         </p>
       </section>
 
@@ -95,10 +95,9 @@
         <p>
           Discovery is the first responsible question most teams ask: what AI
           tools, connections, or capabilities exist here? That question matters
-          because you cannot govern what you do not know exists. But discovery
-          answers only one layer of the problem. It tells you what is present in
-          the environment, not what an agent will actually do once runtime,
-          workload, and tool-call decisions begin interacting.
+          because you cannot govern what you do not know exists. But it answers
+          only one layer of the problem. It tells you what is present, not what
+          an agent can execute under runtime conditions.
         </p>
         <p>
           OpenClaw is a good example of that boundary. The pre-test scan did not
@@ -107,12 +106,11 @@
           execution behavior.
         </p>
         <p>
-          That distinction is easy to lose because discovery outputs look tidy.
-          They resemble the kinds of inventory tables security teams already know
-          how to consume. But a clean table of tools and integrations is still a
-          table of potentials. It is not a record of which action path was
-          chosen, under what prompt and state, with what approval posture, and
-          with what observable side effect.
+          That distinction is easy to lose because discovery outputs look tidy
+          and actionable. They resemble control evidence even when they are not.
+          A clean table of integrations is still a table of potentials. It is
+          not a record of which action path was chosen, under what policy state,
+          with what approval posture, and with what side effect.
         </p>
       </section>
 
@@ -128,9 +126,9 @@
         <p>
           The high-impact behaviors measured elsewhere in the report, such as
           delete-email, share-doc-public, approve-payment, and restart-service,
-          come from runtime traces under workload rather than from static repo
-          metadata alone. That is the part many organizations still compress into
-          one bucket even though it should stay separate.
+          come from runtime traces under workload rather than static repo
+          metadata. That is the layer many governance programs still flatten
+          into "inventory posture" even though it should be reviewed separately.
         </p>
         <p>
           Software supply-chain teams learned a similar lesson when provenance
@@ -144,25 +142,23 @@
       <section class="section article-section">
         <h2 id="why-teams-overtrust-discovery">Why teams overtrust discovery</h2>
         <p>
-          Security teams overtrust discovery because it is often the first layer
-          they can make consistent. It scales, it produces counts, and it
-          supports governance language like inventory, approval, and exception
-          handling. Those are all useful properties. They are just not sufficient
-          to stand in for runtime truth.
+          Security teams overtrust discovery because it is usually the first
+          layer they can operationalize consistently. It scales, it produces
+          counts, and it maps well to policy language. Those are strengths. They
+          just do not answer runtime questions by themselves.
         </p>
         <p>
-          Platform teams can fall into the same trap from the opposite direction.
-          If the declared tools and bindings look reasonable, it is tempting to
-          assume the runtime behavior will stay within that envelope. But once an
-          agent starts selecting actions over time, the real question becomes how
-          those declared capabilities were exercised in practice and what
-          decisioning happened at each boundary.
+          Platform teams can make the same mistake from the opposite direction.
+          If declared tools and bindings look reasonable, it is tempting to
+          assume runtime behavior will stay inside that envelope. But once an
+          agent starts choosing actions across a workload, what matters is which
+          boundaries were invoked and which actions became executable.
         </p>
         <p>
-          Inventory, boundary mapping, runtime mediation, and evidence capture
-          are complementary layers. If one is missing, the operating model
-          becomes incomplete. Discovery without runtime control tells you what
-          the system could touch, not what it actually did under pressure.
+          Management consequence: discovery-only governance produces optimistic
+          dashboards and brittle incidents. Mature programs treat inventory,
+          boundary mapping, runtime mediation, and evidence capture as separate
+          control layers with separate owners and metrics.
         </p>
       </section>
 
@@ -191,11 +187,11 @@
       <section class="section article-section">
         <h2 id="practical-next-step">Practical next step</h2>
         <ul class="list-plain">
-          <li>Run discovery against one real target repo or workspace and record what the scan can say with confidence.</li>
-          <li>List the questions the scan cannot answer because they depend on runtime behavior.</li>
-          <li>Separate your own review template into three columns: present, reachable, and exercised.</li>
-          <li>Connect that inventory layer to runtime policy and evidence collection instead of treating it as a standalone control.</li>
-          <li>Keep the distinction visible in your internal language: discovery, posture, runtime control, and proof are different layers.</li>
+          <li>Use one real repo and produce two artifacts: a discovery inventory and a runtime-boundary test result.</li>
+          <li>Separate your review template into three states: present, reachable, and exercised.</li>
+          <li>Assign clear ownership: security for inventory quality, platform for boundary enforcement, engineering for proof continuity.</li>
+          <li>Require every "agent-ready" claim to include at least one runtime mediation artifact.</li>
+          <li>Track discovery coverage and runtime enforceability as different KPIs in leadership reporting.</li>
         </ul>
         <p>
           The next post moves to the heart of the governed lane: approval and

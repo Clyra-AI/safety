@@ -49,11 +49,12 @@
         </div>
         <h1>".eslintrc for Agent Behavior" Is a Useful Hook and an Incomplete Model</h1>
         <p class="lead">
-          The .eslintrc analogy is helpful because it gives busy leaders a fast
-          handle on the idea of codified behavioral rules. It also fails quickly
-          if taken too literally. Lint can complain after the fact. A runtime
-          boundary has to change what is allowed to execute before the side
-          effect happens.
+          The shorthand works in executive meetings because it is familiar: rules
+          in code, reviewed in PRs, versioned over time. It breaks when teams
+          assume that familiarity means equivalent control strength. Lint can
+          warn or fail checks. Boundary enforcement can prevent side effects from
+          executing. Those are different categories and should be budgeted and
+          reported differently.
         </p>
       </section>
 
@@ -90,106 +91,106 @@
       <section class="section article-section">
         <h2 id="why-the-analogy-helps">Why the analogy helps</h2>
         <p>
-          Leaders need an entry point when a new control category shows up. The
-          ".eslintrc" analogy helps because it signals three healthy instincts:
-          policy should be explicit, versioned, reviewable, and close enough to
-          engineering workflows that teams can reason about it in code.
+          Leaders need fast translation when a new control category appears. The
+          ".eslintrc" analogy helps because it signals explicit policy, version
+          control, and reviewable changes in normal engineering workflows.
         </p>
         <p>
-          Those instincts are worth keeping. Most organizations do need a more
-          legible way to express what agents may and may not do, and YAML policy
-          is easier to govern than instructions scattered across prompts, wiki
-          pages, and exception emails.
+          Those instincts are worth preserving. Most organizations do need one
+          legible place to express agent behavior expectations. YAML policy is
+          easier to govern than rules spread across prompts, docs, and exception
+          threads.
         </p>
       </section>
 
       <section class="section article-section">
         <h2 id="where-the-analogy-breaks">Where the analogy breaks</h2>
         <p>
-          Linting tells you something about code quality or style before merge.
-          It does not usually decide whether a production-side effect may happen
-          right now. Agent policy at the tool boundary is closer to a deployment
-          protection rule, an authorization gate, or a fail-closed runtime
-          check. That is why the analogy becomes incomplete the moment the
-          action can change something real.
+          Linting evaluates code artifacts. Boundary controls evaluate action
+          intent at execution time. The first can improve consistency. The second
+          can stop side effects. Once an agent can trigger real changes, this
+          distinction is no longer semantic.
         </p>
         <p>
-          This matters because executives hear "linting" and infer low-stakes
-          guardrails. They hear "runtime boundary" and infer an actual control.
-          The organization needs the second interpretation if the agent can
-          write code, invoke sensitive tools, or cross a permission boundary.
+          This gap affects funding decisions. Executives hear "lint" and infer a
+          low-friction quality layer. They hear "runtime boundary" and infer a
+          preventive control with operational consequences. AI governance for
+          write-capable workflows requires the second, plus explicit operating
+          processes for approvals and exceptions.
         </p>
         <p>
-          A concrete example helps. A lint rule can warn that a workflow should
-          not call a production write tool. A runtime gate can stop that exact
-          call from executing when the intent reaches the boundary. Those are
-          different classes of control, and leadership should budget for the one
-          it actually needs.
+          A concrete comparison clarifies it. A lint-like policy check can flag
+          "do not call production write tool X." A runtime gate can prevent the
+          same call from executing when it reaches the boundary. One influences
+          behavior. The other enforces it.
         </p>
       </section>
 
       <section class="section article-section">
         <h2 id="the-better-system-pattern">The better system pattern</h2>
         <p>
-          A stronger model is: policy-as-code plus runtime enforcement plus
-          proof. The policy file still matters. It makes intent explicit. But
-          the policy is only one layer. The runtime has to evaluate the action
-          before execution, and the system has to retain a signed or otherwise
-          durable artifact showing what verdict was reached and why.
+          A stronger model has three coupled layers: policy expression, runtime
+          enforcement, and durable proof. Policy files define intent. Runtime
+          verdicts control execution. Artifacts prove what happened. Missing any
+          layer weakens the overall system.
         </p>
         <p>
-          That is what makes Gait a useful example. The repo does not stop at
-          "define the rules." It ties rules to a boundary decision and then ties
-          that decision to artifacts that can be reused in CI, audit, and
-          incident handling. That is much closer to how mature security controls
-          actually behave.
+          Gait is useful implementation context because the repo links those
+          layers directly: declarative YAML policy, boundary evaluation before
+          side effects, and trace artifacts suitable for CI and audit reuse. The
+          core lesson is architectural, not brand-specific.
+        </p>
+        <p>
+          This also improves sequencing decisions. Teams can start with policy
+          expression and validation quickly, then add boundary enforcement on
+          high-consequence paths, then harden proof quality. That phased approach
+          avoids both overbuilding and false confidence.
         </p>
       </section>
 
       <section class="section article-section">
         <h2 id="why-security-leadership-should-care">Why security leadership should care</h2>
         <p>
-          If leadership embraces the analogy too literally, it can underfund the
-          real control layer. Teams end up with policy files that look mature
-          while still lacking the enforcement point, reasoned decision record,
-          or durable proof needed to defend the system later.
+          Security leadership should care because analogy drift creates control
+          drift. If teams overindex on lint framing, they may ship polished
+          policy files without funding execution gates, reasoned verdicts, or
+          durable evidence. The result looks mature in governance decks and weak
+          in incident response.
         </p>
         <p>
-          The CISO does not need semantic perfection here. The useful move is to
-          keep the analogy as an opener while being precise about the actual
-          capability being bought: not better style guidance, but an execution
-          boundary with artifacts.
+          The CISO does not need perfect terminology, but does need control-class
+          precision. Keep the analogy for onboarding. Specify procurement and
+          reporting in terms of preventive enforcement plus evidence quality.
         </p>
       </section>
 
       <section class="section article-section">
         <h2 id="why-engineering-leadership-should-care">Why engineering leadership should care</h2>
         <p>
-          Engineering leaders benefit from the analogy when it lowers adoption
-          friction. But they also need to avoid reducing the system to a config
-          exercise. The real payoff comes when the policy file becomes one piece
-          of a reusable control plane: versioned rules, stable verdicts, clear
-          failure modes, and CI-friendly artifacts.
+          Engineering leadership benefits from the analogy when it lowers
+          adoption friction. But stopping at configuration creates technical debt.
+          The payoff comes when policy joins a reusable control plane with stable
+          verdict semantics, clear failure modes, and CI-usable artifacts.
         </p>
         <p>
-          That is the difference between a nice repository convention and a
-          platform capability other teams can rely on.
+          That is the line between a helpful repo convention and a platform
+          capability other teams can trust under pressure.
         </p>
       </section>
 
       <section class="section article-section">
         <h2 id="practical-next-step">Practical next step</h2>
         <ul class="list-plain">
-          <li>Keep the ".eslintrc" analogy for introductory conversations, but stop there.</li>
-          <li>Document for leadership where your policy becomes a runtime verdict rather than a static rule file.</li>
-          <li>Show one example where non-allow means non-execute.</li>
-          <li>Attach the resulting artifact to the same review surface engineers already use.</li>
-          <li>Measure whether the policy program can survive an incident review, not just a repository tour.</li>
+          <li>Keep the analogy as an introduction, then explicitly classify your controls by execution impact.</li>
+          <li>Document where policy transitions from static file to runtime verdict in your current stack.</li>
+          <li>Demonstrate one non-allow non-execute example for a high-risk action path.</li>
+          <li>Attach decision artifacts to normal engineering review surfaces, not isolated dashboards.</li>
+          <li>Evaluate program maturity using incident replay questions, not only repo policy coverage.</li>
         </ul>
         <p>
-          The next pressure point is one of the most practical ones: MCP trust.
-          Config review is a start. It is not the whole story once the calls are
-          actually crossing the boundary.
+          The next pressure point is practical and immediate: MCP trust. Static
+          config review helps, but invocation-time boundary decisions are where
+          trust becomes real.
         </p>
       </section>
 

@@ -49,12 +49,12 @@
         </div>
         <h1>The Most Dangerous AI Agent Is the One Security Never Inventoried</h1>
         <p class="lead">
-          The agent most likely to surprise security is usually not the most
-          advanced one. It is the one that quietly acquired a write-capable path
-          across a laptop, repo, MCP config, or CI workflow before anyone
-          normalized it into inventory. That is why the unknown-to-security
-          surface matters more than the approved surface when leaders are trying
-          to understand current exposure.
+          The call usually starts the same way: "We are moving fast with agents,
+          but we still need to know our real exposure." The hard part is that
+          most organizations do not fail first on the tools they reviewed. They
+          fail on the write-capable path that became normal before security ever
+          saw it. That is why unknown-to-security inventory deserves executive
+          attention before model debates.
         </p>
       </section>
 
@@ -93,135 +93,131 @@
       <section class="section article-section">
         <h2 id="the-operational-reality">The operational reality</h2>
         <p>
-          A CISO asks a reasonable question: how many AI coding tools and
-          agents are currently on write-capable paths in our delivery system?
-          The room usually answers with fragments. Someone knows the official
-          standard. Someone else knows what is allowed in CI. A platform lead
-          knows what was piloted. A few engineers know what is really running on
-          their machines. The organization has policies. It does not have one
-          inventory.
+          A CISO asks for the current list of write-capable AI paths. The room
+          has answers, but not one answer. Platform has a list of approved
+          pilots. Security has a list of reviewed vendors. Team leads have local
+          exceptions and workflow shortcuts. Individual engineers know what is
+          actually installed on the machine that shipped last night's fix. The
+          organization has governance intent, but no shared runtime map.
         </p>
         <p>
-          That gap is what makes the unknown path dangerous. An agent that is
-          already documented, scoped, and reviewed may still deserve controls,
-          but at least it can enter a serious governance conversation. The
-          unknown-to-security path is worse because it collapses three problems
-          together: missing approval context, unclear privilege boundary, and no
-          durable evidence trail if something goes wrong later.
+          That mismatch creates the real risk. A reviewed path can be bounded,
+          challenged, and improved. An unreviewed path forces the team to do
+          three jobs at once under pressure: discover what exists, infer what it
+          can touch, and reconstruct who thought it was acceptable. None of that
+          work is quick when the path spans local tooling, repository files, MCP
+          declarations, and CI runners.
         </p>
         <p>
-          This is also why the argument cannot stop at "developers are using AI
-          tools." That observation is too broad to be useful. The question that
-          matters is narrower and more operational: which of those tools can
-          currently change code, mutate CI behavior, touch credentials, or
-          inherit production reach through the systems around them?
+          "Developers are using AI tools" is not the useful diagnosis. The
+          useful diagnosis is: which paths can already change source, alter CI
+          behavior, or inherit credentials from surrounding systems. That answer
+          is operationally narrow and politically neutral, which is why it moves
+          decisions forward faster than broad policy arguments.
         </p>
         <p>
-          In practice the unknown path is usually cross-surface. A developer
-          enables a local tool, a repo adds a skills file, an MCP server gets
-          declared with broad permissions, and a workflow quietly turns the
-          pattern into unattended execution. No single team thinks it launched
-          an agent program. The combined path still exists.
+          In practice, the unknown path is cross-surface and incremental. A
+          local tool is enabled for convenience. A repo adds guidance files. An
+          MCP endpoint appears to simplify integration. A workflow then makes
+          the pattern unattended. No single step looks like a major launch. The
+          combined path still becomes a governed surface whether leaders planned
+          it or not.
         </p>
       </section>
 
       <section class="section article-section">
         <h2 id="the-anti-pattern">The anti-pattern</h2>
         <p>
-          The anti-pattern is treating AI tooling like a software-procurement
-          list. Security keeps a rough catalog of approved products, engineering
-          assumes that anything not explicitly blocked is low-risk, and the real
-          execution surfaces spread underneath both groups. That might have been
-          survivable when the tools only generated text. It breaks once those
-          tools participate in software delivery.
+          The anti-pattern is governance by procurement memory. Security tracks
+          products. Engineering tracks what is convenient. Nobody owns the
+          end-to-end path from declaration to execution. That approach can look
+          acceptable when tools are read-only assistants. It breaks when those
+          same tools can write, approve, restart, or trigger changes downstream.
         </p>
         <p>
-          The practical failure is not just incomplete coverage. It is false
-          confidence. Leaders can say "we know our approved tools" while
-          unknown-to-security paths already exist in skills directories, MCP
-          config files, repository scaffolds, local IDE settings, or CI actions
-          that nobody thinks of as agent infrastructure. The absence of a
-          coherent inventory is what lets these paths become normal before they
-          become visible.
+          The deeper failure is confidence inflation. Leadership hears "approved
+          list" and assumes "controlled surface." But unknown paths hide in
+          config files, scripts, IDE settings, and workflows that nobody
+          classifies as agent infrastructure. The control story sounds mature
+          while the runtime story remains incomplete.
         </p>
       </section>
 
       <section class="section article-section">
         <h2 id="the-better-system-pattern">The better system pattern</h2>
         <p>
-          The better pattern starts with inventory as a control surface. Not a
-          vanity dashboard. Not a once-a-year review. A deterministic answer to
-          four questions: what exists, where it is declared, what it can touch,
-          and how its approval status is represented. That is the point where a
-          tool like Wrkr becomes useful implementation context. The important
-          idea is not the brand. It is the shape of the output.
+          The better pattern treats inventory as control infrastructure, not as
+          reporting theater. The required output is deterministic and durable:
+          what exists, where it is declared, what authority it inherits, and
+          whether security has ever reviewed it. A tool like Wrkr is useful here
+          as implementation context because it emits that structure in machine
+          readable form. The value is the model, not the label.
         </p>
         <p>
-          Good output for this problem is machine-readable and specific. It
-          should separate local setup from repo-scoped declarations. It should
-          identify CI execution patterns separately from interactive developer
-          tooling. It should tell you whether a path is already write-capable or
-          becomes effectively write-capable once it inherits access from the
-          surrounding environment. And it should make "unknown to security" a
-          first-class state instead of a fuzzy concern raised in meetings.
+          Good output also separates categories that teams tend to mix. Local
+          setup is different from repo declarations. Interactive use is different
+          from unattended CI execution. Direct write permission is different from
+          conditional write capability via inherited access. When those
+          categories collapse, prioritization collapses too.
         </p>
         <p>
-          Once that structure exists, governance gets much less theatrical.
-          AppSec can review something concrete. Platform can reduce ambiguity.
-          Leadership can ask whether the unresolved inventory is shrinking over
-          time rather than arguing abstractly about whether the organization is
-          "good at AI governance."
+          The tradeoff is straightforward: deeper inventory work now versus
+          slower incident and audit work later. Teams often resist this layer
+          because it looks administrative. In practice it reduces friction for
+          both security and platform, because arguments move from "what do we
+          think is happening?" to "what changed in the recorded surface?"
         </p>
       </section>
 
       <section class="section article-section">
         <h2 id="why-security-and-the-ciso-care">Why security and the CISO care</h2>
         <p>
-          Unknown inventory is expensive because it poisons every later control.
-          Approval programs degrade into exceptions-by-memory. Audit prep turns
-          into spreadsheet archaeology. Incident review begins with basic
-          reconstruction rather than decision-making. Even strong teams end up
-          answering executive questions with inference instead of evidence.
+          Unknown inventory degrades every downstream control. Approval programs
+          turn into exception memory. Audit preparation turns into spreadsheet
+          reconstruction. Incident calls begin with discovery work that should
+          have been done months earlier. Even strong teams then answer executive
+          questions with inference instead of evidence.
         </p>
         <p>
-          For a CISO, this is not just a tooling problem. It is a trust problem.
-          If the organization cannot say where write-capable AI paths already
-          exist, then every later assurance statement is weaker than it sounds.
-          You cannot govern what you cannot enumerate.
+          For a CISO, this is a credibility issue as much as a tooling issue.
+          If the organization cannot enumerate write-capable AI paths today,
+          every assurance statement about control quality carries hidden
+          uncertainty. You cannot meaningfully approve what you cannot name.
         </p>
       </section>
 
       <section class="section article-section">
         <h2 id="why-platform-and-engineering-care">Why platform and engineering care</h2>
         <p>
-          Platform teams often feel the operational cost of missing inventory
-          before security does. They are the ones untangling workflow drift,
-          reconciling overlapping tool assumptions, and cleaning up local setup
-          differences that only surface once CI behaves unexpectedly. A unified
-          inventory helps because it turns hidden differences into visible
-          inputs.
+          Platform teams usually absorb this cost first. They debug workflow
+          drift, reconcile conflicting tool assumptions, and clean up local
+          differences that only appear after CI starts behaving strangely. A
+          unified inventory turns that pain into visible inputs the team can
+          prioritize and automate.
         </p>
         <p>
-          That is also the moment when discovery stops feeling bureaucratic.
-          Good discovery reduces onboarding time, clarifies repo expectations,
-          and makes later runtime control more precise because the organization
-          finally knows which paths deserve attention first.
+          Discovery also improves delivery speed when done well. Onboarding gets
+          clearer, repo expectations become explicit, and later boundary control
+          can target high impact paths first. That is how security and velocity
+          align: selective control based on known surfaces, not blanket slowdown
+          caused by uncertainty.
         </p>
       </section>
 
       <section class="section article-section">
         <h2 id="practical-next-step">Practical next step</h2>
         <ul class="list-plain">
-          <li>Pick one engineering group and enumerate every AI tool, agent, MCP server, and CI path currently involved in software delivery.</li>
-          <li>Separate local setup, repo declarations, and workflow execution into different inventory buckets.</li>
-          <li>Add an explicit state for paths security has never reviewed.</li>
-          <li>Mark which of those paths are write-capable now versus conditionally write-capable after environment inheritance.</li>
-          <li>Review whether that output is machine-readable enough to survive an audit or an incident six months from now.</li>
+          <li>Run a 30-day inventory pilot on one engineering organization instead of starting with company-wide policy.</li>
+          <li>Catalog AI paths across local tooling, repo declarations, MCP entries, and CI workflows in separate buckets.</li>
+          <li>Tag each path with approval status, including an explicit <code>unknown_to_security</code> state.</li>
+          <li>Map direct and inherited write capability so triage reflects actual authority, not just declarations.</li>
+          <li>Require machine-readable output that can be re-run and compared, not hand-maintained spreadsheets.</li>
         </ul>
         <p>
-          Once that baseline exists, the next question gets sharper: which
-          seemingly small config surfaces are already expanding your boundary?
-          MCP is the clearest example.
+          If that pilot cannot produce one consistent answer to leadership in a
+          week, the organization is not ready to claim mature AI governance yet.
+          Once it can, the next question gets much sharper: which small config
+          surfaces are already expanding boundary reach?
         </p>
       </section>
 

@@ -49,13 +49,11 @@
         </div>
         <h1>Why Isolated, Warm Sandboxes Are Non-Negotiable</h1>
         <p class="lead">
-          When teams first experiment with agents, they often tolerate shared
-          branches, reused environments, and ad hoc cleanup because a strong
-          human is still in the loop. That tolerance disappears once runs get
-          frequent, parallel, or unattended. Then the question is not just
-          safety. It is whether the infrastructure is stable enough to keep
-          autonomy from turning into git conflicts, environment drift, and slow
-          operational drag.
+          Shared environments feel efficient right up to the first serious
+          failure. Then nobody can tell whether the bug came from code, cache
+          residue, branch contention, or leftover credentials. Isolated, warm
+          sandboxes solve that by separating mutable state while preserving fast
+          startup through reusable base layers.
         </p>
       </section>
 
@@ -94,6 +92,10 @@
           first-class part of the control surface. Otherwise the system is
           always one leftover file away from a false pass or a broken patch.
         </p>
+        <p>
+          This is also an ownership issue. If one sandbox can be touched by many
+          runs, no one run is truly accountable for its side effects.
+        </p>
       </section>
 
       <section class="section article-section">
@@ -130,6 +132,12 @@
           state. The distinction is operationally important. One improves
           throughput. The other quietly undermines control.
         </p>
+        <p>
+          Teams sometimes avoid this model because of cost concerns. The right
+          comparison is not isolated versus free. It is isolated versus the
+          hidden cost of non-deterministic failures, conflicted retries, and
+          manual cleanup.
+        </p>
       </section>
 
       <section class="section article-section">
@@ -164,6 +172,11 @@
           distinction. Durable base layers and tool caches are good. Durable
           mutable workspaces are dangerous unless they are scoped to one issue
           and one ownership boundary.
+        </p>
+        <p>
+          In practice, this becomes a policy choice: keep durable artifacts that
+          improve bootstrap speed, discard mutable run state that weakens
+          reproducibility.
         </p>
       </section>
 

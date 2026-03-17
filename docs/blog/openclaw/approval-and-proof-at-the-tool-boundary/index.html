@@ -49,12 +49,11 @@
         </div>
         <h1>Approval and Proof Have to Exist at the Tool Boundary</h1>
         <p class="lead">
-          Approval programs sound mature until you ask a harder question: what
-          does approval actually change at execution time? If the answer is
-          unclear, the control is weaker than the policy language suggests. The
-          governed lane in OpenClaw is useful because it shows approval and
-          proof working together at the moment a tool call would otherwise
-          become a side effect.
+          Many organizations can show policy documents, approval workflows, and
+          exception forms for AI use. Fewer can answer the harder question a CISO
+          eventually asks: what exactly changes in runtime when approval is
+          missing? OpenClaw is useful because it treats approval as an execution
+          control and proof as a first-class artifact at the same boundary.
         </p>
       </section>
 
@@ -106,7 +105,7 @@
           OpenClaw is useful because the governed lane makes that distinction
           concrete. Non-allow outcomes were non-executable. Evidence artifacts
           were written for governed decisions. That turns approval and proof from
-          abstract good intentions into runtime properties.
+          process claims into runtime properties.
         </p>
         <p>
           The cleanest analogy is ordinary software delivery. In GitHub Actions,
@@ -131,11 +130,10 @@
         <p>
           The report also publishes reason-code distributions and evidence
           verification artifacts. That matters because "blocked" is not enough
-          by itself. A team still needs to know why the action was blocked, what
-          policy reference applied, and whether the corresponding evidence chain
-          is intact. This is where Gait makes sense as implementation context:
-          policy-as-code and pre-execution decisioning, not just nicer prompt
-          text.
+          by itself. Reviewers still need to know why the action was blocked,
+          what policy reference applied, and whether the evidence chain is
+          intact. This is where Gait makes sense as implementation context:
+          policy-as-code and pre-execution decisioning, not prompt tuning.
         </p>
         <p>
           This is the part many governance programs miss. Approval without
@@ -145,11 +143,11 @@
           system.
         </p>
         <p>
-          That is also a useful evaluation lens for buyers. Ask whether
-          approval changes execution state, whether non-allow outcomes are
-          genuinely non-executable, and whether the proof record survives
-          outside the original runtime. If those answers are vague, the control
-          surface is still too soft.
+          For buyers, this becomes a procurement-quality test. Ask whether
+          approval changes execution state, whether non-allow outcomes are truly
+          non-executable, whether reason codes are inspectable, and whether the
+          proof record survives outside the originating runtime. If those
+          answers are vague, the control surface is still too soft.
         </p>
       </section>
 
@@ -163,17 +161,17 @@
         </p>
         <p>
           Platform and engineering leaders should care because proof makes the
-          workflow reviewable. Once the change packet can show the policy verdict
-          and the evidence record together, reviewers spend less time guessing
-          how the run behaved and more time making actual engineering judgments.
+          workflow reviewable and cheaper to operate. Once the change packet can
+          show policy verdict and evidence together, reviewers spend less time
+          reconstructing run behavior and more time making engineering judgment.
         </p>
         <p>
           This also mirrors a broader software-supply-chain lesson. Provenance
-          became important because teams needed durable records of how an artifact
-          was produced, not just faith that the right process had probably run.
-          The same logic applies to agent actions. A boundary decision should
-          produce an artifact a reviewer can actually inspect, not merely a claim
-          that the system "has approvals."
+          became essential because teams needed durable records of how an
+          artifact was produced, not faith that the right process probably ran.
+          The same logic applies here. A boundary decision should emit an
+          artifact a reviewer can inspect, not just a dashboard claim that the
+          system "has approvals."
         </p>
       </section>
 
@@ -187,8 +185,8 @@
         </p>
         <p>
           This is why the governed lane is more than a safer baseline. It is a
-          model of what teams should actually try to build: pre-execution
-          mediation plus evidence that survives the run.
+          model teams can operationalize: pre-execution mediation plus evidence
+          that survives the run and can be reviewed months later.
         </p>
         <p>
           The specific implementation can vary. The deeper pattern is stable:
@@ -202,11 +200,11 @@
       <section class="section article-section">
         <h2 id="practical-next-step">Practical next step</h2>
         <ul class="list-plain">
-          <li>Identify one write-capable action in your environment that should require approval before execution.</li>
-          <li>Check whether the runtime can truly hold it non-executable, not just log that approval is preferred.</li>
-          <li>Package the policy verdict, reason code, and execution evidence into the same review surface.</li>
-          <li>Review whether your approval system behaves more like a ticket comment or more like a protected deployment environment.</li>
-          <li>Test whether a reviewer can explain the run without digging through raw logs.</li>
+          <li>Select one write-capable action and require pre-execution approval for two weeks as a controlled trial.</li>
+          <li>Verify that non-allow outcomes are non-executable in runtime, not just flagged in logs.</li>
+          <li>Attach policy verdict, reason code, and evidence summary to the same review artifact.</li>
+          <li>Define an explicit owner for policy logic, approval SLA, and evidence retention.</li>
+          <li>Run a reviewer drill: can a peer explain the run from the packet without opening raw logs?</li>
         </ul>
         <p>
           The final OpenClaw post pulls the lens back. The report is strong

@@ -49,11 +49,11 @@
         </div>
         <h1>If Policy Runs After the Tool Call, It Isn't a Control</h1>
         <p class="lead">
-          Most AI policy programs sound stronger in committee than they behave
-          at runtime. A system can have a policy file, a prompt rule, and a
-          review checklist and still allow the unsafe action to execute before
-          anyone intervenes. That is why the real control question sits at the
-          tool boundary, not in the wording of the policy.
+          Incident calls reveal this quickly: everyone agrees the action should
+          have been blocked, but nobody can point to the mechanism that could
+          have stopped it before execution. That is the core distinction in AI
+          governance. Policy language can describe intent. Only boundary
+          enforcement can change runtime outcomes.
         </p>
       </section>
 
@@ -90,117 +90,116 @@
       <section class="section article-section">
         <h2 id="the-operational-reality">The operational reality</h2>
         <p>
-          Ask an AppSec lead whether an agent is allowed to touch a certain
-          internal system and the answer often comes back in policy language:
-          "it should not," "that workflow requires approval," "the agent was
-          instructed not to do that." Those answers sound responsible until the
-          obvious follow-up appears: what happens if the agent tries anyway?
+          AppSec teams hear policy-complete statements every week: "that action
+          requires approval," "the agent is instructed not to do that," "this
+          path is restricted by guidance." Those statements are useful as
+          documentation. They become insufficient at the exact moment an agent
+          tries the action anyway.
         </p>
         <p>
-          If the system can still execute the action while policy gets enforced
-          later in review, then the boundary is not where the policy lives. The
-          policy lives in documentation, coaching, or retrospective judgment.
-          That may still be useful, but it is not the same thing as an
-          execution control.
+          The decisive follow-up is operational: what happens before the call
+          executes? If policy only triggers in review, logs, or retrospective
+          analysis, then the boundary is advisory. Advisory controls can improve
+          behavior over time, but they cannot provide hard safety guarantees at
+          execution time.
+        </p>
+        <p>
+          This distinction matters more as autonomy increases. Human supervision
+          can compensate for weak controls in low-volume workflows. It does not
+          scale when autonomous steps run frequently across multiple repos and
+          environments.
         </p>
       </section>
 
       <section class="section article-section">
         <h2 id="the-anti-pattern">The anti-pattern</h2>
         <p>
-          The anti-pattern is advisory policy. Teams write excellent guidance,
-          maybe even collect reviewer approvals, but the actual tool path stays
-          live unless a human catches the issue in time. This is the same
-          mistake earlier automation programs made when they confused runbooks
-          and guardrails. One tells the system what should happen. The other
-          changes what may happen.
+          The anti-pattern is reporting advisory controls as hard controls.
+          Teams write strong guidance and collect approvals, but tool execution
+          still depends on people noticing issues in time. This is an old
+          automation mistake in new packaging: runbook intent is mistaken for
+          boundary enforcement.
         </p>
         <p>
-          Prompt rules are especially easy to overtrust here because they feel
-          close to the model. But the model is not the boundary. The tool call
-          is. By the time the action reaches a real system, the only question
-          that matters is whether something outside the model can still say no.
+          Prompt rules are especially easy to overtrust because they are near the
+          model. The boundary is not the model. The boundary is the pre-action
+          decision point where a non-allow verdict can prevent side effects.
+          If that verdict does not exist, control quality is weaker than policy
+          language suggests.
         </p>
       </section>
 
       <section class="section article-section">
         <h2 id="the-better-system-pattern">The better system pattern</h2>
         <p>
-          The better pattern is boundary-first policy. The agent expresses
-          intent. A gate evaluates that intent against explicit rules. The
-          runtime receives a verdict before the side effect executes. If the
-          verdict is not <code>allow</code>, the action does not happen. That is
-          the point where policy stops being commentary and becomes an operating
-          control.
+          The better pattern is boundary-first policy with explicit runtime
+          semantics. Agent intent is evaluated before execution. The gate returns
+          <code>allow</code>, <code>block</code>, or
+          <code>require_approval</code>. Any non-allow verdict is non-executable
+          by default. That is where policy becomes a real control.
         </p>
         <p>
-          Gait is useful implementation context because the repo is explicit
-          about that exact split. The policy is YAML. The decision happens at
-          the tool boundary. The artifact trail survives the decision. Those are
-          the right ingredients for a system that AppSec can evaluate without
-          pretending the prompt itself is a sufficient fence.
+          Gait is useful implementation context because it makes this split
+          concrete: YAML policy is declarative, boundary evaluation is runtime,
+          and decision artifacts are durable. This allows AppSec and platform to
+          evaluate behavior based on mechanisms, not assumptions.
         </p>
         <p>
-          This pattern also makes approvals much more honest. If a policy says
-          an action requires approval, the runtime can hold it non-executable
-          until approval exists. That looks much more like a protected
-          environment than a polite note in a runbook.
+          This model also improves approval integrity. "Require approval" means
+          waiting at the boundary until explicit approval exists, not permitting
+          execution and flagging afterward. That difference is what separates
+          governance signaling from governance enforcement.
         </p>
         <p>
-          Good boundary design also has to survive friction. Teams need to know
-          who can approve, what counts as break-glass, how false positives are
-          triaged, and how blocked work re-enters the workflow. Without that
-          operating detail, even a correct gate will be bypassed the first time
-          it slows something important.
+          Good controls must also survive production friction. Teams need clear
+          approval ownership, break-glass conditions, false-positive triage, and
+          deterministic unblock paths. Without these operating details, even
+          correct controls get bypassed at the first high-pressure deadline.
         </p>
       </section>
 
       <section class="section article-section">
         <h2 id="why-security-and-the-ciso-care">Why security and the CISO care</h2>
         <p>
-          Security leaders need this distinction because it changes how risk is
-          priced. An advisory workflow can still be valuable, but it should not
-          be reported upward as if it were a hard boundary. The CISO needs to
-          know which controls can actually block unsafe execution and which ones
-          merely help the team notice mistakes afterward.
+          Security leadership needs this distinction to report control quality
+          honestly. Advisory controls can still be useful, but they should not be
+          represented as hard prevention. CISOs need to know which mechanisms can
+          actually block unsafe execution and which are detection or guidance.
         </p>
         <p>
-          That difference becomes brutal during incidents. If the only evidence
-          of policy is a prompt, a wiki page, or a human expectation, the
-          organization is left defending intent rather than describing an
-          enforceable mechanism.
+          During incidents, this difference becomes explicit. If evidence is only
+          prompts, policy docs, and reviewer memory, the organization ends up
+          defending intent instead of demonstrating enforceable behavior.
         </p>
       </section>
 
       <section class="section article-section">
         <h2 id="why-platform-and-engineering-care">Why platform and engineering care</h2>
         <p>
-          Platform teams benefit because explicit boundary verdicts reduce
-          ambiguity. Instead of asking whether the agent "usually behaves" or
-          whether reviewers "would probably catch it," the workflow has a clear
-          decision point. That clarity makes automation more reusable and less
-          political across teams.
+          Platform teams benefit because explicit verdicts reduce ambiguity and
+          policy drift. Instead of relying on model behavior norms, teams get a
+          clear decision point with known failure modes that can be automated and
+          tested.
         </p>
         <p>
-          It also improves debugging. When a step is blocked, a reviewer can see
-          that it was blocked and why. That is much better than arguing over
-          whether the model misunderstood an instruction.
+          It also makes debugging faster. A blocked step carries a reasoned
+          verdict, which is materially better than post-hoc debates about whether
+          the model "misunderstood" instructions.
         </p>
       </section>
 
       <section class="section article-section">
         <h2 id="practical-next-step">Practical next step</h2>
         <ul class="list-plain">
-          <li>Choose one write-capable action that currently depends on policy language or reviewer attention alone.</li>
-          <li>Move the control question to the tool boundary: can the runtime allow, block, or require approval before execution?</li>
-          <li>Record the verdict and reason code as a durable artifact instead of leaving the decision buried in logs.</li>
-          <li>Review which controls in your current program are truly blocking controls and which are advisory.</li>
-          <li>Report that difference upward honestly.</li>
+          <li>Choose one high-impact action currently governed by guidance or manual review only.</li>
+          <li>Implement a boundary verdict for that action with explicit non-allow non-execute semantics.</li>
+          <li>Capture verdict, reason code, and approval path as durable review artifacts.</li>
+          <li>Classify current controls into preventive, detective, and advisory groups.</li>
+          <li>Report this control taxonomy to leadership before expanding autonomy scope.</li>
         </ul>
         <p>
-          Once teams accept that policy has to run at the boundary, another
-          common shortcut needs correcting too: the idea that this is just an
-          ".eslintrc for agents."
+          Once teams accept boundary-first control, the next correction is about
+          analogy quality: policy-as-code is useful, but not the same as lint.
         </p>
       </section>
 

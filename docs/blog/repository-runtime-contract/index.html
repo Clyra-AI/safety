@@ -49,12 +49,12 @@
         </div>
         <h1>Your Repository Is the Runtime Contract for Agents</h1>
         <p class="lead">
-          Ask a platform team why one agent workflow succeeds in one repo and
-          collapses in another, and the answer is usually not model quality. It
-          is repo shape. A clean repository gives humans and agents the same
-          things: stable entrypoints, legible boundaries, clear validation
-          paths, and local docs that tell the truth. A messy one forces hidden
-          supervision, inconsistent behavior, and security ambiguity.
+          We hear the same sentence in postmortems: "the agent got lost in this
+          repo." In most cases the model did not get lost. The contract was
+          missing. One repository had stable entrypoints, clear boundaries, and
+          truthful docs. Another depended on tribal memory, side-channel rules,
+          and scripts with undocumented side effects. Agents expose that gap
+          faster than humans.
         </p>
       </section>
 
@@ -79,13 +79,12 @@
       <section class="section article-section">
         <h2 id="the-operational-reality">The operational reality</h2>
         <p>
-          Teams often say an agent "doesn't understand the repo" as if that were
-          a model limitation. In practice, it is usually a contract problem. The
-          repo assumes undocumented tribal knowledge, validation paths are
-          inconsistent, scripts have side effects nobody wrote down, and the
-          difference between a safe change and a dangerous one is encoded in
-          human memory. Humans can survive that mess because they ask in Slack
-          and learn by repetition. Agents cannot.
+          Teams often say an agent "does not understand the repo" as if that
+          were a model limitation. In practice, it is usually a contract
+          limitation. The repo assumes undocumented tribal knowledge, validation
+          paths are inconsistent, scripts have side effects nobody wrote down,
+          and the difference between a safe change and a dangerous one lives in
+          human memory.
         </p>
         <p>
           This matters because the repository is where autonomous software work
@@ -93,6 +92,12 @@
           what commands are canonical, what tests should run, where constraints
           live, and what counts as "done." If those answers are fuzzy, you do
           not have a stable interface. You have a probabilistic scavenger hunt.
+        </p>
+        <p>
+          Humans can survive that mess by asking in Slack and learning through
+          repetition. Autonomous workflows cannot. They either guess or stall.
+          Both outcomes look like poor model quality when the root cause is repo
+          design debt.
         </p>
       </section>
 
@@ -132,6 +137,13 @@
           to define enough stable interfaces that an agent can operate safely
           without pretending to be a senior maintainer on day one. In a healthy
           repo, the best path is the easiest path to discover.
+        </p>
+        <p>
+          There is a tradeoff here worth naming. A strong contract can feel
+          slower at first because maintainers must write down command paths and
+          domain boundaries that were previously implicit. That work pays back
+          quickly once multiple teams, repositories, and automation paths share
+          the same patterns.
         </p>
         <p>
           The absence of that contract is usually obvious once you look for it.
@@ -177,6 +189,12 @@
           with explicit entrypoints, discoverable docs, and stable validation
           paths. The value does not come from the tool name. It comes from the
           contract the repo exposes to the tool.
+        </p>
+        <p>
+          Ownership should be explicit too. If nobody owns repo contract quality,
+          drift is guaranteed. In mature teams this usually sits with platform or
+          code stewardship groups, with AppSec reviewing the boundaries that
+          affect write-capable paths.
         </p>
       </section>
 

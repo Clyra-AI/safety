@@ -49,13 +49,13 @@
         </div>
         <h1>AI Engineering Is a Control Problem, Not a Prompt Problem</h1>
         <p class="lead">
-          Most leadership teams are still evaluating AI engineering the way they
-          evaluated chat tools: by demo quality, prompt craft, and how impressed
-          one strong engineer looks in a meeting. That framing breaks the moment
-          an agent can touch a repo, call tools, or open a pull request without
-          live supervision. At that point the real question is not whether the
-          model seems smart. It is whether the work can be bounded, reviewed,
-          stopped, and explained.
+          A familiar scene now happens in leadership reviews: engineering shows
+          a fast agent demo, security asks what happens when it is wrong, and
+          nobody can answer in operational terms. The room argues about prompts
+          because prompts are visible. The real risk sits elsewhere. Once an
+          agent can touch a repo, call tools, or open a pull request without
+          live supervision, this stops being a prompt quality discussion. It
+          becomes a control quality discussion.
         </p>
       </section>
 
@@ -81,26 +81,26 @@
       <section class="section article-section">
         <h2 id="the-operational-reality">The operational reality</h2>
         <p>
-          A prompt is cheap to improve. A production incident is not. That is
-          why the "better prompting" conversation starts to feel thin the moment
-          an agent leaves the chat window and enters a workflow with write
-          access, credentials, CI permissions, or deploy rights.
+          A prompt is cheap to improve. A containment event is not. That is why
+          the "better prompting" discussion gets weaker the moment an agent
+          leaves a chat window and enters a workflow with write access,
+          credentials, CI permissions, or deploy rights.
         </p>
         <p>
-          We at CAISI keep seeing the same pattern beneath the hype. Teams
-          evaluate agents with demos, choose a model, and write a dense
+          We at CAISI keep seeing the same execution pattern beneath the hype.
+          Teams evaluate agents with demos, choose a model, and write a dense
           instruction block that sounds responsible. Then they ask the system to
-          modify code, run shell commands, or interact with connected tools.
-          What matters next is not the cleverness of the prompt. What matters is
-          whether there is any enforceable boundary between intent and action.
+          modify code, run shell commands, or interact with connected tools. At
+          that point the controlling variable is not phrasing quality. It is
+          whether intent has an enforceable boundary before side effects.
         </p>
         <p>
-          The reason this matters now is simple. "Copilot for one engineer" is
-          not the end state. The end state is a background system that can take
-          a ticket, plan the work, touch multiple files, run validations,
-          explain what it changed, and hand a reviewer something coherent. Once
-          the work becomes asynchronous and repeatable, governance becomes part
-          of the runtime.
+          The reason this matters now is operational scale. "Copilot for one
+          engineer" is not the end state most organizations are buying toward.
+          The end state is background execution that can take a ticket, plan the
+          work, touch multiple files, run validations, and hand a reviewer a
+          coherent packet. Once work becomes asynchronous and repeatable,
+          governance is part of runtime design, not an afterthought.
         </p>
       </section>
 
@@ -147,6 +147,14 @@
           team explain a failure without assembling five dashboards by hand?
         </p>
         <p>
+          This is also where many teams hit the first tradeoff: control adds
+          design work upfront. You need cleaner repo contracts, deterministic
+          validation entrypoints, and explicit ownership of run states. That
+          cost is real, but it is the cheaper cost. The alternative is paying
+          the same control debt later in incident response, exception handling,
+          and stalled adoption.
+        </p>
+        <p>
           That is why the future of AI engineering is not "better prompting." It
           is better workflow design. The strongest teams will not be the teams
           with the most magical demos. They will be the teams whose autonomous
@@ -180,6 +188,12 @@
           replay, rollback, and proof output. If a team cannot explain those
           mechanics clearly, the organization is still paying for hidden
           supervision with expensive labor and optimistic storytelling.
+        </p>
+        <p>
+          A useful board-level rule is simple: do not widen autonomy faster than
+          you can widen explainability. If weekly output rises while time to
+          reconstruct a run stays high, you are scaling risk faster than
+          capability.
         </p>
       </section>
 

@@ -49,12 +49,11 @@
         </div>
         <h1>The AI Engineering Maturity Model</h1>
         <p class="lead">
-          Most organizations are not deciding whether to adopt AI engineering.
-          They are deciding how much autonomy to tolerate before the surrounding
-          controls are ready. That is a maturity problem, not a model-comparison
-          problem. The useful model is the one that helps AppSec, platform, and
-          engineering leaders agree on what level of autonomy the current
-          evidence actually supports.
+          Most teams are not debating whether AI engineering will happen. They
+          are debating how much autonomy they can responsibly allow this quarter.
+          That is a maturity decision, not a model decision. A useful maturity
+          model aligns AppSec, platform, and engineering on what current
+          evidence can justify today.
         </p>
       </section>
 
@@ -94,6 +93,10 @@
           leaders a way to invest in the next capability without pretending that
           every repo needs the final state immediately.
         </p>
+        <p>
+          It also prevents a common failure mode: pilot success in one repo gets
+          misread as enterprise readiness across all repos.
+        </p>
       </section>
 
       <section class="section article-section">
@@ -110,6 +113,10 @@
           side sees unacceptable risk. The other sees arbitrary friction. A
           maturity model gives both sides a shared language for what must be true
           before the next level is justified.
+        </p>
+        <p>
+          Without this shared language, escalation becomes personal and political
+          instead of technical and measurable.
         </p>
       </section>
 
@@ -156,6 +163,10 @@
           are safe to widen. That is much more useful than broad statements
           about being "AI ready."
         </p>
+        <p>
+          The practical pattern is to pair every maturity claim with three
+          artifacts: an owner, an evidence requirement, and an exit test.
+        </p>
       </section>
 
       <section class="section article-section">
@@ -192,6 +203,11 @@
           Gait-style policy control makes more sense once the workflow has a
           real execution boundary to mediate. The products are not the maturity
           model. They map onto it.
+        </p>
+        <p>
+          The roadmap should be sequenced by dependency, not by novelty.
+          Building advanced orchestration before repo contracts and deterministic
+          validators are stable usually creates fragile complexity.
         </p>
       </section>
 

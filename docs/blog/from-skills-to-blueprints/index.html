@@ -49,12 +49,11 @@
         </div>
         <h1>From Skills to Blueprints: Where AI Should Stop and Code Should Take Over</h1>
         <p class="lead">
-          Many teams are trying to scale agent work by writing better playbooks
-          for humans to supervise. That only gets them partway. The deeper shift
-          is turning repeatable software work into a workflow where the model
-          handles ambiguity and deterministic code handles everything that
-          should not depend on model judgment. That is the difference between a
-          clever operating habit and a reusable delivery pattern.
+          A strong operator can make an agent workflow look smooth in a single
+          repository. The same workflow usually breaks when another team tries to
+          run it without that operator in the room. That is the boundary between
+          "skill" and "system." AI should own ambiguous reasoning. Deterministic
+          code should own deterministic mechanics.
         </p>
       </section>
 
@@ -94,6 +93,11 @@
           behavior, you create variability where the system should have behaved
           like infrastructure.
         </p>
+        <p>
+          This is where teams silently tax senior engineers. People become the
+          reliability layer by compensating for missing deterministic stages.
+          That does not scale, and it hides where the workflow is weak.
+        </p>
       </section>
 
       <section class="section article-section">
@@ -111,6 +115,11 @@
           intended to be mandatory because it found a faster-looking path. If
           the workflow cannot tell the difference between "agent discretion" and
           "non-negotiable mechanics," it is not a mature workflow yet.
+        </p>
+        <p>
+          A common objection is "more scripts will slow us down." The right
+          question is slower than what. Slower than a demo, yes. Slower than
+          post-merge rework and exception churn, no.
         </p>
       </section>
 
@@ -130,6 +139,11 @@
           PR can open, whether a reviewer is required, and what evidence has to
           be attached. Once these boundaries are explicit, the workflow becomes
           reusable across teams.
+        </p>
+        <p>
+          The rule to remember is simple: if a step should produce the same
+          result for the same inputs, move it out of prompt behavior and into
+          deterministic code.
         </p>
       </section>
 
@@ -164,6 +178,11 @@
           inspect the handoff artifact, retry the validator, or route the run to
           a reviewer. That is a better operating model than hoping a single long
           prompt will do the same thing twice.
+        </p>
+        <p>
+          It also clarifies ownership. Platform can own shared validators and
+          run orchestration, while service teams own domain-specific planning
+          inputs and acceptance criteria.
         </p>
       </section>
 
