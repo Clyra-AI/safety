@@ -34,6 +34,9 @@
     <loc>https://caisi.dev/blog/gait/</loc>
   </url>
   <url>
+    <loc>https://caisi.dev/blog/control-benchmarks/</loc>
+  </url>
+  <url>
     <loc>https://caisi.dev/blog/ai-engineering-control-problem/</loc>
   </url>
   <url>
@@ -110,5 +113,20 @@
   </url>
   <url>
     <loc>https://caisi.dev/blog/gait/signed-traces-and-regressions-make-policy-real/</loc>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/control-benchmarks/buyers-cannot-evaluate-agentic-control-clearly/</loc>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/control-benchmarks/agent-action-risk-scenarios-minimum-test-set/</loc>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/control-benchmarks/measure-control-efficacy-for-ai-agents/</loc>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/control-benchmarks/proof-completeness-for-ai-agent-changes/</loc>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/control-benchmarks/pilot-evaluation-framework-for-agentic-tools/</loc>
   </url>
 </urlset>

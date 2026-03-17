@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Agent Action Risk Scenarios: The Minimum Test Set Every Buyer Should Use | CAISI Blog</title>
+    <meta
+      name="description"
+      content="A practical minimum scenario set for evaluating agentic systems before buyers trust control claims near real write paths."
+    />
+    <link rel="stylesheet" href="/assets/site.css" />
+  </head>
+  <body>
+    <main class="site" aria-label="CAISI blog post">
+      <header class="site-header" aria-label="Site header">
+        <div class="brand-row">
+          <div class="brand-mark">
+            <a class="brand-link" href="/">CAISI</a>
+            <p class="brand-note">
+              Independent research and operating notes on AI agent governance.
+            </p>
+          </div>
+        </div>
+        <nav class="global-nav" aria-label="Primary">
+          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" href="/research/">Research</a>
+          <a class="nav-link current" href="/blog/">Blog</a>
+          <a class="nav-link" href="/#about-heading">About</a>
+          <a class="nav-link" href="/#contact-heading">Contact</a>
+        </nav>
+      </header>
+
+      <section class="section hero">
+        <p class="breadcrumbs">
+          <a href="/">Home</a>
+          <span class="divider">/</span>
+          <a href="/blog/">Blog</a>
+          <span class="divider">/</span>
+          <a href="/blog/control-benchmarks/">Benchmark Series</a>
+          <span class="divider">/</span>
+          <span>Agent Action Risk Scenarios: The Minimum Test Set Every Buyer Should Use</span>
+        </p>
+        <p class="eyebrow">Benchmark Series / Post 2 of 5 / AppSec</p>
+        <div class="post-author">
+          <img class="author-avatar" src="/assets/david-ahmann-headshot.png" alt="David Ahmann" />
+          <p class="author-byline">
+            By <a href="https://www.linkedin.com/in/dahmann/">David Ahmann (LinkedIn)</a>
+          </p>
+        </div>
+        <h1>Agent Action Risk Scenarios: The Minimum Test Set Every Buyer Should Use</h1>
+        <p class="lead">
+          Most agent demos are designed to prove usefulness, not control. That
+          leaves buyers with the wrong evidence. They see task completion, maybe
+          a little policy language, and not much else. If the system can take
+          actions with real side effects, the buyer needs a scenario set that
+          exercises the action classes most likely to matter under pressure.
+        </p>
+      </section>
+
+      <section class="section page-nav" aria-labelledby="page-nav-heading">
+        <h2 id="page-nav-heading">In this piece</h2>
+        <div class="page-nav-list">
+          <a href="#research-grounding">Research grounding</a>
+          <a href="#why-scenario-design-matters">Why scenario design matters</a>
+          <a href="#the-anti-pattern">The anti-pattern</a>
+          <a href="#the-minimum-test-set">The minimum test set</a>
+          <a href="#why-security-leaders-care">Why security leaders care</a>
+          <a href="#why-platform-and-engineering-care">Why platform and engineering care</a>
+          <a href="#concrete-artifact-a-scenario-matrix">Concrete artifact: a scenario matrix</a>
+          <a href="#practical-next-step">Practical next step</a>
+        </div>
+        <div class="link-row">
+          <a href="/blog/control-benchmarks/">Series home</a>
+          <span class="divider">|</span>
+          <a href="/blog/">All blog collections</a>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="quote-card">
+          <h2 id="research-grounding">Research grounding</h2>
+          <p>
+            OpenClaw gives us four durable scenario families already:
+            <code>214</code> inbox-delete actions after stop, <code>155</code>
+            public-share actions, <code>87</code> finance write-class actions
+            without approval, and <code>260</code> operations restart attempts
+            in the ungoverned lane. That matters because those are not abstract
+            categories. They are concrete action classes buyers can test.
+          </p>
+        </div>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="why-scenario-design-matters">Why scenario design matters</h2>
+        <p>
+          Buyers often talk about control in general and scenarios in passing.
+          That order should be reversed. A control claim only becomes meaningful
+          when a real action class is in scope. "We enforce policy" tells you
+          very little until you ask: against which actions, under which
+          conditions, and with what proof?
+        </p>
+        <p>
+          Scenario design is what keeps evaluations from becoming theater. It
+          forces the buyer and vendor to agree on the actions that matter before
+          the tool is judged by ergonomics or fluency. It also gives the
+          internal platform ally a more defensible way to explain what the pilot
+          did and did not actually test.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="the-anti-pattern">The anti-pattern</h2>
+        <p>
+          The anti-pattern is to let the vendor choose only the safest or most
+          flattering workflow. A tidy refactor, a documentation update, or a
+          clean code-generation task may prove the tool is useful. It does not
+          prove how the control layer behaves when the action is harder to
+          unwind or more expensive to mis-handle.
+        </p>
+        <p>
+          Another weak pattern is to test only one risk class. A stop demo does
+          not tell you anything about approval-dependent writes. A finance-write
+          demo does not tell you whether public sharing gets blocked. Buyers
+          need a small but varied set of scenarios that reveal different failure
+          modes.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="the-minimum-test-set">The minimum test set</h2>
+        <p>
+          We think a serious buyer should require at least five scenario
+          families.
+        </p>
+        <ul class="list-plain">
+          <li><strong>Stop after escalation.</strong> Can the runtime prevent further side effects after a stop signal once the run is already active?</li>
+          <li><strong>Share or exfiltrate.</strong> Can the system block public sharing, outbound publication, or similar actions that widen exposure?</li>
+          <li><strong>Approval-dependent write.</strong> Can it hold a write-class action non-executable until approval exists?</li>
+          <li><strong>Operational mutation.</strong> Can it stop restart, deployment, or environment-affecting actions when the policy should deny them?</li>
+          <li><strong>Proof reconstruction.</strong> Can a reviewer inspect what happened without relying on screenshots or memory?</li>
+        </ul>
+        <p>
+          Those scenarios are deliberately simple. The point is not exhaustive
+          coverage in the first round. The point is a minimum test set that
+          reveals whether the control layer can handle the kinds of actions that
+          change organizational risk, not just the kinds of actions that make a
+          good demo.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="why-security-leaders-care">Why security leaders care</h2>
+        <p>
+          Security leaders need scenario coverage because risk language gets
+          vague very quickly without it. A defined scenario set lets AppSec ask
+          whether the vendor or internal platform actually tested the action
+          classes the organization is worried about, or whether it only proved
+          the system can be polite in low-risk situations.
+        </p>
+        <p>
+          It also makes approvals cleaner. Security can say which scenarios are
+          required before a pilot widens and which action classes remain out of
+          scope. That is much more useful than one vague approval statement
+          attached to the entire category.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="why-platform-and-engineering-care">Why platform and engineering care</h2>
+        <p>
+          Platform and engineering leaders benefit because a stable scenario set
+          reduces argument-by-anecdote. Instead of defending a pilot with
+          general claims, they can show which scenario families were tested, how
+          the control behaved, and where the current workflow still needs
+          stronger boundaries or better evidence.
+        </p>
+        <p>
+          Scenario discipline also makes pilots more reusable. Once one team has
+          a credible action-risk matrix, the next team does not have to start
+          the buying conversation from zero.
+        </p>
+      </section>
+
+      <section class="section">
+        <div class="artifact">
+          <h2 id="concrete-artifact-a-scenario-matrix">Concrete artifact: a scenario matrix</h2>
+          <p class="body">
+            A useful scenario matrix should answer three questions for each
+            action class.
+          </p>
+          <div class="artifact-flow">
+            <article class="artifact-step">
+              <h3>Action</h3>
+              <p>
+                What exact behavior is being tested: delete, share, write,
+                restart, or stop-handling?
+              </p>
+            </article>
+            <article class="artifact-step">
+              <h3>Expected control behavior</h3>
+              <p>
+                Should the system allow, block, or require approval before the
+                action can execute?
+              </p>
+            </article>
+            <article class="artifact-step">
+              <h3>Expected evidence</h3>
+              <p>
+                What proof should exist if the buyer later needs to review the
+                scenario outcome cold?
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="practical-next-step">Practical next step</h2>
+        <p>
+          Before the next pilot, ask the tool owner to write down the five
+          scenario families above and fill in the matrix before the first demo.
+        </p>
+        <ul class="list-plain">
+          <li>Mark which scenarios are in scope for the pilot.</li>
+          <li>Mark the expected control verdict for each one.</li>
+          <li>Mark what proof a reviewer should receive.</li>
+          <li>Mark which scenarios are intentionally deferred and why.</li>
+        </ul>
+        <p>
+          If the pilot team cannot answer those questions in advance, the
+          control story is still too soft for a serious buying decision.
+        </p>
+      </section>
+
+      <footer class="section article-footer" aria-label="Post footer">
+        <div class="series-nav">
+          <a class="nav-link" href="/blog/control-benchmarks/buyers-cannot-evaluate-agentic-control-clearly/">Previous post</a>
+          <a class="nav-link" href="/blog/control-benchmarks/">Back to series</a>
+          <a class="nav-link" href="/blog/control-benchmarks/measure-control-efficacy-for-ai-agents/">Next post</a>
+        </div>
+        <p class="footer-note repo-note">
+          We are working on that discovery problem in <a href="https://github.com/Clyra-AI/wrkr">Wrkr</a> if you want to look.
+        </p>
+        <p class="footer-note">
+          Practical question: which agent action class would matter most in your
+          environment if the control failed at the wrong moment?
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>

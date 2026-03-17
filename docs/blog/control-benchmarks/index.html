@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>How to Evaluate Agentic Control | CAISI Blog</title>
+    <meta
+      name="description"
+      content="A five-part CAISI benchmark series on evaluating agentic control quality through risk scenarios, control efficacy, proof completeness, and pilot design."
+    />
+    <link rel="stylesheet" href="/assets/site.css" />
+  </head>
+  <body>
+    <main class="site" aria-label="Benchmark blog series">
+      <header class="site-header" aria-label="Site header">
+        <div class="brand-row">
+          <div class="brand-mark">
+            <a class="brand-link" href="/">CAISI</a>
+            <p class="brand-note">
+              Independent research and operating notes on AI agent governance.
+            </p>
+          </div>
+        </div>
+        <nav class="global-nav" aria-label="Primary">
+          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" href="/research/">Research</a>
+          <a class="nav-link current" href="/blog/">Blog</a>
+          <a class="nav-link" href="/#about-heading">About</a>
+          <a class="nav-link" href="/#contact-heading">Contact</a>
+        </nav>
+      </header>
+
+      <section class="section hero">
+        <p class="breadcrumbs">
+          <a href="/">Home</a>
+          <span class="divider">/</span>
+          <a href="/blog/">Blog</a>
+          <span class="divider">/</span>
+          <span>Benchmark Series</span>
+        </p>
+        <div class="hero-grid">
+          <div class="hero-panel">
+            <p class="eyebrow">CAISI Blog / Benchmark Series</p>
+            <h1>How to Evaluate Agentic Control</h1>
+            <p class="lead">
+              The market has plenty of agent demos and not nearly enough
+              evaluation language. Buyers are being asked to compare products
+              that can change code, systems, and delivery workflows without a
+              stable way to talk about action risk, control quality, proof
+              quality, or pilot design. This five-part series is our attempt to
+              make that language more usable.
+            </p>
+            <div class="pill-row">
+              <span class="pill">Benchmark language buyers can reuse</span>
+              <span class="pill">Control quality over demo quality</span>
+              <span class="pill">Evidence before expansion</span>
+            </div>
+            <div class="button-row" style="margin-top: 22px">
+              <a class="button-link" href="/openclaw-2026/">OpenClaw report</a>
+              <a class="button-link" href="/ai-tool-sprawl-v2-2026/">Sprawl report</a>
+              <a class="button-link secondary" href="/blog/gait/">See the Gait series</a>
+            </div>
+          </div>
+          <aside class="series-card">
+            <p class="eyebrow">Series design</p>
+            <p>
+              This collection is aimed at the buyer and the internal ally at the
+              same time: Head of AppSec, security engineering leadership, CISO,
+              VP Engineering, and platform teams running pilots on behalf of the
+              business. The job is not to publish a vendor scorecard. The job is
+              to define a more repeatable way to judge agentic control quality.
+            </p>
+            <div class="link-row">
+              <a href="/blog/">All blog series</a>
+              <span class="divider">|</span>
+              <a href="/research/">Research hub</a>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="series-why">
+        <h2 id="series-why">Why a separate benchmark series</h2>
+        <p class="body">
+          CAISI already has one case-study series, one report-interpretation
+          series, and two implementation series. This collection does something
+          different. It turns the lessons from those measured artifacts into a
+          buying and pilot language other teams can use internally.
+        </p>
+        <p class="body">
+          OpenClaw already gives us a clean example of runtime control efficacy:
+          stop behavior, non-executable outcomes, destructive-action blocking,
+          and evidence verification. The sprawl report already gives us a clean
+          example of approval opacity and evidence weakness in public artifacts.
+          What the market still lacks is a simple, reusable vocabulary that says
+          which scenarios to test, which metrics to compare, and what evidence
+          needs to exist before a team should trust a tool near a real write
+          path.
+        </p>
+      </section>
+
+      <section class="section" aria-labelledby="benchmark-posts">
+        <h2 id="benchmark-posts">The 5 posts</h2>
+        <div class="blog-grid">
+          <article class="post-card">
+            <p class="post-number">Benchmark Post 1</p>
+            <p class="post-stage">Leadership</p>
+            <h3>
+              <a href="/blog/control-benchmarks/buyers-cannot-evaluate-agentic-control-clearly/"
+                >Why Buyers Still Cannot Evaluate Agentic Control Clearly</a
+              >
+            </h3>
+            <p>
+              Why the market still compares agentic systems with product-language
+              instead of benchmark-language, and what a better comparison model
+              looks like.
+            </p>
+          </article>
+          <article class="post-card">
+            <p class="post-number">Benchmark Post 2</p>
+            <p class="post-stage">AppSec</p>
+            <h3>
+              <a href="/blog/control-benchmarks/agent-action-risk-scenarios-minimum-test-set/"
+                >Agent Action Risk Scenarios: The Minimum Test Set Every Buyer Should Use</a
+              >
+            </h3>
+            <p>
+              A practical scenario set for evaluating delete, share, write,
+              restart, and approval-dependent agent actions before a pilot turns
+              into guesswork.
+            </p>
+          </article>
+          <article class="post-card">
+            <p class="post-number">Benchmark Post 3</p>
+            <p class="post-stage">Control quality</p>
+            <h3>
+              <a href="/blog/control-benchmarks/measure-control-efficacy-for-ai-agents/"
+                >How to Measure Control Efficacy for AI Agents</a
+              >
+            </h3>
+            <p>
+              Which control metrics actually matter when buyers need to know
+              whether the system changes what can execute.
+            </p>
+          </article>
+          <article class="post-card">
+            <p class="post-number">Benchmark Post 4</p>
+            <p class="post-stage">Evidence</p>
+            <h3>
+              <a href="/blog/control-benchmarks/proof-completeness-for-ai-agent-changes/"
+                >Proof Completeness: What Evidence Must Exist Before an AI Agent Change Is Trustworthy</a
+              >
+            </h3>
+            <p>
+              A practical completeness model for the evidence a reviewer,
+              auditor, or incident responder should receive with autonomous
+              change.
+            </p>
+          </article>
+          <article class="post-card">
+            <p class="post-number">Benchmark Post 5</p>
+            <p class="post-stage">Pilot design</p>
+            <h3>
+              <a href="/blog/control-benchmarks/pilot-evaluation-framework-for-agentic-tools/"
+                >A Practical Pilot Evaluation Framework for Agentic Tools</a
+              >
+            </h3>
+            <p>
+              How to run a buyer-grade pilot that measures control quality,
+              evidence quality, and operational fit instead of demo theater.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="series-dimensions">
+        <h2 id="series-dimensions">What this series standardizes</h2>
+        <div class="quick-grid">
+          <article class="card">
+            <p class="post-stage">Risk scenarios</p>
+            <h3>What should be tested</h3>
+            <p>
+              The minimum action classes and failure modes a serious buyer should
+              require before a control claim sounds credible.
+            </p>
+          </article>
+          <article class="card">
+            <p class="post-stage">Control efficacy</p>
+            <h3>What should be measured</h3>
+            <p>
+              Metrics that describe whether a control changes runtime behavior,
+              not just whether the interface or policy language sounds mature.
+            </p>
+          </article>
+          <article class="card">
+            <p class="post-stage">Proof completeness</p>
+            <h3>What should be evidenced</h3>
+            <p>
+              The minimum artifact set a reviewer should be able to inspect
+              without relying on screenshots, memory, or vendor trust.
+            </p>
+          </article>
+          <article class="card">
+            <p class="post-stage">Pilot discipline</p>
+            <h3>How buyers should compare</h3>
+            <p>
+              A practical framework for paired lanes, scoped scenarios, exit
+              criteria, and cross-functional review so pilots create durable
+              learning.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <footer class="section article-footer" aria-label="Page footer">
+        <div class="footer-links">
+          <a href="/">Home</a>
+          <span class="divider">|</span>
+          <a href="/blog/">Blog</a>
+          <span class="divider">|</span>
+          <a href="/openclaw-2026/">OpenClaw report</a>
+          <span class="divider">|</span>
+          <a href="/ai-tool-sprawl-v2-2026/">Sprawl report</a>
+        </div>
+        <p class="footer-note">
+          This collection is not a vendor scorecard. It is a CAISI attempt to
+          give buyers a sharper language for evaluating control quality,
+          evidence quality, and pilot quality in agentic systems.
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>

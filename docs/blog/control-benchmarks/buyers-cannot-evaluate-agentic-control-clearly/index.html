@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Why Buyers Still Cannot Evaluate Agentic Control Clearly | CAISI Blog</title>
+    <meta
+      name="description"
+      content="Why the market still lacks a usable benchmark language for comparing agentic control quality, proof quality, and pilot readiness."
+    />
+    <link rel="stylesheet" href="/assets/site.css" />
+  </head>
+  <body>
+    <main class="site" aria-label="CAISI blog post">
+      <header class="site-header" aria-label="Site header">
+        <div class="brand-row">
+          <div class="brand-mark">
+            <a class="brand-link" href="/">CAISI</a>
+            <p class="brand-note">
+              Independent research and operating notes on AI agent governance.
+            </p>
+          </div>
+        </div>
+        <nav class="global-nav" aria-label="Primary">
+          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" href="/research/">Research</a>
+          <a class="nav-link current" href="/blog/">Blog</a>
+          <a class="nav-link" href="/#about-heading">About</a>
+          <a class="nav-link" href="/#contact-heading">Contact</a>
+        </nav>
+      </header>
+
+      <section class="section hero">
+        <p class="breadcrumbs">
+          <a href="/">Home</a>
+          <span class="divider">/</span>
+          <a href="/blog/">Blog</a>
+          <span class="divider">/</span>
+          <a href="/blog/control-benchmarks/">Benchmark Series</a>
+          <span class="divider">/</span>
+          <span>Why Buyers Still Cannot Evaluate Agentic Control Clearly</span>
+        </p>
+        <p class="eyebrow">Benchmark Series / Post 1 of 5 / Leadership</p>
+        <div class="post-author">
+          <img class="author-avatar" src="/assets/david-ahmann-headshot.png" alt="David Ahmann" />
+          <p class="author-byline">
+            By <a href="https://www.linkedin.com/in/dahmann/">David Ahmann (LinkedIn)</a>
+          </p>
+        </div>
+        <h1>Why Buyers Still Cannot Evaluate Agentic Control Clearly</h1>
+        <p class="lead">
+          Most buying conversations for agentic systems still sound like product
+          comparisons for a much lower-stakes category. Teams compare model
+          quality, workflow polish, and how good the demo looked in a live
+          meeting. That becomes inadequate the moment the system can mutate code,
+          use tools, or affect shared delivery paths. Buyers do not just need a
+          feature list. They need a way to judge control quality.
+        </p>
+      </section>
+
+      <section class="section page-nav" aria-labelledby="page-nav-heading">
+        <h2 id="page-nav-heading">In this piece</h2>
+        <div class="page-nav-list">
+          <a href="#research-grounding">Research grounding</a>
+          <a href="#the-operational-reality">The operational reality</a>
+          <a href="#the-anti-pattern">The anti-pattern</a>
+          <a href="#the-benchmark-language-buyers-actually-need">The benchmark language buyers actually need</a>
+          <a href="#why-security-leaders-care">Why security leaders care</a>
+          <a href="#why-platform-and-engineering-care">Why platform and engineering care</a>
+          <a href="#concrete-artifact-a-first-pass-evaluation-matrix">Concrete artifact: a first-pass evaluation matrix</a>
+          <a href="#practical-next-step">Practical next step</a>
+        </div>
+        <div class="link-row">
+          <a href="/blog/control-benchmarks/">Series home</a>
+          <span class="divider">|</span>
+          <a href="/blog/">All blog collections</a>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="quote-card">
+          <h2 id="research-grounding">Research grounding</h2>
+          <p>
+            OpenClaw measured a <code>100%</code> post-stop executable-call rate
+            in the baseline lane and a <code>100%</code> destructive-action
+            block rate in the governed lane. The sprawl report found
+            <code>47.08%</code> of completed targets without verifiable
+            governance evidence and an <code>11:1</code> not-baseline-approved
+            to baseline-approved tool ratio. Those are already benchmark
+            ingredients. The market just does not talk about them with stable
+            enough language yet.
+          </p>
+        </div>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="the-operational-reality">The operational reality</h2>
+        <p>
+          A Head of AppSec or CISO gets asked a version of the same question
+          every quarter now: which of these AI coding tools or agent platforms
+          are safe enough to let closer to real workflows? The answer is usually
+          unsatisfying. Product teams show demos. Security asks about approvals
+          and controls. Platform asks how the workflow integrates. Procurement
+          asks for references. What rarely exists is a shared evaluation model
+          that turns those concerns into comparable criteria.
+        </p>
+        <p>
+          That absence is not just annoying. It slows adoption in exactly the
+          wrong way. Teams either block too broadly because nothing is measured
+          clearly enough, or they approve too optimistically because the only
+          thing that felt concrete was the demo. Neither outcome is a sign of a
+          mature market.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="the-anti-pattern">The anti-pattern</h2>
+        <p>
+          The anti-pattern is to compare agentic products as if they were mostly
+          about usability and developer delight. Buyers end up asking whether
+          the model seems smart, whether the interface feels polished, and
+          whether the vendor says the right words about governance. Those
+          questions matter much less once the system can cross a write path.
+        </p>
+        <p>
+          A second version of the same mistake is to reduce evaluation to one
+          generic compliance question. "Do they have controls?" is too vague to
+          be useful. The stronger question is: which actions were tested, what
+          changed at execution time, what evidence was produced, and how would a
+          pilot prove those things in our environment?
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="the-benchmark-language-buyers-actually-need">The benchmark language buyers actually need</h2>
+        <p>
+          We think the missing language has four parts. First, buyers need
+          <strong>agent action risk scenarios</strong>: the concrete classes of
+          behavior a tool should be tested against before anyone talks about
+          trust. Second, they need <strong>control efficacy metrics</strong>:
+          not whether policy exists, but whether the control changes what can
+          execute. Third, they need <strong>proof completeness</strong>: whether
+          the evidence package is usable for review, audit, and incident
+          reconstruction. Fourth, they need a <strong>pilot evaluation
+          framework</strong> that treats these criteria as buying discipline
+          rather than optional extras.
+        </p>
+        <p>
+          None of that requires a universal standard body before teams can act.
+          It requires a simpler shift: move the conversation from feature claims
+          to measurable control claims. OpenClaw and the sprawl report already
+          show how powerful that move is. One measures runtime control behavior.
+          The other measures approval and evidence weakness. Put together, they
+          point to the benchmark language buyers have been missing.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="why-security-leaders-care">Why security leaders care</h2>
+        <p>
+          Security leaders need this language because it lets them say yes or no
+          more precisely. Instead of rejecting a category wholesale, they can
+          ask whether stop is advisory or enforced, whether approvals change
+          execution state, whether proof survives outside the vendor interface,
+          and whether the tested scenarios are relevant to their actual write
+          paths.
+        </p>
+        <p>
+          That precision matters politically too. Blanket rejection turns the
+          security team into the slowdown. Benchmark language lets security say:
+          we will support adoption when the evaluation proves the controls we
+          need are real.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="why-platform-and-engineering-care">Why platform and engineering care</h2>
+        <p>
+          Platform and engineering leaders benefit because benchmark language
+          clarifies what a pilot is supposed to learn. Instead of trying to win
+          the internal argument with anecdotes, they can define scenarios,
+          measure outcomes, and expose tradeoffs clearly enough that the rest of
+          the organization can decide without theater.
+        </p>
+        <p>
+          It also improves vendor conversations. Strong vendors should be able
+          to explain how they handle execution boundaries, evidence, and pilot
+          design in a way that maps to comparable criteria. If they cannot, the
+          buyer is still being asked to trust sales fluency more than control
+          design.
+        </p>
+      </section>
+
+      <section class="section">
+        <div class="artifact">
+          <h2 id="concrete-artifact-a-first-pass-evaluation-matrix">Concrete artifact: a first-pass evaluation matrix</h2>
+          <p class="body">
+            A useful first-pass matrix should let a buyer compare tools on four
+            dimensions before procurement language gets ahead of control
+            language.
+          </p>
+          <div class="artifact-flow">
+            <article class="artifact-step">
+              <h3>Scenario coverage</h3>
+              <p>
+                Which write, share, delete, restart, approval, and stop
+                scenarios were actually tested?
+              </p>
+            </article>
+            <article class="artifact-step">
+              <h3>Control efficacy</h3>
+              <p>
+                Did the control change what executed, and can the system show
+                the verdict at the boundary?
+              </p>
+            </article>
+            <article class="artifact-step">
+              <h3>Proof completeness</h3>
+              <p>
+                Can a reviewer or auditor reconstruct what happened without
+                trusting the dashboard or asking for side-channel context?
+              </p>
+            </article>
+            <article class="artifact-step">
+              <h3>Pilot discipline</h3>
+              <p>
+                Did the pilot define scope, exit criteria, and widening rules
+                clearly enough to support a real buying decision?
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="practical-next-step">Practical next step</h2>
+        <p>
+          Pick the next agentic tool your organization is likely to pilot and
+          rewrite the evaluation brief before the demo happens.
+        </p>
+        <ul class="list-plain">
+          <li>List the agent action scenarios you need to see tested.</li>
+          <li>Define which control efficacy metrics matter in your environment.</li>
+          <li>Define the minimum proof packet a reviewer would need.</li>
+          <li>State what would make the pilot expand, pause, or fail.</li>
+        </ul>
+        <p>
+          That simple shift will tell you very quickly whether the buying motion
+          is maturing or whether the team is still evaluating a write-capable
+          system with the wrong vocabulary.
+        </p>
+      </section>
+
+      <footer class="section article-footer" aria-label="Post footer">
+        <div class="series-nav">
+          <a class="nav-link" href="/blog/control-benchmarks/">Back to series</a>
+          <a class="nav-link" href="/blog/control-benchmarks/agent-action-risk-scenarios-minimum-test-set/">Next post</a>
+        </div>
+        <p class="footer-note repo-note">
+          We are working on that control layer in <a href="https://github.com/Clyra-AI/gait">Gait</a> if you want to look.
+        </p>
+        <p class="footer-note">
+          Practical question: if your team had to compare two agentic tools this
+          week, what benchmark language would keep the decision from collapsing
+          into demo quality?
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>

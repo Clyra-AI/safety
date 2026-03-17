@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Proof Completeness: What Evidence Must Exist Before an AI Agent Change Is Trustworthy | CAISI Blog</title>
+    <meta
+      name="description"
+      content="A practical completeness model for the evidence a reviewer, auditor, or incident responder should receive with autonomous change."
+    />
+    <link rel="stylesheet" href="/assets/site.css" />
+  </head>
+  <body>
+    <main class="site" aria-label="CAISI blog post">
+      <header class="site-header" aria-label="Site header">
+        <div class="brand-row">
+          <div class="brand-mark">
+            <a class="brand-link" href="/">CAISI</a>
+            <p class="brand-note">
+              Independent research and operating notes on AI agent governance.
+            </p>
+          </div>
+        </div>
+        <nav class="global-nav" aria-label="Primary">
+          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" href="/research/">Research</a>
+          <a class="nav-link current" href="/blog/">Blog</a>
+          <a class="nav-link" href="/#about-heading">About</a>
+          <a class="nav-link" href="/#contact-heading">Contact</a>
+        </nav>
+      </header>
+
+      <section class="section hero">
+        <p class="breadcrumbs">
+          <a href="/">Home</a>
+          <span class="divider">/</span>
+          <a href="/blog/">Blog</a>
+          <span class="divider">/</span>
+          <a href="/blog/control-benchmarks/">Benchmark Series</a>
+          <span class="divider">/</span>
+          <span>Proof Completeness: What Evidence Must Exist Before an AI Agent Change Is Trustworthy</span>
+        </p>
+        <p class="eyebrow">Benchmark Series / Post 4 of 5 / Evidence</p>
+        <div class="post-author">
+          <img class="author-avatar" src="/assets/david-ahmann-headshot.png" alt="David Ahmann" />
+          <p class="author-byline">
+            By <a href="https://www.linkedin.com/in/dahmann/">David Ahmann (LinkedIn)</a>
+          </p>
+        </div>
+        <h1>Proof Completeness: What Evidence Must Exist Before an AI Agent Change Is Trustworthy</h1>
+        <p class="lead">
+          A green CI badge is a useful signal. It is not enough evidence for a
+          write-capable agent workflow. Buyers and reviewers need a more exact
+          question: what evidence would have to exist for a third party to
+          understand what happened, what was approved, what executed, and what
+          still remains risky?
+        </p>
+      </section>
+
+      <section class="section page-nav" aria-labelledby="page-nav-heading">
+        <h2 id="page-nav-heading">In this piece</h2>
+        <div class="page-nav-list">
+          <a href="#research-grounding">Research grounding</a>
+          <a href="#why-proof-completeness-is-its-own-category">Why proof completeness is its own category</a>
+          <a href="#the-anti-pattern">The anti-pattern</a>
+          <a href="#the-seven-fields-of-a-complete-proof-packet">The seven fields of a complete proof packet</a>
+          <a href="#why-security-leaders-care">Why security leaders care</a>
+          <a href="#why-platform-and-engineering-care">Why platform and engineering care</a>
+          <a href="#concrete-artifact-a-proof-completeness-rubric">Concrete artifact: a proof completeness rubric</a>
+          <a href="#practical-next-step">Practical next step</a>
+        </div>
+        <div class="link-row">
+          <a href="/blog/control-benchmarks/">Series home</a>
+          <span class="divider">|</span>
+          <a href="/blog/">All blog collections</a>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="quote-card">
+          <h2 id="research-grounding">Research grounding</h2>
+          <p>
+            The sprawl report found <code>47.08%</code> of completed targets
+            without verifiable governance evidence. OpenClaw's governed lane
+            measured a <code>99.96%</code> evidence verification rate. Those
+            numbers matter because they describe two ends of the same category:
+            proof that is missing, and proof that survives verification.
+          </p>
+        </div>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="why-proof-completeness-is-its-own-category">Why proof completeness is its own category</h2>
+        <p>
+          Teams often treat evidence as a byproduct of controls. In practice it
+          deserves to be evaluated directly. A workflow can have approvals and
+          still fail to explain what actually happened. It can have logs and
+          still fail to produce a coherent review packet. That is why proof
+          completeness should be judged as its own dimension, not implied from
+          policy or CI alone.
+        </p>
+        <p>
+          This matters most for buyers because incomplete proof creates hidden
+          costs. The system may look fine during the pilot. The pain appears
+          later, when a reviewer, auditor, or incident responder tries to
+          reconstruct the change and discovers that the workflow left a trail of
+          fragments instead of one inspectable packet.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="the-anti-pattern">The anti-pattern</h2>
+        <p>
+          The anti-pattern is to confuse receipts, logs, and screenshots with a
+          proof packet. Approval receipts are useful. Runtime logs are useful.
+          Screenshots may be temporarily useful. None of them alone tell a third
+          party what the run knew, what policy applied, what executed, which
+          validations ran, and what residual risk remained.
+        </p>
+        <p>
+          Another weak pattern is to let the vendor define proof in a
+          dashboard-native way. If the evidence only makes sense while you are
+          logged into one product surface, the buyer still has an explanation
+          problem. Proof should survive time, tool changes, and disputes.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="the-seven-fields-of-a-complete-proof-packet">The seven fields of a complete proof packet</h2>
+        <p>
+          We think a buyer-grade proof packet should include seven fields.
+        </p>
+        <ul class="list-plain">
+          <li><strong>Trigger and scope.</strong> What initiated the work, and what paths or systems were in scope?</li>
+          <li><strong>Context and intent.</strong> What the system knew and what it was trying to do.</li>
+          <li><strong>Policy and approval state.</strong> Which rules applied, what verdict was returned, and what approvals existed or were required.</li>
+          <li><strong>Execution record.</strong> What actually executed or stayed non-executable.</li>
+          <li><strong>Validation record.</strong> Which checks ran, which passed, and which were intentionally out of scope.</li>
+          <li><strong>Residual risk statement.</strong> What remains uncertain, deferred, or dependent on human review.</li>
+          <li><strong>Rollback or recovery note.</strong> What the team should do if the outcome needs to be reversed or investigated later.</li>
+        </ul>
+        <p>
+          Buyers do not need every packet to be verbose. They do need it to be
+          complete enough that a third party could review the run cold. That is
+          the standard that separates a proof artifact from a collection of
+          traces.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="why-security-leaders-care">Why security leaders care</h2>
+        <p>
+          Security leaders care because proof is where many control claims fail
+          their first real audit. The team can describe the policy. The vendor
+          can describe the feature. But when the reviewer asks what executed and
+          why, the answer still depends on someone who remembers the run.
+        </p>
+        <p>
+          A completeness model changes that. It lets AppSec state what evidence
+          must travel with the workflow before the organization expands the
+          approved scope.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="why-platform-and-engineering-care">Why platform and engineering care</h2>
+        <p>
+          Platform and engineering teams benefit because complete proof reduces
+          review friction and debugging time. A strong packet helps a successful
+          run merge faster and helps a failed run get understood faster. In both
+          cases the team spends less time reconstructing context and more time
+          making decisions.
+        </p>
+        <p>
+          It also makes pilot comparison easier. Once the organization has a
+          stable proof rubric, two tools can be compared on whether they produce
+          reviewable artifacts, not just on whether they completed the task.
+        </p>
+      </section>
+
+      <section class="section">
+        <div class="artifact">
+          <h2 id="concrete-artifact-a-proof-completeness-rubric">Concrete artifact: a proof completeness rubric</h2>
+          <p class="body">
+            A simple rubric can score each field as missing, partial, or
+            reviewable.
+          </p>
+          <div class="artifact-flow">
+            <article class="artifact-step">
+              <h3>Missing</h3>
+              <p>
+                The reviewer would need side-channel context, screenshots, or
+                memory to understand the field.
+              </p>
+            </article>
+            <article class="artifact-step">
+              <h3>Partial</h3>
+              <p>
+                The field exists, but it is incomplete, ambiguous, or trapped in
+                one product surface.
+              </p>
+            </article>
+            <article class="artifact-step">
+              <h3>Reviewable</h3>
+              <p>
+                The field is portable, specific, and sufficient for a third
+                party to inspect without guessing.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="practical-next-step">Practical next step</h2>
+        <p>
+          Take the last autonomous or semi-autonomous change your team produced
+          and score it against the seven fields above.
+        </p>
+        <ul class="list-plain">
+          <li>Mark which fields are missing entirely.</li>
+          <li>Mark which fields exist but would not survive external review.</li>
+          <li>Decide which fields are required before the next pilot expands.</li>
+        </ul>
+        <p>
+          That exercise usually reveals quickly whether the workflow produces
+          proof or just leaves behind traces.
+        </p>
+      </section>
+
+      <footer class="section article-footer" aria-label="Post footer">
+        <div class="series-nav">
+          <a class="nav-link" href="/blog/control-benchmarks/measure-control-efficacy-for-ai-agents/">Previous post</a>
+          <a class="nav-link" href="/blog/control-benchmarks/">Back to series</a>
+          <a class="nav-link" href="/blog/control-benchmarks/pilot-evaluation-framework-for-agentic-tools/">Next post</a>
+        </div>
+        <p class="footer-note repo-note">
+          We are working on that control layer in <a href="https://github.com/Clyra-AI/gait">Gait</a> if you want to look.
+        </p>
+        <p class="footer-note">
+          Practical question: could a reviewer outside your team understand the
+          last agent-generated change without asking anyone to narrate it?
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>

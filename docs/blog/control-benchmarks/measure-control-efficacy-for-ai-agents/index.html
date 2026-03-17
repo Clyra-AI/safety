@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>How to Measure Control Efficacy for AI Agents | CAISI Blog</title>
+    <meta
+      name="description"
+      content="A practical framework for measuring whether agent controls change runtime behavior, not just policy language."
+    />
+    <link rel="stylesheet" href="/assets/site.css" />
+  </head>
+  <body>
+    <main class="site" aria-label="CAISI blog post">
+      <header class="site-header" aria-label="Site header">
+        <div class="brand-row">
+          <div class="brand-mark">
+            <a class="brand-link" href="/">CAISI</a>
+            <p class="brand-note">
+              Independent research and operating notes on AI agent governance.
+            </p>
+          </div>
+        </div>
+        <nav class="global-nav" aria-label="Primary">
+          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" href="/research/">Research</a>
+          <a class="nav-link current" href="/blog/">Blog</a>
+          <a class="nav-link" href="/#about-heading">About</a>
+          <a class="nav-link" href="/#contact-heading">Contact</a>
+        </nav>
+      </header>
+
+      <section class="section hero">
+        <p class="breadcrumbs">
+          <a href="/">Home</a>
+          <span class="divider">/</span>
+          <a href="/blog/">Blog</a>
+          <span class="divider">/</span>
+          <a href="/blog/control-benchmarks/">Benchmark Series</a>
+          <span class="divider">/</span>
+          <span>How to Measure Control Efficacy for AI Agents</span>
+        </p>
+        <p class="eyebrow">Benchmark Series / Post 3 of 5 / Control Quality</p>
+        <div class="post-author">
+          <img class="author-avatar" src="/assets/david-ahmann-headshot.png" alt="David Ahmann" />
+          <p class="author-byline">
+            By <a href="https://www.linkedin.com/in/dahmann/">David Ahmann (LinkedIn)</a>
+          </p>
+        </div>
+        <h1>How to Measure Control Efficacy for AI Agents</h1>
+        <p class="lead">
+          "We have controls" is one of the least useful sentences in this
+          market. Buyers do not need to know whether policy exists in the
+          abstract. They need to know whether the control changes what can
+          execute, how quickly it reacts, how consistently it holds, and whether
+          the evidence survives review.
+        </p>
+      </section>
+
+      <section class="section page-nav" aria-labelledby="page-nav-heading">
+        <h2 id="page-nav-heading">In this piece</h2>
+        <div class="page-nav-list">
+          <a href="#research-grounding">Research grounding</a>
+          <a href="#what-control-efficacy-actually-means">What control efficacy actually means</a>
+          <a href="#the-anti-pattern">The anti-pattern</a>
+          <a href="#the-five-metrics-that-matter">The five metrics that matter</a>
+          <a href="#why-security-leaders-care">Why security leaders care</a>
+          <a href="#why-platform-and-engineering-care">Why platform and engineering care</a>
+          <a href="#concrete-artifact-a-control-efficacy-scorecard">Concrete artifact: a control efficacy scorecard</a>
+          <a href="#practical-next-step">Practical next step</a>
+        </div>
+        <div class="link-row">
+          <a href="/blog/control-benchmarks/">Series home</a>
+          <span class="divider">|</span>
+          <a href="/blog/">All blog collections</a>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="quote-card">
+          <h2 id="research-grounding">Research grounding</h2>
+          <p>
+            OpenClaw gives us a clean starting set for control efficacy:
+            <code>100%</code> post-stop executable-call rate in the baseline
+            lane, <code>100%</code> governed destructive-action block rate,
+            <code>99.96%</code> governed evidence verification rate, and
+            <code>0</code> seconds stop-to-halt p95 in the governed lane. Those
+            are not marketing metrics. They are examples of what buyers should
+            be asking to compare.
+          </p>
+        </div>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="what-control-efficacy-actually-means">What control efficacy actually means</h2>
+        <p>
+          Control efficacy is not the presence of a policy file, a dashboard, or
+          a reviewer in the loop somewhere. It is the measured ability of the
+          system to change runtime behavior before a side effect happens and to
+          leave behind proof strong enough for a third party to inspect later.
+        </p>
+        <p>
+          That definition matters because it narrows the buying conversation to
+          the point where control becomes real. If the system can still execute
+          the unsafe action while policy gets discussed later, the control may
+          be useful for learning, but it is weak as an execution boundary.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="the-anti-pattern">The anti-pattern</h2>
+        <p>
+          The anti-pattern is to accept proxies for control. Prompt guidance,
+          reviewer expectations, and post-hoc logs can all be helpful. None of
+          them answer the core buyer question: did the system change what could
+          execute at the moment the action crossed the boundary?
+        </p>
+        <p>
+          Another weak pattern is to rely on one number that sounds impressive.
+          A low block count might mean the tool is safe. It might also mean the
+          scenarios were timid or the policy was too permissive. A high pass
+          rate might signal maturity. It might also mean the control was never
+          tested against the actions that matter most. Efficacy needs a small
+          set of related metrics, not one vanity number.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="the-five-metrics-that-matter">The five metrics that matter</h2>
+        <p>
+          We think buyers should start with five efficacy metrics.
+        </p>
+        <ul class="list-plain">
+          <li><strong>Non-allow non-executable rate.</strong> When the control says block or require approval, how often does the action actually stay non-executable?</li>
+          <li><strong>Stop-to-halt behavior.</strong> After a stop signal, how quickly and reliably does the runtime stop making new side effects possible?</li>
+          <li><strong>Destructive-action block rate.</strong> Across delete, share, restart, or similar actions, how often does the system hold the unsafe action?</li>
+          <li><strong>Approval mediation quality.</strong> Does approval change execution state, or does it only leave a process record?</li>
+          <li><strong>Evidence verification rate.</strong> After the decision, how often is the proof artifact complete and verifiable enough to support review?</li>
+        </ul>
+        <p>
+          Buyers do not need to start with perfect statistical sophistication.
+          They do need to stop comparing control quality with slogans. These
+          five measures already force much better conversations than "they have
+          policy-as-code" or "they support approvals."
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="why-security-leaders-care">Why security leaders care</h2>
+        <p>
+          Security leaders need efficacy metrics because policy language by
+          itself is cheap. A control program only deserves trust if it can show
+          which unsafe actions became non-executable, how approval changed
+          runtime behavior, and whether stop and proof worked under the tested
+          conditions.
+        </p>
+        <p>
+          Those metrics also let security describe residual risk honestly. A
+          tool can have strong destructive-action blocking and still have weak
+          proof completeness. It can have great proof and weak stop behavior.
+          Buyers need that kind of precision if they want to expand safely.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="why-platform-and-engineering-care">Why platform and engineering care</h2>
+        <p>
+          Platform and engineering leaders benefit because efficacy metrics make
+          tradeoffs visible. If the gate is effective but generates too many
+          operational delays, that is something the team can tune. If the tool
+          feels fast but the non-allow outcomes still execute, that is not a
+          tuning issue. It is a boundary issue.
+        </p>
+        <p>
+          Good metrics also make re-testing possible. Once the organization has
+          a stable scorecard, it can compare versions, policy changes, and pilot
+          expansions with less hand-waving.
+        </p>
+      </section>
+
+      <section class="section">
+        <div class="artifact">
+          <h2 id="concrete-artifact-a-control-efficacy-scorecard">Concrete artifact: a control efficacy scorecard</h2>
+          <p class="body">
+            A usable scorecard should capture more than "pass" or "fail."
+          </p>
+          <div class="artifact-flow">
+            <article class="artifact-step">
+              <h3>Scenario denominator</h3>
+              <p>
+                Which action classes were tested, and how many attempts existed
+                in scope?
+              </p>
+            </article>
+            <article class="artifact-step">
+              <h3>Boundary outcome</h3>
+              <p>
+                How often did block or approval-required outcomes actually stay
+                non-executable?
+              </p>
+            </article>
+            <article class="artifact-step">
+              <h3>Evidence quality</h3>
+              <p>
+                How often did the resulting record remain reviewable and
+                verifiable later?
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="practical-next-step">Practical next step</h2>
+        <p>
+          Take one current agent pilot and rewrite the success criteria in
+          control-efficacy terms.
+        </p>
+        <ul class="list-plain">
+          <li>Define the denominator for each risk scenario.</li>
+          <li>Track whether non-allow outcomes were actually non-executable.</li>
+          <li>Track whether stop behavior changed runtime state in time.</li>
+          <li>Track whether the proof package remained reviewable.</li>
+        </ul>
+        <p>
+          If the pilot cannot answer those four questions, it still knows more
+          about usability than it does about control.
+        </p>
+      </section>
+
+      <footer class="section article-footer" aria-label="Post footer">
+        <div class="series-nav">
+          <a class="nav-link" href="/blog/control-benchmarks/agent-action-risk-scenarios-minimum-test-set/">Previous post</a>
+          <a class="nav-link" href="/blog/control-benchmarks/">Back to series</a>
+          <a class="nav-link" href="/blog/control-benchmarks/proof-completeness-for-ai-agent-changes/">Next post</a>
+        </div>
+        <p class="footer-note repo-note">
+          We are working on that control layer in <a href="https://github.com/Clyra-AI/gait">Gait</a> if you want to look.
+        </p>
+        <p class="footer-note">
+          Practical question: which one of your current agent controls can prove
+          that non-allow truly means non-execute?
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>

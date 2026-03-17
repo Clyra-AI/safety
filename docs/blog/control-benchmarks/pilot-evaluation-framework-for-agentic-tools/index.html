@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>A Practical Pilot Evaluation Framework for Agentic Tools | CAISI Blog</title>
+    <meta
+      name="description"
+      content="A practical framework for buyer-grade pilots that measure control quality, proof quality, and operational fit instead of demo theater."
+    />
+    <link rel="stylesheet" href="/assets/site.css" />
+  </head>
+  <body>
+    <main class="site" aria-label="CAISI blog post">
+      <header class="site-header" aria-label="Site header">
+        <div class="brand-row">
+          <div class="brand-mark">
+            <a class="brand-link" href="/">CAISI</a>
+            <p class="brand-note">
+              Independent research and operating notes on AI agent governance.
+            </p>
+          </div>
+        </div>
+        <nav class="global-nav" aria-label="Primary">
+          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" href="/research/">Research</a>
+          <a class="nav-link current" href="/blog/">Blog</a>
+          <a class="nav-link" href="/#about-heading">About</a>
+          <a class="nav-link" href="/#contact-heading">Contact</a>
+        </nav>
+      </header>
+
+      <section class="section hero">
+        <p class="breadcrumbs">
+          <a href="/">Home</a>
+          <span class="divider">/</span>
+          <a href="/blog/">Blog</a>
+          <span class="divider">/</span>
+          <a href="/blog/control-benchmarks/">Benchmark Series</a>
+          <span class="divider">/</span>
+          <span>A Practical Pilot Evaluation Framework for Agentic Tools</span>
+        </p>
+        <p class="eyebrow">Benchmark Series / Post 5 of 5 / Pilot Design</p>
+        <div class="post-author">
+          <img class="author-avatar" src="/assets/david-ahmann-headshot.png" alt="David Ahmann" />
+          <p class="author-byline">
+            By <a href="https://www.linkedin.com/in/dahmann/">David Ahmann (LinkedIn)</a>
+          </p>
+        </div>
+        <h1>A Practical Pilot Evaluation Framework for Agentic Tools</h1>
+        <p class="lead">
+          Most agent pilots answer the easiest question first: was the tool
+          useful? That is not enough for a buyer-grade decision. A serious pilot
+          needs to answer a harder set of questions at the same time: what
+          actions were in scope, how did the controls behave, what evidence was
+          produced, and what would justify widening the deployment?
+        </p>
+      </section>
+
+      <section class="section page-nav" aria-labelledby="page-nav-heading">
+        <h2 id="page-nav-heading">In this piece</h2>
+        <div class="page-nav-list">
+          <a href="#research-grounding">Research grounding</a>
+          <a href="#what-most-agent-pilots-actually-test">What most agent pilots actually test</a>
+          <a href="#the-anti-pattern">The anti-pattern</a>
+          <a href="#a-practical-pilot-framework">A practical pilot framework</a>
+          <a href="#what-good-pilot-outputs-look-like">What good pilot outputs look like</a>
+          <a href="#why-security-and-platform-should-co-own-it">Why security and platform should co-own it</a>
+          <a href="#concrete-artifact-a-pilot-scorecard">Concrete artifact: a pilot scorecard</a>
+          <a href="#practical-next-step">Practical next step</a>
+        </div>
+        <div class="link-row">
+          <a href="/blog/control-benchmarks/">Series home</a>
+          <span class="divider">|</span>
+          <a href="/blog/">All blog collections</a>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="quote-card">
+          <h2 id="research-grounding">Research grounding</h2>
+          <p>
+            OpenClaw used matched governed and ungoverned lanes under one pinned
+            workload and policy set. The sprawl report stayed explicit about
+            what a public artifact set could and could not prove. Those two
+            habits are the beginnings of a serious pilot framework: controlled
+            comparison and clear scope discipline.
+          </p>
+        </div>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="what-most-agent-pilots-actually-test">What most agent pilots actually test</h2>
+        <p>
+          Most pilots test productivity, task completion, and how quickly one
+          strong operator can get good output. Those are reasonable things to
+          learn. They are not sufficient for a buying decision once the system
+          is expected to interact with real delivery paths.
+        </p>
+        <p>
+          The missing questions are usually the ones that matter later. What
+          action classes were tested? What did the control layer do when the
+          action got risky? What proof traveled with the run? What exactly would
+          make the team comfortable expanding the pilot from one repo to many,
+          or from read assistance to write-capable work?
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="the-anti-pattern">The anti-pattern</h2>
+        <p>
+          The anti-pattern is productivity theater. The tool completes a few
+          convenient tasks, the stakeholders see enough upside to stay excited,
+          and nobody defines the control, proof, or scenario standards that
+          would justify a broader rollout. The pilot ends with enthusiasm but no
+          durable decision framework.
+        </p>
+        <p>
+          A second weak pattern is to let one team own the pilot alone. If
+          security is absent, the pilot misses boundary and evidence questions.
+          If platform is absent, the pilot misses operability and integration
+          questions. If engineering management is absent, the exit criteria stay
+          too vague to drive a real deployment decision.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="a-practical-pilot-framework">A practical pilot framework</h2>
+        <p>
+          We think a useful agent pilot should have five defined elements before
+          it starts.
+        </p>
+        <ul class="list-plain">
+          <li><strong>Scope.</strong> Which repos, workflows, and action classes are in scope, and which are explicitly out of scope?</li>
+          <li><strong>Scenario set.</strong> Which risk scenarios will be exercised, including stop, approval-dependent write, share, restart, or proof reconstruction?</li>
+          <li><strong>Control scorecard.</strong> Which efficacy metrics will be measured during the run?</li>
+          <li><strong>Proof rubric.</strong> What evidence fields must travel with the run or resulting change?</li>
+          <li><strong>Exit criteria.</strong> What results would justify expansion, pause, or failure?</li>
+        </ul>
+        <p>
+          Notice what is missing from that list: a generic question about
+          whether the tool "felt good." Usability matters, but it should sit
+          beside control quality and evidence quality, not replace them.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="what-good-pilot-outputs-look-like">What good pilot outputs look like</h2>
+        <p>
+          A good pilot should end with something the organization can reuse. Not
+          a vague recommendation, but a small package of artifacts: the scenario
+          matrix, the control efficacy scorecard, the proof completeness review,
+          the known gaps, and the explicit decision on whether the pilot should
+          widen or stay narrow.
+        </p>
+        <p>
+          That is what turns a pilot into organizational knowledge. The next
+          vendor or internal platform experiment should not have to restart the
+          benchmark conversation from the beginning.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="why-security-and-platform-should-co-own-it">Why security and platform should co-own it</h2>
+        <p>
+          Security and platform should co-own the pilot because they are judging
+          different truths about the same system. Security needs to know whether
+          the boundaries hold and whether the evidence is defensible. Platform
+          needs to know whether the system is operable, reusable, and worth
+          integrating. Neither side can answer the other side's question by
+          itself.
+        </p>
+        <p>
+          When both groups are in the design from the start, the organization is
+          much less likely to end the pilot with two conflicting narratives:
+          one saying the tool is powerful, and one saying the risk is still too
+          unclear to proceed.
+        </p>
+      </section>
+
+      <section class="section">
+        <div class="artifact">
+          <h2 id="concrete-artifact-a-pilot-scorecard">Concrete artifact: a pilot scorecard</h2>
+          <p class="body">
+            A useful scorecard should force one final decision, not just collect
+            observations.
+          </p>
+          <div class="artifact-flow">
+            <article class="artifact-step">
+              <h3>Expand</h3>
+              <p>
+                Scenario coverage, control efficacy, and proof completeness all
+                met the widening threshold for the next scope.
+              </p>
+            </article>
+            <article class="artifact-step">
+              <h3>Hold narrow</h3>
+              <p>
+                The tool is useful, but one or more benchmark dimensions are not
+                strong enough for broader rollout yet.
+              </p>
+            </article>
+            <article class="artifact-step">
+              <h3>Fail</h3>
+              <p>
+                The pilot left too many gaps in runtime control, proof, or
+                operational fit to justify expansion.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="practical-next-step">Practical next step</h2>
+        <p>
+          For the next pilot, write the exit memo before the work starts.
+        </p>
+        <ul class="list-plain">
+          <li>Define the three possible outcomes: expand, hold narrow, fail.</li>
+          <li>State which scenario, control, and proof conditions correspond to each outcome.</li>
+          <li>Make security and platform sign off on the criteria before the first run.</li>
+        </ul>
+        <p>
+          If the team cannot do that, it is not running a real evaluation yet.
+          It is still gathering impressions.
+        </p>
+      </section>
+
+      <footer class="section article-footer" aria-label="Post footer">
+        <div class="series-nav">
+          <a class="nav-link" href="/blog/control-benchmarks/proof-completeness-for-ai-agent-changes/">Previous post</a>
+          <a class="nav-link" href="/blog/control-benchmarks/">Back to series</a>
+        </div>
+        <p class="footer-note repo-note">
+          We are working on that discovery problem in <a href="https://github.com/Clyra-AI/wrkr">Wrkr</a> if you want to look.
+        </p>
+        <p class="footer-note">
+          Practical question: if your current pilot ended tomorrow, would the
+          organization have a decision framework or just a set of impressions?
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>
