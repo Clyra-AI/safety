@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>How to Build an AI Operating Model Without Betting the Company on One Stack | CAISI Blog</title>
+    <meta
+      name="description"
+      content="How leaders can make AI operating decisions portable even while models, vendors, and wrappers are still changing."
+    />
+    <!-- SEO_META_START -->
+    <link rel="canonical" href="https://caisi.dev/blog/governed-adoption/build-an-ai-operating-model-without-betting-on-one-stack/" />
+    <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+    <meta property="og:site_name" content="CAISI" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="How to Build an AI Operating Model Without Betting the Company on One Stack | CAISI Blog" />
+    <meta property="og:description" content="How leaders can make AI operating decisions portable even while models, vendors, and wrappers are still changing." />
+    <meta property="og:url" content="https://caisi.dev/blog/governed-adoption/build-an-ai-operating-model-without-betting-on-one-stack/" />
+    <meta property="og:image" content="https://caisi.dev/assets/caisi-social.png" />
+    <meta property="og:image:alt" content="How to Build an AI Operating Model Without Betting the Company on One Stack | CAISI Blog" />
+    <meta property="og:image:width" content="1600" />
+    <meta property="og:image:height" content="900" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="How to Build an AI Operating Model Without Betting the Company on One Stack | CAISI Blog" />
+    <meta name="twitter:description" content="How leaders can make AI operating decisions portable even while models, vendors, and wrappers are still changing." />
+    <meta name="twitter:image" content="https://caisi.dev/assets/caisi-social.png" />
+    <meta name="author" content="David Ahmann" />
+    <link rel="author" href="https://caisi.dev/authors/david-ahmann/" />
+    <meta property="article:published_time" content="2026-03-18" />
+    <meta property="article:modified_time" content="2026-03-18" />
+    <!-- SEO_META_END -->
+
+    <link rel="stylesheet" href="/assets/site.css" />
+    <!-- SEO_SCHEMA_START -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://caisi.dev/blog/governed-adoption/build-an-ai-operating-model-without-betting-on-one-stack/#webpage",
+          "url": "https://caisi.dev/blog/governed-adoption/build-an-ai-operating-model-without-betting-on-one-stack/",
+          "name": "How to Build an AI Operating Model Without Betting the Company on One Stack | CAISI Blog",
+          "description": "How leaders can make AI operating decisions portable even while models, vendors, and wrappers are still changing.",
+          "inLanguage": "en",
+          "isPartOf": {
+            "@id": "https://caisi.dev#website"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": "https://caisi.dev/blog/governed-adoption/build-an-ai-operating-model-without-betting-on-one-stack/#breadcrumb",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://caisi.dev"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Blog",
+              "item": "https://caisi.dev/blog/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Executive Adoption Series",
+              "item": "https://caisi.dev/blog/governed-adoption/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 4,
+              "name": "How to Build an AI Operating Model Without Betting the Company on One Stack"
+            }
+          ]
+        },
+        {
+          "@type": "BlogPosting",
+          "headline": "How to Build an AI Operating Model Without Betting the Company on One Stack",
+          "description": "How leaders can make AI operating decisions portable even while models, vendors, and wrappers are still changing.",
+          "mainEntityOfPage": "https://caisi.dev/blog/governed-adoption/build-an-ai-operating-model-without-betting-on-one-stack/",
+          "url": "https://caisi.dev/blog/governed-adoption/build-an-ai-operating-model-without-betting-on-one-stack/",
+          "image": "https://caisi.dev/assets/caisi-social.png",
+          "datePublished": "2026-03-18",
+          "dateModified": "2026-03-18",
+          "inLanguage": "en",
+          "author": {
+            "@type": "Person",
+            "name": "David Ahmann",
+            "url": "https://caisi.dev/authors/david-ahmann/",
+            "image": "https://caisi.dev/assets/david-ahmann-headshot.png",
+            "sameAs": [
+              "https://www.linkedin.com/in/dahmann/"
+            ],
+            "jobTitle": "Head of Cloud & AI Platforms",
+            "worksFor": {
+              "@type": "Organization",
+              "name": "CDW"
+            }
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "Clyra AI Safety Initiative (CAISI)",
+            "url": "https://caisi.dev",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://caisi.dev/assets/caisi-logo.png"
+            },
+            "sameAs": [
+              "https://github.com/Clyra-AI/safety"
+            ]
+          }
+        }
+      ]
+    }
+    </script>
+    <!-- SEO_SCHEMA_END -->
+
+  </head>
+  <body>
+    <main class="site" aria-label="CAISI blog post">
+      <header class="site-header" aria-label="Site header">
+        <div class="brand-row">
+          <div class="brand-mark">
+            <a class="brand-link" href="/">CAISI</a>
+            <p class="brand-note">
+              Independent research and operating notes on AI agent governance.
+            </p>
+          </div>
+        </div>
+        <nav class="global-nav" aria-label="Primary">
+          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" href="/research/">Research</a>
+          <a class="nav-link current" href="/blog/">Blog</a>
+          <a class="nav-link" href="/#about-heading">About</a>
+          <a class="nav-link" href="/#contact-heading">Contact</a>
+        </nav>
+      </header>
+
+      <section class="section hero">
+        <p class="breadcrumbs">
+          <a href="/">Home</a>
+          <span class="divider">/</span>
+          <a href="/blog/">Blog</a>
+          <span class="divider">/</span>
+          <a href="/blog/governed-adoption/">Executive Adoption Series</a>
+          <span class="divider">/</span>
+          <span>How to Build an AI Operating Model Without Betting the Company on One Stack</span>
+        </p>
+        <p class="eyebrow">Governed Adoption / Post 3 of 5 / CIO</p>
+        <div class="post-author">
+          <img class="author-avatar" src="/assets/david-ahmann-headshot.png" alt="David Ahmann" />
+          <p class="author-byline">
+            By <a href="https://www.linkedin.com/in/dahmann/">David Ahmann (LinkedIn)</a>
+          </p>
+        </div>
+        <h1>How to Build an AI Operating Model Without Betting the Company on One Stack</h1>
+        <p class="lead">
+          Many enterprise AI strategy meetings still collapse into a premature
+          stack debate. Which model family? Which orchestration layer? Which
+          vendor partnership? Which assistant should become the standard? Those
+          are not trivial decisions, but they are often being asked too early.
+          The better question is what parts of the operating model need to
+          remain stable even while the AI stack is still moving under our feet.
+        </p>
+      </section>
+
+      <section class="section page-nav" aria-labelledby="page-nav-heading">
+        <h2 id="page-nav-heading">In this piece</h2>
+        <div class="page-nav-list">
+          <a href="#the-pitfall">The pitfall</a>
+          <a href="#what-should-be-portable">What should be portable</a>
+          <a href="#what-should-not-be-frozen-too-early">What should not be frozen too early</a>
+          <a href="#why-security-cares">Why security cares</a>
+          <a href="#why-platform-cares">Why platform cares</a>
+          <a href="#a-staged-way-forward">A staged way forward</a>
+        </div>
+        <div class="link-row">
+          <a href="/blog/governed-adoption/">Series home</a>
+          <span class="divider">|</span>
+          <a href="/blog/">All blog collections</a>
+        </div>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="the-pitfall">The pitfall</h2>
+        <p>
+          Organizations often try to buy certainty by standardizing the vendor
+          stack before they have standardized the control stack. That feels
+          decisive, but it puts the wrong thing at the center. Vendors, models,
+          and wrappers will continue to move. If governance, approvals, and
+          records are glued to one of those choices, every later technology
+          change becomes a governance reset.
+        </p>
+        <p>
+          This is how teams create unnecessary lock-in. The contract they really
+          needed was around identity, policies, execution boundaries, evidence,
+          and validation. Instead they standardized the surface most likely to
+          change first.
+        </p>
+      </section>
+
+      <section class="section">
+        <div class="quote-card">
+          <h2 id="what-should-be-portable">What should be portable</h2>
+          <p>
+            The portable layer is the operating layer. Identities should remain
+            recognizable even if the AI vendor changes. Policy rules should stay
+            intelligible even if the invocation pattern changes. Approval states,
+            exception routes, and review evidence should survive a model swap.
+            Evaluation should still answer the same core questions regardless of
+            who is providing the model behind the interface.
+          </p>
+          <p>
+            The moment leaders separate these control objects from the vendor
+            stack, the strategy gets calmer. Now the question is not "which stack
+            do we bet the company on?" It is "what parts of our control plane
+            must stay intact while we learn?"
+          </p>
+        </div>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="what-should-not-be-frozen-too-early">What should not be frozen too early</h2>
+        <p>
+          Teams should be careful about locking in a single model provider, a
+          single orchestration layer, or a single prompt or workflow abstraction
+          before they understand how the work will actually settle. Different
+          use cases will mature at different speeds. Some will stay assistive.
+          Others will become approval-bearing or write-capable. Some will need
+          hidden evaluation. Others will be bounded by read-only use. The stack
+          that looks perfect for one path may be awkward for another.
+        </p>
+        <p>
+          None of this argues for endless optionality. It argues for staged
+          commitment. Freeze the boundary conditions early. Freeze the permanent
+          stack choices later, when the work patterns are clearer and the
+          evidence base is stronger.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="why-security-cares">Why security cares</h2>
+        <p>
+          Security teams should want portability because it reduces the cost of
+          staying consistent. When policies, approvals, and evidence are tied to
+          stable operating concepts rather than one vendor's language, security
+          can review change more rationally. The team evaluates whether the
+          control still works, not whether the marketing terms changed.
+        </p>
+        <p>
+          Portability also makes exit possible. That matters more than many AI
+          strategies admit. A control posture that only works while one vendor
+          stays acceptable is not a control posture. It is dependency risk with
+          documentation.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="why-platform-cares">Why platform cares</h2>
+        <p>
+          Platform teams benefit because portable operating layers reduce rewrite
+          pressure. If the interfaces around identity, approvals, validation, and
+          evidence are stable, engineering can evolve the underlying stack
+          without restarting the organizational argument every quarter.
+        </p>
+        <p>
+          More importantly, portability preserves leverage. It keeps the
+          organization from surrendering its operating model to whatever the
+          current leader in the market happens to expose today.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="a-staged-way-forward">A staged way forward</h2>
+        <ul class="list-plain">
+          <li>Define the non-negotiable control objects first: identity, policy verdicts, approval states, validation, and evidence.</li>
+          <li>Map current AI use cases into a few operating classes instead of one universal platform story.</li>
+          <li>Allow controlled vendor variation while the work patterns are still being discovered.</li>
+          <li>Make every new stack choice answer the same review and evidence questions as the last one.</li>
+          <li>Freeze long-term stack commitments only after the operating layer has proven durable across more than one tool or model path.</li>
+        </ul>
+        <p>
+          The right goal is not maximum optionality. It is a stable operating
+          model with enough technical flexibility that today's decision does not
+          become tomorrow's trap.
+        </p>
+      </section>
+
+      <footer class="section article-footer" aria-label="Post footer">
+        <div class="series-nav">
+          <a class="nav-link" href="/blog/governed-adoption/">Back to series</a>
+          <a class="nav-link" href="/blog/governed-adoption/right-response-to-shadow-ai-is-a-governed-path-not-a-ban/">Previous post</a>
+          <a class="nav-link" href="/blog/governed-adoption/what-security-leaders-should-ask-before-approving-ai-in-delivery-workflows/">Next post</a>
+        </div>
+        <p class="footer-note repo-note">
+          We are working on that control layer in <a href="https://github.com/Clyra-AI/gait">Gait</a> if you want to look.
+        </p>
+        <p class="footer-note">
+          Practical question: which part of your current AI strategy is really a
+          control decision, and which part is just a vendor decision wearing a
+          strategy label?
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>

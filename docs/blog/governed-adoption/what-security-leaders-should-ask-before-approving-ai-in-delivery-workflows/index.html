@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>What Security Leaders Should Ask Before Approving AI in Delivery Workflows | CAISI Blog</title>
+    <meta
+      name="description"
+      content="A practical approval frame for security leaders evaluating AI tools that can change code, CI, approvals, or delivery behavior."
+    />
+    <!-- SEO_META_START -->
+    <link rel="canonical" href="https://caisi.dev/blog/governed-adoption/what-security-leaders-should-ask-before-approving-ai-in-delivery-workflows/" />
+    <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+    <meta property="og:site_name" content="CAISI" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="What Security Leaders Should Ask Before Approving AI in Delivery Workflows | CAISI Blog" />
+    <meta property="og:description" content="A practical approval frame for security leaders evaluating AI tools that can change code, CI, approvals, or delivery behavior." />
+    <meta property="og:url" content="https://caisi.dev/blog/governed-adoption/what-security-leaders-should-ask-before-approving-ai-in-delivery-workflows/" />
+    <meta property="og:image" content="https://caisi.dev/assets/caisi-social.png" />
+    <meta property="og:image:alt" content="What Security Leaders Should Ask Before Approving AI in Delivery Workflows | CAISI Blog" />
+    <meta property="og:image:width" content="1600" />
+    <meta property="og:image:height" content="900" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="What Security Leaders Should Ask Before Approving AI in Delivery Workflows | CAISI Blog" />
+    <meta name="twitter:description" content="A practical approval frame for security leaders evaluating AI tools that can change code, CI, approvals, or delivery behavior." />
+    <meta name="twitter:image" content="https://caisi.dev/assets/caisi-social.png" />
+    <meta name="author" content="David Ahmann" />
+    <link rel="author" href="https://caisi.dev/authors/david-ahmann/" />
+    <meta property="article:published_time" content="2026-03-18" />
+    <meta property="article:modified_time" content="2026-03-18" />
+    <!-- SEO_META_END -->
+
+    <link rel="stylesheet" href="/assets/site.css" />
+    <!-- SEO_SCHEMA_START -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://caisi.dev/blog/governed-adoption/what-security-leaders-should-ask-before-approving-ai-in-delivery-workflows/#webpage",
+          "url": "https://caisi.dev/blog/governed-adoption/what-security-leaders-should-ask-before-approving-ai-in-delivery-workflows/",
+          "name": "What Security Leaders Should Ask Before Approving AI in Delivery Workflows | CAISI Blog",
+          "description": "A practical approval frame for security leaders evaluating AI tools that can change code, CI, approvals, or delivery behavior.",
+          "inLanguage": "en",
+          "isPartOf": {
+            "@id": "https://caisi.dev#website"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": "https://caisi.dev/blog/governed-adoption/what-security-leaders-should-ask-before-approving-ai-in-delivery-workflows/#breadcrumb",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://caisi.dev"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Blog",
+              "item": "https://caisi.dev/blog/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Executive Adoption Series",
+              "item": "https://caisi.dev/blog/governed-adoption/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 4,
+              "name": "What Security Leaders Should Ask Before Approving AI in Delivery Workflows"
+            }
+          ]
+        },
+        {
+          "@type": "BlogPosting",
+          "headline": "What Security Leaders Should Ask Before Approving AI in Delivery Workflows",
+          "description": "A practical approval frame for security leaders evaluating AI tools that can change code, CI, approvals, or delivery behavior.",
+          "mainEntityOfPage": "https://caisi.dev/blog/governed-adoption/what-security-leaders-should-ask-before-approving-ai-in-delivery-workflows/",
+          "url": "https://caisi.dev/blog/governed-adoption/what-security-leaders-should-ask-before-approving-ai-in-delivery-workflows/",
+          "image": "https://caisi.dev/assets/caisi-social.png",
+          "datePublished": "2026-03-18",
+          "dateModified": "2026-03-18",
+          "inLanguage": "en",
+          "author": {
+            "@type": "Person",
+            "name": "David Ahmann",
+            "url": "https://caisi.dev/authors/david-ahmann/",
+            "image": "https://caisi.dev/assets/david-ahmann-headshot.png",
+            "sameAs": [
+              "https://www.linkedin.com/in/dahmann/"
+            ],
+            "jobTitle": "Head of Cloud & AI Platforms",
+            "worksFor": {
+              "@type": "Organization",
+              "name": "CDW"
+            }
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "Clyra AI Safety Initiative (CAISI)",
+            "url": "https://caisi.dev",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://caisi.dev/assets/caisi-logo.png"
+            },
+            "sameAs": [
+              "https://github.com/Clyra-AI/safety"
+            ]
+          }
+        }
+      ]
+    }
+    </script>
+    <!-- SEO_SCHEMA_END -->
+
+  </head>
+  <body>
+    <main class="site" aria-label="CAISI blog post">
+      <header class="site-header" aria-label="Site header">
+        <div class="brand-row">
+          <div class="brand-mark">
+            <a class="brand-link" href="/">CAISI</a>
+            <p class="brand-note">
+              Independent research and operating notes on AI agent governance.
+            </p>
+          </div>
+        </div>
+        <nav class="global-nav" aria-label="Primary">
+          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" href="/research/">Research</a>
+          <a class="nav-link current" href="/blog/">Blog</a>
+          <a class="nav-link" href="/#about-heading">About</a>
+          <a class="nav-link" href="/#contact-heading">Contact</a>
+        </nav>
+      </header>
+
+      <section class="section hero">
+        <p class="breadcrumbs">
+          <a href="/">Home</a>
+          <span class="divider">/</span>
+          <a href="/blog/">Blog</a>
+          <span class="divider">/</span>
+          <a href="/blog/governed-adoption/">Executive Adoption Series</a>
+          <span class="divider">/</span>
+          <span>What Security Leaders Should Ask Before Approving AI in Delivery Workflows</span>
+        </p>
+        <p class="eyebrow">Governed Adoption / Post 4 of 5 / AppSec</p>
+        <div class="post-author">
+          <img class="author-avatar" src="/assets/david-ahmann-headshot.png" alt="David Ahmann" />
+          <p class="author-byline">
+            By <a href="https://www.linkedin.com/in/dahmann/">David Ahmann (LinkedIn)</a>
+          </p>
+        </div>
+        <h1>What Security Leaders Should Ask Before Approving AI in Delivery Workflows</h1>
+        <p class="lead">
+          Security teams are being asked to review AI coding tools, approval
+          agents, workflow helpers, and internal assistant patterns at a speed
+          most enterprise review processes were never designed for. The worst
+          possible response is to reduce that review to brand familiarity,
+          model reputation, or whether the demo looked polished. Once an AI
+          system can change code, approvals, or delivery behavior, the useful
+          review question is much narrower: what exactly can it do, under what
+          boundary, with what proof left behind?
+        </p>
+      </section>
+
+      <section class="section page-nav" aria-labelledby="page-nav-heading">
+        <h2 id="page-nav-heading">In this piece</h2>
+        <div class="page-nav-list">
+          <a href="#the-approval-problem">The approval problem</a>
+          <a href="#the-five-questions-that-matter">The five questions that matter</a>
+          <a href="#what-an-approval-packet-should-contain">What an approval packet should contain</a>
+          <a href="#why-platform-should-want-the-same-answers">Why platform should want the same answers</a>
+          <a href="#how-to-improve-the-review-loop">How to improve the review loop</a>
+        </div>
+        <div class="link-row">
+          <a href="/blog/governed-adoption/">Series home</a>
+          <span class="divider">|</span>
+          <a href="/blog/">All blog collections</a>
+        </div>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="the-approval-problem">The approval problem</h2>
+        <p>
+          The typical AI approval request arrives with too much of the wrong
+          information and too little of the right kind. Security gets vendor
+          positioning, product screenshots, and broad claims about guardrails.
+          What the team actually needs is much more specific: action classes,
+          execution boundaries, approval mediation, environment assumptions, and
+          evidence outputs. Without those, the review becomes a debate about
+          comfort rather than a decision about control.
+        </p>
+        <p>
+          That is why so many reviews drag. The team is not refusing to move. It
+          is trying to infer the runtime consequences from a surface-level packet.
+          Any approval model that depends on inference instead of explicit design
+          inputs will be slow and inconsistent.
+        </p>
+      </section>
+
+      <section class="section">
+        <div class="quote-card">
+          <h2 id="the-five-questions-that-matter">The five questions that matter</h2>
+          <p>
+            First: what can this system actually do? Reading, drafting, writing,
+            approving, restarting, merging, calling external tools, and changing
+            CI behavior are not the same risk category.
+          </p>
+          <p>
+            Second: what can it access, inherit, or invoke through surrounding
+            systems? In many enterprise workflows, the dangerous part is not the
+            model itself but the privileges attached to the environment around
+            it.
+          </p>
+          <p>
+            Third: where is the boundary before execution? If policy, approval,
+            or human review only exist after the tool call, security is being
+            asked to bless an advisory system as though it were a preventive
+            one.
+          </p>
+          <p>
+            Fourth: what evidence will remain after the action? Approval records,
+            policy verdicts, validation outputs, and change evidence should be
+            explicit before rollout, not improvised during the first incident.
+          </p>
+          <p>
+            Fifth: how is this path shut down, narrowed, or rolled back if the
+            assumptions prove wrong? A serious approval posture needs revocation,
+            not just onboarding.
+          </p>
+        </div>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="what-an-approval-packet-should-contain">What an approval packet should contain</h2>
+        <p>
+          A useful approval packet is small and concrete. It should describe the
+          action classes in scope, the execution environment, the policy verdict
+          model, the validation path, the review path, the evidence outputs, and
+          the rollback or disable path. If those elements are not present, the
+          tool is not ready for a meaningful approval discussion.
+        </p>
+        <p>
+          This is not a paperwork preference. It is what lets a security leader
+          explain later why the approval made sense, what assumptions it rested
+          on, and what would cause the decision to change.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="why-platform-should-want-the-same-answers">Why platform should want the same answers</h2>
+        <p>
+          Platform teams sometimes experience these questions as drag. In reality
+          they are the design inputs that make later scale easier. A tool that
+          cannot explain what it can do, how it is bounded, and what evidence it
+          leaves behind is not being slowed down by review. It is arriving
+          unprepared for the environment it wants to enter.
+        </p>
+        <p>
+          The best approval conversations happen when platform and security are
+          already using the same language. That keeps the review focused on a few
+          meaningful decision points instead of a long improvisation over
+          ambiguous control claims.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="how-to-improve-the-review-loop">How to improve the review loop</h2>
+        <ul class="list-plain">
+          <li>Turn the five questions above into a standard intake form for any AI tool that touches delivery workflows.</li>
+          <li>Require action class and evidence outputs before the first security review meeting.</li>
+          <li>Classify controls as preventive, detective, or advisory so the approval language stays honest.</li>
+          <li>Set explicit re-review triggers: expanded permissions, new environments, new write paths, or reduced human review.</li>
+          <li>Track how often approval packets arrive incomplete. That metric will tell you where the operating model is still weak.</li>
+        </ul>
+        <p>
+          A strong approval posture is not built from stronger opinions. It is
+          built from better questions, asked early enough that the path can still
+          be designed well.
+        </p>
+      </section>
+
+      <footer class="section article-footer" aria-label="Post footer">
+        <div class="series-nav">
+          <a class="nav-link" href="/blog/governed-adoption/">Back to series</a>
+          <a class="nav-link" href="/blog/governed-adoption/build-an-ai-operating-model-without-betting-on-one-stack/">Previous post</a>
+          <a class="nav-link" href="/blog/governed-adoption/sanctioned-ai-pathways-matter-more-than-blanket-restrictions/">Next post</a>
+        </div>
+        <p class="footer-note repo-note">
+          We are working on that control layer in <a href="https://github.com/Clyra-AI/gait">Gait</a> if you want to look.
+        </p>
+        <p class="footer-note">
+          Practical question: which one of your current AI approvals would be
+          hardest to defend six months from now because the boundary and evidence
+          assumptions were never written down clearly?
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>

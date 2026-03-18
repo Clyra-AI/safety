@@ -37,6 +37,9 @@
     <loc>https://caisi.dev/blog/control-benchmarks/</loc>
   </url>
   <url>
+    <loc>https://caisi.dev/blog/governed-adoption/</loc>
+  </url>
+  <url>
     <loc>https://caisi.dev/blog/ai-agent-governance/</loc>
   </url>
   <url>
@@ -137,5 +140,20 @@
   </url>
   <url>
     <loc>https://caisi.dev/blog/control-benchmarks/pilot-evaluation-framework-for-agentic-tools/</loc>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/governed-adoption/what-platform-teams-must-standardize-before-ai-can-scale/</loc>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/governed-adoption/right-response-to-shadow-ai-is-a-governed-path-not-a-ban/</loc>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/governed-adoption/build-an-ai-operating-model-without-betting-on-one-stack/</loc>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/governed-adoption/what-security-leaders-should-ask-before-approving-ai-in-delivery-workflows/</loc>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/governed-adoption/sanctioned-ai-pathways-matter-more-than-blanket-restrictions/</loc>
   </url>
 </urlset>

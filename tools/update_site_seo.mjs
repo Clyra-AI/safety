@@ -30,6 +30,7 @@ const COLLECTION_ROUTES = new Set([
   "/blog/wrkr/",
   "/blog/gait/",
   "/blog/control-benchmarks/",
+  "/blog/governed-adoption/",
   "/research/",
 ]);
 
@@ -65,7 +66,14 @@ function inferType(route) {
 }
 
 function gitDate(file, mode) {
+  const today = new Date().toISOString().slice(0, 10);
   try {
+    const status = execFileSync("git", ["status", "--porcelain", "--", file], {
+      cwd: ROOT,
+      encoding: "utf8",
+    }).trim();
+    if (mode === "modified" && status) return today;
+
     if (mode === "created") {
       const out = execFileSync(
         "git",
@@ -85,7 +93,7 @@ function gitDate(file, mode) {
   } catch {
     // fall through to today
   }
-  return new Date().toISOString().slice(0, 10);
+  return today;
 }
 
 function match(text, re, label, file) {
