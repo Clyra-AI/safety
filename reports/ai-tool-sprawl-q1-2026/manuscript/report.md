@@ -6,7 +6,7 @@
 - Run ID: `sprawl-ai1000-clean-pci-20260305T130344Z`
 - Campaign design: `baseline-only`, public-repository cohort, clone-sourced scan artifacts
 - Wrkr commit pin: `77f547a75494b735da5cba500e3c82f3731e24cf`
-- Published by Clyra AI Safety Initiative (CAISI). Contact: [research@caisi.dev](mailto:research@caisi.dev). Full artifacts: [github.com/Clyra-AI/safety](https://github.com/Clyra-AI/safety).
+- Published by Centre for AI Security and Integrity (CAISI). Contact: [research@caisi.dev](mailto:research@caisi.dev). Full artifacts: [github.com/Clyra-AI/safety](https://github.com/Clyra-AI/safety).
 
 ## Authorship and Affiliation
 
@@ -16,7 +16,7 @@ Talgat Ryshmanov - Principal DevSecOps Consultant at Adaptavist ([LinkedIn](http
 
 ## About CAISI
 
-The Clyra AI Safety Initiative (CAISI) publishes independent, reproducible research on AI agent governance. Every finding is backed by machine-generated artifacts, deterministic queries, and open methodology. CAISI exists because the gap between AI agent deployment and AI agent governance is growing faster than any single vendor, regulator, or standards body can close, and the organizations facing the consequences need empirical data, not opinion.
+The Centre for AI Security and Integrity (CAISI) publishes independent, reproducible research on AI agent governance. Every finding is backed by machine-generated artifacts, deterministic queries, and open methodology. CAISI exists because the gap between AI agent deployment and AI agent governance is growing faster than any single vendor, regulator, or standards body can close, and the organizations facing the consequences need empirical data, not opinion.
 
 All research is published at [caisi.dev](https://caisi.dev) with full artifacts at [github.com/Clyra-AI/safety](https://github.com/Clyra-AI/safety). The tools used in CAISI research are open source.
 

@@ -49,8 +49,8 @@ Source artifact:
 
 ## Links
 
-- [Full report PDF](https://clyra-ai.github.io/safety/assets/reports/openclaw-2026/report.pdf)
-- [OpenClaw report page](https://clyra-ai.github.io/safety/openclaw-2026/)
+- [Full report PDF](https://caisi.dev/assets/reports/openclaw-2026/report.pdf)
+- [OpenClaw report page](https://caisi.dev/openclaw-2026/)
 - [Report package](https://github.com/Clyra-AI/safety/tree/main/reports/openclaw-2026)
 - [Canonical promoted artifacts](https://github.com/Clyra-AI/safety/tree/main/reports/openclaw-2026/data/runs/openclaw-live-24h-20260228T143341Z)
 - [research@caisi.dev](mailto:research@caisi.dev)

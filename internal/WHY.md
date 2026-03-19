@@ -2,7 +2,7 @@
 
 ## Why This Project Exists
 
-Clyra AI Safety Initiative is building public, reproducible research that shows measurable AI governance failures and practical control patterns using working open-source tooling.
+Centre for AI Security and Integrity is building public, reproducible research that shows measurable AI governance failures and practical control patterns using working open-source tooling.
 
 The objective is twofold:
 

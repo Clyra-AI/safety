@@ -1,6 +1,6 @@
 # Contributing
 
-Thanks for contributing to the Clyra AI Safety Initiative research repository.
+Thanks for contributing to the Centre for AI Security and Integrity research repository.
 
 ## What you can contribute
 

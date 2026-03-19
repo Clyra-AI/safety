@@ -7,7 +7,7 @@
 - Subset basis: completed targets from the frozen 1,000-target publication cohort (`890/1000`)
 - Campaign design: `deterministic baseline`, public-repository cohort, one repo per owner, clone-sourced scan artifacts
 - Wrkr commit pin: `fb819fb9ff235f1160c21103779904f871918cf3` (`v1.0.8`)
-- Prepared by Clyra AI Safety Initiative (CAISI). Contact: [research@caisi.dev](mailto:research@caisi.dev). Full artifacts: [github.com/Clyra-AI/safety](https://github.com/Clyra-AI/safety).
+- Prepared by Centre for AI Security and Integrity (CAISI). Contact: [research@caisi.dev](mailto:research@caisi.dev). Full artifacts: [github.com/Clyra-AI/safety](https://github.com/Clyra-AI/safety).
 
 ## Authorship and Affiliation
 
@@ -16,7 +16,7 @@ Talgat Ryshmanov - Principal DevSecOps Consultant at Adaptavist ([LinkedIn](http
 
 ## About CAISI
 
-The Clyra AI Safety Initiative (CAISI) publishes independent, reproducible research on AI governance. Every headline number in this manuscript maps to machine-generated artifacts and deterministic queries in the repository.
+The Centre for AI Security and Integrity (CAISI) publishes independent, reproducible research on AI governance. Every headline number in this manuscript maps to machine-generated artifacts and deterministic queries in the repository.
 
 This report is narrower than a market census. It measures what a frozen public GitHub cohort exposes about AI tools, agent declarations, approval posture, evidence readiness, and control-aligned artifacts. It does not claim visibility into private repositories, production credentials, or internal runtime paths.
 

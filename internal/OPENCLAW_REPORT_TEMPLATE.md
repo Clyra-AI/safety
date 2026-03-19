@@ -1,4 +1,4 @@
-# Clyra AI Safety Initiative
+# Centre for AI Security and Integrity
 # Report Template: "1.5 Million Agents, Zero Governance" (OpenClaw Case Study)
 
 Document status: Draft template  
@@ -60,7 +60,7 @@ Tertiary message: Under tool-boundary enforcement, the same action stream produc
 - Do not include Axym content.
 - Do not include Agnt content.
 - Do not include speculative "what-if" modeling.
-- Keep Section 3 brand-neutral (data only, no Clyra product messaging).
+- Keep Section 3 brand-neutral (data only, no CAISI product messaging).
 - Closing must be one line linking Wrkr and Gait OSS repos.
 
 ## 3) Required Evidence Inputs

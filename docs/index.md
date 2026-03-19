@@ -1,4 +1,4 @@
-# Clyra AI Safety Initiative
+# Centre for AI Security and Integrity
 
 Research index for reproducible AI governance reports.
 

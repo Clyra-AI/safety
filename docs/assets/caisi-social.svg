@@ -1,11 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
-  <title id="title">CAISI social card</title>
+  <title id="title">Centre for AI Security and Integrity social card</title>
   <desc id="desc">Independent research and operating notes on AI agent governance</desc>
   <rect width="1600" height="900" fill="#f8fafc" />
   <rect x="72" y="72" width="1456" height="756" rx="28" fill="#ffffff" stroke="#e2e8f0" stroke-width="3" />
   <rect x="72" y="72" width="1456" height="18" fill="#059669" />
-  <text x="120" y="200" fill="#0f172a" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="70" font-weight="700">CAISI</text>
-  <text x="120" y="300" fill="#0f172a" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="76" font-weight="600">
+  <text x="120" y="170" fill="#047857" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="34" font-weight="600">Centre for AI Security and Integrity</text>
+  <text x="120" y="270" fill="#0f172a" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="92" font-weight="700">CAISI</text>
+  <text x="120" y="390" fill="#0f172a" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="76" font-weight="600">
     <tspan x="120" dy="0">Independent research and</tspan>
     <tspan x="120" dy="92">operating notes on AI</tspan>
     <tspan x="120" dy="92">agent governance</tspan>

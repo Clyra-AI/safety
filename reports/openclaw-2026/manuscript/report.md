@@ -6,7 +6,7 @@
 - Measurement window (UTC): `2026-02-28T14:33:41Z` to `2026-03-01T14:33:41Z`
 - OpenClaw source: [github.com/openclaw/openclaw](https://github.com/openclaw/openclaw)
 - OpenClaw commit pin: `452a8c9db9f92de44b31bc47d06641e604519a54`
-- Published by Clyra AI Safety Initiative (CAISI). Contact: `research@caisi.dev`. Full artifacts: [github.com/Clyra-AI/safety](https://github.com/Clyra-AI/safety).
+- Published by Centre for AI Security and Integrity (CAISI). Contact: `research@caisi.dev`. Full artifacts: [github.com/Clyra-AI/safety](https://github.com/Clyra-AI/safety).
 
 ## Authorship and Affiliation
 
@@ -16,7 +16,7 @@ Talgat Ryshmanov - Principal DevSecOps Consultant at Adaptavist ([LinkedIn](http
 
 ## About CAISI
 
-The Clyra AI Safety Initiative (CAISI) publishes independent, reproducible research on AI agent governance. Every finding is backed by machine-generated artifacts, deterministic queries, and open methodology.
+The Centre for AI Security and Integrity (CAISI) publishes independent, reproducible research on AI agent governance. Every finding is backed by machine-generated artifacts, deterministic queries, and open methodology.
 
 All research is published at [caisi.dev](https://caisi.dev) with full artifacts at [github.com/Clyra-AI/safety](https://github.com/Clyra-AI/safety). The tools used in CAISI research are open source.
 

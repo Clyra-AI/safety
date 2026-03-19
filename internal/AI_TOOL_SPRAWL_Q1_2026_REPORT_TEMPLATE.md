@@ -1,4 +1,4 @@
-# Clyra AI Safety Initiative
+# Centre for AI Security and Integrity
 # Report Template: "The State of AI Tool Sprawl, Q1 2026"
 
 Document status: Draft template  
