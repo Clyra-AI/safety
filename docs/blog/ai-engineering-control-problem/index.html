@@ -156,13 +156,13 @@
         </div>
         <h1>AI Engineering Is a Control Problem, Not a Prompt Problem</h1>
         <p class="lead">
-          A familiar scene now happens in leadership reviews: engineering shows
-          a fast agent demo, security asks what happens when it is wrong, and
-          nobody can answer in operational terms. The room argues about prompts
-          because prompts are visible. The real risk sits elsewhere. Once an
+          A familiar scene now plays out in leadership reviews: the demo looks
+          fast, security asks what happens when the agent is wrong, and the
+          room has no operational answer. The discussion drifts to prompts
+          because prompts are visible. The real question is harder: once an
           agent can touch a repo, call tools, or open a pull request without
-          live supervision, this stops being a prompt quality discussion. It
-          becomes a control quality discussion.
+          live supervision, what changes what it can do? At that point, this is
+          no longer a prompt debate. It is a control debate.
         </p>
       </section>
 
@@ -219,25 +219,25 @@
         <h2 id="the-operational-reality">The operational reality</h2>
         <p>
           A prompt is cheap to improve. A containment event is not. That is why
-          the "better prompting" discussion gets weaker the moment an agent
-          leaves a chat window and enters a workflow with write access,
-          credentials, CI permissions, or deploy rights.
+          the "better prompting" conversation weakens the moment an agent leaves
+          a chat window and enters a workflow with write access, credentials,
+          CI permissions, or deploy rights.
         </p>
         <p>
-          We at CAISI keep seeing the same execution pattern beneath the hype.
-          Teams evaluate agents with demos, choose a model, and write a dense
+          The same execution pattern keeps showing up beneath the hype. Teams
+          evaluate agents with demos, choose a model, and write a dense
           instruction block that sounds responsible. Then they ask the system to
           modify code, run shell commands, or interact with connected tools. At
-          that point the controlling variable is not phrasing quality. It is
-          whether intent has an enforceable boundary before side effects.
+          that point, the controlling variable is not phrasing quality. It is
+          whether intent hits an enforceable boundary before side effects.
         </p>
         <p>
-          The reason this matters now is operational scale. "Copilot for one
-          engineer" is not the end state most organizations are buying toward.
-          The end state is background execution that can take a ticket, plan the
-          work, touch multiple files, run validations, and hand a reviewer a
-          coherent packet. Once work becomes asynchronous and repeatable,
-          governance is part of runtime design, not an afterthought.
+          The reason this matters now is scale. "Copilot for one engineer" is
+          not the end state most organizations are buying toward. The end state
+          is background execution that can take a ticket, plan the work, touch
+          multiple files, run validations, and hand a reviewer a coherent
+          packet. Once work becomes asynchronous and repeatable, governance is
+          part of runtime design, not an afterthought.
         </p>
       </section>
 
@@ -259,8 +259,11 @@
         </p>
         <div class="quote-card">
           <p>
-            Serious teams do not buy novelty. They buy bounded behavior,
-            deterministic validation, and evidence they can defend later.
+            Serious teams do not buy novelty.
+          </p>
+          <p>
+            They buy bounded behavior, deterministic validation, and evidence
+            they can defend later.
           </p>
         </div>
       </section>
@@ -286,10 +289,12 @@
         <p>
           This is also where many teams hit the first tradeoff: control adds
           design work upfront. You need cleaner repo contracts, deterministic
-          validation entrypoints, and explicit ownership of run states. That
-          cost is real, but it is the cheaper cost. The alternative is paying
-          the same control debt later in incident response, exception handling,
-          and stalled adoption.
+          validation entrypoints, and explicit ownership of run states.
+        </p>
+        <p>
+          That cost is real. It is also the cheaper cost. The alternative is
+          paying the same control debt later in incident response, exception
+          handling, and stalled adoption.
         </p>
         <p>
           That is why the future of AI engineering is not "better prompting." It

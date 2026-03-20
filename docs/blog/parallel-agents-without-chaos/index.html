@@ -156,10 +156,12 @@
         </div>
         <h1>Parallel Agents Without Chaos</h1>
         <p class="lead">
-          Parallelism is where agent programs either become a platform capability
-          or a coordination crisis. Running more workers is easy. Running more
-          workers with clear ownership, dependency awareness, and recoverable
-          state is the hard part.
+          Queue volume rises, more agent workers start, and everyone assumes
+          throughput should climb with them. Then the collisions begin:
+          overlapping edits, stale assumptions, retries against invalid state,
+          and review handoffs nobody can merge cleanly. Parallelism is where
+          agent programs either become a platform capability or a coordination
+          crisis.
         </p>
       </section>
 
@@ -200,7 +202,7 @@
         </p>
         <p>
           The practical signal is simple: queue volume rises, but completed and
-          mergeable work does not rise proportionally.
+          mergeable work does not rise with it.
         </p>
       </section>
 
@@ -235,11 +237,14 @@
           what should be cancelled or retried when conditions change.
         </p>
         <p>
-          A dependency DAG is not overkill here. It is the minimum structure
-          required to let autonomous work scale safely. Once the graph exists,
-          concurrency becomes a policy decision instead of a guess. You can
-          block overlapping claims, reuse workspaces across retries, and
-          re-evaluate the run when a parent issue or dependency changes state.
+          A dependency DAG is not overkill here.
+        </p>
+        <p>
+          It is the minimum structure required to let autonomous work scale
+          safely. Once the graph exists, concurrency becomes a policy decision
+          instead of a guess. You can block overlapping claims, reuse
+          workspaces across retries, and re-evaluate the run when a parent
+          issue or dependency changes state.
         </p>
         <p>
           The rule is straightforward: concurrency should be earned by explicit
@@ -322,7 +327,7 @@
       <section class="section article-section">
         <h2 id="practical-next-step">Practical next step</h2>
         <p>
-          Before adding more parallel workers, add a minimal concurrency model.
+          Before adding more parallel workers, add a concurrency model.
         </p>
         <ul class="list-plain">
           <li>Require each run to declare expected path claims.</li>
@@ -332,8 +337,10 @@
         </ul>
         <p>
           Concurrency is a force multiplier only when the orchestrator owns the
-          claims and the conflict rules. Otherwise it is a faster path to
-          branch-level confusion.
+          claims and the conflict rules.
+        </p>
+        <p>
+          Otherwise it is a faster path to branch-level confusion.
         </p>
         <p>
           The next post shifts from scaling work to trusting outcomes. Visible

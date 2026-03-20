@@ -156,11 +156,12 @@
         </div>
         <h1>Why Isolated, Warm Sandboxes Are Non-Negotiable</h1>
         <p class="lead">
-          Shared environments feel efficient right up to the first serious
-          failure. Then nobody can tell whether the bug came from code, cache
-          residue, branch contention, or leftover credentials. Isolated, warm
-          sandboxes solve that by separating mutable state while preserving fast
-          startup through reusable base layers.
+          Shared environments look efficient until the first serious failure
+          lands and nobody can explain whether the problem came from the code,
+          the branch, the cache, or the leftover credential. That is why
+          isolation is not an optimization choice. It is part of the control
+          system. Warm sandboxes matter because they preserve speed without
+          giving up clean state.
         </p>
       </section>
 
@@ -281,8 +282,8 @@
           and one ownership boundary.
         </p>
         <p>
-          In practice, this becomes a policy choice: keep durable artifacts that
-          improve bootstrap speed, discard mutable run state that weakens
+          This becomes a policy choice: keep durable artifacts that improve
+          bootstrap speed, discard mutable run state that weakens
           reproducibility.
         </p>
       </section>

@@ -156,11 +156,12 @@
         </div>
         <h1>The Dark Factory: Managing Work Instead of Supervising Agents</h1>
         <p class="lead">
-          The first scaling wall in agent adoption is not model quality. It is
-          management bandwidth. Once dozens of work items are in flight, teams
-          cannot rely on engineers supervising sessions by hand. The useful end
-          state is a background delivery system that turns bounded work items
-          into reviewable changes with explicit states, gates, and ownership.
+          The failure does not look dramatic at first. More agent runs start,
+          more work items enter the queue, and status gets harder to explain.
+          Then reviewers cannot tell what is blocked, what retried, what died
+          halfway through, or what is ready for decision. That is the real
+          scaling wall. The issue is not model quality. It is whether the
+          organization has a work system.
         </p>
       </section>
 
@@ -170,7 +171,7 @@
           <a href="#the-operational-reality">The operational reality</a>
           <a href="#the-anti-pattern">The anti-pattern</a>
           <a href="#the-better-system-pattern">The better system pattern</a>
-          <a href="#what-changes-for-human-reviewers">What changes for human reviewers</a>
+          <a href="#what-review-should-look-like">What review should look like</a>
           <a href="#why-security-cares">Why security cares</a>
           <a href="#why-platform-and-engineering-care">Why platform and engineering care</a>
           <a href="#concrete-example-from-agent-ready-issue-to-review-handoff">Concrete example: from agent-ready issue to review handoff</a>
@@ -189,15 +190,18 @@
           Most current agent usage still depends on direct supervision. A person
           starts the session, steers the work, reruns failed commands, and
           manually decides when the output is good enough to open a PR. That can
-          work for experiments. It breaks down when you want one team to scale
+          work for experiments. It breaks down when one team tries to scale
           output across dozens of repos, queues, and issue types.
         </p>
         <p>
           The hard part is not agent intelligence. It is work management. Which
           tasks are ready? Which ones depend on other work? Which paths can run
           in parallel? When should the system retry, pause, or route to human
-          review? If nobody owns those questions centrally, "agentic scale"
-          quickly becomes repo chaos.
+          review?
+        </p>
+        <p>
+          If nobody owns those questions centrally, "agentic scale" quickly
+          becomes queue theater. Lots of runs move. Very little is legible.
         </p>
         <p>
           Executives usually feel this as queue uncertainty: status meetings get
@@ -235,11 +239,13 @@
           review.
         </p>
         <p>
-          In a mature setup, the orchestrator is not a convenience layer. It is
-          the control surface. It owns retries, approvals, backoff, conflict
-          detection, and restart recovery. Humans still matter, but they review
-          the work at the right points instead of babysitting every intermediate
-          step.
+          In a mature setup, the orchestrator is not a convenience layer.
+        </p>
+        <p>
+          It is the control surface. It owns retries, approvals, backoff,
+          conflict detection, and restart recovery. Humans still matter, but
+          they review the work at the right points instead of babysitting every
+          intermediate step.
         </p>
         <p>
           The key tradeoff is explicit. You invest more in run-state design
@@ -249,21 +255,24 @@
       </section>
 
       <section class="section article-section">
-        <h2 id="what-changes-for-human-reviewers">What changes for human reviewers</h2>
+        <h2 id="what-review-should-look-like">What review should look like</h2>
         <p>
           The dark factory does not remove humans from software delivery. It
           changes the shape of their work. Reviewers stop acting as traffic
           coordinators and start acting as decision makers at the right control
-          points. Instead of supervising every command, they evaluate a coherent
-          artifact packet: what the run tried to do, what the policy layer
-          allowed, what validations passed, and where residual risk remains.
+          points.
         </p>
         <p>
-          That matters because it preserves engineering judgment where it is most
-          valuable. Humans are still best at exception handling, tradeoffs,
+          Instead of supervising every command, they evaluate a coherent review
+          packet: what the run tried to do, what the policy layer allowed, what
+          validations passed, and where residual risk remains.
+        </p>
+        <p>
+          That matters because it preserves engineering judgment where it is
+          most valuable. Humans are still best at exception handling, tradeoffs,
           ambiguous product decisions, and final accountability. The factory
-          simply removes the low-value mechanical supervision that burns time and
-          hides the real decision moments.
+          removes the low-value mechanical supervision that burns time and hides
+          the real decision moments.
         </p>
         <p>
           It also forces better exception design. A serious dark factory needs a

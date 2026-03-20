@@ -158,21 +158,20 @@
         </div>
         <h1>How to Build an AI Operating Model Without Betting the Company on One Stack</h1>
         <p class="lead">
-          Many enterprise AI strategy meetings still collapse into a premature
-          stack debate. Which model family? Which orchestration layer? Which
-          vendor partnership? Which assistant should become the standard? Those
-          are not trivial decisions, but they are often being asked too early.
-          The better question is what parts of the operating model need to
-          remain stable even while the AI stack is still moving under our feet.
+          The meeting starts as strategy and ends as a vendor argument. Which
+          model family? Which orchestration layer? Which assistant becomes the
+          standard? Those decisions matter, but most organizations are asking
+          them too early. The first thing to stabilize is not the stack. It is
+          the operating model that has to survive while the stack keeps moving.
         </p>
       </section>
 
       <section class="section page-nav" aria-labelledby="page-nav-heading">
         <h2 id="page-nav-heading">In this piece</h2>
         <div class="page-nav-list">
-          <a href="#the-pitfall">The pitfall</a>
-          <a href="#what-should-be-portable">What should be portable</a>
-          <a href="#what-should-not-be-frozen-too-early">What should not be frozen too early</a>
+          <a href="#the-category-error">The category error</a>
+          <a href="#what-has-to-stay-portable">What has to stay portable</a>
+          <a href="#what-should-not-freeze-first">What should not freeze first</a>
           <a href="#why-security-cares">Why security cares</a>
           <a href="#why-platform-cares">Why platform cares</a>
           <a href="#a-staged-way-forward">A staged way forward</a>
@@ -185,26 +184,28 @@
       </section>
 
       <section class="section article-section">
-        <h2 id="the-pitfall">The pitfall</h2>
+        <h2 id="the-category-error">The category error</h2>
         <p>
           Organizations often try to buy certainty by standardizing the vendor
           stack before they have standardized the control stack. That feels
-          decisive, but it puts the wrong thing at the center. Vendors, models,
-          and wrappers will continue to move. If governance, approvals, and
-          records are glued to one of those choices, every later technology
-          change becomes a governance reset.
+          decisive, but it puts the wrong thing at the center.
         </p>
         <p>
-          This is how teams create unnecessary lock-in. The contract they really
-          needed was around identity, policies, execution boundaries, evidence,
-          and validation. Instead they standardized the surface most likely to
-          change first.
+          Vendors, models, and wrappers will continue to move. If governance,
+          approvals, and records are glued to one of those choices, every later
+          technology change becomes a governance reset.
+        </p>
+        <p>
+          That is how teams create unnecessary lock-in. The contract they
+          really needed was around identity, policies, execution boundaries,
+          evidence, and validation. Instead they standardized the surface most
+          likely to change first.
         </p>
       </section>
 
       <section class="section">
         <div class="quote-card">
-          <h2 id="what-should-be-portable">What should be portable</h2>
+          <h2 id="what-has-to-stay-portable">What has to stay portable</h2>
           <p>
             The portable layer is the operating layer. Identities should remain
             recognizable even if the AI vendor changes. Policy rules should stay
@@ -223,7 +224,7 @@
       </section>
 
       <section class="section article-section">
-        <h2 id="what-should-not-be-frozen-too-early">What should not be frozen too early</h2>
+        <h2 id="what-should-not-freeze-first">What should not freeze first</h2>
         <p>
           Teams should be careful about locking in a single model provider, a
           single orchestration layer, or a single prompt or workflow abstraction
@@ -235,9 +236,12 @@
         </p>
         <p>
           None of this argues for endless optionality. It argues for staged
-          commitment. Freeze the boundary conditions early. Freeze the permanent
-          stack choices later, when the work patterns are clearer and the
-          evidence base is stronger.
+          commitment.
+        </p>
+        <p>
+          Freeze the boundary conditions early. Freeze the permanent stack
+          choices later, when the work patterns are clearer and the evidence
+          base is stronger.
         </p>
       </section>
 
@@ -275,6 +279,10 @@
 
       <section class="section article-section">
         <h2 id="a-staged-way-forward">A staged way forward</h2>
+        <p>
+          The practical order is straightforward: stabilize the control plane
+          first, then let the vendor layer compete inside it.
+        </p>
         <ul class="list-plain">
           <li>Define the non-negotiable control objects first: identity, policy verdicts, approval states, validation, and evidence.</li>
           <li>Map current AI use cases into a few operating classes instead of one universal platform story.</li>
