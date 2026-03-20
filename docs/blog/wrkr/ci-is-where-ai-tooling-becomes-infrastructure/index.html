@@ -171,13 +171,13 @@
       <section class="section page-nav" aria-labelledby="page-nav-heading">
         <h2 id="page-nav-heading">In this piece</h2>
         <div class="page-nav-list">
-          <a href="#repo-grounding">Repo grounding</a>
-          <a href="#the-operational-reality">The operational reality</a>
-          <a href="#the-anti-pattern">The anti-pattern</a>
-          <a href="#the-better-system-pattern">The better system pattern</a>
+          <a href="#repo-grounding">Implementation context</a>
+          <a href="#the-operational-reality">Where the pressure shows up</a>
+          <a href="#the-anti-pattern">The failure mode</a>
+          <a href="#the-better-system-pattern">The better pattern</a>
           <a href="#why-security-cares">Why security cares</a>
           <a href="#why-platform-and-engineering-care">Why platform and engineering care</a>
-          <a href="#practical-next-step">Practical next step</a>
+          <a href="#practical-next-step">What to do next</a>
         </div>
         <div class="link-row">
           <a href="/blog/wrkr/">Series home</a>
@@ -188,7 +188,7 @@
 
       <section class="section">
         <div class="quote-card">
-          <h2 id="repo-grounding">Repo grounding</h2>
+          <h2 id="repo-grounding">Implementation context</h2>
           <p>
             Wrkr's repo scope explicitly includes CI agent usage in workflow
             files, headless execution patterns, deterministic baseline drift
@@ -199,7 +199,7 @@
       </section>
 
       <section class="section article-section">
-        <h2 id="the-operational-reality">The operational reality</h2>
+        <h2 id="the-operational-reality">Where the pressure shows up</h2>
         <p>
           CI governance conversations often begin too late. A workflow quietly
           adopts a new action. A bot starts opening or editing artifacts. A
@@ -224,7 +224,7 @@
       </section>
 
       <section class="section article-section">
-        <h2 id="the-anti-pattern">The anti-pattern</h2>
+        <h2 id="the-anti-pattern">The failure mode</h2>
         <p>
           The anti-pattern is treating CI-bound agent behavior as an extension
           of developer experimentation. That framing keeps onboarding easy, but
@@ -241,7 +241,7 @@
       </section>
 
       <section class="section article-section">
-        <h2 id="the-better-system-pattern">The better system pattern</h2>
+        <h2 id="the-better-system-pattern">The better pattern</h2>
         <p>
           The better pattern is to treat AI in CI as infrastructure posture.
           Inventory workflow-level agent execution explicitly, baseline it, and
@@ -297,7 +297,7 @@
       </section>
 
       <section class="section article-section">
-        <h2 id="practical-next-step">Practical next step</h2>
+        <h2 id="practical-next-step">What to do next</h2>
         <ul class="list-plain">
           <li>Create a CI inventory slice dedicated to agent execution paths and treat it as infrastructure state.</li>
           <li>Baseline that state and diff every workflow change against it, including reusable actions.</li>

@@ -169,13 +169,13 @@
       <section class="section page-nav" aria-labelledby="page-nav-heading">
         <h2 id="page-nav-heading">In this piece</h2>
         <div class="page-nav-list">
-          <a href="#repo-grounding">Repo grounding</a>
-          <a href="#the-operational-reality">The operational reality</a>
-          <a href="#the-anti-pattern">The anti-pattern</a>
-          <a href="#the-better-system-pattern">The better system pattern</a>
+          <a href="#repo-grounding">Implementation context</a>
+          <a href="#the-operational-reality">Where the pressure shows up</a>
+          <a href="#the-anti-pattern">The failure mode</a>
+          <a href="#the-better-system-pattern">The better pattern</a>
           <a href="#why-security-and-the-ciso-care">Why security and the CISO care</a>
           <a href="#why-platform-and-engineering-care">Why platform and engineering care</a>
-          <a href="#practical-next-step">Practical next step</a>
+          <a href="#practical-next-step">What to do next</a>
         </div>
         <div class="link-row">
           <a href="/blog/gait/">Series home</a>
@@ -186,7 +186,7 @@
 
       <section class="section">
         <div class="quote-card">
-          <h2 id="repo-grounding">Repo grounding</h2>
+          <h2 id="repo-grounding">Implementation context</h2>
           <p>
             The Gait repo centers the boundary explicitly: evaluate structured
             tool-call intent with <code>gait gate eval</code>, return
@@ -197,7 +197,7 @@
       </section>
 
       <section class="section article-section">
-        <h2 id="the-operational-reality">The operational reality</h2>
+        <h2 id="the-operational-reality">Where the pressure shows up</h2>
         <p>
           AppSec teams hear policy-complete statements every week: "that action
           requires approval," "the agent is instructed not to do that," "this
@@ -221,7 +221,7 @@
       </section>
 
       <section class="section article-section">
-        <h2 id="the-anti-pattern">The anti-pattern</h2>
+        <h2 id="the-anti-pattern">The failure mode</h2>
         <p>
           The anti-pattern is reporting advisory controls as hard controls.
           Teams write strong guidance and collect approvals, but tool execution
@@ -239,7 +239,7 @@
       </section>
 
       <section class="section article-section">
-        <h2 id="the-better-system-pattern">The better system pattern</h2>
+        <h2 id="the-better-system-pattern">The better pattern</h2>
         <p>
           The better pattern is boundary-first policy with explicit runtime
           semantics. Agent intent is evaluated before execution. The gate returns
@@ -298,7 +298,7 @@
       </section>
 
       <section class="section article-section">
-        <h2 id="practical-next-step">Practical next step</h2>
+        <h2 id="practical-next-step">What to do next</h2>
         <ul class="list-plain">
           <li>Choose one high-impact action currently governed by guidance or manual review only.</li>
           <li>Implement a boundary verdict for that action with explicit non-allow non-execute semantics.</li>

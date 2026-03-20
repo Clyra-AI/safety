@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>".eslintrc for Agent Behavior" Is a Useful Hook and an Incomplete Model | CAISI Blog</title>
+    <title>".eslintrc for Agents" Is the Wrong Mental Model | CAISI Blog</title>
     <meta
       name="description"
       content="Why the '.eslintrc for agent behavior' analogy is useful, but hides the difference between linting and runtime enforcement."
@@ -13,15 +13,15 @@
     <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
     <meta property="og:site_name" content="CAISI" />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="&quot;.eslintrc for Agent Behavior&quot; Is a Useful Hook and an Incomplete Model | CAISI Blog" />
+    <meta property="og:title" content="&quot;.eslintrc for Agents&quot; Is the Wrong Mental Model | CAISI Blog" />
     <meta property="og:description" content="Why the '.eslintrc for agent behavior' analogy is useful, but hides the difference between linting and runtime enforcement." />
     <meta property="og:url" content="https://caisi.dev/blog/gait/eslintrc-for-agent-behavior-is-an-incomplete-model/" />
     <meta property="og:image" content="https://caisi.dev/assets/caisi-social.png" />
-    <meta property="og:image:alt" content="&quot;.eslintrc for Agent Behavior&quot; Is a Useful Hook and an Incomplete Model | CAISI Blog" />
+    <meta property="og:image:alt" content="&quot;.eslintrc for Agents&quot; Is the Wrong Mental Model | CAISI Blog" />
     <meta property="og:image:width" content="1600" />
     <meta property="og:image:height" content="900" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="&quot;.eslintrc for Agent Behavior&quot; Is a Useful Hook and an Incomplete Model | CAISI Blog" />
+    <meta name="twitter:title" content="&quot;.eslintrc for Agents&quot; Is the Wrong Mental Model | CAISI Blog" />
     <meta name="twitter:description" content="Why the '.eslintrc for agent behavior' analogy is useful, but hides the difference between linting and runtime enforcement." />
     <meta name="twitter:image" content="https://caisi.dev/assets/caisi-social.png" />
     <meta name="author" content="David Ahmann" />
@@ -39,7 +39,7 @@
           "@type": "WebPage",
           "@id": "https://caisi.dev/blog/gait/eslintrc-for-agent-behavior-is-an-incomplete-model/#webpage",
           "url": "https://caisi.dev/blog/gait/eslintrc-for-agent-behavior-is-an-incomplete-model/",
-          "name": "\".eslintrc for Agent Behavior\" Is a Useful Hook and an Incomplete Model | CAISI Blog",
+          "name": "\".eslintrc for Agents\" Is the Wrong Mental Model | CAISI Blog",
           "description": "Why the '.eslintrc for agent behavior' analogy is useful, but hides the difference between linting and runtime enforcement.",
           "inLanguage": "en",
           "isPartOf": {
@@ -71,13 +71,13 @@
             {
               "@type": "ListItem",
               "position": 4,
-              "name": "\".eslintrc for Agent Behavior\" Is a Useful Hook and an Incomplete Model"
+              "name": "\".eslintrc for Agents\" Is the Wrong Mental Model"
             }
           ]
         },
         {
           "@type": "BlogPosting",
-          "headline": "\".eslintrc for Agent Behavior\" Is a Useful Hook and an Incomplete Model",
+          "headline": "\".eslintrc for Agents\" Is the Wrong Mental Model",
           "description": "Why the '.eslintrc for agent behavior' analogy is useful, but hides the difference between linting and runtime enforcement.",
           "mainEntityOfPage": "https://caisi.dev/blog/gait/eslintrc-for-agent-behavior-is-an-incomplete-model/",
           "url": "https://caisi.dev/blog/gait/eslintrc-for-agent-behavior-is-an-incomplete-model/",
@@ -145,7 +145,7 @@
           <span class="divider">/</span>
           <a href="/blog/gait/">Gait Series</a>
           <span class="divider">/</span>
-          <span>".eslintrc for Agent Behavior" Is a Useful Hook and an Incomplete Model</span>
+          <span>".eslintrc for Agents" Is the Wrong Mental Model</span>
         </p>
         <p class="eyebrow">Gait Series / Post 2 of 4 / Security Leadership</p>
         <div class="post-author">
@@ -154,7 +154,7 @@
             By <a href="https://www.linkedin.com/in/dahmann/">David Ahmann (LinkedIn)</a>
           </p>
         </div>
-        <h1>".eslintrc for Agent Behavior" Is a Useful Hook and an Incomplete Model</h1>
+        <h1>".eslintrc for Agents" Is the Wrong Mental Model</h1>
         <p class="lead">
           The shorthand lands in executive meetings because it feels familiar:
           rules in code, reviewed in PRs, versioned over time. It breaks the
@@ -168,13 +168,13 @@
       <section class="section page-nav" aria-labelledby="page-nav-heading">
         <h2 id="page-nav-heading">In this piece</h2>
         <div class="page-nav-list">
-          <a href="#repo-grounding">Repo grounding</a>
+          <a href="#repo-grounding">Implementation context</a>
           <a href="#why-the-analogy-helps">Why the analogy survives the first meeting</a>
           <a href="#where-the-analogy-breaks">Where the analogy fails under pressure</a>
-          <a href="#the-better-system-pattern">The better system pattern</a>
+          <a href="#the-better-system-pattern">The better pattern</a>
           <a href="#why-security-leadership-should-care">Why security leadership should care</a>
           <a href="#why-engineering-leadership-should-care">Why engineering leadership should care</a>
-          <a href="#practical-next-step">Practical next step</a>
+          <a href="#practical-next-step">What to do next</a>
         </div>
         <div class="link-row">
           <a href="/blog/gait/">Series home</a>
@@ -185,7 +185,7 @@
 
       <section class="section">
         <div class="quote-card">
-          <h2 id="repo-grounding">Repo grounding</h2>
+          <h2 id="repo-grounding">Implementation context</h2>
           <p>
             Gait bootstraps repo policy with <code>gait init</code> and
             validates it with <code>gait check</code>, but the repo's core claim
@@ -236,7 +236,7 @@
       </section>
 
       <section class="section article-section">
-        <h2 id="the-better-system-pattern">The better system pattern</h2>
+        <h2 id="the-better-system-pattern">The better pattern</h2>
         <p>
           A stronger model has three coupled layers: policy expression, runtime
           enforcement, and durable proof. Policy files define intent. Runtime
@@ -288,7 +288,7 @@
       </section>
 
       <section class="section article-section">
-        <h2 id="practical-next-step">Practical next step</h2>
+        <h2 id="practical-next-step">What to do next</h2>
         <ul class="list-plain">
           <li>Keep the analogy as an introduction, then explicitly classify your controls by execution impact.</li>
           <li>Document where policy transitions from static file to runtime verdict in your current stack.</li>
