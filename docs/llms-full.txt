@@ -1,0 +1,27 @@
+# CAISI
+> Independent, reproducible research and operating notes on AI agent governance, execution boundaries, proof quality, and safe adoption.
+
+## Research
+- [Research hub](https://caisi.dev/research/): Canonical entry point for CAISI reports, artifact-backed findings, methodology notes, and interpretation links.
+- [OpenClaw 2026](https://caisi.dev/openclaw-2026/): Controlled case study comparing governed and ungoverned AI agent behavior in a 24-hour run with deterministic claim mapping.
+- [AI Tool and Agent Sprawl 2026](https://caisi.dev/ai-tool-sprawl-v2-2026/): Public-artifact governance report on AI tool and agent posture across an 890-target completed GitHub subset.
+- [AI Tool Sprawl Q1 2026 build](https://caisi.dev/ai-tool-sprawl-q1-2026/): Earlier flagship build page for the AI tool sprawl research package and validation gates.
+
+## Blog Collections
+- [CAISI blog hub](https://caisi.dev/blog/): Directory for framework essays, report interpretation series, implementation notes, benchmark language, and reference pages.
+- [AI Engineering Operating Notes](https://caisi.dev/blog/operating-notes/): Ten-part framework on repository contracts, orchestration, isolation, evaluation, proof, and maturity for AI-enabled delivery.
+- [What OpenClaw Taught Us About Agent Control](https://caisi.dev/blog/openclaw/): Four-post series on stop semantics, discovery limits, tool-boundary approval, and what the OpenClaw case study does and does not prove.
+- [What the Sprawl Report Means for Security and Platform Leaders](https://caisi.dev/blog/sprawl-2026/): Four-post series on evidence posture, approval opacity, deployability proof, and how to interpret public AI adoption data.
+- [Invisible Write Paths](https://caisi.dev/blog/wrkr/): Implementation series on discovery across repos, local setup, MCP configuration, CI workflows, and evidence collection.
+- [Policy Before Action](https://caisi.dev/blog/gait/): Implementation series on tool-boundary policy, MCP trust boundaries, signed traces, and deterministic regressions.
+- [How to Evaluate Agentic Control](https://caisi.dev/blog/control-benchmarks/): Benchmark series on buyer-grade pilots, risk scenario coverage, control efficacy, and proof completeness.
+- [From AI Pilots to Governed Adoption](https://caisi.dev/blog/governed-adoption/): Executive series on platform standards, sanctioned pathways, approval discipline, and governed rollout patterns.
+
+## Key Reference Pages
+- [AI Agent Governance Guide](https://caisi.dev/blog/ai-agent-governance/): Field guide to core CAISI concepts including control, proof, execution boundaries, and safe adoption.
+- [AI Agent Governance Glossary](https://caisi.dev/blog/glossary/): Vocabulary reference for terms such as write path, non-executable state, proof packet, approval mediation, and execution boundary.
+- [David Ahmann author profile](https://caisi.dev/authors/david-ahmann/): Author context, background, and route into CAISI research and framework writing.
+
+## Contact
+- [Homepage](https://caisi.dev/): Overview of CAISI research, contributors, and collection routes by audience.
+- Email: research@caisi.dev

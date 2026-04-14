@@ -25,7 +25,7 @@
     <meta name="twitter:description" content="CAISI report on AI tool and agent sprawl across an 890-target public GitHub subset, focused on approval visibility, evidence posture, and governance readiness." />
     <meta name="twitter:image" content="https://caisi.dev/assets/caisi-social.png" />
     <meta property="article:published_time" content="2026-03-14" />
-    <meta property="article:modified_time" content="2026-03-18" />
+    <meta property="article:modified_time" content="2026-04-14" />
     <!-- SEO_META_END -->
 <link rel="stylesheet" href="/assets/site.css" />
     <!-- SEO_SCHEMA_START -->
@@ -34,12 +34,51 @@
       "@context": "https://schema.org",
       "@graph": [
         {
+          "@type": "Organization",
+          "@id": "https://caisi.dev#organization",
+          "name": "Centre for AI Security and Integrity (CAISI)",
+          "url": "https://caisi.dev",
+          "description": "Independent, reproducible research and operating notes on AI agent governance, execution boundaries, proof quality, and safe adoption.",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://caisi.dev/assets/caisi-logo.png"
+          },
+          "email": "research@caisi.dev",
+          "contactPoint": [
+            {
+              "@type": "ContactPoint",
+              "contactType": "research inquiries",
+              "email": "research@caisi.dev",
+              "url": "https://caisi.dev",
+              "availableLanguage": [
+                "en"
+              ]
+            }
+          ],
+          "knowsAbout": [
+            "AI agent governance",
+            "AI agent control",
+            "execution boundaries",
+            "tool-boundary enforcement",
+            "approval mediation",
+            "evidence quality",
+            "safe AI adoption",
+            "reproducible AI governance research"
+          ],
+          "sameAs": [
+            "https://github.com/Clyra-AI/safety"
+          ]
+        },
+        {
           "@type": "WebPage",
           "@id": "https://caisi.dev/ai-tool-sprawl-v2-2026/#webpage",
           "url": "https://caisi.dev/ai-tool-sprawl-v2-2026/",
           "name": "AI Tool and Agent Sprawl 2026 | Public AI Governance Report | CAISI",
           "description": "CAISI report on AI tool and agent sprawl across an 890-target public GitHub subset, focused on approval visibility, evidence posture, and governance readiness.",
           "inLanguage": "en",
+          "about": {
+            "@id": "https://caisi.dev#organization"
+          },
           "isPartOf": {
             "@id": "https://caisi.dev#website"
           }
@@ -68,37 +107,23 @@
         },
         {
           "@type": "Article",
+          "@id": "https://caisi.dev/ai-tool-sprawl-v2-2026/#article",
           "headline": "Public AI Adoption Is Easy to See. Governed Use Is Much Harder to Prove.",
           "description": "CAISI report on AI tool and agent sprawl across an 890-target public GitHub subset, focused on approval visibility, evidence posture, and governance readiness.",
           "mainEntityOfPage": "https://caisi.dev/ai-tool-sprawl-v2-2026/",
           "url": "https://caisi.dev/ai-tool-sprawl-v2-2026/",
           "image": "https://caisi.dev/assets/caisi-social.png",
           "datePublished": "2026-03-14",
-          "dateModified": "2026-03-18",
+          "dateModified": "2026-04-14",
           "inLanguage": "en",
+          "about": {
+            "@id": "https://caisi.dev#organization"
+          },
           "author": {
-            "@type": "Organization",
-            "name": "Centre for AI Security and Integrity (CAISI)",
-            "url": "https://caisi.dev",
-            "logo": {
-              "@type": "ImageObject",
-              "url": "https://caisi.dev/assets/caisi-logo.png"
-            },
-            "sameAs": [
-              "https://github.com/Clyra-AI/safety"
-            ]
+            "@id": "https://caisi.dev#organization"
           },
           "publisher": {
-            "@type": "Organization",
-            "name": "Centre for AI Security and Integrity (CAISI)",
-            "url": "https://caisi.dev",
-            "logo": {
-              "@type": "ImageObject",
-              "url": "https://caisi.dev/assets/caisi-logo.png"
-            },
-            "sameAs": [
-              "https://github.com/Clyra-AI/safety"
-            ]
+            "@id": "https://caisi.dev#organization"
           }
         }
       ]
@@ -137,11 +162,17 @@
         <p class="eyebrow">Published Research Report</p>
         <h1>Public AI Adoption Is Easy to See. Governed Use Is Much Harder to Prove.</h1>
         <p class="lead">
-          Across an `890`-target publication subset, CAISI found widespread AI
-          tool and agent declarations, but much weaker public evidence for
-          approval, deployability, and control-aligned governance. The strongest
-          signal is not visible runtime abuse. It is evidence and approval
-          opacity.
+          AI Tool and Agent Sprawl 2026 is a CAISI public-artifact governance
+          report built from an 890-target completed GitHub subset. The subset
+          exposed 7,984 declared agents across 874 targets, but only 36 targets
+          showed any deployable-agent signal and every detected agent was
+          missing at least one declared binding. In headline scope, 780
+          non-source AI tools appeared in public artifacts, but only 65 were
+          baseline-approved and 47.08% of targets lacked verifiable evidence.
+          The main result is not that public repos prove widespread runtime
+          abuse. The main result is that public AI posture often outruns
+          approval proof, deployability evidence, and control-ready governance
+          signals.
         </p>
         <p class="meta">
           <a href="/assets/reports/ai-tool-sprawl-v2-2026/report.pdf">Read the full report (PDF)</a>

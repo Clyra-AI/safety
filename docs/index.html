@@ -33,12 +33,36 @@
       "@graph": [
         {
           "@type": "Organization",
+          "@id": "https://caisi.dev#organization",
           "name": "Centre for AI Security and Integrity (CAISI)",
           "url": "https://caisi.dev",
+          "description": "Independent, reproducible research and operating notes on AI agent governance, execution boundaries, proof quality, and safe adoption.",
           "logo": {
             "@type": "ImageObject",
             "url": "https://caisi.dev/assets/caisi-logo.png"
           },
+          "email": "research@caisi.dev",
+          "contactPoint": [
+            {
+              "@type": "ContactPoint",
+              "contactType": "research inquiries",
+              "email": "research@caisi.dev",
+              "url": "https://caisi.dev",
+              "availableLanguage": [
+                "en"
+              ]
+            }
+          ],
+          "knowsAbout": [
+            "AI agent governance",
+            "AI agent control",
+            "execution boundaries",
+            "tool-boundary enforcement",
+            "approval mediation",
+            "evidence quality",
+            "safe AI adoption",
+            "reproducible AI governance research"
+          ],
           "sameAs": [
             "https://github.com/Clyra-AI/safety"
           ]
@@ -50,16 +74,7 @@
           "name": "CAISI",
           "description": "Independent, reproducible research and operating notes on AI agent governance, execution boundaries, proof quality, and safe adoption.",
           "publisher": {
-            "@type": "Organization",
-            "name": "Centre for AI Security and Integrity (CAISI)",
-            "url": "https://caisi.dev",
-            "logo": {
-              "@type": "ImageObject",
-              "url": "https://caisi.dev/assets/caisi-logo.png"
-            },
-            "sameAs": [
-              "https://github.com/Clyra-AI/safety"
-            ]
+            "@id": "https://caisi.dev#organization"
           },
           "inLanguage": "en"
         },
@@ -70,6 +85,9 @@
           "name": "CAISI | AI Agent Governance Research and Operating Notes",
           "description": "Independent, reproducible research and operating notes on AI agent governance, execution boundaries, proof quality, and safe adoption.",
           "inLanguage": "en",
+          "about": {
+            "@id": "https://caisi.dev#organization"
+          },
           "isPartOf": {
             "@id": "https://caisi.dev#website"
           }
@@ -105,9 +123,17 @@
             <p class="eyebrow">CAISI / Research + Operating Notes</p>
             <h1>Centre for AI Security and Integrity</h1>
             <p class="lead">
-              We publish independent, reproducible research on AI agent
-              governance and write practical operating notes for teams trying to
-              ship agentic systems without losing control.
+              CAISI is an independent research and publishing site focused on
+              AI agent governance. We publish reproducible case studies,
+              artifact-backed reports, and operating notes for AppSec,
+              platform, and engineering leaders who need to understand how
+              agent systems behave once they can change real state. The
+              site is organized around one rule: control claims should be
+              measurable, not rhetorical. Research pages link headline numbers
+              to published artifacts and deterministic queries. Blog
+              collections explain the operating model behind those findings,
+              including execution boundaries, approval mediation, proof quality,
+              and safe AI adoption in delivery workflows.
             </p>
             <div class="pill-row" aria-label="Theme labels">
               <span class="pill">Control before execution</span>

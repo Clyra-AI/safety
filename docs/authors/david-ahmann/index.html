@@ -32,23 +32,65 @@
       "@context": "https://schema.org",
       "@graph": [
         {
+          "@type": "Organization",
+          "@id": "https://caisi.dev#organization",
+          "name": "Centre for AI Security and Integrity (CAISI)",
+          "url": "https://caisi.dev",
+          "description": "Independent, reproducible research and operating notes on AI agent governance, execution boundaries, proof quality, and safe adoption.",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://caisi.dev/assets/caisi-logo.png"
+          },
+          "email": "research@caisi.dev",
+          "contactPoint": [
+            {
+              "@type": "ContactPoint",
+              "contactType": "research inquiries",
+              "email": "research@caisi.dev",
+              "url": "https://caisi.dev",
+              "availableLanguage": [
+                "en"
+              ]
+            }
+          ],
+          "knowsAbout": [
+            "AI agent governance",
+            "AI agent control",
+            "execution boundaries",
+            "tool-boundary enforcement",
+            "approval mediation",
+            "evidence quality",
+            "safe AI adoption",
+            "reproducible AI governance research"
+          ],
+          "sameAs": [
+            "https://github.com/Clyra-AI/safety"
+          ]
+        },
+        {
           "@type": "ProfilePage",
           "@id": "https://caisi.dev/authors/david-ahmann/#webpage",
           "url": "https://caisi.dev/authors/david-ahmann/",
           "name": "David Ahmann | CAISI",
           "description": "David Ahmann writes at CAISI about AI agent governance, execution boundaries, evidence quality, and safe adoption for AppSec, platform, and engineering leaders.",
           "inLanguage": "en",
+          "about": {
+            "@id": "https://caisi.dev#organization"
+          },
           "isPartOf": {
             "@id": "https://caisi.dev#website"
           }
         },
         {
           "@type": "ProfilePage",
+          "@id": "https://caisi.dev/authors/david-ahmann/#profile",
           "mainEntity": {
             "@type": "Person",
+            "@id": "https://caisi.dev/authors/david-ahmann/#person",
             "name": "David Ahmann",
             "url": "https://caisi.dev/authors/david-ahmann/",
             "image": "https://caisi.dev/assets/david-ahmann-headshot.png",
+            "description": "David Ahmann writes at CAISI about AI agent governance, execution boundaries, evidence quality, and safe adoption for AppSec, platform, and engineering leaders.",
             "sameAs": [
               "https://www.linkedin.com/in/dahmann/"
             ],
@@ -57,7 +99,6 @@
               "@type": "Organization",
               "name": "CDW"
             },
-            "description": "David Ahmann writes at CAISI about AI agent governance, execution boundaries, evidence quality, and safe adoption for AppSec, platform, and engineering leaders.",
             "alumniOf": [
               {
                 "@type": "Organization",

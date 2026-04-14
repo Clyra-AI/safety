@@ -27,7 +27,7 @@
     <meta name="author" content="David Ahmann" />
     <link rel="author" href="https://caisi.dev/authors/david-ahmann/" />
     <meta property="article:published_time" content="2026-03-16" />
-    <meta property="article:modified_time" content="2026-03-17" />
+    <meta property="article:modified_time" content="2026-03-20" />
     <!-- SEO_META_END -->
 <link rel="stylesheet" href="/assets/site.css" />
     <!-- SEO_SCHEMA_START -->
@@ -36,14 +36,69 @@
       "@context": "https://schema.org",
       "@graph": [
         {
+          "@type": "Organization",
+          "@id": "https://caisi.dev#organization",
+          "name": "Centre for AI Security and Integrity (CAISI)",
+          "url": "https://caisi.dev",
+          "description": "Independent, reproducible research and operating notes on AI agent governance, execution boundaries, proof quality, and safe adoption.",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://caisi.dev/assets/caisi-logo.png"
+          },
+          "email": "research@caisi.dev",
+          "contactPoint": [
+            {
+              "@type": "ContactPoint",
+              "contactType": "research inquiries",
+              "email": "research@caisi.dev",
+              "url": "https://caisi.dev",
+              "availableLanguage": [
+                "en"
+              ]
+            }
+          ],
+          "knowsAbout": [
+            "AI agent governance",
+            "AI agent control",
+            "execution boundaries",
+            "tool-boundary enforcement",
+            "approval mediation",
+            "evidence quality",
+            "safe AI adoption",
+            "reproducible AI governance research"
+          ],
+          "sameAs": [
+            "https://github.com/Clyra-AI/safety"
+          ]
+        },
+        {
           "@type": "WebPage",
           "@id": "https://caisi.dev/blog/gait/eslintrc-for-agent-behavior-is-an-incomplete-model/#webpage",
           "url": "https://caisi.dev/blog/gait/eslintrc-for-agent-behavior-is-an-incomplete-model/",
           "name": "\".eslintrc for Agents\" Is the Wrong Mental Model | CAISI Blog",
           "description": "Why the '.eslintrc for agent behavior' analogy is useful, but hides the difference between linting and runtime enforcement.",
           "inLanguage": "en",
+          "about": {
+            "@id": "https://caisi.dev#organization"
+          },
           "isPartOf": {
             "@id": "https://caisi.dev#website"
+          }
+        },
+        {
+          "@type": "Person",
+          "@id": "https://caisi.dev/authors/david-ahmann/#person",
+          "name": "David Ahmann",
+          "url": "https://caisi.dev/authors/david-ahmann/",
+          "image": "https://caisi.dev/assets/david-ahmann-headshot.png",
+          "description": "David Ahmann writes at CAISI about AI agent governance, execution boundaries, evidence quality, and safe adoption for AppSec, platform, and engineering leaders.",
+          "sameAs": [
+            "https://www.linkedin.com/in/dahmann/"
+          ],
+          "jobTitle": "Head of Cloud & AI Platforms",
+          "worksFor": {
+            "@type": "Organization",
+            "name": "CDW"
           }
         },
         {
@@ -77,39 +132,23 @@
         },
         {
           "@type": "BlogPosting",
+          "@id": "https://caisi.dev/blog/gait/eslintrc-for-agent-behavior-is-an-incomplete-model/#article",
           "headline": "\".eslintrc for Agents\" Is the Wrong Mental Model",
           "description": "Why the '.eslintrc for agent behavior' analogy is useful, but hides the difference between linting and runtime enforcement.",
           "mainEntityOfPage": "https://caisi.dev/blog/gait/eslintrc-for-agent-behavior-is-an-incomplete-model/",
           "url": "https://caisi.dev/blog/gait/eslintrc-for-agent-behavior-is-an-incomplete-model/",
           "image": "https://caisi.dev/assets/caisi-social.png",
           "datePublished": "2026-03-16",
-          "dateModified": "2026-03-17",
+          "dateModified": "2026-03-20",
           "inLanguage": "en",
+          "about": {
+            "@id": "https://caisi.dev#organization"
+          },
           "author": {
-            "@type": "Person",
-            "name": "David Ahmann",
-            "url": "https://caisi.dev/authors/david-ahmann/",
-            "image": "https://caisi.dev/assets/david-ahmann-headshot.png",
-            "sameAs": [
-              "https://www.linkedin.com/in/dahmann/"
-            ],
-            "jobTitle": "Head of Cloud & AI Platforms",
-            "worksFor": {
-              "@type": "Organization",
-              "name": "CDW"
-            }
+            "@id": "https://caisi.dev/authors/david-ahmann/#person"
           },
           "publisher": {
-            "@type": "Organization",
-            "name": "Centre for AI Security and Integrity (CAISI)",
-            "url": "https://caisi.dev",
-            "logo": {
-              "@type": "ImageObject",
-              "url": "https://caisi.dev/assets/caisi-logo.png"
-            },
-            "sameAs": [
-              "https://github.com/Clyra-AI/safety"
-            ]
+            "@id": "https://caisi.dev#organization"
           }
         }
       ]

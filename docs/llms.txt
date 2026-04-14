@@ -1,0 +1,27 @@
+# CAISI
+> Independent, reproducible research and operating notes on AI agent governance, execution boundaries, proof quality, and safe adoption.
+
+## Research
+- [Research hub](https://caisi.dev/research/)
+- [OpenClaw 2026](https://caisi.dev/openclaw-2026/)
+- [AI Tool and Agent Sprawl 2026](https://caisi.dev/ai-tool-sprawl-v2-2026/)
+- [AI Tool Sprawl Q1 2026 build](https://caisi.dev/ai-tool-sprawl-q1-2026/)
+
+## Blog Collections
+- [CAISI blog hub](https://caisi.dev/blog/)
+- [AI Engineering Operating Notes](https://caisi.dev/blog/operating-notes/)
+- [What OpenClaw Taught Us About Agent Control](https://caisi.dev/blog/openclaw/)
+- [What the Sprawl Report Means for Security and Platform Leaders](https://caisi.dev/blog/sprawl-2026/)
+- [Invisible Write Paths](https://caisi.dev/blog/wrkr/)
+- [Policy Before Action](https://caisi.dev/blog/gait/)
+- [How to Evaluate Agentic Control](https://caisi.dev/blog/control-benchmarks/)
+- [From AI Pilots to Governed Adoption](https://caisi.dev/blog/governed-adoption/)
+
+## Reference
+- [AI Agent Governance Guide](https://caisi.dev/blog/ai-agent-governance/)
+- [AI Agent Governance Glossary](https://caisi.dev/blog/glossary/)
+- [David Ahmann author profile](https://caisi.dev/authors/david-ahmann/)
+
+## Contact
+- [Homepage](https://caisi.dev/)
+- Email: research@caisi.dev

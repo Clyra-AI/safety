@@ -25,7 +25,7 @@
     <meta name="twitter:description" content="OpenClaw 2026 case study: governed vs ungoverned AI agent behavior in a controlled 24-hour run." />
     <meta name="twitter:image" content="https://caisi.dev/assets/caisi-social.png" />
     <meta property="article:published_time" content="2026-03-03" />
-    <meta property="article:modified_time" content="2026-03-18" />
+    <meta property="article:modified_time" content="2026-04-14" />
     <!-- SEO_META_END -->
 <link rel="stylesheet" href="/assets/site.css" />
     <!-- SEO_SCHEMA_START -->
@@ -34,12 +34,51 @@
       "@context": "https://schema.org",
       "@graph": [
         {
+          "@type": "Organization",
+          "@id": "https://caisi.dev#organization",
+          "name": "Centre for AI Security and Integrity (CAISI)",
+          "url": "https://caisi.dev",
+          "description": "Independent, reproducible research and operating notes on AI agent governance, execution boundaries, proof quality, and safe adoption.",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://caisi.dev/assets/caisi-logo.png"
+          },
+          "email": "research@caisi.dev",
+          "contactPoint": [
+            {
+              "@type": "ContactPoint",
+              "contactType": "research inquiries",
+              "email": "research@caisi.dev",
+              "url": "https://caisi.dev",
+              "availableLanguage": [
+                "en"
+              ]
+            }
+          ],
+          "knowsAbout": [
+            "AI agent governance",
+            "AI agent control",
+            "execution boundaries",
+            "tool-boundary enforcement",
+            "approval mediation",
+            "evidence quality",
+            "safe AI adoption",
+            "reproducible AI governance research"
+          ],
+          "sameAs": [
+            "https://github.com/Clyra-AI/safety"
+          ]
+        },
+        {
           "@type": "WebPage",
           "@id": "https://caisi.dev/openclaw-2026/#webpage",
           "url": "https://caisi.dev/openclaw-2026/",
           "name": "OpenClaw 2026 | AI Agent Control Case Study | CAISI",
           "description": "OpenClaw 2026 case study: governed vs ungoverned AI agent behavior in a controlled 24-hour run.",
           "inLanguage": "en",
+          "about": {
+            "@id": "https://caisi.dev#organization"
+          },
           "isPartOf": {
             "@id": "https://caisi.dev#website"
           }
@@ -68,37 +107,23 @@
         },
         {
           "@type": "Article",
+          "@id": "https://caisi.dev/openclaw-2026/#article",
           "headline": "We Gave an AI Agent Full Tool Access and Hit Stop. It Didn't Stop.",
           "description": "OpenClaw 2026 case study: governed vs ungoverned AI agent behavior in a controlled 24-hour run.",
           "mainEntityOfPage": "https://caisi.dev/openclaw-2026/",
           "url": "https://caisi.dev/openclaw-2026/",
           "image": "https://caisi.dev/assets/caisi-social.png",
           "datePublished": "2026-03-03",
-          "dateModified": "2026-03-18",
+          "dateModified": "2026-04-14",
           "inLanguage": "en",
+          "about": {
+            "@id": "https://caisi.dev#organization"
+          },
           "author": {
-            "@type": "Organization",
-            "name": "Centre for AI Security and Integrity (CAISI)",
-            "url": "https://caisi.dev",
-            "logo": {
-              "@type": "ImageObject",
-              "url": "https://caisi.dev/assets/caisi-logo.png"
-            },
-            "sameAs": [
-              "https://github.com/Clyra-AI/safety"
-            ]
+            "@id": "https://caisi.dev#organization"
           },
           "publisher": {
-            "@type": "Organization",
-            "name": "Centre for AI Security and Integrity (CAISI)",
-            "url": "https://caisi.dev",
-            "logo": {
-              "@type": "ImageObject",
-              "url": "https://caisi.dev/assets/caisi-logo.png"
-            },
-            "sameAs": [
-              "https://github.com/Clyra-AI/safety"
-            ]
+            "@id": "https://caisi.dev#organization"
           }
         }
       ]
@@ -137,10 +162,16 @@
         <p class="eyebrow">Research Report</p>
         <h1>We Gave an AI Agent Full Tool Access and Hit Stop. It Didn't Stop.</h1>
         <p class="lead">
-          In a controlled 24-hour test, an ungoverned AI agent deleted emails,
-          shared files publicly, approved payments, and restarted services.
-          Every stop command was ignored. Under the same workload with
-          enforcement, destructive actions dropped to zero.
+          OpenClaw 2026 is a controlled CAISI case study of one pinned
+          OpenClaw stack run for 24 hours in two lanes: one with no enforceable
+          tool-boundary control and one with pre-execution enforcement plus
+          signed evidence capture. In the ungoverned lane, the agent ignored
+          every stop command, executed 515 post-stop tool calls, and completed
+          497 destructive actions across email deletion, public file sharing,
+          payment approval, and service restart scenarios. Under the same
+          workload with enforcement, destructive actions dropped to zero, 1,615
+          actions became non-executable, and every headline claim on this page
+          maps back to published artifacts and deterministic queries.
         </p>
         <p class="meta">
           <a href="/assets/reports/openclaw-2026/report.pdf">Read the full report (PDF)</a>

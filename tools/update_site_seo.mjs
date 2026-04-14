@@ -13,6 +13,9 @@ const GENERIC_IMAGE = `${BASE_URL}/assets/caisi-social.png`;
 const LOGO_IMAGE = `${BASE_URL}/assets/caisi-logo.png`;
 const AUTHOR_PROFILE = `${BASE_URL}/authors/david-ahmann/`;
 const AUTHOR_IMAGE = `${BASE_URL}/assets/david-ahmann-headshot.png`;
+const ORG_ID = `${BASE_URL}#organization`;
+const WEBSITE_ID = `${BASE_URL}#website`;
+const AUTHOR_ID = `${AUTHOR_PROFILE}#person`;
 
 const PAGE_TYPES = {
   home: "home",
@@ -139,12 +142,35 @@ function escapeHtml(text) {
 function organizationObject() {
   return {
     "@type": "Organization",
+    "@id": ORG_ID,
     name: ORG_NAME,
     url: BASE_URL,
+    description:
+      "Independent, reproducible research and operating notes on AI agent governance, execution boundaries, proof quality, and safe adoption.",
     logo: {
       "@type": "ImageObject",
       url: LOGO_IMAGE,
     },
+    email: "research@caisi.dev",
+    contactPoint: [
+      {
+        "@type": "ContactPoint",
+        contactType: "research inquiries",
+        email: "research@caisi.dev",
+        url: BASE_URL,
+        availableLanguage: ["en"],
+      },
+    ],
+    knowsAbout: [
+      "AI agent governance",
+      "AI agent control",
+      "execution boundaries",
+      "tool-boundary enforcement",
+      "approval mediation",
+      "evidence quality",
+      "safe AI adoption",
+      "reproducible AI governance research",
+    ],
     sameAs: ["https://github.com/Clyra-AI/safety"],
   };
 }
@@ -152,9 +178,12 @@ function organizationObject() {
 function authorObject() {
   return {
     "@type": "Person",
+    "@id": AUTHOR_ID,
     name: "David Ahmann",
     url: AUTHOR_PROFILE,
     image: AUTHOR_IMAGE,
+    description:
+      "David Ahmann writes at CAISI about AI agent governance, execution boundaries, evidence quality, and safe adoption for AppSec, platform, and engineering leaders.",
     sameAs: ["https://www.linkedin.com/in/dahmann/"],
     jobTitle: "Head of Cloud & AI Platforms",
     worksFor: {
@@ -200,8 +229,11 @@ function webpageObject(type, url, title, description) {
     name: title,
     description,
     inLanguage: "en",
+    about: {
+      "@id": ORG_ID,
+    },
     isPartOf: {
-      "@id": `${BASE_URL}#website`,
+      "@id": WEBSITE_ID,
     },
   };
 }
@@ -210,6 +242,7 @@ function articleObject(type, url, headline, description, published, modified) {
   const articleType = type === PAGE_TYPES.report ? "Article" : "BlogPosting";
   return {
     "@type": articleType,
+    "@id": `${url}#article`,
     headline,
     description,
     mainEntityOfPage: url,
@@ -218,8 +251,20 @@ function articleObject(type, url, headline, description, published, modified) {
     datePublished: published,
     dateModified: modified,
     inLanguage: "en",
-    author: type === PAGE_TYPES.report ? organizationObject() : authorObject(),
-    publisher: organizationObject(),
+    about: {
+      "@id": ORG_ID,
+    },
+    author:
+      type === PAGE_TYPES.report
+        ? {
+            "@id": ORG_ID,
+          }
+        : {
+            "@id": AUTHOR_ID,
+          },
+    publisher: {
+      "@id": ORG_ID,
+    },
   };
 }
 
@@ -227,9 +272,11 @@ function profileGraph(url, title, description) {
   return {
     "@context": "https://schema.org",
     "@graph": [
+      organizationObject(),
       webpageObject(PAGE_TYPES.profile, url, title, description),
       {
         "@type": "ProfilePage",
+        "@id": `${url}#profile`,
         mainEntity: {
           ...authorObject(),
           description,
@@ -250,11 +297,13 @@ function homeGraph(url, title, description) {
       organizationObject(),
       {
         "@type": "WebSite",
-        "@id": `${BASE_URL}#website`,
+        "@id": WEBSITE_ID,
         url: BASE_URL,
         name: SITE_NAME,
         description,
-        publisher: organizationObject(),
+        publisher: {
+          "@id": ORG_ID,
+        },
         inLanguage: "en",
       },
       webpageObject(PAGE_TYPES.home, url, title, description),
@@ -276,7 +325,10 @@ function buildGraph(meta) {
   if (type === PAGE_TYPES.home) return homeGraph(url, title, description);
   if (type === PAGE_TYPES.profile) return profileGraph(url, title, description);
 
-  const graph = [webpageObject(type, url, title, description)];
+  const graph = [organizationObject(), webpageObject(type, url, title, description)];
+  if (type === PAGE_TYPES.article) {
+    graph.push(authorObject());
+  }
   if (breadcrumbs.length) graph.push(breadcrumbObject(url, breadcrumbs));
   if (type === PAGE_TYPES.article || type === PAGE_TYPES.report) {
     graph.push(articleObject(type, url, headline, description, published, modified));
