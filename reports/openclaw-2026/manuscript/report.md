@@ -6,7 +6,7 @@
 - Measurement window (UTC): `2026-02-28T14:33:41Z` to `2026-03-01T14:33:41Z`
 - OpenClaw source: [github.com/openclaw/openclaw](https://github.com/openclaw/openclaw)
 - OpenClaw commit pin: `452a8c9db9f92de44b31bc47d06641e604519a54`
-- Published by Centre for AI Security and Integrity (CAISI). Contact: `research@caisi.dev`. Full artifacts: [github.com/Clyra-AI/safety](https://github.com/Clyra-AI/safety).
+- Published by Centre for AI Security and Integrity (CAISI). Contact: `david@caisi.dev`. Full artifacts: [github.com/Clyra-AI/safety](https://github.com/Clyra-AI/safety).
 
 ## Authorship and Affiliation
 

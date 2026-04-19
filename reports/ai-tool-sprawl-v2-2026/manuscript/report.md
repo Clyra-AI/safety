@@ -7,7 +7,7 @@
 - Subset basis: completed targets from the frozen 1,000-target publication cohort (`890/1000`)
 - Campaign design: `deterministic baseline`, public-repository cohort, one repo per owner, clone-sourced scan artifacts
 - Wrkr commit pin: `fb819fb9ff235f1160c21103779904f871918cf3` (`v1.0.8`)
-- Prepared by Centre for AI Security and Integrity (CAISI). Contact: [research@caisi.dev](mailto:research@caisi.dev). Full artifacts: [github.com/Clyra-AI/safety](https://github.com/Clyra-AI/safety).
+- Prepared by Centre for AI Security and Integrity (CAISI). Contact: [david@caisi.dev](mailto:david@caisi.dev). Full artifacts: [github.com/Clyra-AI/safety](https://github.com/Clyra-AI/safety).
 
 ## Authorship and Affiliation
 

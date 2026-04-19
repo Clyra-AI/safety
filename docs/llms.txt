@@ -24,4 +24,4 @@
 
 ## Contact
 - [Homepage](https://caisi.dev/)
-- Email: research@caisi.dev
+- Email: david@caisi.dev

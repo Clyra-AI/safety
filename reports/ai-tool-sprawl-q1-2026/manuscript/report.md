@@ -6,7 +6,7 @@
 - Run ID: `sprawl-ai1000-clean-pci-20260305T130344Z`
 - Campaign design: `baseline-only`, public-repository cohort, clone-sourced scan artifacts
 - Wrkr commit pin: `77f547a75494b735da5cba500e3c82f3731e24cf`
-- Published by Centre for AI Security and Integrity (CAISI). Contact: [research@caisi.dev](mailto:research@caisi.dev). Full artifacts: [github.com/Clyra-AI/safety](https://github.com/Clyra-AI/safety).
+- Published by Centre for AI Security and Integrity (CAISI). Contact: [david@caisi.dev](mailto:david@caisi.dev). Full artifacts: [github.com/Clyra-AI/safety](https://github.com/Clyra-AI/safety).
 
 ## Authorship and Affiliation
 

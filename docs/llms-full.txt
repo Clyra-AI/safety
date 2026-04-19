@@ -24,4 +24,4 @@
 
 ## Contact
 - [Homepage](https://caisi.dev/): Overview of CAISI research, contributors, and collection routes by audience.
-- Email: research@caisi.dev
+- Email: david@caisi.dev

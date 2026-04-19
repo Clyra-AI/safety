@@ -151,12 +151,12 @@ function organizationObject() {
       "@type": "ImageObject",
       url: LOGO_IMAGE,
     },
-    email: "research@caisi.dev",
+    email: "david@caisi.dev",
     contactPoint: [
       {
         "@type": "ContactPoint",
         contactType: "research inquiries",
-        email: "research@caisi.dev",
+        email: "david@caisi.dev",
         url: BASE_URL,
         availableLanguage: ["en"],
       },

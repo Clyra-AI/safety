@@ -44,4 +44,4 @@ The practical governance lesson is simple: discovery matters, but approval recor
 - [Report page](https://caisi.dev/ai-tool-sprawl-v2-2026/)
 - [Report package](https://github.com/Clyra-AI/safety/tree/main/reports/ai-tool-sprawl-v2-2026)
 - [Run artifacts](https://github.com/Clyra-AI/safety/tree/main/runs/tool-sprawl/sprawl-v2-full-20260312b)
-- [research@caisi.dev](mailto:research@caisi.dev)
+- [david@caisi.dev](mailto:david@caisi.dev)
