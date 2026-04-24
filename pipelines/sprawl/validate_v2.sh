@@ -351,6 +351,28 @@ if [[ -n "${RUN_ID}" ]]; then
     fi
   done
 
+  if [[ -f "${run_dir}/agg/campaign-summary-v2.json" && -f "${run_dir}/appendix/combined-appendix-v2.json" ]]; then
+    if ! jq -e -n \
+      --slurpfile summary "${run_dir}/agg/campaign-summary-v2.json" \
+      --slurpfile appendix "${run_dir}/appendix/combined-appendix-v2.json" '
+        ($summary[0].campaign.totals // {}) as $totals |
+        ($appendix[0].agent_privilege_rows // []) as $rows |
+        def unique_agent_count($field):
+          ($rows
+            | map(select(.[$field] == true) | ((.target // "") + "\u001f" + (.agent_id // "")))
+            | map(select(length > 0))
+            | unique
+            | length);
+        (($totals.write_capable_agents // null) == unique_agent_count("write_capable")) and
+        (($totals.exec_capable_agents // null) == unique_agent_count("exec_capable")) and
+        (($totals.credential_access_agents // null) == unique_agent_count("credential_access")) and
+        (($totals.production_write_agents // null) == unique_agent_count("production_write"))
+      ' >/dev/null; then
+      echo "[sprawl-validate-v2] campaign summary agent privilege totals do not match combined appendix rows" >&2
+      FAILURES=$((FAILURES + 1))
+    fi
+  fi
+
   calibration_cfg="${REPO_ROOT}/pipelines/config/calibration-thresholds.json"
   calibration_eval="${run_dir}/calibration/gold-label-evaluation-v2.json"
   calibration_cov="${run_dir}/calibration/detector-coverage-summary-v2.json"

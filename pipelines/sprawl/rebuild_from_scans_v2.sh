@@ -194,8 +194,8 @@ for target in "${targets[@]}"; do
         elif (($regscope_defaults[$key] | type) == "boolean") then $regscope_defaults[$key]
         else $fallback
         end;
-      def unique_agent_count($rows; $pred):
-        ($rows | map(select($pred) | (.agent_id // "")) | map(select(length > 0)) | unique | length);
+      def unique_agent_count($rows; pred):
+        ($rows | map(select(pred) | (.agent_id // "")) | map(select(length > 0)) | unique | length);
       def unique_strings($items):
         $items | map(select(type == "string" and length > 0)) | unique | sort;
       def median($arr):
