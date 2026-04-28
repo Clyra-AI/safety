@@ -27,7 +27,7 @@
     <meta name="author" content="David Ahmann" />
     <link rel="author" href="https://caisi.dev/authors/david-ahmann/" />
     <meta property="article:published_time" content="2026-03-17" />
-    <meta property="article:modified_time" content="2026-04-14" />
+    <meta property="article:modified_time" content="2026-04-28" />
     <!-- SEO_META_END -->
 <link rel="stylesheet" href="/assets/site.css" />
     <!-- SEO_SCHEMA_START -->
@@ -139,7 +139,7 @@
           "url": "https://caisi.dev/blog/control-benchmarks/pilot-evaluation-framework-for-agentic-tools/",
           "image": "https://caisi.dev/assets/caisi-social.png",
           "datePublished": "2026-03-17",
-          "dateModified": "2026-04-14",
+          "dateModified": "2026-04-28",
           "inLanguage": "en",
           "about": {
             "@id": "https://caisi.dev#organization"
@@ -196,11 +196,11 @@
         <h1>How to Run a Buyer-Grade Agent Pilot</h1>
         <p class="lead">
           The pilot ends, the team is impressed, and the real decision still is
-          not clear. Everyone learned that a strong operator could get useful
-          output. Almost nobody can say what was proven about control, proof,
-          or widening safety. That is not a useless pilot. It is just not a
-          buyer-grade one. A serious pilot has to answer a harder question than
-          "was this useful?" It has to answer "what would justify expanding
+          not defensible. Everyone learned that a strong operator could get
+          useful output. Almost nobody can say what was proven about control,
+          proof, or widening safety. That is not a useless pilot. It is just not
+          a buyer-grade one. A serious pilot has to answer a harder question
+          than "was this useful?" It has to answer "what would justify expanding
           this safely?"
         </p>
       </section>
@@ -295,8 +295,8 @@
       <section class="section article-section">
         <h2 id="a-practical-pilot-framework">A practical pilot framework</h2>
         <p>
-          We think a useful agent pilot should have five defined elements before
-          it starts.
+          A buyer-grade pilot should have five defined elements before it
+          starts, with exit criteria written before the team sees results.
         </p>
         <ul class="list-plain">
           <li><strong>Scope.</strong> Which repos, workflows, and action classes are in scope, and which are explicitly out of scope?</li>
@@ -335,12 +335,12 @@
           benchmark conversation from the beginning.
         </p>
         <p>
-          We would add one more requirement: the output should name the next
-          control investment plainly. If the pilot stayed narrow because stop
-          behavior was weak, say that. If it stayed narrow because the proof
-          packet was incomplete, say that. If it failed because the human review
-          path was too heavy to scale, say that. The best pilot outputs are
-          useful even when they do not recommend expansion.
+          One more requirement belongs in the output: name the next control
+          investment plainly. If the pilot stayed narrow because stop behavior
+          was weak, say that. If it stayed narrow because the proof packet was
+          incomplete, say that. If it failed because the human review path was
+          too heavy to scale, say that. The best pilot outputs are useful even
+          when they do not recommend expansion.
         </p>
       </section>
 
@@ -436,9 +436,6 @@
           <a class="nav-link" href="/blog/control-benchmarks/proof-completeness-for-ai-agent-changes/">Previous post</a>
           <a class="nav-link" href="/blog/control-benchmarks/">Back to series</a>
         </div>
-        <p class="footer-note repo-note">
-          We are working on that discovery problem in <a href="https://github.com/Clyra-AI/wrkr">Wrkr</a> if you want to look.
-        </p>
         <p class="footer-note">
           Practical question: if your current pilot ended tomorrow, would the
           organization have a decision framework or just a set of impressions?

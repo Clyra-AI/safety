@@ -27,7 +27,7 @@
     <meta name="author" content="David Ahmann" />
     <link rel="author" href="https://caisi.dev/authors/david-ahmann/" />
     <meta property="article:published_time" content="2026-03-14" />
-    <meta property="article:modified_time" content="2026-04-14" />
+    <meta property="article:modified_time" content="2026-04-28" />
     <!-- SEO_META_END -->
 <link rel="stylesheet" href="/assets/site.css" />
     <!-- SEO_SCHEMA_START -->
@@ -139,7 +139,7 @@
           "url": "https://caisi.dev/blog/sprawl-2026/approval-gap-is-a-proof-gap/",
           "image": "https://caisi.dev/assets/caisi-social.png",
           "datePublished": "2026-03-14",
-          "dateModified": "2026-04-14",
+          "dateModified": "2026-04-28",
           "inLanguage": "en",
           "about": {
             "@id": "https://caisi.dev#organization"
@@ -195,10 +195,12 @@
         </div>
         <h1>An 11:1 Approval Gap Is a Proof Gap, Not a Panic Statistic</h1>
         <p class="lead">
-          Ratios like 11:1 can either sharpen governance or derail it. In one
-          board packet they become panic fuel. In a mature security program they
-          become a control design signal: we detect AI tooling faster than we can
-          prove approval posture in a machine-readable way.
+          The CISO review usually starts with an inventory question: which AI
+          tools are approved, which are not, and which ones are still unknown?
+          The uncomfortable answer is often that teams can detect tool presence
+          faster than they can prove approval posture in a machine-readable way.
+          That is how an 11:1 ratio should be read: as a control design signal,
+          not a risk headline by itself.
         </p>
         <p class="lead">
           That is a proof problem before it is a messaging problem.
@@ -231,7 +233,9 @@
             Counts: <code>715</code> not-baseline-approved, <code>65</code> approved<br />
             Scope: non-source tools only<br />
             Core artifact:
-            <code>runs/tool-sprawl/sprawl-v2-full-20260312b/agg/campaign-summary-v2.json</code>
+            <code>runs/tool-sprawl/sprawl-v2-full-20260312b/agg/campaign-summary-v2.json</code><br />
+            Deterministic query:
+            <code>jq '.campaign.metrics.not_baseline_approved_to_approved_ratio'</code>
           </p>
         </div>
       </section>
@@ -359,9 +363,6 @@
           <a class="nav-link" href="/blog/sprawl-2026/">Back to series</a>
           <a class="nav-link" href="/blog/sprawl-2026/declared-agents-are-not-deployed-agents/">Next post</a>
         </div>
-        <p class="footer-note repo-note">
-          We are working on that discovery problem in <a href="https://github.com/Clyra-AI/wrkr">Wrkr</a> if you want to look.
-        </p>
         <p class="footer-note">
           Practical question: if leadership asked for a defensible approved-AI
           inventory tomorrow, how much of the answer would still be inferred by

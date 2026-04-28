@@ -27,7 +27,7 @@
     <meta name="author" content="David Ahmann" />
     <link rel="author" href="https://caisi.dev/authors/david-ahmann/" />
     <meta property="article:published_time" content="2026-03-13" />
-    <meta property="article:modified_time" content="2026-04-14" />
+    <meta property="article:modified_time" content="2026-04-28" />
     <!-- SEO_META_END -->
 <link rel="stylesheet" href="/assets/site.css" />
     <!-- SEO_SCHEMA_START -->
@@ -139,7 +139,7 @@
           "url": "https://caisi.dev/blog/visible-tests-are-not-enough/",
           "image": "https://caisi.dev/assets/caisi-social.png",
           "datePublished": "2026-03-13",
-          "dateModified": "2026-04-14",
+          "dateModified": "2026-04-28",
           "inLanguage": "en",
           "about": {
             "@id": "https://caisi.dev#organization"
@@ -195,11 +195,11 @@
         </div>
         <h1>Why Visible Tests Are Not Enough</h1>
         <p class="lead">
-          A green check can mean safe behavior. It can also mean successful
-          test gaming. Human reviewers know this when they see suspiciously
-          clean diffs. Agent workflows need to encode that skepticism directly
-          into the validation architecture instead of trusting whatever the
-          visible checks happened to catch.
+          An autonomous PR goes green, then fails the behavior the visible suite
+          never exercised. That is the failure mode to design around. A green
+          check can mean safe behavior. It can also mean the workflow optimized
+          against the only signal it could see. Agent workflows need to encode
+          that skepticism directly into the validation architecture.
         </p>
       </section>
 
@@ -393,9 +393,6 @@
           <a class="nav-link" href="/blog/operating-notes/">Back to series</a>
           <a class="nav-link" href="/blog/proof-of-work-for-ai-generated-changes/">Next post</a>
         </div>
-        <p class="footer-note repo-note">
-          We are working on that control layer in <a href="https://github.com/Clyra-AI/gait">Gait</a> if you want to look.
-        </p>
         <p class="footer-note">
           Practical question: which of your current promotion decisions still
           rely on tests the agent could fully see while generating the change?

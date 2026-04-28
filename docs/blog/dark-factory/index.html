@@ -27,7 +27,7 @@
     <meta name="author" content="David Ahmann" />
     <link rel="author" href="https://caisi.dev/authors/david-ahmann/" />
     <meta property="article:published_time" content="2026-03-13" />
-    <meta property="article:modified_time" content="2026-04-14" />
+    <meta property="article:modified_time" content="2026-04-28" />
     <!-- SEO_META_END -->
 <link rel="stylesheet" href="/assets/site.css" />
     <!-- SEO_SCHEMA_START -->
@@ -139,7 +139,7 @@
           "url": "https://caisi.dev/blog/dark-factory/",
           "image": "https://caisi.dev/assets/caisi-social.png",
           "datePublished": "2026-03-13",
-          "dateModified": "2026-04-14",
+          "dateModified": "2026-04-28",
           "inLanguage": "en",
           "about": {
             "@id": "https://caisi.dev#organization"
@@ -270,21 +270,24 @@
       <section class="section article-section">
         <h2 id="the-better-system-pattern">The better pattern</h2>
         <p>
-          The better pattern is the dark factory: an orchestrated system that
-          turns work items into bounded execution runs with explicit states. A
-          task becomes a manifest. The manifest allocates a workspace, selects a
-          blueprint, captures dependencies, defines path claims, runs validation,
-          packages evidence, and decides whether to open a PR or wait for human
-          review.
+          The better pattern starts by treating the issue queue as an operating
+          system, not a pile of prompts. A work item becomes a run manifest with
+          an owner, scope, dependencies, path claims, retry rules, and promotion
+          evidence before execution begins.
         </p>
         <p>
-          In a mature setup, the orchestrator is not a convenience layer.
+          That is the dark factory: an orchestrated system that turns those
+          manifests into bounded execution runs with explicit states. The
+          orchestrator allocates a workspace, selects a blueprint, captures
+          dependencies, runs validation, packages evidence, and decides whether
+          to open a PR or wait for human review.
         </p>
         <p>
-          It is the control surface. It owns retries, approvals, backoff,
-          conflict detection, and restart recovery. Humans still matter, but
-          they review the work at the right points instead of babysitting every
-          intermediate step.
+          In a mature setup, the orchestrator is not a convenience layer. It is
+          the control surface. It owns retries, approvals, backoff, conflict
+          detection, and restart recovery. Humans still matter, but they review
+          the work at the right points instead of babysitting every intermediate
+          step.
         </p>
         <p>
           The key tradeoff is explicit. You invest more in run-state design
@@ -412,9 +415,9 @@
           <li>Make cancellation and retry behavior explicit instead of informal.</li>
         </ul>
         <p>
-          The goal is not "fully autonomous everything." The goal is a managed,
-          observable work system that can absorb more autonomy without becoming
-          opaque.
+          The goal is not "fully autonomous everything." The goal is to define
+          states, owners, retry behavior, and promotion evidence before adding
+          more agent volume.
         </p>
         <p>
           The next post looks at the infrastructure this factory needs under the
@@ -429,9 +432,6 @@
           <a class="nav-link" href="/blog/operating-notes/">Back to series</a>
           <a class="nav-link" href="/blog/isolated-warm-sandboxes/">Next post</a>
         </div>
-        <p class="footer-note repo-note">
-          We are working on that discovery problem in <a href="https://github.com/Clyra-AI/wrkr">Wrkr</a> if you want to look.
-        </p>
         <p class="footer-note">
           Practical question: if a run failed halfway through autonomous work in
           your environment, would your team know the exact state it died in and

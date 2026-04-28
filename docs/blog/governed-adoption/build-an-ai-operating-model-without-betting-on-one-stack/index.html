@@ -27,7 +27,7 @@
     <meta name="author" content="David Ahmann" />
     <link rel="author" href="https://caisi.dev/authors/david-ahmann/" />
     <meta property="article:published_time" content="2026-03-18" />
-    <meta property="article:modified_time" content="2026-04-14" />
+    <meta property="article:modified_time" content="2026-04-28" />
     <!-- SEO_META_END -->
 
     <link rel="stylesheet" href="/assets/site.css" />
@@ -140,7 +140,7 @@
           "url": "https://caisi.dev/blog/governed-adoption/build-an-ai-operating-model-without-betting-on-one-stack/",
           "image": "https://caisi.dev/assets/caisi-social.png",
           "datePublished": "2026-03-18",
-          "dateModified": "2026-04-14",
+          "dateModified": "2026-04-28",
           "inLanguage": "en",
           "about": {
             "@id": "https://caisi.dev#organization"
@@ -197,11 +197,11 @@
         </div>
         <h1>Build the AI Operating Model Before You Freeze the Stack</h1>
         <p class="lead">
-          The meeting starts as strategy and ends as a vendor argument. Which
-          model family? Which orchestration layer? Which assistant becomes the
-          standard? Those decisions matter, but most organizations are asking
-          them too early. The first thing to stabilize is not the stack. It is
-          the operating model that has to survive while the stack keeps moving.
+          The meeting starts as an architecture and budget review, then turns
+          into a vendor bet. Which model family? Which orchestration layer?
+          Which assistant becomes the standard? Those decisions matter, but
+          they are fragile if the organization has not first defined the
+          operating model that must survive a vendor swap.
         </p>
       </section>
 
@@ -227,18 +227,19 @@
         <p>
           Organizations often try to buy certainty by standardizing the vendor
           stack before they have standardized the control stack. That feels
-          decisive, but it puts the wrong thing at the center.
+          decisive, but it freezes the surface before the durable control
+          objects exist.
         </p>
         <p>
           Vendors, models, and wrappers will continue to move. If governance,
           approvals, and records are glued to one of those choices, every later
-          technology change becomes a governance reset.
+          technology change becomes a governance migration.
         </p>
         <p>
-          That is how teams create unnecessary lock-in. The contract they
-          really needed was around identity, policies, execution boundaries,
-          evidence, and validation. Instead they standardized the surface most
-          likely to change first.
+          That is the lock-in problem worth taking seriously. The contract that
+          needs to harden first is around identity, policies, execution
+          boundaries, evidence, and validation. A stack decision is not durable
+          until those objects can survive the stack changing underneath them.
         </p>
       </section>
 
@@ -331,8 +332,8 @@
         </ul>
         <p>
           The right goal is not maximum optionality. It is a stable operating
-          model with enough technical flexibility that today's decision does not
-          become tomorrow's trap.
+          model with enough technical flexibility that no stack decision becomes
+          irreversible before the controls around it are portable.
         </p>
       </section>
 
@@ -342,9 +343,6 @@
           <a class="nav-link" href="/blog/governed-adoption/right-response-to-shadow-ai-is-a-governed-path-not-a-ban/">Previous post</a>
           <a class="nav-link" href="/blog/governed-adoption/what-security-leaders-should-ask-before-approving-ai-in-delivery-workflows/">Next post</a>
         </div>
-        <p class="footer-note repo-note">
-          We are working on that control layer in <a href="https://github.com/Clyra-AI/gait">Gait</a> if you want to look.
-        </p>
         <p class="footer-note">
           Practical question: which part of your current AI strategy is really a
           control decision, and which part is just a vendor decision wearing a
