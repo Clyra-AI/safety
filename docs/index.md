@@ -1,6 +1,13 @@
 # Centre for AI Security and Integrity
 
-Research index for reproducible AI governance reports.
+Independent, reproducible AI governance research for AppSec, CISOs, and
+platform security leaders.
+
+## Start by role
+
+- [AppSec](./roles/#appsec) - runtime control evidence, approval, and proof.
+- [CISO](./roles/#ciso) - approval posture, evidence quality, and governance reporting.
+- [Platform security](./roles/#platform-security) - standards, boundaries, orchestration, and proof packets.
 
 ## Reports
 

@@ -144,10 +144,9 @@
         </div>
         <nav class="global-nav" aria-label="Primary">
           <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" href="/roles/">Roles</a>
           <a class="nav-link current" href="/research/">Research</a>
           <a class="nav-link" href="/blog/">Blog</a>
-          <a class="nav-link" href="/#about-heading">About</a>
-          <a class="nav-link" href="/#contact-heading">Contact</a>
         </nav>
       </header>
 
@@ -162,17 +161,10 @@
         <p class="eyebrow">Published Research Report</p>
         <h1>Public AI Adoption Is Easy to See. Governed Use Is Much Harder to Prove.</h1>
         <p class="lead">
-          AI Tool and Agent Sprawl 2026 is a CAISI public-artifact governance
-          report built from an 890-target completed GitHub subset. The subset
-          exposed 7,984 declared agents across 874 targets, but only 36 targets
-          showed any deployable-agent signal and every detected agent was
-          missing at least one declared binding. In headline scope, 780
-          non-source AI tools appeared in public artifacts, but only 65 were
-          baseline-approved and 47.08% of targets lacked verifiable evidence.
-          The main result is not that public repos prove widespread runtime
-          abuse. The main result is that public AI posture often outruns
-          approval proof, deployability evidence, and control-ready governance
-          signals.
+          A public-artifact governance report from an 890-target GitHub subset.
+          The main result is not runtime abuse. It is that visible AI adoption
+          often outruns approval proof, deployability evidence, and
+          control-ready governance signals.
         </p>
         <p class="meta">
           <a href="/assets/reports/ai-tool-sprawl-v2-2026/report.pdf">Read the full report (PDF)</a>
@@ -189,8 +181,8 @@
         <h2 id="page-nav-heading">On this page</h2>
         <div class="page-nav-list">
           <a href="#headline-numbers">Headline numbers</a>
-          <a href="#what-found">What we found</a>
           <a href="#for-leaders">For leaders</a>
+          <a href="#what-found">What we found</a>
           <a href="#scope">Scope</a>
           <a href="#methodology">Methodology</a>
           <a href="#for-media">For media</a>
@@ -229,6 +221,41 @@
             <p>
               Start here when you need a public baseline for AI-tool visibility,
               approval gaps, and what public repositories can and cannot prove.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="for-leaders">
+        <h2 id="for-leaders">What this means for leaders</h2>
+        <div class="research-grid">
+          <article class="card">
+            <h3>For AppSec</h3>
+            <p class="finding">
+              Start with proof quality: what AI is present, what is approved,
+              and what evidence supports review or incident work?
+            </p>
+          </article>
+          <article class="card">
+            <h3>For CISOs</h3>
+            <p class="finding">
+              The <code>11:1</code> ratio is not a danger score. It is a signal
+              that approval proof is not keeping up with visible use.
+            </p>
+          </article>
+          <article class="card">
+            <h3>For platform security</h3>
+            <p class="finding">
+              A repo that declares agents is not the same thing as a repo that
+              exposes bound, deployable, and evidence-backed agent surfaces.
+            </p>
+          </article>
+          <article class="card">
+            <h3>For all three</h3>
+            <p class="finding">
+              Public <code>0%</code> write-capable and exec-capable findings are
+              not proof of low internal runtime risk. They show what public repos
+              underexpose.
             </p>
           </article>
         </div>
@@ -280,44 +307,6 @@
           These are not legal conclusions. They are measurements of what public
           repositories do and do not evidence.
         </p>
-      </section>
-
-      <section class="section" aria-labelledby="for-leaders">
-        <h2 id="for-leaders">What this means for leaders</h2>
-        <div class="research-grid">
-          <article class="card">
-            <h3>For AppSec</h3>
-            <p class="finding">
-              The first problem is usually not visible exploitation. It is weak
-              proof of what AI is present, what is approved, and whether the
-              repo exposes enough evidence to support review and incident work.
-            </p>
-          </article>
-          <article class="card">
-            <h3>For CISOs</h3>
-            <p class="finding">
-              The `11:1` ratio is not a danger score. It is a governance signal
-              showing how often public AI usage appears without machine-readable
-              approval proof.
-            </p>
-          </article>
-          <article class="card">
-            <h3>For platform leaders</h3>
-            <p class="finding">
-              A repo that declares agents is not the same thing as a repo that
-              exposes a deployable, bound, and evidence-backed agent surface.
-              Platform contracts still matter.
-            </p>
-          </article>
-          <article class="card">
-            <h3>For all three</h3>
-            <p class="finding">
-              Public `0%` write-capable and exec-capable agent findings are not
-              proof of low internal runtime risk. They show that public repos
-              underexpose those paths.
-            </p>
-          </article>
-        </div>
       </section>
 
       <section class="section" aria-labelledby="scope">

@@ -116,10 +116,9 @@
         </div>
         <nav class="global-nav" aria-label="Primary">
           <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" href="/roles/">Roles</a>
           <a class="nav-link current" href="/research/">Research</a>
           <a class="nav-link" href="/blog/">Blog</a>
-          <a class="nav-link" href="/#about-heading">About</a>
-          <a class="nav-link" href="/#contact-heading">Contact</a>
         </nav>
       </header>
 
@@ -132,33 +131,55 @@
         <div class="hero-grid">
           <div class="hero-panel">
             <p class="eyebrow">CAISI Research</p>
-            <h1>Reports, live builds, and artifact-backed findings</h1>
+            <h1>Artifact-backed findings for AI agent governance</h1>
             <p class="lead">
-              This is the canonical entry point for CAISI report pages. Use it
-              when you want the measured artifact, the methodology, and the
-              exact scope of a study before moving to interpretation or
-              implementation guidance.
+              Use this page when you need the measured claim, the artifact, and
+              the scope limit before moving to interpretation.
             </p>
             <div class="button-row" style="margin-top: 22px">
               <a class="button-link" href="/openclaw-2026/">OpenClaw 2026</a>
               <a class="button-link" href="/ai-tool-sprawl-v2-2026/">Sprawl 2026</a>
-              <a class="button-link secondary" href="/blog/">Go to the blog hub</a>
             </div>
           </div>
           <aside class="series-card">
-            <p class="eyebrow">How to use research</p>
+            <p class="eyebrow">Use by role</p>
             <p>
-              Report pages are the primary source. They hold the headline
-              numbers, scope discipline, artifact links, and study framing. The
-              blog is the interpretation layer when you want role-specific
-              lessons or implementation guidance.
+              Reports are primary evidence. Role pages connect that evidence to
+              the decision a security or platform leader needs to make.
             </p>
             <p class="body" style="margin-top: 14px">
-              AppSec: start with <a href="/openclaw-2026/">OpenClaw</a><br />
-              CISO: start with <a href="/ai-tool-sprawl-v2-2026/">Sprawl 2026</a><br />
-              Platform: start with <a href="/openclaw-2026/">OpenClaw</a> and then <a href="/blog/operating-notes/">Operating Notes</a>
+              <a href="/roles/#appsec">AppSec route</a><br />
+              <a href="/roles/#ciso">CISO route</a><br />
+              <a href="/roles/#platform-security">Platform security route</a>
             </p>
           </aside>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="research-routes">
+        <h2 id="research-routes">Start by role</h2>
+        <div class="route-grid">
+          <article class="card">
+            <p class="post-stage">AppSec</p>
+            <h3><a href="/roles/#appsec">Runtime control evidence</a></h3>
+            <p>
+              Start with where stop, approval, and proof break or hold.
+            </p>
+          </article>
+          <article class="card">
+            <p class="post-stage">CISO</p>
+            <h3><a href="/roles/#ciso">Approval and evidence posture</a></h3>
+            <p>
+              Start with visibility, approval opacity, and governance proof.
+            </p>
+          </article>
+          <article class="card">
+            <p class="post-stage">Platform security</p>
+            <h3><a href="/roles/#platform-security">Operating model and standards</a></h3>
+            <p>
+              Start with the controls and contracts that make autonomy governable.
+            </p>
+          </article>
         </div>
       </section>
 
@@ -200,7 +221,7 @@
       </section>
 
       <section class="section" aria-labelledby="live-builds">
-        <h2 id="live-builds">Archive and live-build context</h2>
+        <h2 id="live-builds">Archive and interpretation</h2>
         <div class="research-grid">
           <article class="card">
             <p class="post-stage">Live build archive</p>
@@ -230,52 +251,6 @@
               <a href="/blog/">Open the blog hub</a>
               <span class="divider">|</span>
               <a href="/blog/ai-agent-governance/">Field guide</a>
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <section class="section" aria-labelledby="research-routes">
-        <h2 id="research-routes">Start by role</h2>
-        <div class="route-grid">
-          <article class="card">
-            <p class="post-stage">AppSec</p>
-            <h3>Start with runtime control evidence</h3>
-            <p>
-              OpenClaw is the fastest path if you want one measured example of
-              where stop, approval, and proof break or hold.
-            </p>
-            <div class="link-row">
-              <a href="/openclaw-2026/">OpenClaw report</a>
-              <span class="divider">|</span>
-              <a href="/blog/openclaw/">OpenClaw series</a>
-            </div>
-          </article>
-          <article class="card">
-            <p class="post-stage">CISO</p>
-            <h3>Start with approval and evidence posture</h3>
-            <p>
-              The sprawl report is the better entry point if you need to reason
-              about visible adoption, approval opacity, and proof quality across
-              public artifacts.
-            </p>
-            <div class="link-row">
-              <a href="/ai-tool-sprawl-v2-2026/">Sprawl report</a>
-              <span class="divider">|</span>
-              <a href="/blog/sprawl-2026/">Sprawl series</a>
-            </div>
-          </article>
-          <article class="card">
-            <p class="post-stage">Platform</p>
-            <h3>Move from artifact to operating model</h3>
-            <p>
-              Read a report first, then move into the Operating Notes collection
-              to see the underlying repo, workflow, and proof patterns.
-            </p>
-            <div class="link-row">
-              <a href="/blog/operating-notes/">Operating Notes</a>
-              <span class="divider">|</span>
-              <a href="/blog/gait/">Gait series</a>
             </div>
           </article>
         </div>

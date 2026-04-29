@@ -110,10 +110,9 @@
         </div>
         <nav class="global-nav" aria-label="Primary">
           <a class="nav-link current" href="/">Home</a>
+          <a class="nav-link" href="/roles/">Roles</a>
           <a class="nav-link" href="/research/">Research</a>
           <a class="nav-link" href="/blog/">Blog</a>
-          <a class="nav-link" href="/#about-heading">About</a>
-          <a class="nav-link" href="/#contact-heading">Contact</a>
         </nav>
       </header>
 
@@ -123,69 +122,64 @@
             <p class="eyebrow">CAISI / Research + Operating Notes</p>
             <h1>Centre for AI Security and Integrity</h1>
             <p class="lead">
-              CAISI is an independent research and publishing site focused on
-              AI agent governance. We publish reproducible case studies,
-              artifact-backed reports, and operating notes for AppSec,
-              platform, and engineering leaders who need to understand how
-              agent systems behave once they can change real state. The
-              site is organized around one rule: control claims should be
-              measurable, not rhetorical. Research pages link headline numbers
-              to published artifacts and deterministic queries. Blog
-              collections explain the operating model behind those findings,
-              including execution boundaries, approval mediation, proof quality,
-              and safe AI adoption in delivery workflows.
+              Independent, reproducible research on AI agent governance for
+              security and platform leaders. Start with the decision you need
+              to make, then follow the evidence.
             </p>
-            <div class="pill-row" aria-label="Theme labels">
-              <span class="pill">Control before execution</span>
-              <span class="pill">Deterministic validation</span>
-              <span class="pill">Proof over narrative</span>
-            </div>
             <div class="button-row" style="margin-top: 22px">
-              <a class="button-link" href="/research/">Start with research</a>
-              <a class="button-link" href="/blog/operating-notes/">Start with operating notes</a>
-              <a class="button-link secondary" href="/blog/">Browse all blog collections</a>
+              <a class="button-link" href="/roles/">Choose your role</a>
+              <a class="button-link secondary" href="/research/">View all research</a>
             </div>
           </div>
           <aside class="series-card">
-            <p class="eyebrow">Start Here</p>
+            <p class="eyebrow">Start here</p>
             <p>
-              The fastest way to orient on CAISI is to choose the artifact type
-              first. Research pages hold the measured evidence and methodology.
-              Blog collections explain the operating model, control patterns,
-              and implementation lessons behind that evidence.
+              AppSec, CISOs, and platform security teams arrive with different
+              questions. The site is now routed by those decisions first and by
+              artifact type second.
             </p>
             <div class="link-row">
-              <a href="/research/">Research hub</a>
+              <a href="/roles/#appsec">AppSec</a>
               <span class="divider">|</span>
-              <a href="/blog/">Blog hub</a>
+              <a href="/roles/#ciso">CISO</a>
+              <span class="divider">|</span>
+              <a href="/roles/#platform-security">Platform security</a>
             </div>
-            <p class="body" style="margin-top: 14px">
-              AppSec: <a href="/openclaw-2026/">OpenClaw</a> and <a href="/blog/wrkr/">Invisible Write Paths</a><br />
-              CISO: <a href="/ai-tool-sprawl-v2-2026/">Sprawl report</a> and <a href="/blog/governed-adoption/">Governed Adoption</a><br />
-              Platform: <a href="/blog/operating-notes/">Operating Notes</a> and <a href="/blog/gait/">Policy Before Action</a>
-            </p>
           </aside>
         </div>
       </section>
 
-      <section class="section" aria-labelledby="about-heading">
+      <section class="section" aria-labelledby="role-heading">
         <div class="section-intro">
-          <p class="eyebrow">About</p>
-          <h2 id="about-heading">Research that can be checked</h2>
+          <p class="eyebrow">Role routes</p>
+          <h2 id="role-heading">Choose the path that matches the meeting you are in</h2>
         </div>
-        <p class="body">
-          We at CAISI publish independent, reproducible research on AI agent
-          governance. Every headline claim is backed by machine-generated
-          artifacts, deterministic queries, and open methodology. The point is
-          not to add more rhetoric to the market. The point is to make the
-          control problem visible and measurable.
-        </p>
-        <p class="body">
-          Use the research hub when you want the primary artifact, the claims,
-          and the study framing. Use the blog when you want the operating
-          implications: repo contracts, orchestration, isolation, evaluation,
-          discovery, policy, and proof of work for AI-generated change.
-        </p>
+        <div class="route-grid">
+          <article class="card">
+            <p class="post-stage">AppSec</p>
+            <h3><a href="/roles/#appsec">Control failure, proof, and review surfaces</a></h3>
+            <p>
+              Start where runtime behavior, approval, and evidence quality can
+              be measured.
+            </p>
+          </article>
+          <article class="card">
+            <p class="post-stage">CISO</p>
+            <h3><a href="/roles/#ciso">Approval posture and governance proof</a></h3>
+            <p>
+              Start where leadership needs a defensible story for risk, audit,
+              and board review.
+            </p>
+          </article>
+          <article class="card">
+            <p class="post-stage">Platform security</p>
+            <h3><a href="/roles/#platform-security">Standards before scale</a></h3>
+            <p>
+              Start where repo contracts, orchestration, boundaries, and proof
+              become reusable platform work.
+            </p>
+          </article>
+        </div>
       </section>
 
       <section class="section" aria-labelledby="research-heading">
@@ -213,8 +207,6 @@
             </p>
             <div class="link-row">
               <a href="/openclaw-2026/">Open report page</a>
-              <span class="divider">|</span>
-              <a href="/blog/openclaw/">Interpretation series</a>
             </div>
           </article>
           <article class="card">
@@ -231,28 +223,21 @@
             </p>
             <div class="link-row">
               <a href="/ai-tool-sprawl-v2-2026/">Open report page</a>
-              <span class="divider">|</span>
-              <a href="/blog/sprawl-2026/">Interpretation series</a>
             </div>
           </article>
-        </div>
-        <div class="button-row" style="margin-top: 20px">
-          <a class="button-link secondary" href="/research/">Open the research hub</a>
         </div>
       </section>
 
       <section class="section" aria-labelledby="blog-heading">
         <div class="section-intro">
           <p class="eyebrow">Blog</p>
-          <h2 id="blog-heading">Collection-based operating notes</h2>
+          <h2 id="blog-heading">Operating notes</h2>
           <p class="body">
-            The blog is organized as a set of collections with clear jobs: one
-            framework series, one executive adoption series, two report
-            interpretation series, one benchmark series, two implementation
-            series, plus a field guide and glossary.
+            Use the blog when you need the operating model behind the research:
+            approval packets, repo contracts, boundaries, pilots, and proof.
           </p>
         </div>
-        <div class="blog-grid">
+        <div class="quick-grid">
           <article class="post-card">
             <p class="post-number">Executive adoption series</p>
             <h3>
@@ -274,28 +259,6 @@
             </p>
           </article>
           <article class="post-card">
-            <p class="post-number">Case-study series</p>
-            <h3>
-              <a href="/blog/openclaw/">What OpenClaw Taught Us About Agent Control</a>
-            </h3>
-            <p>
-              Four posts on stop behavior, discovery limits, boundary
-              enforcement, and scope discipline.
-            </p>
-          </article>
-          <article class="post-card">
-            <p class="post-number">Report series</p>
-            <h3>
-              <a href="/blog/sprawl-2026/"
-                >What the Sprawl Report Means for Security and Platform Leaders</a
-              >
-            </h3>
-            <p>
-              Four posts on approval opacity, evidence posture, deployability,
-              and how to read public AI adoption data without overclaiming.
-            </p>
-          </article>
-          <article class="post-card">
             <p class="post-number">Benchmark series</p>
             <h3>
               <a href="/blog/control-benchmarks/">How to Evaluate Agentic Control</a>
@@ -305,46 +268,22 @@
               completeness, and pilot evaluation language for buyers.
             </p>
           </article>
-          <article class="post-card">
-            <p class="post-number">Implementation series</p>
-            <h3>
-              <a href="/blog/wrkr/">Invisible Write Paths</a>
-            </h3>
-            <p>
-              Discovery across local setup, repos, MCP configs, CI workflows,
-              and the evidence layer security can defend.
-            </p>
-          </article>
-          <article class="post-card">
-            <p class="post-number">Implementation series</p>
-            <h3>
-              <a href="/blog/gait/">Policy Before Action</a>
-            </h3>
-            <p>
-              Tool-boundary policy, MCP enforcement, signed traces, and
-              deterministic regressions in CI.
-            </p>
-          </article>
         </div>
-        <article class="card" style="margin-top: 24px">
-          <p class="post-stage">Reference</p>
-          <h3>Field guide, glossary, and author profile</h3>
-          <p>
-            These reference pages are separate from the series collections. Use
-            them when you want one entry point to the CAISI vocabulary, the
-            core governance concepts, or the author context behind the essays.
-          </p>
-          <div class="link-row">
-            <a href="/blog/ai-agent-governance/">AI agent governance guide</a>
-            <span class="divider">|</span>
-            <a href="/blog/glossary/">Glossary</a>
-            <span class="divider">|</span>
-            <a href="/authors/david-ahmann/">Author profile</a>
-          </div>
-        </article>
         <div class="button-row" style="margin-top: 20px">
-          <a class="button-link secondary" href="/blog/">Open the blog hub</a>
+          <a class="button-link secondary" href="/blog/">Browse the library</a>
         </div>
+      </section>
+
+      <section class="section" aria-labelledby="about-heading">
+        <div class="section-intro">
+          <p class="eyebrow">About</p>
+          <h2 id="about-heading">Research that can be checked</h2>
+        </div>
+        <p class="body">
+          Every headline claim maps to published artifacts, deterministic
+          queries, and explicit scope limits. The point is to make AI agent
+          control measurable enough for security and platform teams to act on.
+        </p>
       </section>
 
       <section class="section" aria-labelledby="team-heading">

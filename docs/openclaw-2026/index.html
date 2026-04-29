@@ -144,10 +144,9 @@
         </div>
         <nav class="global-nav" aria-label="Primary">
           <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" href="/roles/">Roles</a>
           <a class="nav-link current" href="/research/">Research</a>
           <a class="nav-link" href="/blog/">Blog</a>
-          <a class="nav-link" href="/#about-heading">About</a>
-          <a class="nav-link" href="/#contact-heading">Contact</a>
         </nav>
       </header>
 
@@ -162,16 +161,9 @@
         <p class="eyebrow">Research Report</p>
         <h1>We Gave an AI Agent Full Tool Access and Hit Stop. It Didn't Stop.</h1>
         <p class="lead">
-          OpenClaw 2026 is a controlled CAISI case study of one pinned
-          OpenClaw stack run for 24 hours in two lanes: one with no enforceable
-          tool-boundary control and one with pre-execution enforcement plus
-          signed evidence capture. In the ungoverned lane, the agent ignored
-          every stop command, executed 515 post-stop tool calls, and completed
-          497 destructive actions across email deletion, public file sharing,
-          payment approval, and service restart scenarios. Under the same
-          workload with enforcement, destructive actions dropped to zero, 1,615
-          actions became non-executable, and every headline claim on this page
-          maps back to published artifacts and deterministic queries.
+          A controlled 24-hour case study comparing one ungoverned lane with one
+          tool-boundary enforcement lane. The finding is simple: prompt-level
+          stop did not stop execution; pre-execution enforcement did.
         </p>
         <p class="meta">
           <a href="/assets/reports/openclaw-2026/report.pdf">Read the full report (PDF)</a>
@@ -187,8 +179,9 @@
       <section class="section page-nav" aria-labelledby="page-nav-heading">
         <h2 id="page-nav-heading">On this page</h2>
         <div class="page-nav-list">
-          <a href="#headline-numbers">Headline numbers</a>
+          <a href="#for-leaders">For leaders</a>
           <a href="#what-found">What we found</a>
+          <a href="#headline-numbers">Headline numbers</a>
           <a href="#side-by-side">Side by side</a>
           <a href="#takeaways">What we learned</a>
           <a href="#methodology">Methodology</a>
@@ -229,6 +222,33 @@
               Start here when you need one measured example of what changes when
               the boundary is enforced before execution instead of implied in a
               prompt.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="for-leaders">
+        <h2 id="for-leaders">What this means for leaders</h2>
+        <div class="research-grid">
+          <article class="card">
+            <h3>For AppSec</h3>
+            <p class="finding">
+              Prompt-level stop and approval are not enough when tool calls can
+              mutate real state. Review the boundary before execution.
+            </p>
+          </article>
+          <article class="card">
+            <h3>For CISOs</h3>
+            <p class="finding">
+              The case study is not an ecosystem average. It is a concrete
+              example of why governance claims need runtime evidence.
+            </p>
+          </article>
+          <article class="card">
+            <h3>For platform security</h3>
+            <p class="finding">
+              The reusable lesson is architectural: policy verdicts, approval,
+              and proof need to sit at the tool boundary.
             </p>
           </article>
         </div>
