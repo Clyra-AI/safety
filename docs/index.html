@@ -3,27 +3,29 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>CAISI | AI Agent Governance Research and Operating Notes</title>
+    <title>CAISI | AI Software Delivery Control Research and Field Notes</title>
     <meta
       name="description"
-      content="Independent, reproducible research and operating notes on AI agent governance, execution boundaries, proof quality, and safe adoption."
+      content="Independent research and field notes on AI Software Delivery Control: what AI-assisted engineering workflows can touch, change, approve, and prove."
     />
     <!-- SEO_META_START -->
     <link rel="canonical" href="https://caisi.dev" />
     <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
     <meta property="og:site_name" content="CAISI" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="CAISI | AI Agent Governance Research and Operating Notes" />
-    <meta property="og:description" content="Independent, reproducible research and operating notes on AI agent governance, execution boundaries, proof quality, and safe adoption." />
+    <meta property="og:title" content="CAISI | AI Software Delivery Control Research and Field Notes" />
+    <meta property="og:description" content="Independent research and field notes on AI Software Delivery Control: what AI-assisted engineering workflows can touch, change, approve, and prove." />
     <meta property="og:url" content="https://caisi.dev" />
     <meta property="og:image" content="https://caisi.dev/assets/caisi-social.png" />
-    <meta property="og:image:alt" content="CAISI | AI Agent Governance Research and Operating Notes" />
+    <meta property="og:image:alt" content="CAISI | AI Software Delivery Control Research and Field Notes" />
     <meta property="og:image:width" content="1600" />
     <meta property="og:image:height" content="900" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="CAISI | AI Agent Governance Research and Operating Notes" />
-    <meta name="twitter:description" content="Independent, reproducible research and operating notes on AI agent governance, execution boundaries, proof quality, and safe adoption." />
+    <meta name="twitter:title" content="CAISI | AI Software Delivery Control Research and Field Notes" />
+    <meta name="twitter:description" content="Independent research and field notes on AI Software Delivery Control: what AI-assisted engineering workflows can touch, change, approve, and prove." />
     <meta name="twitter:image" content="https://caisi.dev/assets/caisi-social.png" />
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="CAISI llms.txt" />
+    <link rel="alternate" type="text/plain" href="/llms-full.txt" title="CAISI llms-full.txt" />
     <!-- SEO_META_END -->
 <link rel="stylesheet" href="/assets/site.css" />
     <!-- SEO_SCHEMA_START -->
@@ -36,7 +38,7 @@
           "@id": "https://caisi.dev#organization",
           "name": "Centre for AI Security and Integrity (CAISI)",
           "url": "https://caisi.dev",
-          "description": "Independent, reproducible research and operating notes on AI agent governance, execution boundaries, proof quality, and safe adoption.",
+          "description": "Independent, reproducible research and operating notes on AI Software Delivery Control, AI agent governance, execution boundaries, proof quality, and safe adoption.",
           "logo": {
             "@type": "ImageObject",
             "url": "https://caisi.dev/assets/caisi-logo.png"
@@ -55,6 +57,10 @@
           ],
           "knowsAbout": [
             "AI agent governance",
+            "AI Software Delivery Control",
+            "Agent Action BOM",
+            "AI coding agent security",
+            "CI/CD agent security",
             "AI agent control",
             "execution boundaries",
             "tool-boundary enforcement",
@@ -62,9 +68,6 @@
             "evidence quality",
             "safe AI adoption",
             "reproducible AI governance research"
-          ],
-          "sameAs": [
-            "https://github.com/Clyra-AI/safety"
           ]
         },
         {
@@ -72,7 +75,7 @@
           "@id": "https://caisi.dev#website",
           "url": "https://caisi.dev",
           "name": "CAISI",
-          "description": "Independent, reproducible research and operating notes on AI agent governance, execution boundaries, proof quality, and safe adoption.",
+          "description": "Independent research and field notes on AI Software Delivery Control: what AI-assisted engineering workflows can touch, change, approve, and prove.",
           "publisher": {
             "@id": "https://caisi.dev#organization"
           },
@@ -82,8 +85,8 @@
           "@type": "WebPage",
           "@id": "https://caisi.dev#webpage",
           "url": "https://caisi.dev",
-          "name": "CAISI | AI Agent Governance Research and Operating Notes",
-          "description": "Independent, reproducible research and operating notes on AI agent governance, execution boundaries, proof quality, and safe adoption.",
+          "name": "CAISI | AI Software Delivery Control Research and Field Notes",
+          "description": "Independent research and field notes on AI Software Delivery Control: what AI-assisted engineering workflows can touch, change, approve, and prove.",
           "inLanguage": "en",
           "about": {
             "@id": "https://caisi.dev#organization"
@@ -104,7 +107,7 @@
           <div class="brand-mark">
             <a class="brand-link" href="/">CAISI</a>
             <p class="brand-note">
-              Independent research and operating notes on AI agent governance.
+              Independent research and field notes on AI Software Delivery Control.
             </p>
           </div>
         </div>
@@ -119,24 +122,23 @@
       <section class="section hero">
         <div class="hero-grid">
           <div class="hero-panel">
-            <p class="eyebrow">CAISI / Research + Operating Notes</p>
-            <h1>Centre for AI Security and Integrity</h1>
+            <p class="eyebrow">CAISI / AI Software Delivery Control</p>
+            <h1>What can AI-assisted engineering workflows touch, change, approve, and prove?</h1>
             <p class="lead">
-              Independent, reproducible research on AI agent governance for
-              security and platform leaders. Start with the decision you need
-              to make, then follow the evidence.
+              Independent research and field notes for security and platform
+              leaders governing AI coding agents across PRs, CI/CD,
+              credentials, tools, and release paths.
             </p>
             <div class="button-row" style="margin-top: 22px">
-              <a class="button-link" href="/roles/">Choose your role</a>
-              <a class="button-link secondary" href="/research/">View all research</a>
+              <a class="button-link" href="/agent-action-bom/">Agent Action BOM</a>
+              <a class="button-link secondary" href="/secure-ai-coding-agents-ci-cd/">Secure CI/CD agents</a>
             </div>
           </div>
           <aside class="series-card">
             <p class="eyebrow">Start here</p>
             <p>
-              AppSec, CISOs, and platform security teams arrive with different
-              questions. The site is now routed by those decisions first and by
-              artifact type second.
+              Start with the action path: agent or workflow, repo or PR,
+              credential, action, target, owner, approval, and proof.
             </p>
             <div class="link-row">
               <a href="/roles/#appsec">AppSec</a>
@@ -177,6 +179,44 @@
             <p>
               Start where repo contracts, orchestration, boundaries, and proof
               become reusable platform work.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="category-heading">
+        <div class="section-intro">
+          <p class="eyebrow">Category spine</p>
+          <h2 id="category-heading">Start with the artifact, then follow the control path</h2>
+          <p class="body">
+            CAISI uses AI Software Delivery Control as the working language for
+            how teams govern AI-assisted engineering workflows once they can
+            act across software delivery.
+          </p>
+        </div>
+        <div class="route-grid">
+          <article class="card">
+            <p class="post-stage">Reference</p>
+            <h3><a href="/agent-action-bom/">What is an Agent Action BOM?</a></h3>
+            <p>
+              The practical artifact for mapping actor, owner, repo, workflow,
+              credential, reachable actions, targets, approval, and proof.
+            </p>
+          </article>
+          <article class="card">
+            <p class="post-stage">Guide</p>
+            <h3><a href="/secure-ai-coding-agents-ci-cd/">How to secure AI coding agents in CI/CD</a></h3>
+            <p>
+              A concrete control guide for GitHub Actions, CI/CD workflows,
+              credentials, approval, and proof trails.
+            </p>
+          </article>
+          <article class="card">
+            <p class="post-stage">Field note</p>
+            <h3><a href="/blog/ai-coding-agents-from-suggestions-to-actions/">Suggestions are becoming actions</a></h3>
+            <p>
+              Why the missing artifact is an Agent Action BOM, not another
+              generic AI inventory.
             </p>
           </article>
         </div>

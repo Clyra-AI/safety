@@ -24,10 +24,12 @@
     <meta name="twitter:title" content="AI Engineering Is a Control Problem, Not a Prompt Problem | CAISI Blog" />
     <meta name="twitter:description" content="Why the shift from chat-based assistance to governed autonomous software work changes the problem from prompting to control." />
     <meta name="twitter:image" content="https://caisi.dev/assets/caisi-social.png" />
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="CAISI llms.txt" />
+    <link rel="alternate" type="text/plain" href="/llms-full.txt" title="CAISI llms-full.txt" />
     <meta name="author" content="David Ahmann" />
     <link rel="author" href="https://caisi.dev/authors/david-ahmann/" />
     <meta property="article:published_time" content="2026-03-13" />
-    <meta property="article:modified_time" content="2026-04-28" />
+    <meta property="article:modified_time" content="2026-05-05" />
     <!-- SEO_META_END -->
 <link rel="stylesheet" href="/assets/site.css" />
     <!-- SEO_SCHEMA_START -->
@@ -40,7 +42,7 @@
           "@id": "https://caisi.dev#organization",
           "name": "Centre for AI Security and Integrity (CAISI)",
           "url": "https://caisi.dev",
-          "description": "Independent, reproducible research and operating notes on AI agent governance, execution boundaries, proof quality, and safe adoption.",
+          "description": "Independent, reproducible research and operating notes on AI Software Delivery Control, AI agent governance, execution boundaries, proof quality, and safe adoption.",
           "logo": {
             "@type": "ImageObject",
             "url": "https://caisi.dev/assets/caisi-logo.png"
@@ -59,6 +61,10 @@
           ],
           "knowsAbout": [
             "AI agent governance",
+            "AI Software Delivery Control",
+            "Agent Action BOM",
+            "AI coding agent security",
+            "CI/CD agent security",
             "AI agent control",
             "execution boundaries",
             "tool-boundary enforcement",
@@ -66,10 +72,18 @@
             "evidence quality",
             "safe AI adoption",
             "reproducible AI governance research"
-          ],
-          "sameAs": [
-            "https://github.com/Clyra-AI/safety"
           ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://caisi.dev#website",
+          "url": "https://caisi.dev",
+          "name": "CAISI",
+          "description": "Why the shift from chat-based assistance to governed autonomous software work changes the problem from prompting to control.",
+          "publisher": {
+            "@id": "https://caisi.dev#organization"
+          },
+          "inLanguage": "en"
         },
         {
           "@type": "WebPage",
@@ -139,7 +153,7 @@
           "url": "https://caisi.dev/blog/ai-engineering-control-problem/",
           "image": "https://caisi.dev/assets/caisi-social.png",
           "datePublished": "2026-03-13",
-          "dateModified": "2026-04-28",
+          "dateModified": "2026-05-05",
           "inLanguage": "en",
           "about": {
             "@id": "https://caisi.dev#organization"
@@ -149,7 +163,14 @@
           },
           "publisher": {
             "@id": "https://caisi.dev#organization"
-          }
+          },
+          "keywords": [
+            "AI Software Delivery Control",
+            "Agent Action BOM",
+            "AI agent governance",
+            "AI coding agent security",
+            "CI/CD agent security"
+          ]
         }
       ]
     }
@@ -271,9 +292,9 @@
         </p>
         <p>
           The reason this matters now is scale. "Copilot for one engineer" is
-          not the end state most organizations are buying toward. The end state
-          is background execution that can take a ticket, plan the work, touch
-          multiple files, run validations, and hand a reviewer a coherent
+          not the only operating model leaders are evaluating. More teams are
+          testing background execution that can take a ticket, plan the work,
+          touch multiple files, run validations, and hand a reviewer a coherent
           packet. Once work becomes asynchronous and repeatable, governance is
           part of runtime design, not an afterthought.
         </p>
@@ -335,11 +356,10 @@
           handling, and stalled adoption.
         </p>
         <p>
-          That is why the future of AI engineering is not "better prompting." It
-          is better workflow design. The strongest teams will not be the teams
-          with the most magical demos. They will be the teams whose autonomous
-          work can be trusted to run at scale without becoming political
-          overhead.
+          That is why CAISI frames AI engineering as workflow design, not prompt
+          craft. The most credible teams will not be the teams with the most
+          impressive demos. They will be the teams whose autonomous work can be
+          trusted to run at scale without becoming political overhead.
         </p>
       </section>
 
@@ -362,12 +382,12 @@
           complexity in a small group of operators.
         </p>
         <p>
-          That should also change how leaders buy and how they govern internal
-          platforms. Ask fewer questions about prompt craft, benchmark theater,
-          and demo fluency. Ask more about stop behavior, approval mediation,
-          replay, rollback, and proof output. If a team cannot explain those
-          mechanics clearly, the organization is still paying for hidden
-          supervision with expensive labor and optimistic storytelling.
+          That should also change how leaders evaluate external tools and
+          internal platforms. Ask fewer questions about prompt craft, benchmark
+          theater, and demo fluency. Ask more about stop behavior, approval
+          mediation, replay, rollback, and proof output. If a team cannot
+          explain those mechanics clearly, the organization is still paying for
+          hidden supervision with expensive labor and optimistic storytelling.
         </p>
         <p>
           A useful board-level rule is simple: do not widen autonomy faster than
@@ -456,7 +476,9 @@
         <h2 id="practical-next-step">What to do next</h2>
         <p>
           Pick one agent workflow your team already uses. Ignore the prompt for
-          a moment and map the control surface instead.
+          a moment and map the control surface instead. The
+          <a href="/agent-action-bom/">Agent Action BOM</a> is the practical
+          shape for that map.
         </p>
         <ul class="list-plain">
           <li>List every action the system can take that changes code, state, or external systems.</li>

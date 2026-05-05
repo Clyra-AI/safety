@@ -24,6 +24,8 @@
     <meta name="twitter:title" content="What OpenClaw Taught Us About Agent Control | CAISI Blog" />
     <meta name="twitter:description" content="A four-part CAISI case-study series extracting the main lessons from the OpenClaw governed evaluation." />
     <meta name="twitter:image" content="https://caisi.dev/assets/caisi-social.png" />
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="CAISI llms.txt" />
+    <link rel="alternate" type="text/plain" href="/llms-full.txt" title="CAISI llms-full.txt" />
     <!-- SEO_META_END -->
 <link rel="stylesheet" href="/assets/site.css" />
     <!-- SEO_SCHEMA_START -->
@@ -36,7 +38,7 @@
           "@id": "https://caisi.dev#organization",
           "name": "Centre for AI Security and Integrity (CAISI)",
           "url": "https://caisi.dev",
-          "description": "Independent, reproducible research and operating notes on AI agent governance, execution boundaries, proof quality, and safe adoption.",
+          "description": "Independent, reproducible research and operating notes on AI Software Delivery Control, AI agent governance, execution boundaries, proof quality, and safe adoption.",
           "logo": {
             "@type": "ImageObject",
             "url": "https://caisi.dev/assets/caisi-logo.png"
@@ -55,6 +57,10 @@
           ],
           "knowsAbout": [
             "AI agent governance",
+            "AI Software Delivery Control",
+            "Agent Action BOM",
+            "AI coding agent security",
+            "CI/CD agent security",
             "AI agent control",
             "execution boundaries",
             "tool-boundary enforcement",
@@ -62,10 +68,18 @@
             "evidence quality",
             "safe AI adoption",
             "reproducible AI governance research"
-          ],
-          "sameAs": [
-            "https://github.com/Clyra-AI/safety"
           ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://caisi.dev#website",
+          "url": "https://caisi.dev",
+          "name": "CAISI",
+          "description": "A four-part CAISI case-study series extracting the main lessons from the OpenClaw governed evaluation.",
+          "publisher": {
+            "@id": "https://caisi.dev#organization"
+          },
+          "inLanguage": "en"
         },
         {
           "@type": "CollectionPage",
@@ -266,9 +280,9 @@
           <a href="https://github.com/Clyra-AI/safety">Repository</a>
         </div>
         <p class="footer-note">
-          This collection is designed as a second series inside the same blog
-          system: one landing page, consistent breadcrumbs, and the same
-          navigation model as the rest of the CAISI site.
+          Practical question: which controls in your agent workflow can change
+          execution state before a risky action runs, and which only create a
+          record after the fact?
         </p>
       </footer>
     </main>

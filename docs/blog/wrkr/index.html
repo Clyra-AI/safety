@@ -6,7 +6,7 @@
     <title>Invisible Write Paths | CAISI Blog</title>
     <meta
       name="description"
-      content="A four-part CAISI series using the current Wrkr repo as the implementation context for AI tooling discovery, MCP posture, CI drift, and audit-ready evidence."
+      content="A four-part CAISI series using Wrkr implementation patterns for AI tooling discovery, MCP posture, CI drift, and audit-ready evidence."
     />
     <!-- SEO_META_START -->
     <link rel="canonical" href="https://caisi.dev/blog/wrkr/" />
@@ -14,7 +14,7 @@
     <meta property="og:site_name" content="CAISI" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Invisible Write Paths | CAISI Blog" />
-    <meta property="og:description" content="A four-part CAISI series using the current Wrkr repo as the implementation context for AI tooling discovery, MCP posture, CI drift, and audit-ready evidence." />
+    <meta property="og:description" content="A four-part CAISI series using Wrkr implementation patterns for AI tooling discovery, MCP posture, CI drift, and audit-ready evidence." />
     <meta property="og:url" content="https://caisi.dev/blog/wrkr/" />
     <meta property="og:image" content="https://caisi.dev/assets/caisi-social.png" />
     <meta property="og:image:alt" content="Invisible Write Paths | CAISI Blog" />
@@ -22,8 +22,10 @@
     <meta property="og:image:height" content="900" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Invisible Write Paths | CAISI Blog" />
-    <meta name="twitter:description" content="A four-part CAISI series using the current Wrkr repo as the implementation context for AI tooling discovery, MCP posture, CI drift, and audit-ready evidence." />
+    <meta name="twitter:description" content="A four-part CAISI series using Wrkr implementation patterns for AI tooling discovery, MCP posture, CI drift, and audit-ready evidence." />
     <meta name="twitter:image" content="https://caisi.dev/assets/caisi-social.png" />
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="CAISI llms.txt" />
+    <link rel="alternate" type="text/plain" href="/llms-full.txt" title="CAISI llms-full.txt" />
     <!-- SEO_META_END -->
 <link rel="stylesheet" href="/assets/site.css" />
     <!-- SEO_SCHEMA_START -->
@@ -36,7 +38,7 @@
           "@id": "https://caisi.dev#organization",
           "name": "Centre for AI Security and Integrity (CAISI)",
           "url": "https://caisi.dev",
-          "description": "Independent, reproducible research and operating notes on AI agent governance, execution boundaries, proof quality, and safe adoption.",
+          "description": "Independent, reproducible research and operating notes on AI Software Delivery Control, AI agent governance, execution boundaries, proof quality, and safe adoption.",
           "logo": {
             "@type": "ImageObject",
             "url": "https://caisi.dev/assets/caisi-logo.png"
@@ -55,6 +57,10 @@
           ],
           "knowsAbout": [
             "AI agent governance",
+            "AI Software Delivery Control",
+            "Agent Action BOM",
+            "AI coding agent security",
+            "CI/CD agent security",
             "AI agent control",
             "execution boundaries",
             "tool-boundary enforcement",
@@ -62,17 +68,25 @@
             "evidence quality",
             "safe AI adoption",
             "reproducible AI governance research"
-          ],
-          "sameAs": [
-            "https://github.com/Clyra-AI/safety"
           ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://caisi.dev#website",
+          "url": "https://caisi.dev",
+          "name": "CAISI",
+          "description": "A four-part CAISI series using Wrkr implementation patterns for AI tooling discovery, MCP posture, CI drift, and audit-ready evidence.",
+          "publisher": {
+            "@id": "https://caisi.dev#organization"
+          },
+          "inLanguage": "en"
         },
         {
           "@type": "CollectionPage",
           "@id": "https://caisi.dev/blog/wrkr/#webpage",
           "url": "https://caisi.dev/blog/wrkr/",
           "name": "Invisible Write Paths | CAISI Blog",
-          "description": "A four-part CAISI series using the current Wrkr repo as the implementation context for AI tooling discovery, MCP posture, CI drift, and audit-ready evidence.",
+          "description": "A four-part CAISI series using Wrkr implementation patterns for AI tooling discovery, MCP posture, CI drift, and audit-ready evidence.",
           "inLanguage": "en",
           "about": {
             "@id": "https://caisi.dev#organization"
@@ -141,13 +155,18 @@
             <p class="eyebrow">CAISI Blog / Wrkr Implementation Series</p>
             <h1>Invisible Write Paths</h1>
             <p class="lead">
-              This four-part series uses the current Wrkr repo as implementation
+              This four-part series uses Wrkr repo patterns as implementation
               context for a problem AppSec leaders already recognize: AI tooling
               is spreading through local developer setups, repositories, MCP
               configurations, and CI workflows faster than most organizations
               can inventory or explain it. The point is not to pitch a tool.
               The point is to describe what a sane discovery and evidence layer
               should look like when invisible write paths start to matter.
+            </p>
+            <p class="body">
+              The reader output is practical: an
+              <a href="/agent-action-bom/">Agent Action BOM</a> for local,
+              repo, MCP, and CI paths, plus evidence a reviewer can use.
             </p>
             <div class="pill-row">
               <span class="pill">Discovery before judgment</span>
@@ -268,9 +287,8 @@
           <a href="https://github.com/Clyra-AI/wrkr">Wrkr repo</a>
         </div>
         <p class="footer-note">
-          This collection stays in the same CAISI system as the rest of the
-          blog: one landing page, consistent breadcrumbs, shared nav, and an
-          emphasis on operating patterns over product promotion.
+          Practical question: which AI-assisted write paths can your team
+          inventory today without asking each developer to narrate their setup?
         </p>
       </footer>
     </main>

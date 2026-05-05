@@ -24,10 +24,12 @@
     <meta name="twitter:title" content="Proof of Work for AI-Generated Changes | CAISI Blog" />
     <meta name="twitter:description" content="Why passing CI is necessary but insufficient, and what evidence should accompany every autonomous code change." />
     <meta name="twitter:image" content="https://caisi.dev/assets/caisi-social.png" />
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="CAISI llms.txt" />
+    <link rel="alternate" type="text/plain" href="/llms-full.txt" title="CAISI llms-full.txt" />
     <meta name="author" content="David Ahmann" />
     <link rel="author" href="https://caisi.dev/authors/david-ahmann/" />
     <meta property="article:published_time" content="2026-03-13" />
-    <meta property="article:modified_time" content="2026-04-28" />
+    <meta property="article:modified_time" content="2026-05-05" />
     <!-- SEO_META_END -->
 <link rel="stylesheet" href="/assets/site.css" />
     <!-- SEO_SCHEMA_START -->
@@ -40,7 +42,7 @@
           "@id": "https://caisi.dev#organization",
           "name": "Centre for AI Security and Integrity (CAISI)",
           "url": "https://caisi.dev",
-          "description": "Independent, reproducible research and operating notes on AI agent governance, execution boundaries, proof quality, and safe adoption.",
+          "description": "Independent, reproducible research and operating notes on AI Software Delivery Control, AI agent governance, execution boundaries, proof quality, and safe adoption.",
           "logo": {
             "@type": "ImageObject",
             "url": "https://caisi.dev/assets/caisi-logo.png"
@@ -59,6 +61,10 @@
           ],
           "knowsAbout": [
             "AI agent governance",
+            "AI Software Delivery Control",
+            "Agent Action BOM",
+            "AI coding agent security",
+            "CI/CD agent security",
             "AI agent control",
             "execution boundaries",
             "tool-boundary enforcement",
@@ -66,10 +72,18 @@
             "evidence quality",
             "safe AI adoption",
             "reproducible AI governance research"
-          ],
-          "sameAs": [
-            "https://github.com/Clyra-AI/safety"
           ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://caisi.dev#website",
+          "url": "https://caisi.dev",
+          "name": "CAISI",
+          "description": "Why passing CI is necessary but insufficient, and what evidence should accompany every autonomous code change.",
+          "publisher": {
+            "@id": "https://caisi.dev#organization"
+          },
+          "inLanguage": "en"
         },
         {
           "@type": "WebPage",
@@ -139,7 +153,7 @@
           "url": "https://caisi.dev/blog/proof-of-work-for-ai-generated-changes/",
           "image": "https://caisi.dev/assets/caisi-social.png",
           "datePublished": "2026-03-13",
-          "dateModified": "2026-04-28",
+          "dateModified": "2026-05-05",
           "inLanguage": "en",
           "about": {
             "@id": "https://caisi.dev#organization"
@@ -149,7 +163,14 @@
           },
           "publisher": {
             "@id": "https://caisi.dev#organization"
-          }
+          },
+          "keywords": [
+            "AI Software Delivery Control",
+            "Agent Action BOM",
+            "AI agent governance",
+            "AI coding agent security",
+            "CI/CD agent security"
+          ]
         }
       ]
     }
@@ -200,6 +221,8 @@
           changes need a compact proof packet that explains what changed, what
           executed, what was blocked, what remains uncertain, and why promotion
           happened.
+          The <a href="/secure-ai-coding-agents-ci-cd/">CI/CD control guide</a>
+          covers the delivery path underneath that proof.
         </p>
       </section>
 
@@ -300,7 +323,9 @@
           The better pattern is a proof packet attached to every autonomous
           change. The packet should connect the trigger, plan, patch summary,
           validation results, policy verdicts, residual risk statement, and
-          promotion decision. A reviewer should be able to read it in minutes
+          promotion decision. The trigger, scope, action, and target fields
+          should also map back to an <a href="/agent-action-bom/">Agent Action BOM</a>.
+          A reviewer should be able to read it in minutes
           and understand why the change exists, what the system did, and where
           human judgment is still required.
         </p>
@@ -418,7 +443,7 @@
         <ul class="list-plain">
           <li>Could they tell what triggered the work?</li>
           <li>Could they see what commands and validations ran?</li>
-          <li>Could they identify the policy posture and any approval requirements?</li>
+          <li>Could they identify the policy posture, approval requirements, and CI/CD control point?</li>
           <li>Could they see residual risk without joining a meeting?</li>
         </ul>
         <p>

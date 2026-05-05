@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>What Is an Agent Action BOM? | CAISI</title>
+    <meta
+      name="description"
+      content="An Agent Action BOM maps AI-assisted software delivery action paths: actor, owner, repo, credential, reachable actions, target systems, approval, and proof."
+    />
+    <!-- SEO_META_START -->
+    <link rel="canonical" href="https://caisi.dev/agent-action-bom/" />
+    <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+    <meta property="og:site_name" content="CAISI" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="What Is an Agent Action BOM? | CAISI" />
+    <meta property="og:description" content="An Agent Action BOM maps AI-assisted software delivery action paths: actor, owner, repo, credential, reachable actions, target systems, approval, and proof." />
+    <meta property="og:url" content="https://caisi.dev/agent-action-bom/" />
+    <meta property="og:image" content="https://caisi.dev/assets/caisi-social.png" />
+    <meta property="og:image:alt" content="What Is an Agent Action BOM? | CAISI" />
+    <meta property="og:image:width" content="1600" />
+    <meta property="og:image:height" content="900" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="What Is an Agent Action BOM? | CAISI" />
+    <meta name="twitter:description" content="An Agent Action BOM maps AI-assisted software delivery action paths: actor, owner, repo, credential, reachable actions, target systems, approval, and proof." />
+    <meta name="twitter:image" content="https://caisi.dev/assets/caisi-social.png" />
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="CAISI llms.txt" />
+    <link rel="alternate" type="text/plain" href="/llms-full.txt" title="CAISI llms-full.txt" />
+    <meta name="author" content="David Ahmann" />
+    <link rel="author" href="https://caisi.dev/authors/david-ahmann/" />
+    <meta property="article:published_time" content="2026-05-05" />
+    <meta property="article:modified_time" content="2026-05-05" />
+    <!-- SEO_META_END -->
+
+    <link rel="stylesheet" href="/assets/site.css" />
+    <!-- SEO_SCHEMA_START -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://caisi.dev#organization",
+          "name": "Centre for AI Security and Integrity (CAISI)",
+          "url": "https://caisi.dev",
+          "description": "Independent, reproducible research and operating notes on AI Software Delivery Control, AI agent governance, execution boundaries, proof quality, and safe adoption.",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://caisi.dev/assets/caisi-logo.png"
+          },
+          "email": "david@caisi.dev",
+          "contactPoint": [
+            {
+              "@type": "ContactPoint",
+              "contactType": "research inquiries",
+              "email": "david@caisi.dev",
+              "url": "https://caisi.dev",
+              "availableLanguage": [
+                "en"
+              ]
+            }
+          ],
+          "knowsAbout": [
+            "AI agent governance",
+            "AI Software Delivery Control",
+            "Agent Action BOM",
+            "AI coding agent security",
+            "CI/CD agent security",
+            "AI agent control",
+            "execution boundaries",
+            "tool-boundary enforcement",
+            "approval mediation",
+            "evidence quality",
+            "safe AI adoption",
+            "reproducible AI governance research"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://caisi.dev#website",
+          "url": "https://caisi.dev",
+          "name": "CAISI",
+          "description": "An Agent Action BOM maps AI-assisted software delivery action paths: actor, owner, repo, credential, reachable actions, target systems, approval, and proof.",
+          "publisher": {
+            "@id": "https://caisi.dev#organization"
+          },
+          "inLanguage": "en"
+        },
+        {
+          "@type": "WebPage",
+          "@id": "https://caisi.dev/agent-action-bom/#webpage",
+          "url": "https://caisi.dev/agent-action-bom/",
+          "name": "What Is an Agent Action BOM? | CAISI",
+          "description": "An Agent Action BOM maps AI-assisted software delivery action paths: actor, owner, repo, credential, reachable actions, target systems, approval, and proof.",
+          "inLanguage": "en",
+          "about": {
+            "@id": "https://caisi.dev#organization"
+          },
+          "isPartOf": {
+            "@id": "https://caisi.dev#website"
+          }
+        },
+        {
+          "@type": "Person",
+          "@id": "https://caisi.dev/authors/david-ahmann/#person",
+          "name": "David Ahmann",
+          "url": "https://caisi.dev/authors/david-ahmann/",
+          "image": "https://caisi.dev/assets/david-ahmann-headshot.png",
+          "description": "David Ahmann writes at CAISI about AI agent governance, execution boundaries, evidence quality, and safe adoption for AppSec, platform, and engineering leaders.",
+          "sameAs": [
+            "https://www.linkedin.com/in/dahmann/"
+          ],
+          "jobTitle": "Head of Cloud & AI Platforms",
+          "worksFor": {
+            "@type": "Organization",
+            "name": "CDW"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": "https://caisi.dev/agent-action-bom/#breadcrumb",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://caisi.dev"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Agent Action BOM"
+            }
+          ]
+        },
+        {
+          "@type": "TechArticle",
+          "@id": "https://caisi.dev/agent-action-bom/#article",
+          "headline": "What Is an Agent Action BOM?",
+          "description": "An Agent Action BOM maps AI-assisted software delivery action paths: actor, owner, repo, credential, reachable actions, target systems, approval, and proof.",
+          "mainEntityOfPage": "https://caisi.dev/agent-action-bom/",
+          "url": "https://caisi.dev/agent-action-bom/",
+          "image": "https://caisi.dev/assets/caisi-social.png",
+          "datePublished": "2026-05-05",
+          "dateModified": "2026-05-05",
+          "inLanguage": "en",
+          "about": {
+            "@id": "https://caisi.dev#organization"
+          },
+          "author": {
+            "@id": "https://caisi.dev/authors/david-ahmann/#person"
+          },
+          "publisher": {
+            "@id": "https://caisi.dev#organization"
+          },
+          "keywords": [
+            "AI Software Delivery Control",
+            "Agent Action BOM",
+            "AI agent governance",
+            "AI coding agent security",
+            "CI/CD agent security"
+          ]
+        }
+      ]
+    }
+    </script>
+    <!-- SEO_SCHEMA_END -->
+
+  </head>
+  <body>
+    <main class="site" aria-label="CAISI site content">
+      <header class="site-header" aria-label="Site header">
+        <div class="brand-row">
+          <div class="brand-mark">
+            <a class="brand-link" href="/">CAISI</a>
+            <p class="brand-note">Independent research and operating notes on AI Software Delivery Control.</p>
+          </div>
+        </div>
+        <nav class="global-nav" aria-label="Primary">
+          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" href="/roles/">Roles</a>
+          <a class="nav-link" href="/research/">Research</a>
+          <a class="nav-link" href="/blog/">Blog</a>
+        </nav>
+      </header>
+
+      <section class="section hero">
+        <p class="breadcrumbs"><a href="/">Home</a> / <span>Agent Action BOM</span></p>
+        <p class="eyebrow">Reference / AI Software Delivery Control</p>
+        <h1>What Is an Agent Action BOM?</h1>
+        <p class="lead">
+          An Agent Action BOM is an inventory of AI-assisted software delivery
+          action paths. It maps the actor, owner, repo, workflow, credential,
+          reachable actions, target systems, approval status, and proof
+          coverage.
+        </p>
+        <p class="body">Last updated: May 5, 2026</p>
+        <!-- Source notes: this page avoids external statistics, recent events, and vendor capability claims. Verify any added factual or current claims before publishing. -->
+      </section>
+
+      <section class="section page-nav" aria-labelledby="page-nav-heading">
+        <h2 id="page-nav-heading">On this page</h2>
+        <div class="page-nav-list">
+          <a href="#definition">Definition</a>
+          <a href="#why">Why it exists</a>
+          <a href="#fields">Core fields</a>
+          <a href="#difference">How it differs from SBOM and AI BOM</a>
+          <a href="#buyer-questions">Buyer questions</a>
+          <a href="#use">How to use it</a>
+        </div>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="definition">Definition</h2>
+        <p>
+          An Agent Action BOM answers a narrow operational question:
+        </p>
+        <blockquote>
+          What can this AI-assisted engineering workflow touch or change?
+        </blockquote>
+        <p>
+          The artifact follows the action path rather than only the model or
+          code artifact:
+        </p>
+        <pre><code>agent/workflow -> repo/PR -> credential -> action -> target -> owner -> approval/proof</code></pre>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="why">Why it exists</h2>
+        <p>
+          AI coding agents and automations can cross boundaries that are usually
+          reviewed separately: repository permissions, CI/CD workflows,
+          secrets, package managers, MCP tools, cloud APIs, release workflows,
+          and production-adjacent systems.
+        </p>
+        <p>
+          A normal inventory can show that a tool exists. An Agent Action BOM
+          should show what the tool or workflow can do.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="fields">Core fields</h2>
+        <div class="summary-grid">
+          <article class="card">
+            <h3>Actor and owner</h3>
+            <p>Agent or workflow name, type, human owner, purpose, repo, PR, branch, and source location.</p>
+          </article>
+          <article class="card">
+            <h3>Credential</h3>
+            <p>Token, service account, OAuth grant, CI secret, inherited identity, or short-lived credential.</p>
+          </article>
+          <article class="card">
+            <h3>Reachable actions</h3>
+            <p>Read, write, deploy, delete, execute, secret access, package publish, cloud API, or database write.</p>
+          </article>
+          <article class="card">
+            <h3>Control and proof</h3>
+            <p>Allowed, approval-required, or blocked actions plus evidence of approval, credential use, target system, and outcome.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="difference">How it differs from SBOM and AI BOM</h2>
+        <p>
+          An SBOM lists software components. An AI BOM may list models, prompts,
+          tools, datasets, or providers.
+        </p>
+        <p>
+          An Agent Action BOM maps action authority. It is about what an
+          AI-assisted workflow can touch or change across software delivery.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="buyer-questions">Buyer Questions</h2>
+        <ul class="list-plain">
+          <li>Which AI-assisted workflows can write code, change CI/CD, or trigger deployment paths?</li>
+          <li>Which credentials do those workflows inherit, and are they broader than the task requires?</li>
+          <li>Which actions should be allowed automatically, require approval, or be blocked?</li>
+          <li>Could an AppSec, platform, or audit reviewer reconstruct what happened after a privileged action?</li>
+          <li>Who owns each action path when the agent, workflow, repo, credential, and target system span different teams?</li>
+        </ul>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="use">How to use it</h2>
+        <ul class="list-plain">
+          <li>Start with two or three repos or workflows where AI-assisted actions can affect delivery.</li>
+          <li>Map the actor, credential, action, target, owner, approval rule, and proof trail.</li>
+          <li>Classify each action as allowed, approval-required, or blocked.</li>
+          <li>Fix standing broad credentials before expanding write authority.</li>
+          <li>Use the artifact in AppSec review, platform standards, and CISO reporting.</li>
+        </ul>
+        <div class="link-row">
+          <a href="/blog/ai-coding-agents-from-suggestions-to-actions/">Read the field note</a>
+          <span class="divider">|</span>
+          <a href="/secure-ai-coding-agents-ci-cd/">Secure AI coding agents in CI/CD</a>
+          <span class="divider">|</span>
+          <a href="/blog/glossary/">Glossary</a>
+        </div>
+      </section>
+
+      <footer class="section article-footer" aria-label="Agent Action BOM footer">
+        <div class="footer-links">
+          <a href="/">Home</a>
+          <span class="divider">|</span>
+          <a href="/blog/">Blog</a>
+          <span class="divider">|</span>
+          <a href="/research/">Research</a>
+        </div>
+        <p class="footer-note">
+          Practical question: can a reviewer see which AI-assisted workflow can
+          write, deploy, touch credentials, or affect production-adjacent
+          systems?
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>

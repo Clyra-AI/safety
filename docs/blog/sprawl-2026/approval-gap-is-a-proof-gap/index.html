@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>An 11:1 Approval Gap Is a Proof Gap, Not a Panic Statistic | CAISI Blog</title>
+    <title>An 11:1 Approval Gap Is a Proof Gap | CAISI Blog</title>
     <meta
       name="description"
       content="Why CISOs should read the sprawl report's 11:1 approval ratio as a proof and governance problem, not a panic headline."
@@ -13,21 +13,23 @@
     <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
     <meta property="og:site_name" content="CAISI" />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="An 11:1 Approval Gap Is a Proof Gap, Not a Panic Statistic | CAISI Blog" />
+    <meta property="og:title" content="An 11:1 Approval Gap Is a Proof Gap | CAISI Blog" />
     <meta property="og:description" content="Why CISOs should read the sprawl report's 11:1 approval ratio as a proof and governance problem, not a panic headline." />
     <meta property="og:url" content="https://caisi.dev/blog/sprawl-2026/approval-gap-is-a-proof-gap/" />
     <meta property="og:image" content="https://caisi.dev/assets/caisi-social.png" />
-    <meta property="og:image:alt" content="An 11:1 Approval Gap Is a Proof Gap, Not a Panic Statistic | CAISI Blog" />
+    <meta property="og:image:alt" content="An 11:1 Approval Gap Is a Proof Gap | CAISI Blog" />
     <meta property="og:image:width" content="1600" />
     <meta property="og:image:height" content="900" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="An 11:1 Approval Gap Is a Proof Gap, Not a Panic Statistic | CAISI Blog" />
+    <meta name="twitter:title" content="An 11:1 Approval Gap Is a Proof Gap | CAISI Blog" />
     <meta name="twitter:description" content="Why CISOs should read the sprawl report's 11:1 approval ratio as a proof and governance problem, not a panic headline." />
     <meta name="twitter:image" content="https://caisi.dev/assets/caisi-social.png" />
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="CAISI llms.txt" />
+    <link rel="alternate" type="text/plain" href="/llms-full.txt" title="CAISI llms-full.txt" />
     <meta name="author" content="David Ahmann" />
     <link rel="author" href="https://caisi.dev/authors/david-ahmann/" />
     <meta property="article:published_time" content="2026-03-14" />
-    <meta property="article:modified_time" content="2026-04-28" />
+    <meta property="article:modified_time" content="2026-05-05" />
     <!-- SEO_META_END -->
 <link rel="stylesheet" href="/assets/site.css" />
     <!-- SEO_SCHEMA_START -->
@@ -40,7 +42,7 @@
           "@id": "https://caisi.dev#organization",
           "name": "Centre for AI Security and Integrity (CAISI)",
           "url": "https://caisi.dev",
-          "description": "Independent, reproducible research and operating notes on AI agent governance, execution boundaries, proof quality, and safe adoption.",
+          "description": "Independent, reproducible research and operating notes on AI Software Delivery Control, AI agent governance, execution boundaries, proof quality, and safe adoption.",
           "logo": {
             "@type": "ImageObject",
             "url": "https://caisi.dev/assets/caisi-logo.png"
@@ -59,6 +61,10 @@
           ],
           "knowsAbout": [
             "AI agent governance",
+            "AI Software Delivery Control",
+            "Agent Action BOM",
+            "AI coding agent security",
+            "CI/CD agent security",
             "AI agent control",
             "execution boundaries",
             "tool-boundary enforcement",
@@ -66,16 +72,24 @@
             "evidence quality",
             "safe AI adoption",
             "reproducible AI governance research"
-          ],
-          "sameAs": [
-            "https://github.com/Clyra-AI/safety"
           ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://caisi.dev#website",
+          "url": "https://caisi.dev",
+          "name": "CAISI",
+          "description": "Why CISOs should read the sprawl report's 11:1 approval ratio as a proof and governance problem, not a panic headline.",
+          "publisher": {
+            "@id": "https://caisi.dev#organization"
+          },
+          "inLanguage": "en"
         },
         {
           "@type": "WebPage",
           "@id": "https://caisi.dev/blog/sprawl-2026/approval-gap-is-a-proof-gap/#webpage",
           "url": "https://caisi.dev/blog/sprawl-2026/approval-gap-is-a-proof-gap/",
-          "name": "An 11:1 Approval Gap Is a Proof Gap, Not a Panic Statistic | CAISI Blog",
+          "name": "An 11:1 Approval Gap Is a Proof Gap | CAISI Blog",
           "description": "Why CISOs should read the sprawl report's 11:1 approval ratio as a proof and governance problem, not a panic headline.",
           "inLanguage": "en",
           "about": {
@@ -139,7 +153,7 @@
           "url": "https://caisi.dev/blog/sprawl-2026/approval-gap-is-a-proof-gap/",
           "image": "https://caisi.dev/assets/caisi-social.png",
           "datePublished": "2026-03-14",
-          "dateModified": "2026-04-28",
+          "dateModified": "2026-05-05",
           "inLanguage": "en",
           "about": {
             "@id": "https://caisi.dev#organization"
@@ -149,7 +163,14 @@
           },
           "publisher": {
             "@id": "https://caisi.dev#organization"
-          }
+          },
+          "keywords": [
+            "AI Software Delivery Control",
+            "Agent Action BOM",
+            "AI agent governance",
+            "AI coding agent security",
+            "CI/CD agent security"
+          ]
         }
       ]
     }
@@ -281,9 +302,10 @@
           board reporting, incident response, and policy exception handling.
         </p>
         <p>
-          This is especially important because public AI adoption often happens
-          faster than governance systems mature. The ratio is telling leadership
-          where visibility breaks down under that speed.
+          This is especially important because the report shows public AI
+          declarations outpacing visible approval evidence. The ratio is telling
+          leadership where visibility breaks down when adoption artifacts appear
+          faster than governance proof.
         </p>
         <p>
           Unknown approval state also pushes cost into the worst places: audit

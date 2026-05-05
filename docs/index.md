@@ -1,7 +1,17 @@
 # Centre for AI Security and Integrity
 
-Independent, reproducible AI governance research for AppSec, CISOs, and
-platform security leaders.
+Independent research and field notes on AI Software Delivery Control for
+AppSec, CISOs, and platform security leaders.
+
+Core question:
+
+> What can AI-assisted engineering workflows touch, change, approve, and prove?
+
+## Start with the artifact
+
+- [Agent Action BOM](./agent-action-bom/) - map actor, owner, repo, workflow, credential, reachable actions, targets, approval, and proof.
+- [Secure AI coding agents in CI/CD](./secure-ai-coding-agents-ci-cd/) - practical controls for PRs, GitHub Actions, CI/CD, credentials, and release paths.
+- [Field note: suggestions are becoming actions](./blog/ai-coding-agents-from-suggestions-to-actions/) - why the missing artifact is an Agent Action BOM.
 
 ## Start by role
 

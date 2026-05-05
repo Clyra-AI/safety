@@ -24,10 +24,12 @@
     <meta name="twitter:title" content="Parallel Agents Without Chaos | CAISI Blog" />
     <meta name="twitter:description" content="Why safe concurrency depends on path boundaries, dependency DAGs, claims, retries, and orchestrator-owned reconciliation." />
     <meta name="twitter:image" content="https://caisi.dev/assets/caisi-social.png" />
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="CAISI llms.txt" />
+    <link rel="alternate" type="text/plain" href="/llms-full.txt" title="CAISI llms-full.txt" />
     <meta name="author" content="David Ahmann" />
     <link rel="author" href="https://caisi.dev/authors/david-ahmann/" />
     <meta property="article:published_time" content="2026-03-13" />
-    <meta property="article:modified_time" content="2026-04-28" />
+    <meta property="article:modified_time" content="2026-05-05" />
     <!-- SEO_META_END -->
 <link rel="stylesheet" href="/assets/site.css" />
     <!-- SEO_SCHEMA_START -->
@@ -40,7 +42,7 @@
           "@id": "https://caisi.dev#organization",
           "name": "Centre for AI Security and Integrity (CAISI)",
           "url": "https://caisi.dev",
-          "description": "Independent, reproducible research and operating notes on AI agent governance, execution boundaries, proof quality, and safe adoption.",
+          "description": "Independent, reproducible research and operating notes on AI Software Delivery Control, AI agent governance, execution boundaries, proof quality, and safe adoption.",
           "logo": {
             "@type": "ImageObject",
             "url": "https://caisi.dev/assets/caisi-logo.png"
@@ -59,6 +61,10 @@
           ],
           "knowsAbout": [
             "AI agent governance",
+            "AI Software Delivery Control",
+            "Agent Action BOM",
+            "AI coding agent security",
+            "CI/CD agent security",
             "AI agent control",
             "execution boundaries",
             "tool-boundary enforcement",
@@ -66,10 +72,18 @@
             "evidence quality",
             "safe AI adoption",
             "reproducible AI governance research"
-          ],
-          "sameAs": [
-            "https://github.com/Clyra-AI/safety"
           ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://caisi.dev#website",
+          "url": "https://caisi.dev",
+          "name": "CAISI",
+          "description": "Why safe concurrency depends on path boundaries, dependency DAGs, claims, retries, and orchestrator-owned reconciliation.",
+          "publisher": {
+            "@id": "https://caisi.dev#organization"
+          },
+          "inLanguage": "en"
         },
         {
           "@type": "WebPage",
@@ -139,7 +153,7 @@
           "url": "https://caisi.dev/blog/parallel-agents-without-chaos/",
           "image": "https://caisi.dev/assets/caisi-social.png",
           "datePublished": "2026-03-13",
-          "dateModified": "2026-04-28",
+          "dateModified": "2026-05-05",
           "inLanguage": "en",
           "about": {
             "@id": "https://caisi.dev#organization"
@@ -149,7 +163,14 @@
           },
           "publisher": {
             "@id": "https://caisi.dev#organization"
-          }
+          },
+          "keywords": [
+            "AI Software Delivery Control",
+            "Agent Action BOM",
+            "AI agent governance",
+            "AI coding agent security",
+            "CI/CD agent security"
+          ]
         }
       ]
     }
@@ -275,6 +296,11 @@
           what should be cancelled or retried when conditions change.
         </p>
         <p>
+          Those path claims are a natural input to an
+          <a href="/agent-action-bom/">Agent Action BOM</a>: actor, owner, repo,
+          workflow, reachable actions, target systems, and proof.
+        </p>
+        <p>
           A dependency DAG is not overkill here.
         </p>
         <p>
@@ -370,7 +396,7 @@
           codes.
         </p>
         <ul class="list-plain">
-          <li>Require each run to declare expected path claims.</li>
+          <li>Require each run to declare expected path claims and map them into the <a href="/agent-action-bom/">Agent Action BOM</a>.</li>
           <li>Model obvious task dependencies and blockers explicitly.</li>
           <li>Define what should cancel a run when the source issue changes state.</li>
           <li>Keep retry reasons and backoff visible so failure loops do not become silent queue churn.</li>

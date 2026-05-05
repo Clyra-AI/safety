@@ -6,7 +6,7 @@
     <title>Policy Before Action | CAISI Blog</title>
     <meta
       name="description"
-      content="A four-part CAISI series using the current Gait repo as the implementation context for tool-boundary policy, MCP enforcement, signed traces, and CI regressions."
+      content="A four-part CAISI series using Gait implementation patterns for tool-boundary policy, MCP enforcement, signed traces, and CI regressions."
     />
     <!-- SEO_META_START -->
     <link rel="canonical" href="https://caisi.dev/blog/gait/" />
@@ -14,7 +14,7 @@
     <meta property="og:site_name" content="CAISI" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Policy Before Action | CAISI Blog" />
-    <meta property="og:description" content="A four-part CAISI series using the current Gait repo as the implementation context for tool-boundary policy, MCP enforcement, signed traces, and CI regressions." />
+    <meta property="og:description" content="A four-part CAISI series using Gait implementation patterns for tool-boundary policy, MCP enforcement, signed traces, and CI regressions." />
     <meta property="og:url" content="https://caisi.dev/blog/gait/" />
     <meta property="og:image" content="https://caisi.dev/assets/caisi-social.png" />
     <meta property="og:image:alt" content="Policy Before Action | CAISI Blog" />
@@ -22,8 +22,10 @@
     <meta property="og:image:height" content="900" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Policy Before Action | CAISI Blog" />
-    <meta name="twitter:description" content="A four-part CAISI series using the current Gait repo as the implementation context for tool-boundary policy, MCP enforcement, signed traces, and CI regressions." />
+    <meta name="twitter:description" content="A four-part CAISI series using Gait implementation patterns for tool-boundary policy, MCP enforcement, signed traces, and CI regressions." />
     <meta name="twitter:image" content="https://caisi.dev/assets/caisi-social.png" />
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="CAISI llms.txt" />
+    <link rel="alternate" type="text/plain" href="/llms-full.txt" title="CAISI llms-full.txt" />
     <!-- SEO_META_END -->
 <link rel="stylesheet" href="/assets/site.css" />
     <!-- SEO_SCHEMA_START -->
@@ -36,7 +38,7 @@
           "@id": "https://caisi.dev#organization",
           "name": "Centre for AI Security and Integrity (CAISI)",
           "url": "https://caisi.dev",
-          "description": "Independent, reproducible research and operating notes on AI agent governance, execution boundaries, proof quality, and safe adoption.",
+          "description": "Independent, reproducible research and operating notes on AI Software Delivery Control, AI agent governance, execution boundaries, proof quality, and safe adoption.",
           "logo": {
             "@type": "ImageObject",
             "url": "https://caisi.dev/assets/caisi-logo.png"
@@ -55,6 +57,10 @@
           ],
           "knowsAbout": [
             "AI agent governance",
+            "AI Software Delivery Control",
+            "Agent Action BOM",
+            "AI coding agent security",
+            "CI/CD agent security",
             "AI agent control",
             "execution boundaries",
             "tool-boundary enforcement",
@@ -62,17 +68,25 @@
             "evidence quality",
             "safe AI adoption",
             "reproducible AI governance research"
-          ],
-          "sameAs": [
-            "https://github.com/Clyra-AI/safety"
           ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://caisi.dev#website",
+          "url": "https://caisi.dev",
+          "name": "CAISI",
+          "description": "A four-part CAISI series using Gait implementation patterns for tool-boundary policy, MCP enforcement, signed traces, and CI regressions.",
+          "publisher": {
+            "@id": "https://caisi.dev#organization"
+          },
+          "inLanguage": "en"
         },
         {
           "@type": "CollectionPage",
           "@id": "https://caisi.dev/blog/gait/#webpage",
           "url": "https://caisi.dev/blog/gait/",
           "name": "Policy Before Action | CAISI Blog",
-          "description": "A four-part CAISI series using the current Gait repo as the implementation context for tool-boundary policy, MCP enforcement, signed traces, and CI regressions.",
+          "description": "A four-part CAISI series using Gait implementation patterns for tool-boundary policy, MCP enforcement, signed traces, and CI regressions.",
           "inLanguage": "en",
           "about": {
             "@id": "https://caisi.dev#organization"
@@ -141,13 +155,18 @@
             <p class="eyebrow">CAISI Blog / Gait Implementation Series</p>
             <h1>Policy Before Action</h1>
             <p class="lead">
-              This four-part series uses the current Gait repo as implementation
+              This four-part series uses Gait repo patterns as implementation
               context for a problem many teams still avoid naming clearly:
               policy only becomes real when it can change what an agent is
               allowed to do before the action executes. YAML policy, boundary
               verdicts, signed traces, and CI regressions matter because they
               turn AI governance from advisory language into operating
               discipline.
+            </p>
+            <p class="body">
+              The reader output is a concrete boundary model: allowed,
+              approval-required, and blocked actions with portable evidence and
+              <a href="/secure-ai-coding-agents-ci-cd/">CI/CD regression checks</a>.
             </p>
             <div class="pill-row">
               <span class="pill">Boundary before side effect</span>
@@ -264,9 +283,8 @@
           <a href="https://github.com/Clyra-AI/gait">Gait repo</a>
         </div>
         <p class="footer-note">
-          This collection uses the same CAISI navigation and page system as the
-          rest of the site so the implementation essays stay connected to the
-          broader research and operating-model work.
+          Practical question: does policy change what can execute before the
+          tool call, or only explain what happened afterward?
         </p>
       </footer>
     </main>

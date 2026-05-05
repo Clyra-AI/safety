@@ -20,6 +20,7 @@ const AUTHOR_ID = `${AUTHOR_PROFILE}#person`;
 const PAGE_TYPES = {
   home: "home",
   report: "report",
+  reference: "reference",
   collection: "collection",
   article: "article",
   profile: "profile",
@@ -35,6 +36,13 @@ const COLLECTION_ROUTES = new Set([
   "/blog/control-benchmarks/",
   "/blog/governed-adoption/",
   "/research/",
+]);
+
+const REFERENCE_ROUTES = new Set([
+  "/agent-action-bom/",
+  "/secure-ai-coding-agents-ci-cd/",
+  "/blog/ai-agent-governance/",
+  "/blog/glossary/",
 ]);
 
 function walk(dir) {
@@ -63,6 +71,7 @@ function inferType(route) {
   ) {
     return PAGE_TYPES.report;
   }
+  if (REFERENCE_ROUTES.has(route)) return PAGE_TYPES.reference;
   if (COLLECTION_ROUTES.has(route)) return PAGE_TYPES.collection;
   if (route.startsWith("/blog/")) return PAGE_TYPES.article;
   return PAGE_TYPES.collection;
@@ -146,7 +155,7 @@ function organizationObject() {
     name: ORG_NAME,
     url: BASE_URL,
     description:
-      "Independent, reproducible research and operating notes on AI agent governance, execution boundaries, proof quality, and safe adoption.",
+      "Independent, reproducible research and operating notes on AI Software Delivery Control, AI agent governance, execution boundaries, proof quality, and safe adoption.",
     logo: {
       "@type": "ImageObject",
       url: LOGO_IMAGE,
@@ -163,6 +172,10 @@ function organizationObject() {
     ],
     knowsAbout: [
       "AI agent governance",
+      "AI Software Delivery Control",
+      "Agent Action BOM",
+      "AI coding agent security",
+      "CI/CD agent security",
       "AI agent control",
       "execution boundaries",
       "tool-boundary enforcement",
@@ -171,7 +184,6 @@ function organizationObject() {
       "safe AI adoption",
       "reproducible AI governance research",
     ],
-    sameAs: ["https://github.com/Clyra-AI/safety"],
   };
 }
 
@@ -190,6 +202,20 @@ function authorObject() {
       "@type": "Organization",
       name: "CDW",
     },
+  };
+}
+
+function websiteObject(description) {
+  return {
+    "@type": "WebSite",
+    "@id": WEBSITE_ID,
+    url: BASE_URL,
+    name: SITE_NAME,
+    description,
+    publisher: {
+      "@id": ORG_ID,
+    },
+    inLanguage: "en",
   };
 }
 
@@ -239,7 +265,12 @@ function webpageObject(type, url, title, description) {
 }
 
 function articleObject(type, url, headline, description, published, modified) {
-  const articleType = type === PAGE_TYPES.report ? "Article" : "BlogPosting";
+  const articleType =
+    type === PAGE_TYPES.report
+      ? "Article"
+      : type === PAGE_TYPES.reference
+        ? "TechArticle"
+        : "BlogPosting";
   return {
     "@type": articleType,
     "@id": `${url}#article`,
@@ -265,6 +296,13 @@ function articleObject(type, url, headline, description, published, modified) {
     publisher: {
       "@id": ORG_ID,
     },
+    keywords: [
+      "AI Software Delivery Control",
+      "Agent Action BOM",
+      "AI agent governance",
+      "AI coding agent security",
+      "CI/CD agent security",
+    ],
   };
 }
 
@@ -273,6 +311,7 @@ function profileGraph(url, title, description) {
     "@context": "https://schema.org",
     "@graph": [
       organizationObject(),
+      websiteObject(description),
       webpageObject(PAGE_TYPES.profile, url, title, description),
       {
         "@type": "ProfilePage",
@@ -295,17 +334,7 @@ function homeGraph(url, title, description) {
     "@context": "https://schema.org",
     "@graph": [
       organizationObject(),
-      {
-        "@type": "WebSite",
-        "@id": WEBSITE_ID,
-        url: BASE_URL,
-        name: SITE_NAME,
-        description,
-        publisher: {
-          "@id": ORG_ID,
-        },
-        inLanguage: "en",
-      },
+      websiteObject(description),
       webpageObject(PAGE_TYPES.home, url, title, description),
     ],
   };
@@ -325,12 +354,20 @@ function buildGraph(meta) {
   if (type === PAGE_TYPES.home) return homeGraph(url, title, description);
   if (type === PAGE_TYPES.profile) return profileGraph(url, title, description);
 
-  const graph = [organizationObject(), webpageObject(type, url, title, description)];
-  if (type === PAGE_TYPES.article) {
+  const graph = [
+    organizationObject(),
+    websiteObject(description),
+    webpageObject(type, url, title, description),
+  ];
+  if (type === PAGE_TYPES.article || type === PAGE_TYPES.reference) {
     graph.push(authorObject());
   }
   if (breadcrumbs.length) graph.push(breadcrumbObject(url, breadcrumbs));
-  if (type === PAGE_TYPES.article || type === PAGE_TYPES.report) {
+  if (
+    type === PAGE_TYPES.article ||
+    type === PAGE_TYPES.report ||
+    type === PAGE_TYPES.reference
+  ) {
     graph.push(articleObject(type, url, headline, description, published, modified));
   }
   return { "@context": "https://schema.org", "@graph": graph };
@@ -339,7 +376,9 @@ function buildGraph(meta) {
 function buildMetaBlock(meta) {
   const { type, url, title, description, published, modified } = meta;
   const ogType =
-    type === PAGE_TYPES.article || type === PAGE_TYPES.report
+    type === PAGE_TYPES.article ||
+    type === PAGE_TYPES.report ||
+    type === PAGE_TYPES.reference
       ? "article"
       : type === PAGE_TYPES.profile
         ? "profile"
@@ -364,12 +403,18 @@ function buildMetaBlock(meta) {
     `    <meta name="twitter:title" content="${escapeHtml(title)}" />`,
     `    <meta name="twitter:description" content="${escapeHtml(description)}" />`,
     `    <meta name="twitter:image" content="${image}" />`,
+    '    <link rel="alternate" type="text/plain" href="/llms.txt" title="CAISI llms.txt" />',
+    '    <link rel="alternate" type="text/plain" href="/llms-full.txt" title="CAISI llms-full.txt" />',
   ];
-  if (type === PAGE_TYPES.article) {
+  if (type === PAGE_TYPES.article || type === PAGE_TYPES.reference) {
     lines.push('    <meta name="author" content="David Ahmann" />');
     lines.push(`    <link rel="author" href="${AUTHOR_PROFILE}" />`);
   }
-  if (type === PAGE_TYPES.article || type === PAGE_TYPES.report) {
+  if (
+    type === PAGE_TYPES.article ||
+    type === PAGE_TYPES.report ||
+    type === PAGE_TYPES.reference
+  ) {
     lines.push(`    <meta property="article:published_time" content="${published}" />`);
     lines.push(`    <meta property="article:modified_time" content="${modified}" />`);
   }
@@ -400,8 +445,64 @@ function replaceOrInsert(html, block, startMarker, endMarker, anchorRe) {
   return html.replace(anchorRe, `\n${block}\n$&`);
 }
 
+function sitemapPriority(route, type) {
+  if (route === "/") return "1.0";
+  if (type === PAGE_TYPES.reference || type === PAGE_TYPES.report) return "0.9";
+  if (type === PAGE_TYPES.collection || route === "/roles/" || route === "/research/") {
+    return "0.8";
+  }
+  return "0.6";
+}
+
+function sitemapChangefreq(type) {
+  if (type === PAGE_TYPES.home || type === PAGE_TYPES.collection) return "weekly";
+  if (type === PAGE_TYPES.reference) return "monthly";
+  return "yearly";
+}
+
+function buildSitemap(entries) {
+  const order = [
+    "/",
+    "/roles/",
+    "/research/",
+    "/agent-action-bom/",
+    "/secure-ai-coding-agents-ci-cd/",
+    "/openclaw-2026/",
+    "/ai-tool-sprawl-v2-2026/",
+    "/ai-tool-sprawl-q1-2026/",
+    "/blog/",
+  ];
+  const byRoute = new Map(entries.map((entry) => [entry.route, entry]));
+  const sorted = [
+    ...order.map((route) => byRoute.get(route)).filter(Boolean),
+    ...entries
+      .filter((entry) => !order.includes(entry.route))
+      .sort((a, b) => a.route.localeCompare(b.route)),
+  ];
+  const urls = sorted
+    .map((entry) => {
+      return [
+        "  <url>",
+        `    <loc>${entry.url}</loc>`,
+        `    <lastmod>${entry.modified}</lastmod>`,
+        `    <changefreq>${sitemapChangefreq(entry.type)}</changefreq>`,
+        `    <priority>${sitemapPriority(entry.route, entry.type)}</priority>`,
+        "  </url>",
+      ].join("\n");
+    })
+    .join("\n");
+  return [
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+    urls,
+    "</urlset>",
+    "",
+  ].join("\n");
+}
+
 function main() {
   const files = walk(DOCS);
+  const sitemapEntries = [];
   for (const file of files) {
     const route = fileToRoute(file);
     const type = inferType(route);
@@ -428,6 +529,12 @@ function main() {
       published,
       modified,
     };
+    sitemapEntries.push({
+      route,
+      url: meta.url,
+      type,
+      modified,
+    });
 
     html = replaceOrInsert(
       html,
@@ -445,6 +552,7 @@ function main() {
     );
     fs.writeFileSync(file, html);
   }
+  fs.writeFileSync(path.join(DOCS, "sitemap.xml"), buildSitemap(sitemapEntries));
 }
 
 main();

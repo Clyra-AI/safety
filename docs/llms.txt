@@ -1,5 +1,5 @@
 # CAISI
-> Independent, reproducible research and operating notes on AI agent governance, execution boundaries, proof quality, and safe adoption.
+> Independent research and field notes on AI Software Delivery Control: how AI-assisted engineering workflows touch PRs, CI/CD, credentials, tools, and release paths, and what proof should exist after privileged actions.
 
 ## Research
 - [Research hub](https://caisi.dev/research/)
@@ -9,6 +9,7 @@
 
 ## Blog Collections
 - [CAISI blog hub](https://caisi.dev/blog/)
+- [Field note: AI coding agents are moving from suggestions to actions](https://caisi.dev/blog/ai-coding-agents-from-suggestions-to-actions/)
 - [AI Engineering Operating Notes](https://caisi.dev/blog/operating-notes/)
 - [What OpenClaw Taught Us About Agent Control](https://caisi.dev/blog/openclaw/)
 - [What the Sprawl Report Means for Security and Platform Leaders](https://caisi.dev/blog/sprawl-2026/)
@@ -18,9 +19,16 @@
 - [From AI Pilots to Governed Adoption](https://caisi.dev/blog/governed-adoption/)
 
 ## Reference
+- [What is an Agent Action BOM?](https://caisi.dev/agent-action-bom/)
+- [How to secure AI coding agents in CI/CD](https://caisi.dev/secure-ai-coding-agents-ci-cd/)
 - [AI Agent Governance Guide](https://caisi.dev/blog/ai-agent-governance/)
 - [AI Agent Governance Glossary](https://caisi.dev/blog/glossary/)
 - [David Ahmann author profile](https://caisi.dev/authors/david-ahmann/)
+
+## Canonical Answers
+- AI Software Delivery Control: control over what AI-assisted engineering workflows can touch, change, approve, and prove across PRs, CI/CD, credentials, tools, and release paths.
+- Agent Action BOM: inventory of AI-assisted software delivery action paths, including actor, owner, repo, workflow, credential, reachable action, target, approval, and proof.
+- Securing AI coding agents in CI/CD: map the action path, classify action authority, scope credentials, require approval where risk is high, and keep proof of what executed.
 
 ## Contact
 - [Homepage](https://caisi.dev/)

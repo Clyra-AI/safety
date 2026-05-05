@@ -8,6 +8,7 @@
       name="description"
       content="Role-based paths through CAISI research and operating notes for AppSec, CISOs, and platform security leaders."
     />
+    <!-- SEO_META_START -->
     <link rel="canonical" href="https://caisi.dev/roles/" />
     <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
     <meta property="og:site_name" content="CAISI" />
@@ -23,7 +24,100 @@
     <meta name="twitter:title" content="CAISI Roles | AppSec, CISO, and Platform Security Paths" />
     <meta name="twitter:description" content="Role-based paths through CAISI research and operating notes for AppSec, CISOs, and platform security leaders." />
     <meta name="twitter:image" content="https://caisi.dev/assets/caisi-social.png" />
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="CAISI llms.txt" />
+    <link rel="alternate" type="text/plain" href="/llms-full.txt" title="CAISI llms-full.txt" />
+    <!-- SEO_META_END -->
+
     <link rel="stylesheet" href="/assets/site.css" />
+    <!-- SEO_SCHEMA_START -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://caisi.dev#organization",
+          "name": "Centre for AI Security and Integrity (CAISI)",
+          "url": "https://caisi.dev",
+          "description": "Independent, reproducible research and operating notes on AI Software Delivery Control, AI agent governance, execution boundaries, proof quality, and safe adoption.",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://caisi.dev/assets/caisi-logo.png"
+          },
+          "email": "david@caisi.dev",
+          "contactPoint": [
+            {
+              "@type": "ContactPoint",
+              "contactType": "research inquiries",
+              "email": "david@caisi.dev",
+              "url": "https://caisi.dev",
+              "availableLanguage": [
+                "en"
+              ]
+            }
+          ],
+          "knowsAbout": [
+            "AI agent governance",
+            "AI Software Delivery Control",
+            "Agent Action BOM",
+            "AI coding agent security",
+            "CI/CD agent security",
+            "AI agent control",
+            "execution boundaries",
+            "tool-boundary enforcement",
+            "approval mediation",
+            "evidence quality",
+            "safe AI adoption",
+            "reproducible AI governance research"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://caisi.dev#website",
+          "url": "https://caisi.dev",
+          "name": "CAISI",
+          "description": "Role-based paths through CAISI research and operating notes for AppSec, CISOs, and platform security leaders.",
+          "publisher": {
+            "@id": "https://caisi.dev#organization"
+          },
+          "inLanguage": "en"
+        },
+        {
+          "@type": "CollectionPage",
+          "@id": "https://caisi.dev/roles/#webpage",
+          "url": "https://caisi.dev/roles/",
+          "name": "CAISI Roles | AppSec, CISO, and Platform Security Paths",
+          "description": "Role-based paths through CAISI research and operating notes for AppSec, CISOs, and platform security leaders.",
+          "inLanguage": "en",
+          "about": {
+            "@id": "https://caisi.dev#organization"
+          },
+          "isPartOf": {
+            "@id": "https://caisi.dev#website"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": "https://caisi.dev/roles/#breadcrumb",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://caisi.dev"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Roles"
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+    <!-- SEO_SCHEMA_END -->
+
   </head>
   <body>
     <main class="site" aria-label="CAISI role paths">
@@ -32,7 +126,7 @@
           <div class="brand-mark">
             <a class="brand-link" href="/">CAISI</a>
             <p class="brand-note">
-              Independent research and operating notes on AI agent governance.
+              Independent research and field notes on AI Software Delivery Control.
             </p>
           </div>
         </div>
@@ -56,8 +150,9 @@
             <h1>Start with the decision you need to defend</h1>
             <p class="lead">
               CAISI content is organized by evidence, but most readers arrive
-              by responsibility. Use these paths to get the right report,
-              operating notes, and next step without browsing the whole library.
+              by responsibility. Use these paths to get the right artifact,
+              report, operating note, and next step without browsing the whole
+              library.
             </p>
           </div>
           <aside class="series-card">
@@ -92,8 +187,8 @@
           </article>
           <article class="card">
             <p class="post-stage">Next action</p>
-            <h3><a href="/blog/openclaw/approval-and-proof-at-the-tool-boundary/">Approval and proof at the boundary</a></h3>
-            <p>Translate the report into the approval and evidence questions AppSec should require.</p>
+            <h3><a href="/agent-action-bom/">Map one Agent Action BOM</a></h3>
+            <p>Start with one workflow and document actor, owner, credential, action, target, approval, and proof.</p>
           </article>
         </div>
       </section>
@@ -119,8 +214,8 @@
           </article>
           <article class="card">
             <p class="post-stage">Next action</p>
-            <h3><a href="/blog/governed-adoption/">From AI Pilots to Governed Adoption</a></h3>
-            <p>Turn approval posture into sanctioned paths, standards, and staged rollout decisions.</p>
+            <h3><a href="/secure-ai-coding-agents-ci-cd/">Ask what CI/CD actions are approved and evidenced</a></h3>
+            <p>Use the CI/CD guide to separate visibility, approval, credential use, and proof quality.</p>
           </article>
         </div>
       </section>
@@ -146,8 +241,8 @@
           </article>
           <article class="card">
             <p class="post-stage">Next action</p>
-            <h3><a href="/blog/gait/">Policy Before Action</a></h3>
-            <p>Use the implementation context for runtime policy, signed traces, and CI regressions.</p>
+            <h3><a href="/secure-ai-coding-agents-ci-cd/">Standardize the CI/CD control path</a></h3>
+            <p>Define what is allowed, approval-required, blocked, logged, and revocable before adoption widens.</p>
           </article>
         </div>
       </section>

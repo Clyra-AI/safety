@@ -3,31 +3,33 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Why "npm audit for AI agents" Points to the Right Problem | CAISI Blog</title>
+    <title>Why "npm audit for AI agents" Is the Wrong Endpoint | CAISI Blog</title>
     <meta
       name="description"
-      content="Why security leaders should use the 'npm audit for AI agents' analogy carefully and focus on inventory, privilege mapping, drift, and evidence instead."
+      content="Why the 'npm audit for AI agents' analogy helps name the concern but points buyers toward the wrong endpoint: inventory, privilege mapping, drift, and evidence matter more."
     />
     <!-- SEO_META_START -->
     <link rel="canonical" href="https://caisi.dev/blog/wrkr/npm-audit-for-ai-agents-is-the-wrong-endpoint/" />
     <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
     <meta property="og:site_name" content="CAISI" />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="Why &quot;npm audit for AI agents&quot; Points to the Right Problem | CAISI Blog" />
-    <meta property="og:description" content="Why security leaders should use the 'npm audit for AI agents' analogy carefully and focus on inventory, privilege mapping, drift, and evidence instead." />
+    <meta property="og:title" content="Why &quot;npm audit for AI agents&quot; Is the Wrong Endpoint | CAISI Blog" />
+    <meta property="og:description" content="Why the 'npm audit for AI agents' analogy helps name the concern but points buyers toward the wrong endpoint: inventory, privilege mapping, drift, and evidence matter more." />
     <meta property="og:url" content="https://caisi.dev/blog/wrkr/npm-audit-for-ai-agents-is-the-wrong-endpoint/" />
     <meta property="og:image" content="https://caisi.dev/assets/caisi-social.png" />
-    <meta property="og:image:alt" content="Why &quot;npm audit for AI agents&quot; Points to the Right Problem | CAISI Blog" />
+    <meta property="og:image:alt" content="Why &quot;npm audit for AI agents&quot; Is the Wrong Endpoint | CAISI Blog" />
     <meta property="og:image:width" content="1600" />
     <meta property="og:image:height" content="900" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Why &quot;npm audit for AI agents&quot; Points to the Right Problem | CAISI Blog" />
-    <meta name="twitter:description" content="Why security leaders should use the 'npm audit for AI agents' analogy carefully and focus on inventory, privilege mapping, drift, and evidence instead." />
+    <meta name="twitter:title" content="Why &quot;npm audit for AI agents&quot; Is the Wrong Endpoint | CAISI Blog" />
+    <meta name="twitter:description" content="Why the 'npm audit for AI agents' analogy helps name the concern but points buyers toward the wrong endpoint: inventory, privilege mapping, drift, and evidence matter more." />
     <meta name="twitter:image" content="https://caisi.dev/assets/caisi-social.png" />
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="CAISI llms.txt" />
+    <link rel="alternate" type="text/plain" href="/llms-full.txt" title="CAISI llms-full.txt" />
     <meta name="author" content="David Ahmann" />
     <link rel="author" href="https://caisi.dev/authors/david-ahmann/" />
     <meta property="article:published_time" content="2026-03-16" />
-    <meta property="article:modified_time" content="2026-04-28" />
+    <meta property="article:modified_time" content="2026-05-05" />
     <!-- SEO_META_END -->
 <link rel="stylesheet" href="/assets/site.css" />
     <!-- SEO_SCHEMA_START -->
@@ -40,7 +42,7 @@
           "@id": "https://caisi.dev#organization",
           "name": "Centre for AI Security and Integrity (CAISI)",
           "url": "https://caisi.dev",
-          "description": "Independent, reproducible research and operating notes on AI agent governance, execution boundaries, proof quality, and safe adoption.",
+          "description": "Independent, reproducible research and operating notes on AI Software Delivery Control, AI agent governance, execution boundaries, proof quality, and safe adoption.",
           "logo": {
             "@type": "ImageObject",
             "url": "https://caisi.dev/assets/caisi-logo.png"
@@ -59,6 +61,10 @@
           ],
           "knowsAbout": [
             "AI agent governance",
+            "AI Software Delivery Control",
+            "Agent Action BOM",
+            "AI coding agent security",
+            "CI/CD agent security",
             "AI agent control",
             "execution boundaries",
             "tool-boundary enforcement",
@@ -66,17 +72,25 @@
             "evidence quality",
             "safe AI adoption",
             "reproducible AI governance research"
-          ],
-          "sameAs": [
-            "https://github.com/Clyra-AI/safety"
           ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://caisi.dev#website",
+          "url": "https://caisi.dev",
+          "name": "CAISI",
+          "description": "Why the 'npm audit for AI agents' analogy helps name the concern but points buyers toward the wrong endpoint: inventory, privilege mapping, drift, and evidence matter more.",
+          "publisher": {
+            "@id": "https://caisi.dev#organization"
+          },
+          "inLanguage": "en"
         },
         {
           "@type": "WebPage",
           "@id": "https://caisi.dev/blog/wrkr/npm-audit-for-ai-agents-is-the-wrong-endpoint/#webpage",
           "url": "https://caisi.dev/blog/wrkr/npm-audit-for-ai-agents-is-the-wrong-endpoint/",
-          "name": "Why \"npm audit for AI agents\" Points to the Right Problem | CAISI Blog",
-          "description": "Why security leaders should use the 'npm audit for AI agents' analogy carefully and focus on inventory, privilege mapping, drift, and evidence instead.",
+          "name": "Why \"npm audit for AI agents\" Is the Wrong Endpoint | CAISI Blog",
+          "description": "Why the 'npm audit for AI agents' analogy helps name the concern but points buyers toward the wrong endpoint: inventory, privilege mapping, drift, and evidence matter more.",
           "inLanguage": "en",
           "about": {
             "@id": "https://caisi.dev#organization"
@@ -133,13 +147,13 @@
         {
           "@type": "BlogPosting",
           "@id": "https://caisi.dev/blog/wrkr/npm-audit-for-ai-agents-is-the-wrong-endpoint/#article",
-          "headline": "Why \"npm audit for AI agents\" Points to the Right Problem",
-          "description": "Why security leaders should use the 'npm audit for AI agents' analogy carefully and focus on inventory, privilege mapping, drift, and evidence instead.",
+          "headline": "Why \"npm audit for AI agents\" Is the Wrong Endpoint",
+          "description": "Why the 'npm audit for AI agents' analogy helps name the concern but points buyers toward the wrong endpoint: inventory, privilege mapping, drift, and evidence matter more.",
           "mainEntityOfPage": "https://caisi.dev/blog/wrkr/npm-audit-for-ai-agents-is-the-wrong-endpoint/",
           "url": "https://caisi.dev/blog/wrkr/npm-audit-for-ai-agents-is-the-wrong-endpoint/",
           "image": "https://caisi.dev/assets/caisi-social.png",
           "datePublished": "2026-03-16",
-          "dateModified": "2026-04-28",
+          "dateModified": "2026-05-05",
           "inLanguage": "en",
           "about": {
             "@id": "https://caisi.dev#organization"
@@ -149,7 +163,14 @@
           },
           "publisher": {
             "@id": "https://caisi.dev#organization"
-          }
+          },
+          "keywords": [
+            "AI Software Delivery Control",
+            "Agent Action BOM",
+            "AI agent governance",
+            "AI coding agent security",
+            "CI/CD agent security"
+          ]
         }
       ]
     }
@@ -192,7 +213,7 @@
             By <a href="https://www.linkedin.com/in/dahmann/">David Ahmann (LinkedIn)</a>
           </p>
         </div>
-        <h1>Why "npm audit for AI agents" Points to the Right Problem</h1>
+        <h1>Why "npm audit for AI agents" Is the Wrong Endpoint</h1>
         <p class="lead">
           A CISO asks for "npm audit for AI agents" because it sounds actionable
           and familiar. The instinct is right. The analogy is the problem. AI
@@ -317,7 +338,7 @@
         <h2 id="practical-next-step">What to do next</h2>
         <ul class="list-plain">
           <li>Use the phrase as onboarding shorthand, then immediately define the full control scope in writing.</li>
-          <li>Run a pilot that produces five outputs: inventory, privilege map, approval state, drift report, and evidence bundle.</li>
+          <li>Run a pilot that produces five outputs: <a href="/agent-action-bom/">Agent Action BOM</a>, privilege map, approval state, drift report, and evidence bundle.</li>
           <li>Keep vulnerability scanning and AI posture scanning separate but linked in governance reporting.</li>
           <li>Test whether your output can answer an auditor's evidence request without manual spreadsheet rebuild.</li>
           <li>Set trend metrics on unknown-to-security paths and evidence completeness before scaling program claims.</li>

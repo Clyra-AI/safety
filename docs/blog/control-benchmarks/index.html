@@ -24,6 +24,8 @@
     <meta name="twitter:title" content="How to Evaluate Agentic Control | CAISI Blog" />
     <meta name="twitter:description" content="A five-part CAISI benchmark series on evaluating agentic control quality through risk scenarios, control efficacy, proof completeness, and pilot design." />
     <meta name="twitter:image" content="https://caisi.dev/assets/caisi-social.png" />
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="CAISI llms.txt" />
+    <link rel="alternate" type="text/plain" href="/llms-full.txt" title="CAISI llms-full.txt" />
     <!-- SEO_META_END -->
 <link rel="stylesheet" href="/assets/site.css" />
     <!-- SEO_SCHEMA_START -->
@@ -36,7 +38,7 @@
           "@id": "https://caisi.dev#organization",
           "name": "Centre for AI Security and Integrity (CAISI)",
           "url": "https://caisi.dev",
-          "description": "Independent, reproducible research and operating notes on AI agent governance, execution boundaries, proof quality, and safe adoption.",
+          "description": "Independent, reproducible research and operating notes on AI Software Delivery Control, AI agent governance, execution boundaries, proof quality, and safe adoption.",
           "logo": {
             "@type": "ImageObject",
             "url": "https://caisi.dev/assets/caisi-logo.png"
@@ -55,6 +57,10 @@
           ],
           "knowsAbout": [
             "AI agent governance",
+            "AI Software Delivery Control",
+            "Agent Action BOM",
+            "AI coding agent security",
+            "CI/CD agent security",
             "AI agent control",
             "execution boundaries",
             "tool-boundary enforcement",
@@ -62,10 +68,18 @@
             "evidence quality",
             "safe AI adoption",
             "reproducible AI governance research"
-          ],
-          "sameAs": [
-            "https://github.com/Clyra-AI/safety"
           ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://caisi.dev#website",
+          "url": "https://caisi.dev",
+          "name": "CAISI",
+          "description": "A five-part CAISI benchmark series on evaluating agentic control quality through risk scenarios, control efficacy, proof completeness, and pilot design.",
+          "publisher": {
+            "@id": "https://caisi.dev#organization"
+          },
+          "inLanguage": "en"
         },
         {
           "@type": "CollectionPage",
@@ -186,9 +200,10 @@
           buying and pilot language other teams can use internally.
         </p>
         <p class="body">
-          OpenClaw already gives us a clean example of runtime control efficacy:
+          <a href="/openclaw-2026/">OpenClaw</a> already gives us a clean example of runtime control efficacy:
           stop behavior, non-executable outcomes, destructive-action blocking,
-          and evidence verification. The sprawl report already gives us a clean
+          and evidence verification. The
+          <a href="/ai-tool-sprawl-v2-2026/">sprawl report</a> already gives us a clean
           example of approval opacity and evidence weakness in public artifacts.
           What the market still lacks is a simple, reusable vocabulary that says
           which scenarios to test, which metrics to compare, and what evidence

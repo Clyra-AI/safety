@@ -24,6 +24,8 @@
     <meta name="twitter:title" content="From AI Pilots to Governed Adoption | CAISI Blog" />
     <meta name="twitter:description" content="A five-part CAISI series on turning AI experimentation into governed adoption through platform standards, sanctioned pathways, approval discipline, and staged operating models." />
     <meta name="twitter:image" content="https://caisi.dev/assets/caisi-social.png" />
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="CAISI llms.txt" />
+    <link rel="alternate" type="text/plain" href="/llms-full.txt" title="CAISI llms-full.txt" />
     <!-- SEO_META_END -->
 
     <link rel="stylesheet" href="/assets/site.css" />
@@ -37,7 +39,7 @@
           "@id": "https://caisi.dev#organization",
           "name": "Centre for AI Security and Integrity (CAISI)",
           "url": "https://caisi.dev",
-          "description": "Independent, reproducible research and operating notes on AI agent governance, execution boundaries, proof quality, and safe adoption.",
+          "description": "Independent, reproducible research and operating notes on AI Software Delivery Control, AI agent governance, execution boundaries, proof quality, and safe adoption.",
           "logo": {
             "@type": "ImageObject",
             "url": "https://caisi.dev/assets/caisi-logo.png"
@@ -56,6 +58,10 @@
           ],
           "knowsAbout": [
             "AI agent governance",
+            "AI Software Delivery Control",
+            "Agent Action BOM",
+            "AI coding agent security",
+            "CI/CD agent security",
             "AI agent control",
             "execution boundaries",
             "tool-boundary enforcement",
@@ -63,10 +69,18 @@
             "evidence quality",
             "safe AI adoption",
             "reproducible AI governance research"
-          ],
-          "sameAs": [
-            "https://github.com/Clyra-AI/safety"
           ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://caisi.dev#website",
+          "url": "https://caisi.dev",
+          "name": "CAISI",
+          "description": "A five-part CAISI series on turning AI experimentation into governed adoption through platform standards, sanctioned pathways, approval discipline, and staged operating models.",
+          "publisher": {
+            "@id": "https://caisi.dev#organization"
+          },
+          "inLanguage": "en"
         },
         {
           "@type": "CollectionPage",
@@ -184,11 +198,11 @@
       <section class="section" aria-labelledby="series-why">
         <h2 id="series-why">Why this series exists</h2>
         <p class="body">
-          The current market has plenty of writing about AI opportunity, pilot
-          momentum, and model capability. It has much less useful writing about
-          what leadership has to standardize before AI can move from tolerated
-          experimentation to sanctioned operating model. That is where adoption
-          gets political, expensive, and slow.
+          AI adoption writing often stops at opportunity, pilot momentum, and
+          model capability. This series focuses on the operating layer leaders
+          have to standardize before AI can move from tolerated experimentation
+          to a sanctioned operating model. That is where adoption gets
+          political, expensive, and slow.
         </p>
         <p class="body">
           The CAISI site already covers measured research, control benchmarks,
@@ -281,7 +295,9 @@
             <h3>Scale starts with common building blocks</h3>
             <p>
               Platform standards matter more than model enthusiasm once AI can
-              touch code, data, approvals, or delivery workflows.
+              touch code, data, approvals, or delivery workflows. Start with
+              the <a href="/agent-action-bom/">Agent Action BOM</a> when the
+              first question is what can act.
             </p>
           </article>
           <article class="card">
@@ -297,7 +313,9 @@
             <h3>The approval is the start, not the finish</h3>
             <p>
               Security approval should define what can act, what can access,
-              what evidence must remain, and how the path can be shut down.
+              what evidence must remain, and how the path can be shut down. For
+              delivery workflows, pair approval with the
+              <a href="/secure-ai-coding-agents-ci-cd/">CI/CD control guide</a>.
             </p>
           </article>
           <article class="card">

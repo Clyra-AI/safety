@@ -1,162 +1,339 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://caisi.dev/</loc>
+    <loc>https://caisi.dev</loc>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
   </url>
   <url>
     <loc>https://caisi.dev/roles/</loc>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://caisi.dev/research/</loc>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://caisi.dev/agent-action-bom/</loc>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://caisi.dev/secure-ai-coding-agents-ci-cd/</loc>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://caisi.dev/openclaw-2026/</loc>
-  </url>
-  <url>
-    <loc>https://caisi.dev/ai-tool-sprawl-q1-2026/</loc>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://caisi.dev/ai-tool-sprawl-v2-2026/</loc>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://caisi.dev/ai-tool-sprawl-q1-2026/</loc>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://caisi.dev/blog/</loc>
-  </url>
-  <url>
-    <loc>https://caisi.dev/blog/operating-notes/</loc>
-  </url>
-  <url>
-    <loc>https://caisi.dev/blog/openclaw/</loc>
-  </url>
-  <url>
-    <loc>https://caisi.dev/blog/sprawl-2026/</loc>
-  </url>
-  <url>
-    <loc>https://caisi.dev/blog/wrkr/</loc>
-  </url>
-  <url>
-    <loc>https://caisi.dev/blog/gait/</loc>
-  </url>
-  <url>
-    <loc>https://caisi.dev/blog/control-benchmarks/</loc>
-  </url>
-  <url>
-    <loc>https://caisi.dev/blog/governed-adoption/</loc>
-  </url>
-  <url>
-    <loc>https://caisi.dev/blog/ai-agent-governance/</loc>
-  </url>
-  <url>
-    <loc>https://caisi.dev/blog/glossary/</loc>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://caisi.dev/authors/david-ahmann/</loc>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/ai-agent-governance/</loc>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/ai-coding-agents-from-suggestions-to-actions/</loc>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://caisi.dev/blog/ai-engineering-control-problem/</loc>
-  </url>
-  <url>
-    <loc>https://caisi.dev/blog/repository-runtime-contract/</loc>
-  </url>
-  <url>
-    <loc>https://caisi.dev/blog/why-giant-instruction-files-fail/</loc>
-  </url>
-  <url>
-    <loc>https://caisi.dev/blog/from-skills-to-blueprints/</loc>
-  </url>
-  <url>
-    <loc>https://caisi.dev/blog/dark-factory/</loc>
-  </url>
-  <url>
-    <loc>https://caisi.dev/blog/isolated-warm-sandboxes/</loc>
-  </url>
-  <url>
-    <loc>https://caisi.dev/blog/parallel-agents-without-chaos/</loc>
-  </url>
-  <url>
-    <loc>https://caisi.dev/blog/visible-tests-are-not-enough/</loc>
-  </url>
-  <url>
-    <loc>https://caisi.dev/blog/proof-of-work-for-ai-generated-changes/</loc>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://caisi.dev/blog/ai-engineering-maturity-model/</loc>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://caisi.dev/blog/openclaw/stop-is-not-a-safety-control/</loc>
-  </url>
-  <url>
-    <loc>https://caisi.dev/blog/openclaw/discovery-is-necessary-not-sufficient/</loc>
-  </url>
-  <url>
-    <loc>https://caisi.dev/blog/openclaw/approval-and-proof-at-the-tool-boundary/</loc>
-  </url>
-  <url>
-    <loc>https://caisi.dev/blog/openclaw/what-openclaw-proves-and-what-it-doesnt/</loc>
-  </url>
-  <url>
-    <loc>https://caisi.dev/blog/sprawl-2026/evidence-before-exploitation/</loc>
-  </url>
-  <url>
-    <loc>https://caisi.dev/blog/sprawl-2026/approval-gap-is-a-proof-gap/</loc>
-  </url>
-  <url>
-    <loc>https://caisi.dev/blog/sprawl-2026/declared-agents-are-not-deployed-agents/</loc>
-  </url>
-  <url>
-    <loc>https://caisi.dev/blog/sprawl-2026/what-the-report-proves-and-what-leaders-should-do-next/</loc>
-  </url>
-  <url>
-    <loc>https://caisi.dev/blog/wrkr/most-dangerous-agent-is-uninventoried/</loc>
-  </url>
-  <url>
-    <loc>https://caisi.dev/blog/wrkr/mcp-config-is-part-of-security-boundary/</loc>
-  </url>
-  <url>
-    <loc>https://caisi.dev/blog/wrkr/ci-is-where-ai-tooling-becomes-infrastructure/</loc>
-  </url>
-  <url>
-    <loc>https://caisi.dev/blog/wrkr/npm-audit-for-ai-agents-is-the-wrong-endpoint/</loc>
-  </url>
-  <url>
-    <loc>https://caisi.dev/blog/gait/policy-after-the-tool-call-is-not-control/</loc>
-  </url>
-  <url>
-    <loc>https://caisi.dev/blog/gait/eslintrc-for-agent-behavior-is-an-incomplete-model/</loc>
-  </url>
-  <url>
-    <loc>https://caisi.dev/blog/gait/mcp-trust-needs-a-boundary-not-just-a-config/</loc>
-  </url>
-  <url>
-    <loc>https://caisi.dev/blog/gait/signed-traces-and-regressions-make-policy-real/</loc>
-  </url>
-  <url>
-    <loc>https://caisi.dev/blog/control-benchmarks/buyers-cannot-evaluate-agentic-control-clearly/</loc>
+    <loc>https://caisi.dev/blog/control-benchmarks/</loc>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://caisi.dev/blog/control-benchmarks/agent-action-risk-scenarios-minimum-test-set/</loc>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/control-benchmarks/buyers-cannot-evaluate-agentic-control-clearly/</loc>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://caisi.dev/blog/control-benchmarks/measure-control-efficacy-for-ai-agents/</loc>
-  </url>
-  <url>
-    <loc>https://caisi.dev/blog/control-benchmarks/proof-completeness-for-ai-agent-changes/</loc>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://caisi.dev/blog/control-benchmarks/pilot-evaluation-framework-for-agentic-tools/</loc>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://caisi.dev/blog/governed-adoption/what-platform-teams-must-standardize-before-ai-can-scale/</loc>
+    <loc>https://caisi.dev/blog/control-benchmarks/proof-completeness-for-ai-agent-changes/</loc>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://caisi.dev/blog/governed-adoption/right-response-to-shadow-ai-is-a-governed-path-not-a-ban/</loc>
+    <loc>https://caisi.dev/blog/dark-factory/</loc>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/from-skills-to-blueprints/</loc>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/gait/</loc>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/gait/eslintrc-for-agent-behavior-is-an-incomplete-model/</loc>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/gait/mcp-trust-needs-a-boundary-not-just-a-config/</loc>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/gait/policy-after-the-tool-call-is-not-control/</loc>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/gait/signed-traces-and-regressions-make-policy-real/</loc>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/glossary/</loc>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/governed-adoption/</loc>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://caisi.dev/blog/governed-adoption/build-an-ai-operating-model-without-betting-on-one-stack/</loc>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://caisi.dev/blog/governed-adoption/what-security-leaders-should-ask-before-approving-ai-in-delivery-workflows/</loc>
+    <loc>https://caisi.dev/blog/governed-adoption/right-response-to-shadow-ai-is-a-governed-path-not-a-ban/</loc>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://caisi.dev/blog/governed-adoption/sanctioned-ai-pathways-matter-more-than-blanket-restrictions/</loc>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/governed-adoption/what-platform-teams-must-standardize-before-ai-can-scale/</loc>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/governed-adoption/what-security-leaders-should-ask-before-approving-ai-in-delivery-workflows/</loc>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/isolated-warm-sandboxes/</loc>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/openclaw/</loc>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/openclaw/approval-and-proof-at-the-tool-boundary/</loc>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/openclaw/discovery-is-necessary-not-sufficient/</loc>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/openclaw/stop-is-not-a-safety-control/</loc>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/openclaw/what-openclaw-proves-and-what-it-doesnt/</loc>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/operating-notes/</loc>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/parallel-agents-without-chaos/</loc>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/proof-of-work-for-ai-generated-changes/</loc>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/repository-runtime-contract/</loc>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/sprawl-2026/</loc>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/sprawl-2026/approval-gap-is-a-proof-gap/</loc>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/sprawl-2026/declared-agents-are-not-deployed-agents/</loc>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/sprawl-2026/evidence-before-exploitation/</loc>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/sprawl-2026/what-the-report-proves-and-what-leaders-should-do-next/</loc>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/visible-tests-are-not-enough/</loc>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/why-giant-instruction-files-fail/</loc>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/wrkr/</loc>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/wrkr/ci-is-where-ai-tooling-becomes-infrastructure/</loc>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/wrkr/mcp-config-is-part-of-security-boundary/</loc>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/wrkr/most-dangerous-agent-is-uninventoried/</loc>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/wrkr/npm-audit-for-ai-agents-is-the-wrong-endpoint/</loc>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
   </url>
 </urlset>

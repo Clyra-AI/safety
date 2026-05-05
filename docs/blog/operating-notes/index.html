@@ -24,6 +24,8 @@
     <meta name="twitter:title" content="AI Engineering Operating Notes | CAISI Blog" />
     <meta name="twitter:description" content="The 10-part CAISI operating-model series on repo contracts, orchestration, isolation, evaluation, proof, and maturity." />
     <meta name="twitter:image" content="https://caisi.dev/assets/caisi-social.png" />
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="CAISI llms.txt" />
+    <link rel="alternate" type="text/plain" href="/llms-full.txt" title="CAISI llms-full.txt" />
     <!-- SEO_META_END -->
 <link rel="stylesheet" href="/assets/site.css" />
     <!-- SEO_SCHEMA_START -->
@@ -36,7 +38,7 @@
           "@id": "https://caisi.dev#organization",
           "name": "Centre for AI Security and Integrity (CAISI)",
           "url": "https://caisi.dev",
-          "description": "Independent, reproducible research and operating notes on AI agent governance, execution boundaries, proof quality, and safe adoption.",
+          "description": "Independent, reproducible research and operating notes on AI Software Delivery Control, AI agent governance, execution boundaries, proof quality, and safe adoption.",
           "logo": {
             "@type": "ImageObject",
             "url": "https://caisi.dev/assets/caisi-logo.png"
@@ -55,6 +57,10 @@
           ],
           "knowsAbout": [
             "AI agent governance",
+            "AI Software Delivery Control",
+            "Agent Action BOM",
+            "AI coding agent security",
+            "CI/CD agent security",
             "AI agent control",
             "execution boundaries",
             "tool-boundary enforcement",
@@ -62,10 +68,18 @@
             "evidence quality",
             "safe AI adoption",
             "reproducible AI governance research"
-          ],
-          "sameAs": [
-            "https://github.com/Clyra-AI/safety"
           ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://caisi.dev#website",
+          "url": "https://caisi.dev",
+          "name": "CAISI",
+          "description": "The 10-part CAISI operating-model series on repo contracts, orchestration, isolation, evaluation, proof, and maturity.",
+          "publisher": {
+            "@id": "https://caisi.dev#organization"
+          },
+          "inLanguage": "en"
         },
         {
           "@type": "CollectionPage",
@@ -145,6 +159,11 @@
               governed AI engineering: repo contracts, context loading,
               blueprints, orchestration, isolation, evaluation, proof, and
               maturity. It is the main framework collection in the CAISI blog.
+            </p>
+            <p class="body">
+              For the inventory layer that sits underneath this series, start
+              with the <a href="/agent-action-bom/">Agent Action BOM</a> and
+              the <a href="/secure-ai-coding-agents-ci-cd/">CI/CD control guide</a>.
             </p>
             <div class="pill-row">
               <span class="pill">Posts 1 to 3 reframe the problem</span>
@@ -277,7 +296,7 @@
             <p class="post-stage">Define the operating model</p>
             <h3>
               <a href="/blog/isolated-warm-sandboxes/"
-                >Why Isolated, Warm Sandboxes Are Non-Negotiable</a
+                >Why Governed Agent Runs Need Isolated, Warm Sandboxes</a
               >
             </h3>
             <p>
@@ -368,7 +387,9 @@
             <h3>Proof is part of the product</h3>
             <p>
               A governed system produces a reviewable packet from trigger to
-              merge. Passing CI is necessary, but never sufficient.
+              merge. Passing CI is necessary, but never sufficient; use the
+              <a href="/secure-ai-coding-agents-ci-cd/">CI/CD guide</a> for the
+              control path underneath that proof.
             </p>
           </article>
         </div>

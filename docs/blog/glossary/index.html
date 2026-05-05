@@ -24,10 +24,12 @@
     <meta name="twitter:title" content="AI Agent Governance Glossary | CAISI Blog" />
     <meta name="twitter:description" content="A CAISI glossary of practical terms for AI agent governance, including write path, execution boundary, proof packet, non-executable, approval mediation, and more." />
     <meta name="twitter:image" content="https://caisi.dev/assets/caisi-social.png" />
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="CAISI llms.txt" />
+    <link rel="alternate" type="text/plain" href="/llms-full.txt" title="CAISI llms-full.txt" />
     <meta name="author" content="David Ahmann" />
     <link rel="author" href="https://caisi.dev/authors/david-ahmann/" />
     <meta property="article:published_time" content="2026-03-17" />
-    <meta property="article:modified_time" content="2026-04-14" />
+    <meta property="article:modified_time" content="2026-05-05" />
     <!-- SEO_META_END -->
 <link rel="stylesheet" href="/assets/site.css" />
     <!-- SEO_SCHEMA_START -->
@@ -40,7 +42,7 @@
           "@id": "https://caisi.dev#organization",
           "name": "Centre for AI Security and Integrity (CAISI)",
           "url": "https://caisi.dev",
-          "description": "Independent, reproducible research and operating notes on AI agent governance, execution boundaries, proof quality, and safe adoption.",
+          "description": "Independent, reproducible research and operating notes on AI Software Delivery Control, AI agent governance, execution boundaries, proof quality, and safe adoption.",
           "logo": {
             "@type": "ImageObject",
             "url": "https://caisi.dev/assets/caisi-logo.png"
@@ -59,6 +61,10 @@
           ],
           "knowsAbout": [
             "AI agent governance",
+            "AI Software Delivery Control",
+            "Agent Action BOM",
+            "AI coding agent security",
+            "CI/CD agent security",
             "AI agent control",
             "execution boundaries",
             "tool-boundary enforcement",
@@ -66,10 +72,18 @@
             "evidence quality",
             "safe AI adoption",
             "reproducible AI governance research"
-          ],
-          "sameAs": [
-            "https://github.com/Clyra-AI/safety"
           ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://caisi.dev#website",
+          "url": "https://caisi.dev",
+          "name": "CAISI",
+          "description": "A CAISI glossary of practical terms for AI agent governance, including write path, execution boundary, proof packet, non-executable, approval mediation, and more.",
+          "publisher": {
+            "@id": "https://caisi.dev#organization"
+          },
+          "inLanguage": "en"
         },
         {
           "@type": "WebPage",
@@ -125,7 +139,7 @@
           ]
         },
         {
-          "@type": "BlogPosting",
+          "@type": "TechArticle",
           "@id": "https://caisi.dev/blog/glossary/#article",
           "headline": "AI Agent Governance Glossary",
           "description": "A CAISI glossary of practical terms for AI agent governance, including write path, execution boundary, proof packet, non-executable, approval mediation, and more.",
@@ -133,7 +147,7 @@
           "url": "https://caisi.dev/blog/glossary/",
           "image": "https://caisi.dev/assets/caisi-social.png",
           "datePublished": "2026-03-17",
-          "dateModified": "2026-04-14",
+          "dateModified": "2026-05-05",
           "inLanguage": "en",
           "about": {
             "@id": "https://caisi.dev#organization"
@@ -143,7 +157,14 @@
           },
           "publisher": {
             "@id": "https://caisi.dev#organization"
-          }
+          },
+          "keywords": [
+            "AI Software Delivery Control",
+            "Agent Action BOM",
+            "AI agent governance",
+            "AI coding agent security",
+            "CI/CD agent security"
+          ]
         }
       ]
     }
@@ -198,6 +219,7 @@
         <h2 id="page-nav-heading">In this glossary</h2>
         <div class="page-nav-list">
           <a href="#decision-and-proof">Decision and proof</a>
+          <a href="#software-delivery-control">Software delivery control</a>
           <a href="#execution-and-boundaries">Execution and boundaries</a>
           <a href="#workflows-and-repos">Workflows and repos</a>
           <a href="#evaluation-and-trust">Evaluation and trust</a>
@@ -225,6 +247,60 @@
             <p>
               These are the terms that show up most often when teams are trying
               to compare tools, define controls, or explain incidents.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="software-delivery-control">
+        <h2 id="software-delivery-control">Software delivery control</h2>
+        <div class="summary-grid">
+          <article class="card">
+            <h3>AI Software Delivery Control</h3>
+            <p>
+              The control layer for what AI-assisted engineering workflows can
+              touch, change, approve, and prove across PRs, CI/CD, credentials,
+              tools, and release paths. See the
+              <a href="/secure-ai-coding-agents-ci-cd/">CI/CD control guide</a>.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Agent Action BOM</h3>
+            <p>
+              A practical inventory of action paths: actor, owner, repo,
+              workflow, credential, reachable actions, target systems, approval
+              status, and proof coverage. See the
+              <a href="/agent-action-bom/">Agent Action BOM reference</a>.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Action authority</h3>
+            <p>
+              What an agent or workflow can touch or change. This is the core
+              question behind repo write access, CI/CD execution, tool calls,
+              credential use, and release influence.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Action exposure</h3>
+            <p>
+              The set of systems, credentials, workflows, and actions that an
+              AI-assisted engineering path can reach.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Control boundary</h3>
+            <p>
+              The decision point where an action is classified as allowed,
+              approval-required, or blocked before it changes something real.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Trust graduation</h3>
+            <p>
+              A rollout pattern: read-only first, limited write later, approval
+              for high-risk actions, fewer better approvals over time, and
+              revocation when scope or behavior changes.
             </p>
           </article>
         </div>

@@ -3,31 +3,33 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>The Dark Factory: Managing Work Instead of Supervising Agents | CAISI Blog</title>
+    <title>The Dark Factory for AI Engineering Work | CAISI Blog</title>
     <meta
       name="description"
-      content="Why the future state is a background delivery system that turns work items into validated pull requests with audit trails and review states."
+      content="CAISI's dark factory pattern for turning work items into bounded agent runs, validated pull requests, audit trails, and review states."
     />
     <!-- SEO_META_START -->
     <link rel="canonical" href="https://caisi.dev/blog/dark-factory/" />
     <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
     <meta property="og:site_name" content="CAISI" />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="The Dark Factory: Managing Work Instead of Supervising Agents | CAISI Blog" />
-    <meta property="og:description" content="Why the future state is a background delivery system that turns work items into validated pull requests with audit trails and review states." />
+    <meta property="og:title" content="The Dark Factory for AI Engineering Work | CAISI Blog" />
+    <meta property="og:description" content="CAISI's dark factory pattern for turning work items into bounded agent runs, validated pull requests, audit trails, and review states." />
     <meta property="og:url" content="https://caisi.dev/blog/dark-factory/" />
     <meta property="og:image" content="https://caisi.dev/assets/caisi-social.png" />
-    <meta property="og:image:alt" content="The Dark Factory: Managing Work Instead of Supervising Agents | CAISI Blog" />
+    <meta property="og:image:alt" content="The Dark Factory for AI Engineering Work | CAISI Blog" />
     <meta property="og:image:width" content="1600" />
     <meta property="og:image:height" content="900" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="The Dark Factory: Managing Work Instead of Supervising Agents | CAISI Blog" />
-    <meta name="twitter:description" content="Why the future state is a background delivery system that turns work items into validated pull requests with audit trails and review states." />
+    <meta name="twitter:title" content="The Dark Factory for AI Engineering Work | CAISI Blog" />
+    <meta name="twitter:description" content="CAISI's dark factory pattern for turning work items into bounded agent runs, validated pull requests, audit trails, and review states." />
     <meta name="twitter:image" content="https://caisi.dev/assets/caisi-social.png" />
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="CAISI llms.txt" />
+    <link rel="alternate" type="text/plain" href="/llms-full.txt" title="CAISI llms-full.txt" />
     <meta name="author" content="David Ahmann" />
     <link rel="author" href="https://caisi.dev/authors/david-ahmann/" />
     <meta property="article:published_time" content="2026-03-13" />
-    <meta property="article:modified_time" content="2026-04-28" />
+    <meta property="article:modified_time" content="2026-05-05" />
     <!-- SEO_META_END -->
 <link rel="stylesheet" href="/assets/site.css" />
     <!-- SEO_SCHEMA_START -->
@@ -40,7 +42,7 @@
           "@id": "https://caisi.dev#organization",
           "name": "Centre for AI Security and Integrity (CAISI)",
           "url": "https://caisi.dev",
-          "description": "Independent, reproducible research and operating notes on AI agent governance, execution boundaries, proof quality, and safe adoption.",
+          "description": "Independent, reproducible research and operating notes on AI Software Delivery Control, AI agent governance, execution boundaries, proof quality, and safe adoption.",
           "logo": {
             "@type": "ImageObject",
             "url": "https://caisi.dev/assets/caisi-logo.png"
@@ -59,6 +61,10 @@
           ],
           "knowsAbout": [
             "AI agent governance",
+            "AI Software Delivery Control",
+            "Agent Action BOM",
+            "AI coding agent security",
+            "CI/CD agent security",
             "AI agent control",
             "execution boundaries",
             "tool-boundary enforcement",
@@ -66,17 +72,25 @@
             "evidence quality",
             "safe AI adoption",
             "reproducible AI governance research"
-          ],
-          "sameAs": [
-            "https://github.com/Clyra-AI/safety"
           ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://caisi.dev#website",
+          "url": "https://caisi.dev",
+          "name": "CAISI",
+          "description": "CAISI's dark factory pattern for turning work items into bounded agent runs, validated pull requests, audit trails, and review states.",
+          "publisher": {
+            "@id": "https://caisi.dev#organization"
+          },
+          "inLanguage": "en"
         },
         {
           "@type": "WebPage",
           "@id": "https://caisi.dev/blog/dark-factory/#webpage",
           "url": "https://caisi.dev/blog/dark-factory/",
-          "name": "The Dark Factory: Managing Work Instead of Supervising Agents | CAISI Blog",
-          "description": "Why the future state is a background delivery system that turns work items into validated pull requests with audit trails and review states.",
+          "name": "The Dark Factory for AI Engineering Work | CAISI Blog",
+          "description": "CAISI's dark factory pattern for turning work items into bounded agent runs, validated pull requests, audit trails, and review states.",
           "inLanguage": "en",
           "about": {
             "@id": "https://caisi.dev#organization"
@@ -134,12 +148,12 @@
           "@type": "BlogPosting",
           "@id": "https://caisi.dev/blog/dark-factory/#article",
           "headline": "The Dark Factory: Managing Work Instead of Supervising Agents",
-          "description": "Why the future state is a background delivery system that turns work items into validated pull requests with audit trails and review states.",
+          "description": "CAISI's dark factory pattern for turning work items into bounded agent runs, validated pull requests, audit trails, and review states.",
           "mainEntityOfPage": "https://caisi.dev/blog/dark-factory/",
           "url": "https://caisi.dev/blog/dark-factory/",
           "image": "https://caisi.dev/assets/caisi-social.png",
           "datePublished": "2026-03-13",
-          "dateModified": "2026-04-28",
+          "dateModified": "2026-05-05",
           "inLanguage": "en",
           "about": {
             "@id": "https://caisi.dev#organization"
@@ -149,7 +163,14 @@
           },
           "publisher": {
             "@id": "https://caisi.dev#organization"
-          }
+          },
+          "keywords": [
+            "AI Software Delivery Control",
+            "Agent Action BOM",
+            "AI agent governance",
+            "AI coding agent security",
+            "CI/CD agent security"
+          ]
         }
       ]
     }
@@ -275,11 +296,11 @@
           evidence before execution begins.
         </p>
         <p>
-          That is the dark factory: an orchestrated system that turns those
-          manifests into bounded execution runs with explicit states. The
-          orchestrator allocates a workspace, selects a blueprint, captures
-          dependencies, runs validation, packages evidence, and decides whether
-          to open a PR or wait for human review.
+          That is the dark factory pattern CAISI uses in this series: an
+          orchestrated system that turns those manifests into bounded execution
+          runs with explicit states. The orchestrator allocates a workspace,
+          selects a blueprint, captures dependencies, runs validation, packages
+          evidence, and decides whether to open a PR or wait for human review.
         </p>
         <p>
           In a mature setup, the orchestrator is not a convenience layer. It is
@@ -409,8 +430,8 @@
         </p>
         <ul class="list-plain">
           <li>Define the run states explicitly: queued, planning, executing, blocked, needs review, validated, shipped, failed.</li>
-          <li>Attach path claims, dependencies, and approval posture to the work item before execution begins.</li>
-          <li>Decide what evidence must exist before a PR can be promoted.</li>
+          <li>Attach path claims, dependencies, and approval posture to the work item before execution begins; use an <a href="/agent-action-bom/">Agent Action BOM</a> for the action-path fields.</li>
+          <li>Decide what evidence must exist before a PR can be promoted, including the <a href="/secure-ai-coding-agents-ci-cd/">CI/CD proof path</a>.</li>
           <li>Make cancellation and retry behavior explicit instead of informal.</li>
         </ul>
         <p>

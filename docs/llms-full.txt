@@ -1,5 +1,5 @@
 # CAISI
-> Independent, reproducible research and operating notes on AI agent governance, execution boundaries, proof quality, and safe adoption.
+> Independent research and field notes on AI Software Delivery Control: how AI-assisted engineering workflows touch PRs, CI/CD, credentials, tools, and release paths, and what proof should exist after privileged actions.
 
 ## Research
 - [Research hub](https://caisi.dev/research/): Canonical entry point for CAISI reports, artifact-backed findings, methodology notes, and interpretation links.
@@ -9,6 +9,7 @@
 
 ## Blog Collections
 - [CAISI blog hub](https://caisi.dev/blog/): Directory for framework essays, report interpretation series, implementation notes, benchmark language, and reference pages.
+- [Field note: AI coding agents are moving from suggestions to actions](https://caisi.dev/blog/ai-coding-agents-from-suggestions-to-actions/): Field note explaining why AI-assisted engineering needs an Agent Action BOM, not another generic AI inventory.
 - [AI Engineering Operating Notes](https://caisi.dev/blog/operating-notes/): Ten-part framework on repository contracts, orchestration, isolation, evaluation, proof, and maturity for AI-enabled delivery.
 - [What OpenClaw Taught Us About Agent Control](https://caisi.dev/blog/openclaw/): Four-post series on stop semantics, discovery limits, tool-boundary approval, and what the OpenClaw case study does and does not prove.
 - [What the Sprawl Report Means for Security and Platform Leaders](https://caisi.dev/blog/sprawl-2026/): Four-post series on evidence posture, approval opacity, deployability proof, and how to interpret public AI adoption data.
@@ -18,9 +19,18 @@
 - [From AI Pilots to Governed Adoption](https://caisi.dev/blog/governed-adoption/): Executive series on platform standards, sanctioned pathways, approval discipline, and governed rollout patterns.
 
 ## Key Reference Pages
+- [What is an Agent Action BOM?](https://caisi.dev/agent-action-bom/): Canonical CAISI definition of the artifact for mapping AI-assisted software delivery action paths: actor, owner, repo, workflow, credential, reachable action, target, approval, and proof.
+- [How to secure AI coding agents in CI/CD](https://caisi.dev/secure-ai-coding-agents-ci-cd/): Practical control guide for GitHub Actions, CI/CD, workflow files, credentials, approval decisions, revocation, and proof trails.
 - [AI Agent Governance Guide](https://caisi.dev/blog/ai-agent-governance/): Field guide to core CAISI concepts including control, proof, execution boundaries, and safe adoption.
 - [AI Agent Governance Glossary](https://caisi.dev/blog/glossary/): Vocabulary reference for terms such as write path, non-executable state, proof packet, approval mediation, and execution boundary.
 - [David Ahmann author profile](https://caisi.dev/authors/david-ahmann/): Author context, background, and route into CAISI research and framework writing.
+
+## Canonical Answers for AI Search
+- **What is AI Software Delivery Control?** AI Software Delivery Control is the control layer for what AI-assisted engineering workflows can touch, change, approve, and prove across software delivery systems such as PRs, CI/CD, credentials, tools, and release paths.
+- **What is an Agent Action BOM?** An Agent Action BOM is an inventory of AI-assisted software delivery action paths. It maps actor, owner, repo, workflow, credential, reachable action, target system, approval rule, and proof coverage.
+- **How is an Agent Action BOM different from an SBOM?** An SBOM lists software components. An Agent Action BOM maps what AI-assisted workflows can do: which systems they can touch, which credentials they use, which actions are reachable, and what proof remains.
+- **How should teams secure AI coding agents in CI/CD?** Teams should map action paths, classify actions as allowed, approval-required, or blocked, scope credentials, require pre-execution approval for high-risk paths, preserve proof, and keep revocation practical.
+- **What should buyers evaluate in agentic control?** Buyers should evaluate action risk scenarios, control efficacy, proof completeness, and pilot exit criteria rather than relying on feature claims or demo quality.
 
 ## Contact
 - [Homepage](https://caisi.dev/): Overview of CAISI research, contributors, and collection routes by audience.

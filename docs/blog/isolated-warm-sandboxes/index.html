@@ -3,31 +3,33 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Why Isolated, Warm Sandboxes Are Non-Negotiable | CAISI Blog</title>
+    <title>Why Governed Agent Runs Need Isolated, Warm Sandboxes | CAISI Blog</title>
     <meta
       name="description"
-      content="Why autonomous agents should never share a checkout, branch, or mutable environment, and why warm sandboxes improve throughput."
+      content="Why governed autonomous agent runs should avoid shared checkouts, branches, and mutable environments, and why warm sandboxes improve throughput."
     />
     <!-- SEO_META_START -->
     <link rel="canonical" href="https://caisi.dev/blog/isolated-warm-sandboxes/" />
     <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
     <meta property="og:site_name" content="CAISI" />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="Why Isolated, Warm Sandboxes Are Non-Negotiable | CAISI Blog" />
-    <meta property="og:description" content="Why autonomous agents should never share a checkout, branch, or mutable environment, and why warm sandboxes improve throughput." />
+    <meta property="og:title" content="Why Governed Agent Runs Need Isolated, Warm Sandboxes | CAISI Blog" />
+    <meta property="og:description" content="Why governed autonomous agent runs should avoid shared checkouts, branches, and mutable environments, and why warm sandboxes improve throughput." />
     <meta property="og:url" content="https://caisi.dev/blog/isolated-warm-sandboxes/" />
     <meta property="og:image" content="https://caisi.dev/assets/caisi-social.png" />
-    <meta property="og:image:alt" content="Why Isolated, Warm Sandboxes Are Non-Negotiable | CAISI Blog" />
+    <meta property="og:image:alt" content="Why Governed Agent Runs Need Isolated, Warm Sandboxes | CAISI Blog" />
     <meta property="og:image:width" content="1600" />
     <meta property="og:image:height" content="900" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Why Isolated, Warm Sandboxes Are Non-Negotiable | CAISI Blog" />
-    <meta name="twitter:description" content="Why autonomous agents should never share a checkout, branch, or mutable environment, and why warm sandboxes improve throughput." />
+    <meta name="twitter:title" content="Why Governed Agent Runs Need Isolated, Warm Sandboxes | CAISI Blog" />
+    <meta name="twitter:description" content="Why governed autonomous agent runs should avoid shared checkouts, branches, and mutable environments, and why warm sandboxes improve throughput." />
     <meta name="twitter:image" content="https://caisi.dev/assets/caisi-social.png" />
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="CAISI llms.txt" />
+    <link rel="alternate" type="text/plain" href="/llms-full.txt" title="CAISI llms-full.txt" />
     <meta name="author" content="David Ahmann" />
     <link rel="author" href="https://caisi.dev/authors/david-ahmann/" />
     <meta property="article:published_time" content="2026-03-13" />
-    <meta property="article:modified_time" content="2026-04-28" />
+    <meta property="article:modified_time" content="2026-05-05" />
     <!-- SEO_META_END -->
 <link rel="stylesheet" href="/assets/site.css" />
     <!-- SEO_SCHEMA_START -->
@@ -40,7 +42,7 @@
           "@id": "https://caisi.dev#organization",
           "name": "Centre for AI Security and Integrity (CAISI)",
           "url": "https://caisi.dev",
-          "description": "Independent, reproducible research and operating notes on AI agent governance, execution boundaries, proof quality, and safe adoption.",
+          "description": "Independent, reproducible research and operating notes on AI Software Delivery Control, AI agent governance, execution boundaries, proof quality, and safe adoption.",
           "logo": {
             "@type": "ImageObject",
             "url": "https://caisi.dev/assets/caisi-logo.png"
@@ -59,6 +61,10 @@
           ],
           "knowsAbout": [
             "AI agent governance",
+            "AI Software Delivery Control",
+            "Agent Action BOM",
+            "AI coding agent security",
+            "CI/CD agent security",
             "AI agent control",
             "execution boundaries",
             "tool-boundary enforcement",
@@ -66,17 +72,25 @@
             "evidence quality",
             "safe AI adoption",
             "reproducible AI governance research"
-          ],
-          "sameAs": [
-            "https://github.com/Clyra-AI/safety"
           ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://caisi.dev#website",
+          "url": "https://caisi.dev",
+          "name": "CAISI",
+          "description": "Why governed autonomous agent runs should avoid shared checkouts, branches, and mutable environments, and why warm sandboxes improve throughput.",
+          "publisher": {
+            "@id": "https://caisi.dev#organization"
+          },
+          "inLanguage": "en"
         },
         {
           "@type": "WebPage",
           "@id": "https://caisi.dev/blog/isolated-warm-sandboxes/#webpage",
           "url": "https://caisi.dev/blog/isolated-warm-sandboxes/",
-          "name": "Why Isolated, Warm Sandboxes Are Non-Negotiable | CAISI Blog",
-          "description": "Why autonomous agents should never share a checkout, branch, or mutable environment, and why warm sandboxes improve throughput.",
+          "name": "Why Governed Agent Runs Need Isolated, Warm Sandboxes | CAISI Blog",
+          "description": "Why governed autonomous agent runs should avoid shared checkouts, branches, and mutable environments, and why warm sandboxes improve throughput.",
           "inLanguage": "en",
           "about": {
             "@id": "https://caisi.dev#organization"
@@ -126,20 +140,20 @@
             {
               "@type": "ListItem",
               "position": 4,
-              "name": "Why Isolated, Warm Sandboxes Are Non-Negotiable"
+              "name": "Why Governed Agent Runs Need Isolated, Warm Sandboxes"
             }
           ]
         },
         {
           "@type": "BlogPosting",
           "@id": "https://caisi.dev/blog/isolated-warm-sandboxes/#article",
-          "headline": "Why Isolated, Warm Sandboxes Are Non-Negotiable",
-          "description": "Why autonomous agents should never share a checkout, branch, or mutable environment, and why warm sandboxes improve throughput.",
+          "headline": "Why Governed Agent Runs Need Isolated, Warm Sandboxes",
+          "description": "Why governed autonomous agent runs should avoid shared checkouts, branches, and mutable environments, and why warm sandboxes improve throughput.",
           "mainEntityOfPage": "https://caisi.dev/blog/isolated-warm-sandboxes/",
           "url": "https://caisi.dev/blog/isolated-warm-sandboxes/",
           "image": "https://caisi.dev/assets/caisi-social.png",
           "datePublished": "2026-03-13",
-          "dateModified": "2026-04-28",
+          "dateModified": "2026-05-05",
           "inLanguage": "en",
           "about": {
             "@id": "https://caisi.dev#organization"
@@ -149,7 +163,14 @@
           },
           "publisher": {
             "@id": "https://caisi.dev#organization"
-          }
+          },
+          "keywords": [
+            "AI Software Delivery Control",
+            "Agent Action BOM",
+            "AI agent governance",
+            "AI coding agent security",
+            "CI/CD agent security"
+          ]
         }
       ]
     }
@@ -183,7 +204,7 @@
           <span class="divider">/</span>
           <a href="/blog/operating-notes/">Operating Notes</a>
           <span class="divider">/</span>
-          <span>Why Isolated, Warm Sandboxes Are Non-Negotiable</span>
+          <span>Why Governed Agent Runs Need Isolated, Warm Sandboxes</span>
         </p>
         <p class="eyebrow">AI Engineering Operating Notes / Post 6 of 10</p>
         <div class="post-author">
@@ -192,7 +213,7 @@
             By <a href="https://www.linkedin.com/in/dahmann/">David Ahmann (LinkedIn)</a>
           </p>
         </div>
-        <h1>Why Isolated, Warm Sandboxes Are Non-Negotiable</h1>
+        <h1>Why Governed Agent Runs Need Isolated, Warm Sandboxes</h1>
         <p class="lead">
           Shared environments look efficient until the first serious failure
           lands and nobody can explain whether the problem came from the code,

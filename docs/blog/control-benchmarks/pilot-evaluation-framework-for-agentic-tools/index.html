@@ -24,10 +24,12 @@
     <meta name="twitter:title" content="How to Run a Buyer-Grade Agent Pilot | CAISI Blog" />
     <meta name="twitter:description" content="A practical framework for buyer-grade pilots that measure control quality, proof quality, and operational fit instead of demo theater." />
     <meta name="twitter:image" content="https://caisi.dev/assets/caisi-social.png" />
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="CAISI llms.txt" />
+    <link rel="alternate" type="text/plain" href="/llms-full.txt" title="CAISI llms-full.txt" />
     <meta name="author" content="David Ahmann" />
     <link rel="author" href="https://caisi.dev/authors/david-ahmann/" />
     <meta property="article:published_time" content="2026-03-17" />
-    <meta property="article:modified_time" content="2026-04-28" />
+    <meta property="article:modified_time" content="2026-05-05" />
     <!-- SEO_META_END -->
 <link rel="stylesheet" href="/assets/site.css" />
     <!-- SEO_SCHEMA_START -->
@@ -40,7 +42,7 @@
           "@id": "https://caisi.dev#organization",
           "name": "Centre for AI Security and Integrity (CAISI)",
           "url": "https://caisi.dev",
-          "description": "Independent, reproducible research and operating notes on AI agent governance, execution boundaries, proof quality, and safe adoption.",
+          "description": "Independent, reproducible research and operating notes on AI Software Delivery Control, AI agent governance, execution boundaries, proof quality, and safe adoption.",
           "logo": {
             "@type": "ImageObject",
             "url": "https://caisi.dev/assets/caisi-logo.png"
@@ -59,6 +61,10 @@
           ],
           "knowsAbout": [
             "AI agent governance",
+            "AI Software Delivery Control",
+            "Agent Action BOM",
+            "AI coding agent security",
+            "CI/CD agent security",
             "AI agent control",
             "execution boundaries",
             "tool-boundary enforcement",
@@ -66,10 +72,18 @@
             "evidence quality",
             "safe AI adoption",
             "reproducible AI governance research"
-          ],
-          "sameAs": [
-            "https://github.com/Clyra-AI/safety"
           ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://caisi.dev#website",
+          "url": "https://caisi.dev",
+          "name": "CAISI",
+          "description": "A practical framework for buyer-grade pilots that measure control quality, proof quality, and operational fit instead of demo theater.",
+          "publisher": {
+            "@id": "https://caisi.dev#organization"
+          },
+          "inLanguage": "en"
         },
         {
           "@type": "WebPage",
@@ -139,7 +153,7 @@
           "url": "https://caisi.dev/blog/control-benchmarks/pilot-evaluation-framework-for-agentic-tools/",
           "image": "https://caisi.dev/assets/caisi-social.png",
           "datePublished": "2026-03-17",
-          "dateModified": "2026-04-28",
+          "dateModified": "2026-05-05",
           "inLanguage": "en",
           "about": {
             "@id": "https://caisi.dev#organization"
@@ -149,7 +163,14 @@
           },
           "publisher": {
             "@id": "https://caisi.dev#organization"
-          }
+          },
+          "keywords": [
+            "AI Software Delivery Control",
+            "Agent Action BOM",
+            "AI agent governance",
+            "AI coding agent security",
+            "CI/CD agent security"
+          ]
         }
       ]
     }
@@ -231,7 +252,9 @@
             workload and policy set. The sprawl report stayed explicit about
             what a public artifact set could and could not prove. Those two
             habits are the beginnings of a serious pilot framework: controlled
-            comparison and clear scope discipline.
+            comparison and clear scope discipline. See the
+            <a href="/openclaw-2026/">OpenClaw report</a> and
+            <a href="/ai-tool-sprawl-v2-2026/">AI Tool Sprawl report</a>.
           </p>
         </div>
       </section>
@@ -298,10 +321,10 @@
           starts, with exit criteria written before the team sees results.
         </p>
         <ul class="list-plain">
-          <li><strong>Scope.</strong> Which repos, workflows, and action classes are in scope, and which are explicitly out of scope?</li>
-          <li><strong>Scenario set.</strong> Which risk scenarios will be exercised, including stop, approval-dependent write, share, restart, or proof reconstruction?</li>
-          <li><strong>Control scorecard.</strong> Which efficacy metrics will be measured during the run?</li>
-          <li><strong>Proof rubric.</strong> What evidence fields must travel with the run or resulting change?</li>
+          <li><strong>Scope.</strong> Which repos, workflows, and action classes are in scope, and which are explicitly out of scope? Start from the <a href="/agent-action-bom/">Agent Action BOM</a>.</li>
+          <li><strong>Scenario set.</strong> Which <a href="/blog/control-benchmarks/agent-action-risk-scenarios-minimum-test-set/">risk scenarios</a> will be exercised, including stop, approval-dependent write, share, restart, or proof reconstruction?</li>
+          <li><strong>Control scorecard.</strong> Which <a href="/blog/control-benchmarks/measure-control-efficacy-for-ai-agents/">efficacy metrics</a> will be measured during the run?</li>
+          <li><strong>Proof rubric.</strong> What <a href="/blog/control-benchmarks/proof-completeness-for-ai-agent-changes/">evidence fields</a> must travel with the run or resulting change?</li>
           <li><strong>Exit criteria.</strong> What results would justify expansion, pause, or failure?</li>
         </ul>
         <p>
@@ -423,10 +446,9 @@
           <li>Name the next control investment that would matter most if the pilot stays narrow.</li>
         </ul>
         <p>
-          If the team cannot do that, it is not running a real evaluation yet.
-        </p>
-        <p>
-          It is still gathering impressions.
+          If the team cannot do that, it is still gathering impressions. A
+          buyer-grade pilot should leave behind an exit memo with the scenario
+          results, control scorecard, proof gaps, and expansion decision.
         </p>
       </section>
 

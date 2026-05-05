@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>AI Agent Governance: A Field Guide to Control, Proof, and Safe Adoption | CAISI Blog</title>
+    <title>AI Agent Governance Field Guide | CAISI Blog</title>
     <meta
       name="description"
       content="A CAISI field guide to AI agent governance for AppSec, platform, and engineering leaders covering control, proof, execution boundaries, and safe adoption."
@@ -13,21 +13,23 @@
     <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
     <meta property="og:site_name" content="CAISI" />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="AI Agent Governance: A Field Guide to Control, Proof, and Safe Adoption | CAISI Blog" />
+    <meta property="og:title" content="AI Agent Governance Field Guide | CAISI Blog" />
     <meta property="og:description" content="A CAISI field guide to AI agent governance for AppSec, platform, and engineering leaders covering control, proof, execution boundaries, and safe adoption." />
     <meta property="og:url" content="https://caisi.dev/blog/ai-agent-governance/" />
     <meta property="og:image" content="https://caisi.dev/assets/caisi-social.png" />
-    <meta property="og:image:alt" content="AI Agent Governance: A Field Guide to Control, Proof, and Safe Adoption | CAISI Blog" />
+    <meta property="og:image:alt" content="AI Agent Governance Field Guide | CAISI Blog" />
     <meta property="og:image:width" content="1600" />
     <meta property="og:image:height" content="900" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="AI Agent Governance: A Field Guide to Control, Proof, and Safe Adoption | CAISI Blog" />
+    <meta name="twitter:title" content="AI Agent Governance Field Guide | CAISI Blog" />
     <meta name="twitter:description" content="A CAISI field guide to AI agent governance for AppSec, platform, and engineering leaders covering control, proof, execution boundaries, and safe adoption." />
     <meta name="twitter:image" content="https://caisi.dev/assets/caisi-social.png" />
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="CAISI llms.txt" />
+    <link rel="alternate" type="text/plain" href="/llms-full.txt" title="CAISI llms-full.txt" />
     <meta name="author" content="David Ahmann" />
     <link rel="author" href="https://caisi.dev/authors/david-ahmann/" />
     <meta property="article:published_time" content="2026-03-17" />
-    <meta property="article:modified_time" content="2026-04-14" />
+    <meta property="article:modified_time" content="2026-05-05" />
     <!-- SEO_META_END -->
 <link rel="stylesheet" href="/assets/site.css" />
     <!-- SEO_SCHEMA_START -->
@@ -40,7 +42,7 @@
           "@id": "https://caisi.dev#organization",
           "name": "Centre for AI Security and Integrity (CAISI)",
           "url": "https://caisi.dev",
-          "description": "Independent, reproducible research and operating notes on AI agent governance, execution boundaries, proof quality, and safe adoption.",
+          "description": "Independent, reproducible research and operating notes on AI Software Delivery Control, AI agent governance, execution boundaries, proof quality, and safe adoption.",
           "logo": {
             "@type": "ImageObject",
             "url": "https://caisi.dev/assets/caisi-logo.png"
@@ -59,6 +61,10 @@
           ],
           "knowsAbout": [
             "AI agent governance",
+            "AI Software Delivery Control",
+            "Agent Action BOM",
+            "AI coding agent security",
+            "CI/CD agent security",
             "AI agent control",
             "execution boundaries",
             "tool-boundary enforcement",
@@ -66,16 +72,24 @@
             "evidence quality",
             "safe AI adoption",
             "reproducible AI governance research"
-          ],
-          "sameAs": [
-            "https://github.com/Clyra-AI/safety"
           ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://caisi.dev#website",
+          "url": "https://caisi.dev",
+          "name": "CAISI",
+          "description": "A CAISI field guide to AI agent governance for AppSec, platform, and engineering leaders covering control, proof, execution boundaries, and safe adoption.",
+          "publisher": {
+            "@id": "https://caisi.dev#organization"
+          },
+          "inLanguage": "en"
         },
         {
           "@type": "WebPage",
           "@id": "https://caisi.dev/blog/ai-agent-governance/#webpage",
           "url": "https://caisi.dev/blog/ai-agent-governance/",
-          "name": "AI Agent Governance: A Field Guide to Control, Proof, and Safe Adoption | CAISI Blog",
+          "name": "AI Agent Governance Field Guide | CAISI Blog",
           "description": "A CAISI field guide to AI agent governance for AppSec, platform, and engineering leaders covering control, proof, execution boundaries, and safe adoption.",
           "inLanguage": "en",
           "about": {
@@ -125,7 +139,7 @@
           ]
         },
         {
-          "@type": "BlogPosting",
+          "@type": "TechArticle",
           "@id": "https://caisi.dev/blog/ai-agent-governance/#article",
           "headline": "AI Agent Governance: A Field Guide to Control, Proof, and Safe Adoption",
           "description": "A CAISI field guide to AI agent governance for AppSec, platform, and engineering leaders covering control, proof, execution boundaries, and safe adoption.",
@@ -133,7 +147,7 @@
           "url": "https://caisi.dev/blog/ai-agent-governance/",
           "image": "https://caisi.dev/assets/caisi-social.png",
           "datePublished": "2026-03-17",
-          "dateModified": "2026-04-14",
+          "dateModified": "2026-05-05",
           "inLanguage": "en",
           "about": {
             "@id": "https://caisi.dev#organization"
@@ -143,7 +157,14 @@
           },
           "publisher": {
             "@id": "https://caisi.dev#organization"
-          }
+          },
+          "keywords": [
+            "AI Software Delivery Control",
+            "Agent Action BOM",
+            "AI agent governance",
+            "AI coding agent security",
+            "CI/CD agent security"
+          ]
         }
       ]
     }
@@ -191,6 +212,10 @@
           the prompt was clear. It is whether the organization can approve,
           bound, observe, and reconstruct the work after it touched code,
           tools, CI, or infrastructure.
+        </p>
+        <p class="body">
+          CAISI treats this as AI Software Delivery Control: what AI-assisted
+          engineering workflows can touch, change, approve, and prove.
         </p>
       </section>
 
@@ -283,11 +308,11 @@
         <div class="summary-grid">
           <article class="card">
             <p class="post-stage">Discovery</p>
-            <h3>Know what exists</h3>
+            <h3>Start with the Agent Action BOM</h3>
             <p>
-              Inventory unknown-to-security tools, MCP configs, repo entrypoints,
-              local AI tooling, and CI workflows before you pretend the stack is
-              governed.
+              Inventory unknown-to-security tools, MCP configs, repo
+              entrypoints, CI workflows, credentials, reachable actions, target
+              systems, owners, approval status, and proof coverage.
             </p>
           </article>
           <article class="card">
@@ -386,6 +411,10 @@
           shared vocabulary first, open the glossary.
         </p>
         <div class="link-row">
+          <a href="/agent-action-bom/">Agent Action BOM</a>
+          <span class="divider">|</span>
+          <a href="/secure-ai-coding-agents-ci-cd/">CI/CD guide</a>
+          <span class="divider">|</span>
           <a href="/research/">Research hub</a>
           <span class="divider">|</span>
           <a href="/blog/operating-notes/">Operating Notes</a>
