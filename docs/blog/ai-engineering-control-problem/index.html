@@ -411,25 +411,25 @@
           outcome.
         </p>
         <p>
-          A buyer in AppSec is not trying to stop useful automation. They are
-          trying to avoid silent scope expansion and unreviewable state changes.
+          AppSec is not trying to stop useful automation. It is trying to avoid
+          silent scope expansion and unreviewable state changes.
           If the only control mechanism is "the prompt told it not to," the
-          buyer is being asked to underwrite a change system without an actual
-          boundary.
+          organization is being asked to underwrite a change system without an
+          actual boundary.
         </p>
       </section>
 
       <section class="section article-section">
         <h2 id="why-platform-and-engineering-care">Why platform and engineering care</h2>
         <p>
-          The internal ally sees a different pain first: ad hoc prompting does
-          not scale across teams or repositories. One strong engineer can drive
+          Engineering and platform teams see a different pain first: ad hoc
+          prompting does not scale across teams or repositories. One strong engineer can drive
           an agent interactively and get impressive results. That does not mean
           the workflow is reusable. It often means the human is doing the hidden
           orchestration that the system should have owned.
         </p>
         <p>
-          Platform teams need repeatability. They need a repo to behave like an
+          Engineering and platform teams need repeatability. They need a repo to behave like an
           interface. They need scripts that always enter the same validation
           path. They need workspaces that isolate competing runs. They need
           failure states that can be resumed instead of restarted from scratch.

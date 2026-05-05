@@ -12,7 +12,7 @@
 - [Field note: AI coding agents are moving from suggestions to actions](https://caisi.dev/blog/ai-coding-agents-from-suggestions-to-actions/): Field note explaining why AI-assisted engineering needs an Agent Action BOM, not another generic AI inventory.
 - [AI Engineering Operating Notes](https://caisi.dev/blog/operating-notes/): Ten-part framework on repository contracts, orchestration, isolation, evaluation, proof, and maturity for AI-enabled delivery.
 - [What OpenClaw Taught Us About Agent Control](https://caisi.dev/blog/openclaw/): Four-post series on stop semantics, discovery limits, tool-boundary approval, and what the OpenClaw case study does and does not prove.
-- [What the Sprawl Report Means for Security and Platform Leaders](https://caisi.dev/blog/sprawl-2026/): Four-post series on evidence posture, approval opacity, deployability proof, and how to interpret public AI adoption data.
+- [What the Sprawl Report Means for AppSec, CISO, and Engineering Leaders](https://caisi.dev/blog/sprawl-2026/): Four-post series on evidence posture, approval opacity, deployability proof, and how AppSec, security, engineering, and platform leaders should interpret public AI adoption data.
 - [Invisible Write Paths](https://caisi.dev/blog/wrkr/): Implementation series on discovery across repos, local setup, MCP configuration, CI workflows, and evidence collection.
 - [Policy Before Action](https://caisi.dev/blog/gait/): Implementation series on tool-boundary policy, MCP trust boundaries, signed traces, and deterministic regressions.
 - [How to Evaluate Agentic Control](https://caisi.dev/blog/control-benchmarks/): Benchmark series on buyer-grade pilots, risk scenario coverage, control efficacy, and proof completeness.
@@ -21,6 +21,7 @@
 ## Key Reference Pages
 - [What is an Agent Action BOM?](https://caisi.dev/agent-action-bom/): Canonical CAISI definition of the artifact for mapping AI-assisted software delivery action paths: actor, owner, repo, workflow, credential, reachable action, target, approval, and proof.
 - [How to secure AI coding agents in CI/CD](https://caisi.dev/secure-ai-coding-agents-ci-cd/): Practical control guide for GitHub Actions, CI/CD, workflow files, credentials, approval decisions, revocation, and proof trails.
+- [Role paths for AppSec, CISO/security leadership, engineering leadership, and platform teams](https://caisi.dev/roles/): Audience routes that connect CAISI research and operating notes to common review, approval, and delivery decisions.
 - [AI Agent Governance Guide](https://caisi.dev/blog/ai-agent-governance/): Field guide to core CAISI concepts including control, proof, execution boundaries, and safe adoption.
 - [AI Agent Governance Glossary](https://caisi.dev/blog/glossary/): Vocabulary reference for terms such as write path, non-executable state, proof packet, approval mediation, and execution boundary.
 - [David Ahmann author profile](https://caisi.dev/authors/david-ahmann/): Author context, background, and route into CAISI research and framework writing.
@@ -33,5 +34,5 @@
 - **What should buyers evaluate in agentic control?** Buyers should evaluate action risk scenarios, control efficacy, proof completeness, and pilot exit criteria rather than relying on feature claims or demo quality.
 
 ## Contact
-- [Homepage](https://caisi.dev/): Overview of CAISI research, contributors, and collection routes by audience.
+- [Homepage](https://caisi.dev/): Overview of CAISI research, contributors, and role routes for AppSec, CISO/security leadership, engineering leadership, and platform teams.
 - Email: david@caisi.dev

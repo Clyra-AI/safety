@@ -12,7 +12,7 @@
 - [Field note: AI coding agents are moving from suggestions to actions](https://caisi.dev/blog/ai-coding-agents-from-suggestions-to-actions/)
 - [AI Engineering Operating Notes](https://caisi.dev/blog/operating-notes/)
 - [What OpenClaw Taught Us About Agent Control](https://caisi.dev/blog/openclaw/)
-- [What the Sprawl Report Means for Security and Platform Leaders](https://caisi.dev/blog/sprawl-2026/)
+- [What the Sprawl Report Means for AppSec, CISO, and Engineering Leaders](https://caisi.dev/blog/sprawl-2026/)
 - [Invisible Write Paths](https://caisi.dev/blog/wrkr/)
 - [Policy Before Action](https://caisi.dev/blog/gait/)
 - [How to Evaluate Agentic Control](https://caisi.dev/blog/control-benchmarks/)
@@ -21,6 +21,7 @@
 ## Reference
 - [What is an Agent Action BOM?](https://caisi.dev/agent-action-bom/)
 - [How to secure AI coding agents in CI/CD](https://caisi.dev/secure-ai-coding-agents-ci-cd/)
+- [Role paths for AppSec, CISO/security leadership, engineering leadership, and platform teams](https://caisi.dev/roles/)
 - [AI Agent Governance Guide](https://caisi.dev/blog/ai-agent-governance/)
 - [AI Agent Governance Glossary](https://caisi.dev/blog/glossary/)
 - [David Ahmann author profile](https://caisi.dev/authors/david-ahmann/)

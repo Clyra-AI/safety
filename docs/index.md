@@ -1,7 +1,7 @@
 # Centre for AI Security and Integrity
 
 Independent research and field notes on AI Software Delivery Control for
-AppSec, CISOs, and platform security leaders.
+AppSec, security leaders, engineering leaders, and platform teams.
 
 Core question:
 
@@ -16,8 +16,8 @@ Core question:
 ## Start by role
 
 - [AppSec](./roles/#appsec) - runtime control evidence, approval, and proof.
-- [CISO](./roles/#ciso) - approval posture, evidence quality, and governance reporting.
-- [Platform security](./roles/#platform-security) - standards, boundaries, orchestration, and proof packets.
+- [CISO / Security leadership](./roles/#ciso) - approval posture, risk ownership, auditability, evidence quality, and governance reporting.
+- [Engineering / Platform](./roles/#engineering-platform) - standards, CI/CD, workflow design, developer adoption, and delivery control.
 
 ## Reports
 
