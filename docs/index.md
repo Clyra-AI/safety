@@ -5,7 +5,7 @@ AppSec, CISOs, and platform security leaders.
 
 Core question:
 
-> What can AI-assisted engineering workflows touch, change, approve, and prove?
+> Know what AI-assisted engineering can touch, what needs approval, and what proof remains.
 
 ## Start with the artifact
 
