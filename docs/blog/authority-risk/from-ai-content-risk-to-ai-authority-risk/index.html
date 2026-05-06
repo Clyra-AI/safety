@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>From AI Content Risk to AI Authority Risk | CAISI Blog</title>
+    <meta
+      name="description"
+      content="A CAISI field note on the shift from AI content risk to AI authority risk: OAuth grants, tokens, credentials, action paths, approvals, and proof."
+    />
+    <!-- SEO_META_START -->
+    <link rel="canonical" href="https://caisi.dev/blog/authority-risk/from-ai-content-risk-to-ai-authority-risk/" />
+    <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+    <meta property="og:site_name" content="CAISI" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="From AI Content Risk to AI Authority Risk | CAISI Blog" />
+    <meta property="og:description" content="A CAISI field note on the shift from AI content risk to AI authority risk: OAuth grants, tokens, credentials, action paths, approvals, and proof." />
+    <meta property="og:url" content="https://caisi.dev/blog/authority-risk/from-ai-content-risk-to-ai-authority-risk/" />
+    <meta property="og:image" content="https://caisi.dev/assets/caisi-social.png" />
+    <meta property="og:image:alt" content="From AI Content Risk to AI Authority Risk | CAISI Blog" />
+    <meta property="og:image:width" content="1600" />
+    <meta property="og:image:height" content="900" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="From AI Content Risk to AI Authority Risk | CAISI Blog" />
+    <meta name="twitter:description" content="A CAISI field note on the shift from AI content risk to AI authority risk: OAuth grants, tokens, credentials, action paths, approvals, and proof." />
+    <meta name="twitter:image" content="https://caisi.dev/assets/caisi-social.png" />
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="CAISI llms.txt" />
+    <link rel="alternate" type="text/plain" href="/llms-full.txt" title="CAISI llms-full.txt" />
+    <meta name="author" content="David Ahmann" />
+    <link rel="author" href="https://caisi.dev/authors/david-ahmann/" />
+    <meta property="article:published_time" content="2026-05-06" />
+    <meta property="article:modified_time" content="2026-05-06" />
+    <!-- SEO_META_END -->
+
+    <link rel="stylesheet" href="/assets/site.css" />
+    <!-- SEO_SCHEMA_START -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://caisi.dev#organization",
+          "name": "Centre for AI Security and Integrity (CAISI)",
+          "url": "https://caisi.dev",
+          "description": "Independent, reproducible research and operating notes on AI Software Delivery Control, AI agent governance, execution boundaries, proof quality, and safe adoption.",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://caisi.dev/assets/caisi-logo.png"
+          },
+          "email": "david@caisi.dev",
+          "contactPoint": [
+            {
+              "@type": "ContactPoint",
+              "contactType": "research inquiries",
+              "email": "david@caisi.dev",
+              "url": "https://caisi.dev",
+              "availableLanguage": [
+                "en"
+              ]
+            }
+          ],
+          "knowsAbout": [
+            "AI agent governance",
+            "AI Software Delivery Control",
+            "Agent Action BOM",
+            "AI coding agent security review",
+            "AI-assisted SDLC audit evidence",
+            "AI agent action approval",
+            "MCP tool risk",
+            "AI agent credential risk",
+            "AI coding agent security",
+            "CI/CD agent security",
+            "AI agent control",
+            "execution boundaries",
+            "tool-boundary enforcement",
+            "approval mediation",
+            "evidence quality",
+            "safe AI adoption",
+            "reproducible AI governance research"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://caisi.dev#website",
+          "url": "https://caisi.dev",
+          "name": "CAISI",
+          "description": "Independent research and field notes for teams rolling out AI coding agents, MCP tools, CI/CD automation, approval controls, and audit evidence.",
+          "publisher": {
+            "@id": "https://caisi.dev#organization"
+          },
+          "inLanguage": "en"
+        },
+        {
+          "@type": "WebPage",
+          "@id": "https://caisi.dev/blog/authority-risk/from-ai-content-risk-to-ai-authority-risk/#webpage",
+          "url": "https://caisi.dev/blog/authority-risk/from-ai-content-risk-to-ai-authority-risk/",
+          "name": "From AI Content Risk to AI Authority Risk | CAISI Blog",
+          "description": "A CAISI field note on the shift from AI content risk to AI authority risk: OAuth grants, tokens, credentials, action paths, approvals, and proof.",
+          "inLanguage": "en",
+          "about": {
+            "@id": "https://caisi.dev#organization"
+          },
+          "isPartOf": {
+            "@id": "https://caisi.dev#website"
+          }
+        },
+        {
+          "@type": "Person",
+          "@id": "https://caisi.dev/authors/david-ahmann/#person",
+          "name": "David Ahmann",
+          "url": "https://caisi.dev/authors/david-ahmann/",
+          "image": "https://caisi.dev/assets/david-ahmann-headshot.png",
+          "description": "David Ahmann writes at CAISI about AI agent governance, execution boundaries, evidence quality, and safe adoption for AppSec, platform, and engineering leaders.",
+          "sameAs": [
+            "https://www.linkedin.com/in/dahmann/"
+          ],
+          "jobTitle": "Head of Cloud & AI Platforms",
+          "worksFor": {
+            "@type": "Organization",
+            "name": "CDW"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": "https://caisi.dev/blog/authority-risk/from-ai-content-risk-to-ai-authority-risk/#breadcrumb",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://caisi.dev"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Blog",
+              "item": "https://caisi.dev/blog/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Authority risk field note"
+            }
+          ]
+        },
+        {
+          "@type": "BlogPosting",
+          "@id": "https://caisi.dev/blog/authority-risk/from-ai-content-risk-to-ai-authority-risk/#article",
+          "headline": "From AI Content Risk to AI Authority Risk",
+          "description": "A CAISI field note on the shift from AI content risk to AI authority risk: OAuth grants, tokens, credentials, action paths, approvals, and proof.",
+          "mainEntityOfPage": "https://caisi.dev/blog/authority-risk/from-ai-content-risk-to-ai-authority-risk/",
+          "url": "https://caisi.dev/blog/authority-risk/from-ai-content-risk-to-ai-authority-risk/",
+          "image": "https://caisi.dev/assets/caisi-social.png",
+          "datePublished": "2026-05-06",
+          "dateModified": "2026-05-06",
+          "inLanguage": "en",
+          "about": {
+            "@id": "https://caisi.dev#organization"
+          },
+          "author": {
+            "@id": "https://caisi.dev/authors/david-ahmann/#person"
+          },
+          "publisher": {
+            "@id": "https://caisi.dev#organization"
+          },
+          "keywords": [
+            "AI Software Delivery Control",
+            "Agent Action BOM",
+            "AI coding agent security review",
+            "AI-assisted SDLC audit evidence",
+            "AI agent action approval",
+            "MCP tool risk",
+            "AI agent credential risk",
+            "AI agent governance",
+            "AI coding agent security",
+            "CI/CD agent security"
+          ]
+        }
+      ]
+    }
+    </script>
+    <!-- SEO_SCHEMA_END -->
+  </head>
+  <body>
+    <main class="site" aria-label="CAISI site content">
+      <header class="site-header" aria-label="Site header">
+        <div class="brand-row">
+          <div class="brand-mark">
+            <a class="brand-link" href="/">CAISI</a>
+            <p class="brand-note">Independent research and operating notes on AI Software Delivery Control.</p>
+          </div>
+        </div>
+        <nav class="global-nav" aria-label="Primary">
+          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" href="/roles/">Roles</a>
+          <a class="nav-link" href="/research/">Research</a>
+          <a class="nav-link current" href="/blog/">Blog</a>
+        </nav>
+      </header>
+
+      <section class="section hero">
+        <p class="breadcrumbs"><a href="/">Home</a> / <a href="/blog/">Blog</a> / <span>Authority risk field note</span></p>
+        <p class="eyebrow">Field Note / Authority Risk</p>
+        <div class="post-author">
+          <img class="author-avatar" src="/assets/david-ahmann-headshot.png" alt="David Ahmann" />
+          <p class="author-byline">
+            By <a href="https://www.linkedin.com/in/dahmann/">David Ahmann (LinkedIn)</a>
+          </p>
+        </div>
+        <h1>From AI Content Risk to AI Authority Risk</h1>
+        <p class="lead">
+          AI security has mostly been discussed as a content problem: prompt
+          leakage, data exposure, unsafe output, and model behavior. The next
+          control problem is authority: what AI-connected tools and workflows
+          can do once they hold OAuth grants, tokens, repo access, CI/CD
+          permissions, or cloud credentials.
+        </p>
+        <p class="body">
+          The reported Vercel/Context.ai incident is useful because it makes the
+          pattern concrete without requiring speculation about autonomous agents.
+          Public reporting points to a third-party AI tool compromise, delegated
+          OAuth access, and a downstream pivot into a workplace environment.
+        </p>
+        <p class="body">Last updated: May 6, 2026</p>
+        <!-- Source notes: Incident claims are limited to Vercel's public April 2026 bulletin and contemporaneous public reporting. Do not expand this article with unverified claims about source-code, CI/CD, npm, or cloud compromise. -->
+      </section>
+
+      <section class="section page-nav" aria-labelledby="page-nav-heading">
+        <h2 id="page-nav-heading">In this field note</h2>
+        <div class="page-nav-list">
+          <a href="#confirmed">What is confirmed</a>
+          <a href="#shift">The shift</a>
+          <a href="#authority-map">Authority map</a>
+          <a href="#check-now">What to check now</a>
+          <a href="#action-bom">Why this points to an Agent Action BOM</a>
+        </div>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="confirmed">What is confirmed</h2>
+        <p>
+          Vercel's April 2026 security bulletin says the incident involved
+          unauthorized access to certain internal Vercel systems and originated
+          with a compromise of Context.ai, a third-party AI tool used by a
+          Vercel employee. Vercel says the attacker used that access to take
+          over the employee's Google Workspace account, then reached the
+          employee's Vercel account and enumerated non-sensitive environment
+          variables.
+        </p>
+        <p>
+          Vercel also published a Google Workspace OAuth application indicator
+          for administrators to check. Separately, TechCrunch reported that
+          Context.ai said attackers likely compromised OAuth tokens for some
+          users of its AI Office Suite consumer app.
+        </p>
+        <p>
+          That is enough to study the control pattern. It is not enough to claim
+          that every AI coding agent, CI/CD system, source-code repository, npm
+          package, or cloud control plane was compromised in this incident. In
+          fact, Vercel's bulletin says it found no evidence of npm package
+          tampering.
+        </p>
+        <div class="link-row">
+          <a href="https://vercel.com/kb/bulletin/vercel-april-2026-security-incident">Vercel security bulletin</a>
+          <span class="divider">|</span>
+          <a href="https://techcrunch.com/2026/04/20/app-host-vercel-confirms-security-incident-says-customer-data-was-stolen-via-breach-at-context-ai/">TechCrunch reporting</a>
+        </div>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="shift">The shift</h2>
+        <p>
+          Content risk asks what an AI tool can see, reveal, summarize, or
+          generate. Authority risk asks what an AI-connected tool or workflow can
+          do with delegated access.
+        </p>
+        <p>
+          That distinction matters because many AI tools are not isolated chat
+          windows anymore. They connect to Google Workspace, Microsoft 365,
+          GitHub, Slack, Jira, CI/CD systems, package registries, cloud accounts,
+          document stores, and internal APIs. Once a tool holds a token or grant,
+          the security question moves from model behavior to action authority.
+        </p>
+        <blockquote>
+          The practical question is no longer only what data an AI tool can see.
+          It is what actions an AI-assisted workflow can perform, against which
+          systems, under whose authority, with what approval, and with what proof.
+        </blockquote>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="authority-map">Authority map</h2>
+        <p>
+          The first review should follow the grant or credential into the action
+          path. A useful map is plain:
+        </p>
+        <pre><code>AI tool or workflow -> OAuth grant/token -> identity context -> action -> target system -> approval/proof</code></pre>
+        <div class="summary-grid">
+          <article class="card">
+            <h3>Grant</h3>
+            <p>OAuth app, refresh token, service account, deploy key, CI secret, cloud role, or inherited platform identity.</p>
+          </article>
+          <article class="card">
+            <h3>Identity context</h3>
+            <p>The user, bot, workflow, service, repo, organization, environment, or tenant whose authority is being used.</p>
+          </article>
+          <article class="card">
+            <h3>Action class</h3>
+            <p>Read, write, execute, export, approve, publish, deploy, delete, secret access, cloud API, or production-adjacent change.</p>
+          </article>
+          <article class="card">
+            <h3>Proof</h3>
+            <p>Actor, credential, requested action, target, policy verdict, approver if required, validation result, and outcome.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="check-now">What to check now</h2>
+        <p>
+          Teams do not need a new committee to act on this pattern. They need a
+          short, concrete review of authority-bearing AI integrations.
+        </p>
+        <ul class="list-plain">
+          <li>List AI tools with OAuth grants into Google Workspace, Microsoft 365, GitHub, Slack, Jira, CI/CD, package registries, cloud accounts, or internal APIs.</li>
+          <li>Separate read-only grants from grants that can write, export, create, delete, publish, deploy, approve, or administer.</li>
+          <li>Identify broad or persistent grants, especially refresh tokens and standing credentials tied to privileged users.</li>
+          <li>Check whether consent is user-driven, centrally approved, scoped by policy, or invisible after onboarding.</li>
+          <li>Define which action classes require re-approval at execution time, not only at app-install time.</li>
+          <li>Verify that audit evidence survives outside the AI tool's own UI.</li>
+          <li>Test revocation: can the team disable the grant, freeze the workflow, rotate the token, and reconstruct what happened?</li>
+        </ul>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="action-bom">Why this points to an Agent Action BOM</h2>
+        <p>
+          A normal SaaS inventory can show that a tool exists. A model inventory
+          can show which AI systems are approved. Neither is sufficient when the
+          risk comes from delegated authority crossing several systems.
+        </p>
+        <p>
+          The artifact teams need is an action inventory:
+        </p>
+        <pre><code>Tool: AI office assistant
+Owner: Business systems
+Grant: Google Workspace OAuth app
+Identity context: Employee account
+Reachable actions: read/export documents, create content, send or modify workspace objects depending on scope
+Approval-required: broad export, external share, privileged workspace access, admin-adjacent action
+Proof: OAuth grant record, app ID, user identity, requested action, target object, policy verdict, revocation record</code></pre>
+        <p>
+          That is the same discipline an Agent Action BOM brings to
+          AI-assisted software delivery. The unit of analysis is not "is this AI
+          tool safe?" It is "what can this tool or workflow touch, change,
+          approve, or prove?"
+        </p>
+        <div class="link-row">
+          <a href="/agent-action-bom/">What is an Agent Action BOM?</a>
+          <span class="divider">|</span>
+          <a href="/mcp-tool-risk-ai-engineering-workflows/">MCP tool risk</a>
+          <span class="divider">|</span>
+          <a href="/long-lived-credentials-ai-agent-workflows/">Long-lived credentials</a>
+        </div>
+      </section>
+
+      <footer class="section article-footer" aria-label="Authority risk footer">
+        <div class="footer-links">
+          <a href="/blog/">Blog</a>
+          <span class="divider">|</span>
+          <a href="/agent-action-bom/">Agent Action BOM</a>
+          <span class="divider">|</span>
+          <a href="/roles/">Start by role</a>
+        </div>
+        <p class="footer-note">
+          Practical question: which AI-connected tool in your environment holds
+          more authority than its next action requires?
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>

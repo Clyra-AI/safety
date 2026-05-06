@@ -10,6 +10,7 @@
 ## Blog Collections
 - [CAISI blog hub](https://caisi.dev/blog/): Directory for framework essays, report interpretation series, implementation notes, benchmark language, and reference pages.
 - [Field note: AI coding agents are moving from suggestions to actions](https://caisi.dev/blog/ai-coding-agents-from-suggestions-to-actions/): Field note explaining why AI-assisted engineering needs an Agent Action BOM, not another generic AI inventory.
+- [Field note: From AI content risk to AI authority risk](https://caisi.dev/blog/authority-risk/from-ai-content-risk-to-ai-authority-risk/): Field note explaining why OAuth grants, tokens, connected-tool permissions, approvals, and proof should be reviewed as action authority.
 - [AI Engineering Operating Notes](https://caisi.dev/blog/operating-notes/): Ten-part framework on repository contracts, orchestration, isolation, evaluation, proof, and maturity for AI-enabled delivery.
 - [What OpenClaw Taught Us About Agent Control](https://caisi.dev/blog/openclaw/): Four-post series on stop semantics, discovery limits, tool-boundary approval, and what the OpenClaw case study does and does not prove.
 - [What the Sprawl Report Means for AppSec, CISO, and Engineering Leaders](https://caisi.dev/blog/sprawl-2026/): Four-post series on evidence posture, approval opacity, deployability proof, and how AppSec, security, engineering, and platform leaders should interpret public AI adoption data.
@@ -49,6 +50,7 @@
 - **What audit evidence should exist for AI-assisted SDLC?** A durable proof packet should identify actor, owner, credential, action, target, approval, validation, outcome, and rollback or re-review trigger.
 - **How can teams approve risky AI agent actions without approving every prompt?** Classify actions by authority. Keep low-risk assistance fast, require pre-execution approval for write, deploy, publish, secret access, workflow mutation, and production-adjacent actions, and block unacceptable paths.
 - **How should teams think about MCP/tool risk and long-lived credentials?** Treat MCP declarations, tool calls, inherited identities, CI secrets, and standing tokens as part of the software delivery boundary, not only developer setup.
+- **What is AI authority risk?** AI authority risk is the risk created when an AI-connected tool or workflow can act through OAuth grants, tokens, credentials, or inherited permissions. Review what it can do, against which systems, under whose authority, with what approval, and with what proof.
 
 ## Contact
 - [Homepage](https://caisi.dev/): Overview of CAISI research, contributors, and role routes for AppSec, CISO/security leadership, engineering leadership, and platform teams.
