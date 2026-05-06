@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Approve Actions, Not Prompts | CAISI</title>
+    <meta
+      name="description"
+      content="Why AI agent governance should approve risky actions, not every prompt: classify allowed, approval-required, and blocked actions at the execution boundary."
+    />
+    <!-- SEO_META_START -->
+    <link rel="canonical" href="https://caisi.dev/approve-actions-not-prompts/" />
+    <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+    <meta property="og:site_name" content="CAISI" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Approve Actions, Not Prompts | CAISI" />
+    <meta property="og:description" content="Why AI agent governance should approve risky actions, not every prompt: classify allowed, approval-required, and blocked actions at the execution boundary." />
+    <meta property="og:url" content="https://caisi.dev/approve-actions-not-prompts/" />
+    <meta property="og:image" content="https://caisi.dev/assets/caisi-social.png" />
+    <meta property="og:image:alt" content="Approve Actions, Not Prompts | CAISI" />
+    <meta property="og:image:width" content="1600" />
+    <meta property="og:image:height" content="900" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Approve Actions, Not Prompts | CAISI" />
+    <meta name="twitter:description" content="Why AI agent governance should approve risky actions, not every prompt: classify allowed, approval-required, and blocked actions at the execution boundary." />
+    <meta name="twitter:image" content="https://caisi.dev/assets/caisi-social.png" />
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="CAISI llms.txt" />
+    <link rel="alternate" type="text/plain" href="/llms-full.txt" title="CAISI llms-full.txt" />
+    <meta name="author" content="David Ahmann" />
+    <link rel="author" href="https://caisi.dev/authors/david-ahmann/" />
+    <meta property="article:published_time" content="2026-05-06" />
+    <meta property="article:modified_time" content="2026-05-06" />
+    <!-- SEO_META_END -->
+
+    <link rel="stylesheet" href="/assets/site.css" />
+    <!-- SEO_SCHEMA_START -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://caisi.dev#organization",
+          "name": "Centre for AI Security and Integrity (CAISI)",
+          "url": "https://caisi.dev",
+          "description": "Independent, reproducible research and operating notes on AI Software Delivery Control, AI agent governance, execution boundaries, proof quality, and safe adoption.",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://caisi.dev/assets/caisi-logo.png"
+          },
+          "email": "david@caisi.dev",
+          "contactPoint": [
+            {
+              "@type": "ContactPoint",
+              "contactType": "research inquiries",
+              "email": "david@caisi.dev",
+              "url": "https://caisi.dev",
+              "availableLanguage": [
+                "en"
+              ]
+            }
+          ],
+          "knowsAbout": [
+            "AI agent governance",
+            "AI Software Delivery Control",
+            "Agent Action BOM",
+            "AI coding agent security review",
+            "AI-assisted SDLC audit evidence",
+            "AI agent action approval",
+            "MCP tool risk",
+            "AI agent credential risk",
+            "AI coding agent security",
+            "CI/CD agent security",
+            "AI agent control",
+            "execution boundaries",
+            "tool-boundary enforcement",
+            "approval mediation",
+            "evidence quality",
+            "safe AI adoption",
+            "reproducible AI governance research"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://caisi.dev#website",
+          "url": "https://caisi.dev",
+          "name": "CAISI",
+          "description": "Independent research and field notes for teams rolling out AI coding agents, MCP tools, CI/CD automation, approval controls, and audit evidence.",
+          "publisher": {
+            "@id": "https://caisi.dev#organization"
+          },
+          "inLanguage": "en"
+        },
+        {
+          "@type": "WebPage",
+          "@id": "https://caisi.dev/approve-actions-not-prompts/#webpage",
+          "url": "https://caisi.dev/approve-actions-not-prompts/",
+          "name": "Approve Actions, Not Prompts | CAISI",
+          "description": "Why AI agent governance should approve risky actions, not every prompt: classify allowed, approval-required, and blocked actions at the execution boundary.",
+          "inLanguage": "en",
+          "about": {
+            "@id": "https://caisi.dev#organization"
+          },
+          "isPartOf": {
+            "@id": "https://caisi.dev#website"
+          }
+        },
+        {
+          "@type": "Person",
+          "@id": "https://caisi.dev/authors/david-ahmann/#person",
+          "name": "David Ahmann",
+          "url": "https://caisi.dev/authors/david-ahmann/",
+          "image": "https://caisi.dev/assets/david-ahmann-headshot.png",
+          "description": "David Ahmann writes at CAISI about AI agent governance, execution boundaries, evidence quality, and safe adoption for AppSec, platform, and engineering leaders.",
+          "sameAs": [
+            "https://www.linkedin.com/in/dahmann/"
+          ],
+          "jobTitle": "Head of Cloud & AI Platforms",
+          "worksFor": {
+            "@type": "Organization",
+            "name": "CDW"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": "https://caisi.dev/approve-actions-not-prompts/#breadcrumb",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://caisi.dev"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Approve actions, not prompts"
+            }
+          ]
+        },
+        {
+          "@type": "TechArticle",
+          "@id": "https://caisi.dev/approve-actions-not-prompts/#article",
+          "headline": "Approve Actions, Not Prompts",
+          "description": "Why AI agent governance should approve risky actions, not every prompt: classify allowed, approval-required, and blocked actions at the execution boundary.",
+          "mainEntityOfPage": "https://caisi.dev/approve-actions-not-prompts/",
+          "url": "https://caisi.dev/approve-actions-not-prompts/",
+          "image": "https://caisi.dev/assets/caisi-social.png",
+          "datePublished": "2026-05-06",
+          "dateModified": "2026-05-06",
+          "inLanguage": "en",
+          "about": {
+            "@id": "https://caisi.dev#organization"
+          },
+          "author": {
+            "@id": "https://caisi.dev/authors/david-ahmann/#person"
+          },
+          "publisher": {
+            "@id": "https://caisi.dev#organization"
+          },
+          "keywords": [
+            "AI Software Delivery Control",
+            "Agent Action BOM",
+            "AI coding agent security review",
+            "AI-assisted SDLC audit evidence",
+            "AI agent action approval",
+            "MCP tool risk",
+            "AI agent credential risk",
+            "AI agent governance",
+            "AI coding agent security",
+            "CI/CD agent security"
+          ]
+        }
+      ]
+    }
+    </script>
+    <!-- SEO_SCHEMA_END -->
+
+  </head>
+  <body>
+    <main class="site" aria-label="CAISI site content">
+      <header class="site-header" aria-label="Site header">
+        <div class="brand-row">
+          <div class="brand-mark">
+            <a class="brand-link" href="/">CAISI</a>
+            <p class="brand-note">Independent research and operating notes on AI Software Delivery Control.</p>
+          </div>
+        </div>
+        <nav class="global-nav" aria-label="Primary">
+          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" href="/roles/">Roles</a>
+          <a class="nav-link" href="/research/">Research</a>
+          <a class="nav-link" href="/blog/">Blog</a>
+        </nav>
+      </header>
+
+      <section class="section hero">
+        <p class="breadcrumbs"><a href="/">Home</a> / <span>Approve actions, not prompts</span></p>
+        <p class="eyebrow">Reference / Approval control</p>
+        <h1>Approve Actions, Not Prompts</h1>
+        <p class="lead">
+          Teams do not need a human approval for every prompt. They need clear
+          approval rules for the moments where an AI-assisted workflow can
+          change state: write code, modify CI/CD, use credentials, invoke tools,
+          publish packages, deploy, delete, or touch production-adjacent
+          systems.
+        </p>
+        <p class="body">
+          Prompt review is too early and too broad for most software-delivery
+          controls. Action approval belongs at the execution boundary, where the
+          system can decide whether an action is allowed, approval-required, or
+          blocked.
+        </p>
+        <p class="body">Last updated: May 6, 2026</p>
+        <!-- Source notes: this page avoids external statistics, recent events, and vendor capability claims. Verify any added factual or current claims before publishing. -->
+      </section>
+
+      <section class="section page-nav" aria-labelledby="page-nav-heading">
+        <h2 id="page-nav-heading">On this page</h2>
+        <div class="page-nav-list">
+          <a href="#short-answer">Short answer</a>
+          <a href="#why">Why prompts are the wrong unit</a>
+          <a href="#action-classes">Action classes</a>
+          <a href="#decision-table">Decision table</a>
+          <a href="#approval-packet">Approval packet</a>
+          <a href="#checklist">Checklist</a>
+        </div>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="short-answer">Short answer</h2>
+        <p>
+          Approve actions, not prompts. Classify each AI-assisted workflow
+          action as allowed, approval-required, or blocked based on what it can
+          touch or change. Keep low-risk assistance fast. Require approval
+          before high-risk actions execute. Preserve proof after the decision.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="why">Why prompts are the wrong unit</h2>
+        <p>
+          A prompt is intent. An action is impact. In software delivery, the
+          control question is not only what the user asked for. It is what the
+          workflow can execute with the surrounding repo permissions,
+          credentials, tools, and CI/CD context.
+        </p>
+        <p>
+          Reviewing every prompt creates noise and delay without necessarily
+          controlling the action that matters. A harmless prompt can lead to a
+          privileged action if the workflow has broad credentials. A risky
+          prompt may remain harmless if the workflow has no authority to execute
+          the action. Approval should follow authority.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="action-classes">Action classes</h2>
+        <p>
+          Start by naming the action classes that matter in your environment.
+        </p>
+        <ul class="list-plain">
+          <li>Read repository, issue, documentation, or dependency context.</li>
+          <li>Write code, branch, pull request, issue, or documentation content.</li>
+          <li>Modify workflow files, policy files, scripts, or reusable actions.</li>
+          <li>Invoke MCP tools, APIs, package managers, or internal services.</li>
+          <li>Use credentials, secrets, service accounts, or inherited identities.</li>
+          <li>Publish packages, deploy, restart services, or change infrastructure state.</li>
+          <li>Delete, disable, bypass, or perform destructive actions.</li>
+        </ul>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="decision-table">Decision table</h2>
+        <p>
+          The first decision table should be simple enough for engineering and
+          security to use without a new committee.
+        </p>
+        <pre><code>Allowed:
+- Read repo context
+- Suggest code locally
+- Run tests without secrets
+- Comment on PR with narrow credential
+
+Approval-required:
+- Write branch from unattended workflow
+- Modify CI/CD or policy files
+- Invoke MCP write action
+- Publish package or deploy
+- Use credential for production-adjacent target
+
+Blocked:
+- Bypass required checks
+- Access production secrets without approved path
+- Delete artifacts without recovery plan
+- Execute high-risk action without proof trail</code></pre>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="approval-packet">Approval packet</h2>
+        <p>
+          An approval packet should be smaller than a full governance report and
+          more specific than a yes/no tool approval.
+        </p>
+        <pre><code>Action: modify workflow file
+Workflow: AI-assisted PR repair
+Owner: Platform engineering
+Credential: repo-scoped CI token
+Target: .github/workflows/pr-repair.yml
+Policy verdict: require_approval
+Approver: AppSec reviewer
+Validation: workflow syntax check and required tests
+Proof: PR link, workflow run, policy verdict, approver, test result
+Re-review trigger: broader credential, new target environment, deploy step added</code></pre>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="checklist">Checklist</h2>
+        <ul class="list-plain">
+          <li>List action classes before writing approval rules.</li>
+          <li>Map each action class to allowed, approval-required, or blocked.</li>
+          <li>Base approval on action authority, credential context, target system, and blast radius.</li>
+          <li>Require approval before high-risk actions execute, not after the run completes.</li>
+          <li>Keep proof fields attached to the action path.</li>
+          <li>Review the table when credentials, targets, tools, or execution context changes.</li>
+        </ul>
+        <div class="link-row">
+          <a href="/agent-action-bom/">What is an Agent Action BOM?</a>
+          <span class="divider">|</span>
+          <a href="/audit-evidence-ai-assisted-sdlc/">Audit evidence for AI-assisted SDLC</a>
+          <span class="divider">|</span>
+          <a href="/secure-ai-coding-agents-ci-cd/">Secure AI coding agents in CI/CD</a>
+        </div>
+      </section>
+
+      <footer class="section article-footer" aria-label="Approve actions footer">
+        <div class="footer-links">
+          <a href="/">Home</a>
+          <span class="divider">|</span>
+          <a href="/roles/">Roles</a>
+          <span class="divider">|</span>
+          <a href="/blog/">Blog</a>
+          <span class="divider">|</span>
+          <a href="/research/">Research</a>
+        </div>
+        <p class="footer-note">
+          Practical question: which AI-assisted action would you be comfortable
+          allowing automatically, and which one should become non-executable
+          until approval exists?
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>

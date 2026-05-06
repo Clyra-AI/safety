@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Rolling Out Coding Agents? Start With Security Review | CAISI</title>
+    <meta
+      name="description"
+      content="A practical security review guide for teams rolling out AI coding agents: map action paths, credentials, MCP tools, CI/CD reach, approvals, and proof."
+    />
+    <!-- SEO_META_START -->
+    <link rel="canonical" href="https://caisi.dev/rolling-out-coding-agents-security-review/" />
+    <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+    <meta property="og:site_name" content="CAISI" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Rolling Out Coding Agents? Start With Security Review | CAISI" />
+    <meta property="og:description" content="A practical security review guide for teams rolling out AI coding agents: map action paths, credentials, MCP tools, CI/CD reach, approvals, and proof." />
+    <meta property="og:url" content="https://caisi.dev/rolling-out-coding-agents-security-review/" />
+    <meta property="og:image" content="https://caisi.dev/assets/caisi-social.png" />
+    <meta property="og:image:alt" content="Rolling Out Coding Agents? Start With Security Review | CAISI" />
+    <meta property="og:image:width" content="1600" />
+    <meta property="og:image:height" content="900" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Rolling Out Coding Agents? Start With Security Review | CAISI" />
+    <meta name="twitter:description" content="A practical security review guide for teams rolling out AI coding agents: map action paths, credentials, MCP tools, CI/CD reach, approvals, and proof." />
+    <meta name="twitter:image" content="https://caisi.dev/assets/caisi-social.png" />
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="CAISI llms.txt" />
+    <link rel="alternate" type="text/plain" href="/llms-full.txt" title="CAISI llms-full.txt" />
+    <meta name="author" content="David Ahmann" />
+    <link rel="author" href="https://caisi.dev/authors/david-ahmann/" />
+    <meta property="article:published_time" content="2026-05-06" />
+    <meta property="article:modified_time" content="2026-05-06" />
+    <!-- SEO_META_END -->
+
+    <link rel="stylesheet" href="/assets/site.css" />
+    <!-- SEO_SCHEMA_START -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://caisi.dev#organization",
+          "name": "Centre for AI Security and Integrity (CAISI)",
+          "url": "https://caisi.dev",
+          "description": "Independent, reproducible research and operating notes on AI Software Delivery Control, AI agent governance, execution boundaries, proof quality, and safe adoption.",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://caisi.dev/assets/caisi-logo.png"
+          },
+          "email": "david@caisi.dev",
+          "contactPoint": [
+            {
+              "@type": "ContactPoint",
+              "contactType": "research inquiries",
+              "email": "david@caisi.dev",
+              "url": "https://caisi.dev",
+              "availableLanguage": [
+                "en"
+              ]
+            }
+          ],
+          "knowsAbout": [
+            "AI agent governance",
+            "AI Software Delivery Control",
+            "Agent Action BOM",
+            "AI coding agent security review",
+            "AI-assisted SDLC audit evidence",
+            "AI agent action approval",
+            "MCP tool risk",
+            "AI agent credential risk",
+            "AI coding agent security",
+            "CI/CD agent security",
+            "AI agent control",
+            "execution boundaries",
+            "tool-boundary enforcement",
+            "approval mediation",
+            "evidence quality",
+            "safe AI adoption",
+            "reproducible AI governance research"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://caisi.dev#website",
+          "url": "https://caisi.dev",
+          "name": "CAISI",
+          "description": "Independent research and field notes for teams rolling out AI coding agents, MCP tools, CI/CD automation, approval controls, and audit evidence.",
+          "publisher": {
+            "@id": "https://caisi.dev#organization"
+          },
+          "inLanguage": "en"
+        },
+        {
+          "@type": "WebPage",
+          "@id": "https://caisi.dev/rolling-out-coding-agents-security-review/#webpage",
+          "url": "https://caisi.dev/rolling-out-coding-agents-security-review/",
+          "name": "Rolling Out Coding Agents? Start With Security Review | CAISI",
+          "description": "A practical security review guide for teams rolling out AI coding agents: map action paths, credentials, MCP tools, CI/CD reach, approvals, and proof.",
+          "inLanguage": "en",
+          "about": {
+            "@id": "https://caisi.dev#organization"
+          },
+          "isPartOf": {
+            "@id": "https://caisi.dev#website"
+          }
+        },
+        {
+          "@type": "Person",
+          "@id": "https://caisi.dev/authors/david-ahmann/#person",
+          "name": "David Ahmann",
+          "url": "https://caisi.dev/authors/david-ahmann/",
+          "image": "https://caisi.dev/assets/david-ahmann-headshot.png",
+          "description": "David Ahmann writes at CAISI about AI agent governance, execution boundaries, evidence quality, and safe adoption for AppSec, platform, and engineering leaders.",
+          "sameAs": [
+            "https://www.linkedin.com/in/dahmann/"
+          ],
+          "jobTitle": "Head of Cloud & AI Platforms",
+          "worksFor": {
+            "@type": "Organization",
+            "name": "CDW"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": "https://caisi.dev/rolling-out-coding-agents-security-review/#breadcrumb",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://caisi.dev"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Coding agent rollout review"
+            }
+          ]
+        },
+        {
+          "@type": "TechArticle",
+          "@id": "https://caisi.dev/rolling-out-coding-agents-security-review/#article",
+          "headline": "Rolling Out Coding Agents? Start With Security Review",
+          "description": "A practical security review guide for teams rolling out AI coding agents: map action paths, credentials, MCP tools, CI/CD reach, approvals, and proof.",
+          "mainEntityOfPage": "https://caisi.dev/rolling-out-coding-agents-security-review/",
+          "url": "https://caisi.dev/rolling-out-coding-agents-security-review/",
+          "image": "https://caisi.dev/assets/caisi-social.png",
+          "datePublished": "2026-05-06",
+          "dateModified": "2026-05-06",
+          "inLanguage": "en",
+          "about": {
+            "@id": "https://caisi.dev#organization"
+          },
+          "author": {
+            "@id": "https://caisi.dev/authors/david-ahmann/#person"
+          },
+          "publisher": {
+            "@id": "https://caisi.dev#organization"
+          },
+          "keywords": [
+            "AI Software Delivery Control",
+            "Agent Action BOM",
+            "AI coding agent security review",
+            "AI-assisted SDLC audit evidence",
+            "AI agent action approval",
+            "MCP tool risk",
+            "AI agent credential risk",
+            "AI agent governance",
+            "AI coding agent security",
+            "CI/CD agent security"
+          ]
+        }
+      ]
+    }
+    </script>
+    <!-- SEO_SCHEMA_END -->
+
+  </head>
+  <body>
+    <main class="site" aria-label="CAISI site content">
+      <header class="site-header" aria-label="Site header">
+        <div class="brand-row">
+          <div class="brand-mark">
+            <a class="brand-link" href="/">CAISI</a>
+            <p class="brand-note">Independent research and operating notes on AI Software Delivery Control.</p>
+          </div>
+        </div>
+        <nav class="global-nav" aria-label="Primary">
+          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" href="/roles/">Roles</a>
+          <a class="nav-link" href="/research/">Research</a>
+          <a class="nav-link" href="/blog/">Blog</a>
+        </nav>
+      </header>
+
+      <section class="section hero">
+        <p class="breadcrumbs"><a href="/">Home</a> / <span>Coding agent rollout review</span></p>
+        <p class="eyebrow">Reference / Security review</p>
+        <h1>Rolling Out Coding Agents? Start With Security Review</h1>
+        <p class="lead">
+          If engineering is ready to roll out coding agents and security is
+          nervous, do not start with a generic AI policy debate. Start by
+          mapping what the first workflows can touch, which credentials they
+          inherit, which tools they can call, which actions need approval, and
+          what proof remains after execution.
+        </p>
+        <p class="body">
+          The goal is a narrow, useful first review: enough control to approve a
+          sane rollout, without turning every prompt or local suggestion into a
+          security meeting.
+        </p>
+        <p class="body">Last updated: May 6, 2026</p>
+        <!-- Source notes: this page avoids external statistics, recent events, and vendor capability claims. Verify any added factual or current claims before publishing. -->
+      </section>
+
+      <section class="section page-nav" aria-labelledby="page-nav-heading">
+        <h2 id="page-nav-heading">On this page</h2>
+        <div class="page-nav-list">
+          <a href="#short-answer">Short answer</a>
+          <a href="#first-review">The first review</a>
+          <a href="#action-bom">First Agent Action BOM</a>
+          <a href="#review-questions">Review questions</a>
+          <a href="#approval">Approval posture</a>
+          <a href="#proof">Proof packet</a>
+          <a href="#checklist">Checklist</a>
+        </div>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="short-answer">Short answer</h2>
+        <p>
+          The first security review for coding agents should focus on action
+          authority. Identify the agent or workflow, owner, repo, credential,
+          reachable actions, target systems, approval rule, and proof. Low-risk
+          suggestion and read-only paths can stay lightweight. Write, CI/CD,
+          MCP/tool, secret access, package publish, deploy, and
+          production-adjacent paths need explicit controls.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="first-review">The first review</h2>
+        <p>
+          A practical rollout review should not try to govern every AI use case
+          at once. Pick the first workflows that can affect delivery. A coding
+          assistant that suggests code locally is a different review problem
+          than an agent or automation that can open pull requests, modify
+          workflow files, invoke MCP tools, use tokens, run CI/CD, publish
+          packages, or trigger release paths.
+        </p>
+        <p>
+          The review should produce a decision the organization can defend:
+          what is allowed now, what requires approval, what is blocked, what
+          evidence must exist, and what would trigger re-review.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="action-bom">First Agent Action BOM</h2>
+        <p>
+          Start with one or two workflows and write the action path down. The
+          first Agent Action BOM does not need a platform. It needs enough
+          structure for AppSec, platform, and engineering to discuss the same
+          object.
+        </p>
+        <pre><code>Workflow: AI-assisted PR repair
+Owner: Platform engineering
+Repo/path: customer-api/.github/workflows/pr-repair.yml
+Credential: repo-scoped CI token
+Reachable actions: write branch, run tests, comment on PR
+Tool reach: issue tracker comment; no production data access
+Approval-required: workflow-file changes, package publish, deploy
+Blocked: production secrets, delete branch, bypass required checks
+Proof: PR link, workflow run, credential identity, policy verdict, approver, validation result</code></pre>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="review-questions">Review questions</h2>
+        <ul class="list-plain">
+          <li>Which agents or workflows can move beyond suggestions into repository, PR, CI/CD, tool, or release actions?</li>
+          <li>Who owns each workflow and who can change its configuration?</li>
+          <li>Which credentials, service accounts, OAuth grants, CI secrets, or inherited identities are used?</li>
+          <li>Which MCP tools or APIs can be called, and from which execution context?</li>
+          <li>Which actions are read-only, write-capable, deploy-capable, publish-capable, destructive, or production-adjacent?</li>
+          <li>Which actions should be allowed, approval-required, or blocked?</li>
+          <li>What proof survives after a privileged action?</li>
+        </ul>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="approval">Approval posture</h2>
+        <p>
+          A good first posture keeps adoption practical. It does not approve the
+          entire category and it does not block every interaction.
+        </p>
+        <div class="summary-grid">
+          <article class="card">
+            <h3>Allow</h3>
+            <p>Local suggestions, read-only inspection, test generation without write authority, and low-risk comments where credentials and targets are narrow.</p>
+          </article>
+          <article class="card">
+            <h3>Require approval</h3>
+            <p>Workflow-file changes, branch writes from unattended jobs, package publish, deploy, secret access, MCP write actions, and production-adjacent actions.</p>
+          </article>
+          <article class="card">
+            <h3>Block</h3>
+            <p>Bypassing required checks, accessing production secrets without an approved path, destructive actions without recovery, or actions without a durable proof trail.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="proof">Proof packet</h2>
+        <p>
+          The first rollout should define proof before the first incident or
+          audit request. A reviewer should be able to reconstruct the actor,
+          owner, credential, action, target, approval, validation, and outcome.
+        </p>
+        <ul class="list-plain">
+          <li>Actor or workflow identity.</li>
+          <li>Human owner and review owner.</li>
+          <li>Credential or inherited identity used.</li>
+          <li>Requested action and executed action.</li>
+          <li>Target system, repo, branch, PR, package, tool, or environment.</li>
+          <li>Policy verdict and approval record where required.</li>
+          <li>Validation result, residual risk, and rollback or disable path.</li>
+        </ul>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="checklist">Checklist</h2>
+        <ul class="list-plain">
+          <li>Pick the first two or three coding-agent workflows that can affect software delivery.</li>
+          <li>Map each workflow into an Agent Action BOM row.</li>
+          <li>Separate read-only, write, CI/CD, MCP/tool, credential, publish, deploy, and production-adjacent paths.</li>
+          <li>Replace broad standing credentials before expanding unattended write authority.</li>
+          <li>Define allow, approval-required, and blocked action classes.</li>
+          <li>Write the proof packet requirements before rollout.</li>
+          <li>Set re-review triggers for new credentials, broader repo scope, new tool reach, workflow-file changes, or reduced human review.</li>
+        </ul>
+        <div class="link-row">
+          <a href="/agent-action-bom/">What is an Agent Action BOM?</a>
+          <span class="divider">|</span>
+          <a href="/secure-ai-coding-agents-ci-cd/">Secure AI coding agents in CI/CD</a>
+          <span class="divider">|</span>
+          <a href="/mcp-tool-risk-ai-engineering-workflows/">MCP tool risk</a>
+          <span class="divider">|</span>
+          <a href="/long-lived-credentials-ai-agent-workflows/">Long-lived credentials</a>
+        </div>
+      </section>
+
+      <footer class="section article-footer" aria-label="Coding agent rollout review footer">
+        <div class="footer-links">
+          <a href="/">Home</a>
+          <span class="divider">|</span>
+          <a href="/roles/">Roles</a>
+          <span class="divider">|</span>
+          <a href="/blog/">Blog</a>
+          <span class="divider">|</span>
+          <a href="/research/">Research</a>
+        </div>
+        <p class="footer-note">
+          Practical question: which coding-agent workflow can already write,
+          call tools, trigger CI/CD, or touch secrets?
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>

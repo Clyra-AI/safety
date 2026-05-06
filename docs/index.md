@@ -23,6 +23,9 @@ workflow, credential, action, target, approval rule, and proof.
 
 ## Start with the artifact
 
+- [Rolling out coding agents? Start with security review](./rolling-out-coding-agents-security-review/) - map action authority, credentials, MCP/tool reach, CI/CD actions, approvals, and proof.
+- [Audit evidence for AI-assisted SDLC](./audit-evidence-ai-assisted-sdlc/) - define a proof packet for actor, owner, credential, action, target, approval, validation, and outcome.
+- [Approve actions, not prompts](./approve-actions-not-prompts/) - classify actions as allowed, approval-required, or blocked at the execution boundary.
 - [Agent Action BOM](./agent-action-bom/) - map actor, owner, repo, workflow, credential, reachable actions, targets, approval, and proof.
 - [MCP tool risk in AI engineering workflows](./mcp-tool-risk-ai-engineering-workflows/) - map tool reach, invocation context, credentials, approval triggers, and proof.
 - [Long-lived credentials in AI agent workflows](./long-lived-credentials-ai-agent-workflows/) - reduce standing-token risk across agents, CI/CD, tools, and release paths.

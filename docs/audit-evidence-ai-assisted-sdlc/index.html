@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Audit Evidence for AI-Assisted SDLC | CAISI</title>
+    <meta
+      name="description"
+      content="What audit evidence should exist for AI-assisted SDLC: actor, owner, credential, action, target, approval, validation, outcome, and proof packet."
+    />
+    <!-- SEO_META_START -->
+    <link rel="canonical" href="https://caisi.dev/audit-evidence-ai-assisted-sdlc/" />
+    <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+    <meta property="og:site_name" content="CAISI" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Audit Evidence for AI-Assisted SDLC | CAISI" />
+    <meta property="og:description" content="What audit evidence should exist for AI-assisted SDLC: actor, owner, credential, action, target, approval, validation, outcome, and proof packet." />
+    <meta property="og:url" content="https://caisi.dev/audit-evidence-ai-assisted-sdlc/" />
+    <meta property="og:image" content="https://caisi.dev/assets/caisi-social.png" />
+    <meta property="og:image:alt" content="Audit Evidence for AI-Assisted SDLC | CAISI" />
+    <meta property="og:image:width" content="1600" />
+    <meta property="og:image:height" content="900" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Audit Evidence for AI-Assisted SDLC | CAISI" />
+    <meta name="twitter:description" content="What audit evidence should exist for AI-assisted SDLC: actor, owner, credential, action, target, approval, validation, outcome, and proof packet." />
+    <meta name="twitter:image" content="https://caisi.dev/assets/caisi-social.png" />
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="CAISI llms.txt" />
+    <link rel="alternate" type="text/plain" href="/llms-full.txt" title="CAISI llms-full.txt" />
+    <meta name="author" content="David Ahmann" />
+    <link rel="author" href="https://caisi.dev/authors/david-ahmann/" />
+    <meta property="article:published_time" content="2026-05-06" />
+    <meta property="article:modified_time" content="2026-05-06" />
+    <!-- SEO_META_END -->
+
+    <link rel="stylesheet" href="/assets/site.css" />
+    <!-- SEO_SCHEMA_START -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://caisi.dev#organization",
+          "name": "Centre for AI Security and Integrity (CAISI)",
+          "url": "https://caisi.dev",
+          "description": "Independent, reproducible research and operating notes on AI Software Delivery Control, AI agent governance, execution boundaries, proof quality, and safe adoption.",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://caisi.dev/assets/caisi-logo.png"
+          },
+          "email": "david@caisi.dev",
+          "contactPoint": [
+            {
+              "@type": "ContactPoint",
+              "contactType": "research inquiries",
+              "email": "david@caisi.dev",
+              "url": "https://caisi.dev",
+              "availableLanguage": [
+                "en"
+              ]
+            }
+          ],
+          "knowsAbout": [
+            "AI agent governance",
+            "AI Software Delivery Control",
+            "Agent Action BOM",
+            "AI coding agent security review",
+            "AI-assisted SDLC audit evidence",
+            "AI agent action approval",
+            "MCP tool risk",
+            "AI agent credential risk",
+            "AI coding agent security",
+            "CI/CD agent security",
+            "AI agent control",
+            "execution boundaries",
+            "tool-boundary enforcement",
+            "approval mediation",
+            "evidence quality",
+            "safe AI adoption",
+            "reproducible AI governance research"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://caisi.dev#website",
+          "url": "https://caisi.dev",
+          "name": "CAISI",
+          "description": "Independent research and field notes for teams rolling out AI coding agents, MCP tools, CI/CD automation, approval controls, and audit evidence.",
+          "publisher": {
+            "@id": "https://caisi.dev#organization"
+          },
+          "inLanguage": "en"
+        },
+        {
+          "@type": "WebPage",
+          "@id": "https://caisi.dev/audit-evidence-ai-assisted-sdlc/#webpage",
+          "url": "https://caisi.dev/audit-evidence-ai-assisted-sdlc/",
+          "name": "Audit Evidence for AI-Assisted SDLC | CAISI",
+          "description": "What audit evidence should exist for AI-assisted SDLC: actor, owner, credential, action, target, approval, validation, outcome, and proof packet.",
+          "inLanguage": "en",
+          "about": {
+            "@id": "https://caisi.dev#organization"
+          },
+          "isPartOf": {
+            "@id": "https://caisi.dev#website"
+          }
+        },
+        {
+          "@type": "Person",
+          "@id": "https://caisi.dev/authors/david-ahmann/#person",
+          "name": "David Ahmann",
+          "url": "https://caisi.dev/authors/david-ahmann/",
+          "image": "https://caisi.dev/assets/david-ahmann-headshot.png",
+          "description": "David Ahmann writes at CAISI about AI agent governance, execution boundaries, evidence quality, and safe adoption for AppSec, platform, and engineering leaders.",
+          "sameAs": [
+            "https://www.linkedin.com/in/dahmann/"
+          ],
+          "jobTitle": "Head of Cloud & AI Platforms",
+          "worksFor": {
+            "@type": "Organization",
+            "name": "CDW"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": "https://caisi.dev/audit-evidence-ai-assisted-sdlc/#breadcrumb",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://caisi.dev"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "AI-assisted SDLC audit evidence"
+            }
+          ]
+        },
+        {
+          "@type": "TechArticle",
+          "@id": "https://caisi.dev/audit-evidence-ai-assisted-sdlc/#article",
+          "headline": "Audit Evidence for AI-Assisted SDLC",
+          "description": "What audit evidence should exist for AI-assisted SDLC: actor, owner, credential, action, target, approval, validation, outcome, and proof packet.",
+          "mainEntityOfPage": "https://caisi.dev/audit-evidence-ai-assisted-sdlc/",
+          "url": "https://caisi.dev/audit-evidence-ai-assisted-sdlc/",
+          "image": "https://caisi.dev/assets/caisi-social.png",
+          "datePublished": "2026-05-06",
+          "dateModified": "2026-05-06",
+          "inLanguage": "en",
+          "about": {
+            "@id": "https://caisi.dev#organization"
+          },
+          "author": {
+            "@id": "https://caisi.dev/authors/david-ahmann/#person"
+          },
+          "publisher": {
+            "@id": "https://caisi.dev#organization"
+          },
+          "keywords": [
+            "AI Software Delivery Control",
+            "Agent Action BOM",
+            "AI coding agent security review",
+            "AI-assisted SDLC audit evidence",
+            "AI agent action approval",
+            "MCP tool risk",
+            "AI agent credential risk",
+            "AI agent governance",
+            "AI coding agent security",
+            "CI/CD agent security"
+          ]
+        }
+      ]
+    }
+    </script>
+    <!-- SEO_SCHEMA_END -->
+
+  </head>
+  <body>
+    <main class="site" aria-label="CAISI site content">
+      <header class="site-header" aria-label="Site header">
+        <div class="brand-row">
+          <div class="brand-mark">
+            <a class="brand-link" href="/">CAISI</a>
+            <p class="brand-note">Independent research and operating notes on AI Software Delivery Control.</p>
+          </div>
+        </div>
+        <nav class="global-nav" aria-label="Primary">
+          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" href="/roles/">Roles</a>
+          <a class="nav-link" href="/research/">Research</a>
+          <a class="nav-link" href="/blog/">Blog</a>
+        </nav>
+      </header>
+
+      <section class="section hero">
+        <p class="breadcrumbs"><a href="/">Home</a> / <span>AI-assisted SDLC audit evidence</span></p>
+        <p class="eyebrow">Reference / Audit evidence</p>
+        <h1>Audit Evidence for AI-Assisted SDLC</h1>
+        <p class="lead">
+          If a reviewer asks for audit evidence for AI-assisted software
+          delivery, a model name or policy screenshot is not enough. The useful
+          evidence shows what acted, who owned it, which credential was used,
+          what action was requested, what target was touched, what approval
+          applied, which validation ran, and what outcome remained.
+        </p>
+        <p class="body">
+          This page defines a practical proof packet for AI-assisted SDLC,
+          meaning the software development lifecycle where AI-assisted
+          workflows can participate in code, review, CI/CD, tooling, packaging,
+          or release paths.
+        </p>
+        <p class="body">Last updated: May 6, 2026</p>
+        <!-- Source notes: this page avoids external statistics, recent events, and vendor capability claims. Verify any added factual or current claims before publishing. -->
+      </section>
+
+      <section class="section page-nav" aria-labelledby="page-nav-heading">
+        <h2 id="page-nav-heading">On this page</h2>
+        <div class="page-nav-list">
+          <a href="#short-answer">Short answer</a>
+          <a href="#evidence-model">Evidence model</a>
+          <a href="#proof-packet">Proof packet fields</a>
+          <a href="#weak-evidence">Weak evidence</a>
+          <a href="#where-collected">Where evidence is collected</a>
+          <a href="#review">Review questions</a>
+          <a href="#checklist">Checklist</a>
+        </div>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="short-answer">Short answer</h2>
+        <p>
+          Audit evidence for AI-assisted SDLC should connect an AI-assisted
+          action to an accountable owner, credential, target, approval rule,
+          validation result, and outcome. The goal is not to archive every
+          prompt. The goal is to preserve enough proof for a reviewer to
+          reconstruct privileged software-delivery actions.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="evidence-model">Evidence model</h2>
+        <p>
+          A useful evidence model follows the action path instead of treating
+          all AI use as one bucket:
+        </p>
+        <pre><code>actor/workflow -> owner -> credential -> action -> target -> approval -> validation -> outcome</code></pre>
+        <p>
+          That model helps separate low-risk assistance from delivery actions
+          that need stronger evidence. A local suggestion may only need normal
+          code review. An unattended workflow that writes branches, changes
+          CI/CD, uses a credential, invokes a tool, or triggers a release path
+          needs a durable proof packet.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="proof-packet">Proof packet fields</h2>
+        <div class="summary-grid">
+          <article class="card">
+            <h3>Actor and owner</h3>
+            <p>Agent, workflow, job, script, or tool plus the accountable human owner and owning team.</p>
+          </article>
+          <article class="card">
+            <h3>Credential and authority</h3>
+            <p>Token, service account, OAuth grant, CI secret, or inherited identity plus the action classes it enables.</p>
+          </article>
+          <article class="card">
+            <h3>Action and target</h3>
+            <p>Requested and executed action, target repo, branch, PR, workflow, package, tool, service, environment, or dataset.</p>
+          </article>
+          <article class="card">
+            <h3>Approval and validation</h3>
+            <p>Policy verdict, approval record where required, validation command, test result, and residual risk or exception note.</p>
+          </article>
+        </div>
+        <pre><code>Proof packet:
+Actor: AI-assisted dependency update workflow
+Owner: Platform engineering
+Credential: repo-scoped CI token
+Action: write branch and open PR
+Target: billing-service repo
+Approval: not required for branch write; required for workflow-file change
+Validation: unit tests and dependency policy check
+Outcome: PR opened, checks passed, no release triggered
+Rollback/disable path: revoke workflow token or disable workflow</code></pre>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="weak-evidence">Weak evidence</h2>
+        <p>
+          Some artifacts are useful but incomplete on their own. A mature audit
+          trail should not depend on a future reviewer stitching together
+          fragments.
+        </p>
+        <ul class="list-plain">
+          <li>A chat transcript without the executed action or target-system event.</li>
+          <li>A CI log without the credential identity or approval rule.</li>
+          <li>A policy document without evidence that policy changed execution state.</li>
+          <li>A model name without action authority, credential context, or proof.</li>
+          <li>A screenshot that only works while someone remembers the surrounding workflow.</li>
+        </ul>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="where-collected">Where evidence is collected</h2>
+        <p>
+          AI-assisted SDLC evidence usually lives across multiple systems. The
+          proof packet should connect them.
+        </p>
+        <ul class="list-plain">
+          <li>Repository and pull request metadata.</li>
+          <li>CI/CD workflow run metadata and logs.</li>
+          <li>Credential or identity provider records.</li>
+          <li>Policy verdicts and approval records.</li>
+          <li>MCP/tool invocation records where tools are used.</li>
+          <li>Package registry, deployment, cloud, or target-system events.</li>
+          <li>Validation outputs and rollback or disable records.</li>
+        </ul>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="review">Review questions</h2>
+        <ul class="list-plain">
+          <li>Can a reviewer identify which AI-assisted workflow acted?</li>
+          <li>Can the reviewer see who owned the workflow and who approved the action where required?</li>
+          <li>Can the reviewer see which credential or inherited identity was used?</li>
+          <li>Can the reviewer distinguish requested action from executed action?</li>
+          <li>Can the reviewer see the target system and outcome?</li>
+          <li>Can the reviewer determine whether validation ran and what it proved?</li>
+          <li>Can the reviewer see what would trigger rollback, disablement, or re-review?</li>
+        </ul>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="checklist">Checklist</h2>
+        <ul class="list-plain">
+          <li>Define proof packet fields before rolling out write-capable workflows.</li>
+          <li>Map proof requirements to the Agent Action BOM fields.</li>
+          <li>Keep evidence stronger for write, deploy, publish, secret access, and production-adjacent actions.</li>
+          <li>Do not rely on screenshots or memory for privileged actions.</li>
+          <li>Store proof where it survives product UI changes and personnel changes.</li>
+          <li>Set re-review triggers for new credentials, new tool reach, broader targets, or reduced human approval.</li>
+        </ul>
+        <div class="link-row">
+          <a href="/agent-action-bom/">What is an Agent Action BOM?</a>
+          <span class="divider">|</span>
+          <a href="/blog/control-benchmarks/proof-completeness-for-ai-agent-changes/">Proof completeness</a>
+          <span class="divider">|</span>
+          <a href="/secure-ai-coding-agents-ci-cd/">Secure AI coding agents in CI/CD</a>
+        </div>
+      </section>
+
+      <footer class="section article-footer" aria-label="AI-assisted SDLC audit evidence footer">
+        <div class="footer-links">
+          <a href="/">Home</a>
+          <span class="divider">|</span>
+          <a href="/roles/">Roles</a>
+          <span class="divider">|</span>
+          <a href="/blog/">Blog</a>
+          <span class="divider">|</span>
+          <a href="/research/">Research</a>
+        </div>
+        <p class="footer-note">
+          Practical question: could a reviewer reconstruct the actor,
+          credential, action, target, approval, validation, and outcome without
+          interviewing the original operator?
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>
