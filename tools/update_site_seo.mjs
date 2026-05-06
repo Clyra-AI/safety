@@ -42,6 +42,8 @@ const COLLECTION_ROUTES = new Set([
 
 const REFERENCE_ROUTES = new Set([
   "/agent-action-bom/",
+  "/mcp-tool-risk-ai-engineering-workflows/",
+  "/long-lived-credentials-ai-agent-workflows/",
   "/secure-ai-coding-agents-ci-cd/",
   "/blog/ai-agent-governance/",
   "/blog/glossary/",
@@ -176,6 +178,8 @@ function organizationObject() {
       "AI agent governance",
       "AI Software Delivery Control",
       "Agent Action BOM",
+      "MCP tool risk",
+      "AI agent credential risk",
       "AI coding agent security",
       "CI/CD agent security",
       "AI agent control",
@@ -301,6 +305,8 @@ function articleObject(type, url, headline, description, published, modified) {
     keywords: [
       "AI Software Delivery Control",
       "Agent Action BOM",
+      "MCP tool risk",
+      "AI agent credential risk",
       "AI agent governance",
       "AI coding agent security",
       "CI/CD agent security",
@@ -468,6 +474,8 @@ function buildSitemap(entries) {
     "/roles/",
     "/research/",
     "/agent-action-bom/",
+    "/mcp-tool-risk-ai-engineering-workflows/",
+    "/long-lived-credentials-ai-agent-workflows/",
     "/secure-ai-coding-agents-ci-cd/",
     "/openclaw-2026/",
     "/ai-tool-sprawl-v2-2026/",

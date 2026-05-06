@@ -20,6 +20,8 @@
 
 ## Key Reference Pages
 - [What is an Agent Action BOM?](https://caisi.dev/agent-action-bom/): Canonical CAISI definition of the artifact for mapping AI-assisted software delivery action paths: actor, owner, repo, workflow, credential, reachable action, target, approval, and proof.
+- [MCP tool risk in AI engineering workflows](https://caisi.dev/mcp-tool-risk-ai-engineering-workflows/): Reference page for evaluating tool reach, invocation context, credential context, approval triggers, and proof fields.
+- [Long-lived credentials in AI agent workflows](https://caisi.dev/long-lived-credentials-ai-agent-workflows/): Reference page for reducing standing-token and inherited-identity risk across agents, CI/CD, tools, and release paths.
 - [How to secure AI coding agents in CI/CD](https://caisi.dev/secure-ai-coding-agents-ci-cd/): Practical control guide for GitHub Actions, CI/CD, workflow files, credentials, approval decisions, revocation, and proof trails.
 - [Role paths for AppSec, CISO/security leadership, engineering leadership, and platform teams](https://caisi.dev/roles/): Audience routes that connect CAISI research and operating notes to common review, approval, and delivery decisions.
 - [AppSec role path](https://caisi.dev/roles/#appsec): Start here for control failure, proof quality, review surfaces, runtime boundaries, and incident reconstruction.
@@ -33,6 +35,8 @@
 - **What is AI Software Delivery Control?** AI Software Delivery Control is the control layer for what AI-assisted engineering workflows can touch, change, approve, and prove across software delivery systems such as PRs, CI/CD, credentials, tools, and release paths.
 - **What is an Agent Action BOM?** An Agent Action BOM is an inventory of AI-assisted software delivery action paths. It maps actor, owner, repo, workflow, credential, reachable action, target system, approval rule, and proof coverage.
 - **How is an Agent Action BOM different from an SBOM?** An SBOM lists software components. An Agent Action BOM maps what AI-assisted workflows can do: which systems they can touch, which credentials they use, which actions are reachable, and what proof remains.
+- **What is MCP tool risk in AI engineering workflows?** MCP tool risk is the risk created when AI-assisted workflows can discover, call, or rely on tools that reach systems outside the model conversation. Evaluate the invocation context, credential context, reachable action, target, approval rule, and proof.
+- **Why are long-lived credentials risky in AI agent workflows?** Long-lived credentials are risky when they give an AI-assisted workflow more authority, reach, or time than the task requires. Map each credential to owner, workflow, action class, target, scope, lifetime, approval rule, and proof.
 - **How should teams secure AI coding agents in CI/CD?** Teams should map action paths, classify actions as allowed, approval-required, or blocked, scope credentials, require pre-execution approval for high-risk paths, preserve proof, and keep revocation practical.
 - **What should buyers evaluate in agentic control?** Buyers should evaluate action risk scenarios, control efficacy, proof completeness, and pilot exit criteria rather than relying on feature claims or demo quality.
 - **What should a team do if it is rolling out coding agents and security is nervous?** Start with the workflows that can write, call tools, trigger CI/CD, inherit credentials, or touch release paths. Map one Agent Action BOM before expanding write authority.

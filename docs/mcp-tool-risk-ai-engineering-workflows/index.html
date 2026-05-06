@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MCP Tool Risk in AI Engineering Workflows | CAISI</title>
+    <meta
+      name="description"
+      content="How to evaluate MCP tool risk in AI engineering workflows by mapping tool reach, invocation context, credentials, approval triggers, and proof."
+    />
+    <!-- SEO_META_START -->
+    <link rel="canonical" href="https://caisi.dev/mcp-tool-risk-ai-engineering-workflows/" />
+    <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+    <meta property="og:site_name" content="CAISI" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="MCP Tool Risk in AI Engineering Workflows | CAISI" />
+    <meta property="og:description" content="How to evaluate MCP tool risk in AI engineering workflows by mapping tool reach, invocation context, credentials, approval triggers, and proof." />
+    <meta property="og:url" content="https://caisi.dev/mcp-tool-risk-ai-engineering-workflows/" />
+    <meta property="og:image" content="https://caisi.dev/assets/caisi-social.png" />
+    <meta property="og:image:alt" content="MCP Tool Risk in AI Engineering Workflows | CAISI" />
+    <meta property="og:image:width" content="1600" />
+    <meta property="og:image:height" content="900" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="MCP Tool Risk in AI Engineering Workflows | CAISI" />
+    <meta name="twitter:description" content="How to evaluate MCP tool risk in AI engineering workflows by mapping tool reach, invocation context, credentials, approval triggers, and proof." />
+    <meta name="twitter:image" content="https://caisi.dev/assets/caisi-social.png" />
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="CAISI llms.txt" />
+    <link rel="alternate" type="text/plain" href="/llms-full.txt" title="CAISI llms-full.txt" />
+    <meta name="author" content="David Ahmann" />
+    <link rel="author" href="https://caisi.dev/authors/david-ahmann/" />
+    <meta property="article:published_time" content="2026-05-06" />
+    <meta property="article:modified_time" content="2026-05-06" />
+    <!-- SEO_META_END -->
+
+    <link rel="stylesheet" href="/assets/site.css" />
+    <!-- SEO_SCHEMA_START -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://caisi.dev#organization",
+          "name": "Centre for AI Security and Integrity (CAISI)",
+          "url": "https://caisi.dev",
+          "description": "Independent, reproducible research and operating notes on AI Software Delivery Control, AI agent governance, execution boundaries, proof quality, and safe adoption.",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://caisi.dev/assets/caisi-logo.png"
+          },
+          "email": "david@caisi.dev",
+          "contactPoint": [
+            {
+              "@type": "ContactPoint",
+              "contactType": "research inquiries",
+              "email": "david@caisi.dev",
+              "url": "https://caisi.dev",
+              "availableLanguage": [
+                "en"
+              ]
+            }
+          ],
+          "knowsAbout": [
+            "AI agent governance",
+            "AI Software Delivery Control",
+            "Agent Action BOM",
+            "MCP tool risk",
+            "AI agent credential risk",
+            "AI coding agent security",
+            "CI/CD agent security",
+            "AI agent control",
+            "execution boundaries",
+            "tool-boundary enforcement",
+            "approval mediation",
+            "evidence quality",
+            "safe AI adoption",
+            "reproducible AI governance research"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://caisi.dev#website",
+          "url": "https://caisi.dev",
+          "name": "CAISI",
+          "description": "Independent research and field notes for teams rolling out AI coding agents, MCP tools, CI/CD automation, approval controls, and audit evidence.",
+          "publisher": {
+            "@id": "https://caisi.dev#organization"
+          },
+          "inLanguage": "en"
+        },
+        {
+          "@type": "WebPage",
+          "@id": "https://caisi.dev/mcp-tool-risk-ai-engineering-workflows/#webpage",
+          "url": "https://caisi.dev/mcp-tool-risk-ai-engineering-workflows/",
+          "name": "MCP Tool Risk in AI Engineering Workflows | CAISI",
+          "description": "How to evaluate MCP tool risk in AI engineering workflows by mapping tool reach, invocation context, credentials, approval triggers, and proof.",
+          "inLanguage": "en",
+          "about": {
+            "@id": "https://caisi.dev#organization"
+          },
+          "isPartOf": {
+            "@id": "https://caisi.dev#website"
+          }
+        },
+        {
+          "@type": "Person",
+          "@id": "https://caisi.dev/authors/david-ahmann/#person",
+          "name": "David Ahmann",
+          "url": "https://caisi.dev/authors/david-ahmann/",
+          "image": "https://caisi.dev/assets/david-ahmann-headshot.png",
+          "description": "David Ahmann writes at CAISI about AI agent governance, execution boundaries, evidence quality, and safe adoption for AppSec, platform, and engineering leaders.",
+          "sameAs": [
+            "https://www.linkedin.com/in/dahmann/"
+          ],
+          "jobTitle": "Head of Cloud & AI Platforms",
+          "worksFor": {
+            "@type": "Organization",
+            "name": "CDW"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": "https://caisi.dev/mcp-tool-risk-ai-engineering-workflows/#breadcrumb",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://caisi.dev"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "MCP tool risk"
+            }
+          ]
+        },
+        {
+          "@type": "TechArticle",
+          "@id": "https://caisi.dev/mcp-tool-risk-ai-engineering-workflows/#article",
+          "headline": "MCP Tool Risk in AI Engineering Workflows",
+          "description": "How to evaluate MCP tool risk in AI engineering workflows by mapping tool reach, invocation context, credentials, approval triggers, and proof.",
+          "mainEntityOfPage": "https://caisi.dev/mcp-tool-risk-ai-engineering-workflows/",
+          "url": "https://caisi.dev/mcp-tool-risk-ai-engineering-workflows/",
+          "image": "https://caisi.dev/assets/caisi-social.png",
+          "datePublished": "2026-05-06",
+          "dateModified": "2026-05-06",
+          "inLanguage": "en",
+          "about": {
+            "@id": "https://caisi.dev#organization"
+          },
+          "author": {
+            "@id": "https://caisi.dev/authors/david-ahmann/#person"
+          },
+          "publisher": {
+            "@id": "https://caisi.dev#organization"
+          },
+          "keywords": [
+            "AI Software Delivery Control",
+            "Agent Action BOM",
+            "MCP tool risk",
+            "AI agent credential risk",
+            "AI agent governance",
+            "AI coding agent security",
+            "CI/CD agent security"
+          ]
+        }
+      ]
+    }
+    </script>
+    <!-- SEO_SCHEMA_END -->
+
+  </head>
+  <body>
+    <main class="site" aria-label="CAISI site content">
+      <header class="site-header" aria-label="Site header">
+        <div class="brand-row">
+          <div class="brand-mark">
+            <a class="brand-link" href="/">CAISI</a>
+            <p class="brand-note">Independent research and operating notes on AI Software Delivery Control.</p>
+          </div>
+        </div>
+        <nav class="global-nav" aria-label="Primary">
+          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" href="/roles/">Roles</a>
+          <a class="nav-link" href="/research/">Research</a>
+          <a class="nav-link" href="/blog/">Blog</a>
+        </nav>
+      </header>
+
+      <section class="section hero">
+        <p class="breadcrumbs"><a href="/">Home</a> / <span>MCP tool risk</span></p>
+        <p class="eyebrow">Reference / MCP and tool reach</p>
+        <h1>MCP Tool Risk in AI Engineering Workflows</h1>
+        <p class="lead">
+          If a team says, "we added MCP tools," the practical question is not
+          whether the config exists. The question is what those tools let an
+          agent or workflow reach, which credential context applies, which
+          actions can change state, and what proof remains after invocation.
+        </p>
+        <p class="body">
+          This page treats MCP, the Model Context Protocol, and other tool
+          connections as part of the software delivery boundary when they are
+          available to AI-assisted engineering workflows across repos, local
+          development, CI/CD, issue systems, package systems, cloud APIs, or
+          release paths.
+        </p>
+        <p class="body">Last updated: May 6, 2026</p>
+        <!-- Source notes: this page avoids external statistics, recent events, and vendor capability claims. Verify any added factual or current claims before publishing. -->
+      </section>
+
+      <section class="section page-nav" aria-labelledby="page-nav-heading">
+        <h2 id="page-nav-heading">On this page</h2>
+        <div class="page-nav-list">
+          <a href="#short-answer">Short answer</a>
+          <a href="#what-risk-means">What MCP tool risk means</a>
+          <a href="#risk-patterns">Risk patterns</a>
+          <a href="#inventory">Inventory fields</a>
+          <a href="#approval">Approval triggers</a>
+          <a href="#proof">Proof fields</a>
+          <a href="#checklist">Checklist</a>
+        </div>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="short-answer">Short answer</h2>
+        <p>
+          MCP tool risk is the risk created when an AI-assisted workflow can
+          discover, call, or rely on tools that reach systems outside the model
+          conversation. The risk depends on the invocation context, not only the
+          tool name. A read-only local tool in a developer session is different
+          from the same tool reachable from a CI workflow with write authority
+          or secrets.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="what-risk-means">What MCP tool risk means</h2>
+        <p>
+          MCP and tool connections are useful because they give AI-assisted
+          workflows context and capabilities. That same usefulness is why they
+          need control language. A tool declaration can describe a path to an
+          issue tracker, repository, filesystem, package registry, cloud API, or
+          internal service. Once an agent can invoke that path, the declaration
+          is no longer just developer setup. It is boundary metadata.
+        </p>
+        <p>
+          The mistake is to review only the model or only the config file. A
+          useful review follows the full action path:
+        </p>
+        <pre><code>agent/workflow -> tool declaration -> credential context -> action -> target -> approval/proof</code></pre>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="risk-patterns">Risk patterns</h2>
+        <div class="summary-grid">
+          <article class="card">
+            <h3>Local read becomes workflow reach</h3>
+            <p>A tool that was acceptable for local read-only use becomes higher risk when a shared workflow can invoke it with inherited authority.</p>
+          </article>
+          <article class="card">
+            <h3>Static approval hides invocation drift</h3>
+            <p>A declaration may be reviewed once, while later usage changes caller, credential, target, or action class.</p>
+          </article>
+          <article class="card">
+            <h3>Tool name hides action class</h3>
+            <p>"Issue tracker" or "repo tool" is too broad. Read, comment, label, create branch, write file, publish, and deploy are different risks.</p>
+          </article>
+          <article class="card">
+            <h3>Proof is split across systems</h3>
+            <p>The model trace, tool call, credential record, approval record, and target-system event may live in different places unless proof is designed up front.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="inventory">Inventory fields</h2>
+        <p>
+          A first MCP/tool inventory should be small enough for AppSec and
+          platform teams to maintain, but specific enough to support decisions.
+        </p>
+        <ul class="list-plain">
+          <li>Tool or MCP server name and source location.</li>
+          <li>Human owner and owning team.</li>
+          <li>Where it is reachable: local environment, repo config, CI/CD workflow, shared agent runtime, or release path.</li>
+          <li>Transport or connection type where relevant.</li>
+          <li>Credential or identity context used at invocation.</li>
+          <li>Reachable action classes: read, write, execute, publish, deploy, delete, secret access, cloud API, database write, or ticket update.</li>
+          <li>Target systems and data classes.</li>
+          <li>Approval rule: allowed, approval-required, or blocked.</li>
+          <li>Proof fields retained after invocation.</li>
+        </ul>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="approval">Approval triggers</h2>
+        <p>
+          Do not approve every prompt. Approve the moments where tool use can
+          change state, expand reach, or cross a sensitive boundary.
+        </p>
+        <ul class="list-plain">
+          <li>A tool invocation can write to a repo, branch, PR, workflow file, or release artifact.</li>
+          <li>A tool can access secrets, tokens, customer data, production data, or regulated data.</li>
+          <li>A tool can publish a package, deploy, restart a service, or change infrastructure state.</li>
+          <li>A tool declaration changes from local-only use to shared workflow or CI/CD use.</li>
+          <li>The credential context changes from user-scoped to service, repo, organization, or environment-scoped authority.</li>
+          <li>The target system or action class expands after the original review.</li>
+        </ul>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="proof">Proof fields</h2>
+        <p>
+          MCP/tool proof should let a reviewer reconstruct the invocation
+          without relying on screenshots or memory.
+        </p>
+        <pre><code>Tool: internal-issues
+Caller: AI-assisted PR workflow
+Owner: Platform engineering
+Credential context: repo-scoped CI token
+Requested action: create issue comment
+Target: issue tracker project
+Policy verdict: allowed
+Approval: not required for comment-only action
+Evidence: tool invocation record, workflow run, credential identity, target event, outcome</code></pre>
+        <p>
+          The proof packet should be stronger when the action class is stronger.
+          Read-only actions may need lightweight traceability. Write, deploy,
+          publish, secret access, and production-adjacent actions need durable
+          records that survive outside the originating UI.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="checklist">Checklist</h2>
+        <ul class="list-plain">
+          <li>Can you list the MCP or tool declarations reachable by AI-assisted engineering workflows?</li>
+          <li>Can you separate local-only use from repo, CI/CD, shared runtime, and release-path use?</li>
+          <li>Can you identify which credential or identity is used at invocation time?</li>
+          <li>Can you classify each tool action as read, write, execute, publish, deploy, delete, secret access, or production-adjacent?</li>
+          <li>Can you require approval before high-risk tool actions execute?</li>
+          <li>Can you reconstruct the actor, tool, credential, action, target, approval, and outcome after the invocation?</li>
+        </ul>
+        <div class="link-row">
+          <a href="/agent-action-bom/">What is an Agent Action BOM?</a>
+          <span class="divider">|</span>
+          <a href="/secure-ai-coding-agents-ci-cd/">Secure AI coding agents in CI/CD</a>
+          <span class="divider">|</span>
+          <a href="/long-lived-credentials-ai-agent-workflows/">Long-lived credentials in AI agent workflows</a>
+        </div>
+      </section>
+
+      <footer class="section article-footer" aria-label="MCP tool risk footer">
+        <div class="footer-links">
+          <a href="/">Home</a>
+          <span class="divider">|</span>
+          <a href="/roles/">Roles</a>
+          <span class="divider">|</span>
+          <a href="/blog/">Blog</a>
+          <span class="divider">|</span>
+          <a href="/research/">Research</a>
+        </div>
+        <p class="footer-note">
+          Practical question: which MCP or tool path would change your approval
+          posture if it moved from local use into a CI/CD workflow?
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>

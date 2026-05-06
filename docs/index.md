@@ -24,6 +24,8 @@ workflow, credential, action, target, approval rule, and proof.
 ## Start with the artifact
 
 - [Agent Action BOM](./agent-action-bom/) - map actor, owner, repo, workflow, credential, reachable actions, targets, approval, and proof.
+- [MCP tool risk in AI engineering workflows](./mcp-tool-risk-ai-engineering-workflows/) - map tool reach, invocation context, credentials, approval triggers, and proof.
+- [Long-lived credentials in AI agent workflows](./long-lived-credentials-ai-agent-workflows/) - reduce standing-token risk across agents, CI/CD, tools, and release paths.
 - [Secure AI coding agents in CI/CD](./secure-ai-coding-agents-ci-cd/) - practical controls for PRs, GitHub Actions, CI/CD, credentials, MCP/tool calls, approvals, and release paths.
 - [Field note: suggestions are becoming actions](./blog/ai-coding-agents-from-suggestions-to-actions/) - why the missing artifact is an Agent Action BOM.
 

@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Long-Lived Credentials in AI Agent Workflows | CAISI</title>
+    <meta
+      name="description"
+      content="How to reduce long-lived credential risk in AI agent workflows by mapping tokens, scopes, owners, action authority, approval rules, and proof trails."
+    />
+    <!-- SEO_META_START -->
+    <link rel="canonical" href="https://caisi.dev/long-lived-credentials-ai-agent-workflows/" />
+    <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+    <meta property="og:site_name" content="CAISI" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Long-Lived Credentials in AI Agent Workflows | CAISI" />
+    <meta property="og:description" content="How to reduce long-lived credential risk in AI agent workflows by mapping tokens, scopes, owners, action authority, approval rules, and proof trails." />
+    <meta property="og:url" content="https://caisi.dev/long-lived-credentials-ai-agent-workflows/" />
+    <meta property="og:image" content="https://caisi.dev/assets/caisi-social.png" />
+    <meta property="og:image:alt" content="Long-Lived Credentials in AI Agent Workflows | CAISI" />
+    <meta property="og:image:width" content="1600" />
+    <meta property="og:image:height" content="900" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Long-Lived Credentials in AI Agent Workflows | CAISI" />
+    <meta name="twitter:description" content="How to reduce long-lived credential risk in AI agent workflows by mapping tokens, scopes, owners, action authority, approval rules, and proof trails." />
+    <meta name="twitter:image" content="https://caisi.dev/assets/caisi-social.png" />
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="CAISI llms.txt" />
+    <link rel="alternate" type="text/plain" href="/llms-full.txt" title="CAISI llms-full.txt" />
+    <meta name="author" content="David Ahmann" />
+    <link rel="author" href="https://caisi.dev/authors/david-ahmann/" />
+    <meta property="article:published_time" content="2026-05-06" />
+    <meta property="article:modified_time" content="2026-05-06" />
+    <!-- SEO_META_END -->
+
+    <link rel="stylesheet" href="/assets/site.css" />
+    <!-- SEO_SCHEMA_START -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://caisi.dev#organization",
+          "name": "Centre for AI Security and Integrity (CAISI)",
+          "url": "https://caisi.dev",
+          "description": "Independent, reproducible research and operating notes on AI Software Delivery Control, AI agent governance, execution boundaries, proof quality, and safe adoption.",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://caisi.dev/assets/caisi-logo.png"
+          },
+          "email": "david@caisi.dev",
+          "contactPoint": [
+            {
+              "@type": "ContactPoint",
+              "contactType": "research inquiries",
+              "email": "david@caisi.dev",
+              "url": "https://caisi.dev",
+              "availableLanguage": [
+                "en"
+              ]
+            }
+          ],
+          "knowsAbout": [
+            "AI agent governance",
+            "AI Software Delivery Control",
+            "Agent Action BOM",
+            "MCP tool risk",
+            "AI agent credential risk",
+            "AI coding agent security",
+            "CI/CD agent security",
+            "AI agent control",
+            "execution boundaries",
+            "tool-boundary enforcement",
+            "approval mediation",
+            "evidence quality",
+            "safe AI adoption",
+            "reproducible AI governance research"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://caisi.dev#website",
+          "url": "https://caisi.dev",
+          "name": "CAISI",
+          "description": "Independent research and field notes for teams rolling out AI coding agents, MCP tools, CI/CD automation, approval controls, and audit evidence.",
+          "publisher": {
+            "@id": "https://caisi.dev#organization"
+          },
+          "inLanguage": "en"
+        },
+        {
+          "@type": "WebPage",
+          "@id": "https://caisi.dev/long-lived-credentials-ai-agent-workflows/#webpage",
+          "url": "https://caisi.dev/long-lived-credentials-ai-agent-workflows/",
+          "name": "Long-Lived Credentials in AI Agent Workflows | CAISI",
+          "description": "How to reduce long-lived credential risk in AI agent workflows by mapping tokens, scopes, owners, action authority, approval rules, and proof trails.",
+          "inLanguage": "en",
+          "about": {
+            "@id": "https://caisi.dev#organization"
+          },
+          "isPartOf": {
+            "@id": "https://caisi.dev#website"
+          }
+        },
+        {
+          "@type": "Person",
+          "@id": "https://caisi.dev/authors/david-ahmann/#person",
+          "name": "David Ahmann",
+          "url": "https://caisi.dev/authors/david-ahmann/",
+          "image": "https://caisi.dev/assets/david-ahmann-headshot.png",
+          "description": "David Ahmann writes at CAISI about AI agent governance, execution boundaries, evidence quality, and safe adoption for AppSec, platform, and engineering leaders.",
+          "sameAs": [
+            "https://www.linkedin.com/in/dahmann/"
+          ],
+          "jobTitle": "Head of Cloud & AI Platforms",
+          "worksFor": {
+            "@type": "Organization",
+            "name": "CDW"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": "https://caisi.dev/long-lived-credentials-ai-agent-workflows/#breadcrumb",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://caisi.dev"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Long-lived credentials"
+            }
+          ]
+        },
+        {
+          "@type": "TechArticle",
+          "@id": "https://caisi.dev/long-lived-credentials-ai-agent-workflows/#article",
+          "headline": "Long-Lived Credentials in AI Agent Workflows",
+          "description": "How to reduce long-lived credential risk in AI agent workflows by mapping tokens, scopes, owners, action authority, approval rules, and proof trails.",
+          "mainEntityOfPage": "https://caisi.dev/long-lived-credentials-ai-agent-workflows/",
+          "url": "https://caisi.dev/long-lived-credentials-ai-agent-workflows/",
+          "image": "https://caisi.dev/assets/caisi-social.png",
+          "datePublished": "2026-05-06",
+          "dateModified": "2026-05-06",
+          "inLanguage": "en",
+          "about": {
+            "@id": "https://caisi.dev#organization"
+          },
+          "author": {
+            "@id": "https://caisi.dev/authors/david-ahmann/#person"
+          },
+          "publisher": {
+            "@id": "https://caisi.dev#organization"
+          },
+          "keywords": [
+            "AI Software Delivery Control",
+            "Agent Action BOM",
+            "MCP tool risk",
+            "AI agent credential risk",
+            "AI agent governance",
+            "AI coding agent security",
+            "CI/CD agent security"
+          ]
+        }
+      ]
+    }
+    </script>
+    <!-- SEO_SCHEMA_END -->
+
+  </head>
+  <body>
+    <main class="site" aria-label="CAISI site content">
+      <header class="site-header" aria-label="Site header">
+        <div class="brand-row">
+          <div class="brand-mark">
+            <a class="brand-link" href="/">CAISI</a>
+            <p class="brand-note">Independent research and operating notes on AI Software Delivery Control.</p>
+          </div>
+        </div>
+        <nav class="global-nav" aria-label="Primary">
+          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" href="/roles/">Roles</a>
+          <a class="nav-link" href="/research/">Research</a>
+          <a class="nav-link" href="/blog/">Blog</a>
+        </nav>
+      </header>
+
+      <section class="section hero">
+        <p class="breadcrumbs"><a href="/">Home</a> / <span>Long-lived credentials</span></p>
+        <p class="eyebrow">Reference / Credential risk</p>
+        <h1>Long-Lived Credentials in AI Agent Workflows</h1>
+        <p class="lead">
+          If an AI-assisted workflow can act with a standing token, service
+          account, OAuth grant, or inherited CI secret, the practical question
+          is not whether the model is safe. It is whether the credential is
+          broader or longer-lived than the task requires.
+        </p>
+        <p class="body">
+          AI agent workflows make credential design more important because they
+          can turn a credential that was once used occasionally by a person or
+          scheduled job into repeatable action authority across code, tools,
+          CI/CD, packages, infrastructure, or release paths.
+        </p>
+        <p class="body">Last updated: May 6, 2026</p>
+        <!-- Source notes: this page avoids external statistics, recent events, and vendor capability claims. Verify any added factual or current claims before publishing. -->
+      </section>
+
+      <section class="section page-nav" aria-labelledby="page-nav-heading">
+        <h2 id="page-nav-heading">On this page</h2>
+        <div class="page-nav-list">
+          <a href="#short-answer">Short answer</a>
+          <a href="#why">Why it matters</a>
+          <a href="#credential-map">Credential map</a>
+          <a href="#safer-patterns">Safer patterns</a>
+          <a href="#approval">Approval-required actions</a>
+          <a href="#proof">Proof trail</a>
+          <a href="#migration">Migration checklist</a>
+        </div>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="short-answer">Short answer</h2>
+        <p>
+          Long-lived credentials are risky in AI agent workflows when they give
+          more authority, more reach, or more time than the workflow needs. The
+          safer pattern is to map every credential to the action path it enables
+          and then reduce scope by repo, branch, task, owner, environment, and
+          time wherever possible.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="why">Why it matters</h2>
+        <p>
+          Credentials are where AI-assisted engineering stops being only a
+          suggestion layer. A workflow with a credential can read private data,
+          write branches, comment on pull requests, update issues, publish
+          packages, call cloud APIs, deploy, or touch production-adjacent
+          systems depending on the surrounding environment.
+        </p>
+        <p>
+          The model does not need to be malicious for credential risk to matter.
+          A workflow can be mis-scoped, invoked in the wrong context, reused by
+          another team, changed by a later PR, or expanded through a shared
+          template. Standing credentials make those mistakes more durable.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="credential-map">Credential map</h2>
+        <p>
+          Start with the credentials attached to action paths, not with a
+          generic secret inventory. The relevant unit is:
+        </p>
+        <pre><code>agent/workflow -> credential -> action -> target -> owner -> approval/proof</code></pre>
+        <div class="summary-grid">
+          <article class="card">
+            <h3>Identity</h3>
+            <p>Token, service account, OAuth grant, deploy key, CI secret, cloud role, or inherited platform identity.</p>
+          </article>
+          <article class="card">
+            <h3>Scope</h3>
+            <p>Repo, branch, organization, project, environment, package registry, cloud account, database, or external service.</p>
+          </article>
+          <article class="card">
+            <h3>Authority</h3>
+            <p>Read, write, execute, publish, deploy, delete, approve, secret access, cloud API, or production-adjacent action.</p>
+          </article>
+          <article class="card">
+            <h3>Lifetime</h3>
+            <p>Standing, manually rotated, automatically rotated, short-lived, just-in-time, or tied to a single run.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="safer-patterns">Safer patterns</h2>
+        <p>
+          The goal is not to remove every credential from every workflow. The
+          goal is to make credential authority match the action path.
+        </p>
+        <ul class="list-plain">
+          <li>Prefer short-lived or just-in-time credentials for write, deploy, publish, and production-adjacent actions.</li>
+          <li>Scope credentials to the smallest practical repo, branch, environment, task, and time window.</li>
+          <li>Separate read-only credentials from write-capable credentials.</li>
+          <li>Use different credentials for local experimentation, CI/CD, release, and production-adjacent workflows.</li>
+          <li>Require pre-execution approval before a workflow can use credentials for high-risk action classes.</li>
+          <li>Keep revocation practical: disable a token, freeze a workflow, remove a grant, or narrow a role without redesigning the whole delivery path.</li>
+        </ul>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="approval">Approval-required actions</h2>
+        <p>
+          Approval should sit where credential use can change state or expand
+          authority, not at every model interaction.
+        </p>
+        <ul class="list-plain">
+          <li>A workflow uses a credential to write code, modify a workflow file, or bypass a normal review surface.</li>
+          <li>A credential can publish packages, deploy, restart services, or change infrastructure state.</li>
+          <li>A credential can access secrets, production data, regulated data, or customer data.</li>
+          <li>A credential scope expands from repo to organization, from branch to environment, or from read to write.</li>
+          <li>A standing credential is introduced into an unattended workflow.</li>
+          <li>A shared template or reusable workflow changes which credential is inherited.</li>
+        </ul>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="proof">Proof trail</h2>
+        <p>
+          Credential proof should answer who or what used the credential, for
+          which action, against which target, under which approval rule, and
+          with what outcome.
+        </p>
+        <pre><code>Workflow: AI-assisted dependency update
+Credential: repo-scoped CI token
+Owner: Platform engineering
+Action: write branch and open PR
+Approval rule: allowed for branch write; approval-required for workflow-file change
+Target: customer-api repo
+Proof: workflow run, credential identity, PR link, policy verdict, approver if required, validation result</code></pre>
+        <p>
+          A log line that says a job ran is useful, but it is not enough by
+          itself. The proof trail should connect the credential to the action
+          path so a reviewer can distinguish allowed automation from unintended
+          authority.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="migration">Migration checklist</h2>
+        <ul class="list-plain">
+          <li>List AI-assisted workflows that can use tokens, service accounts, OAuth grants, deploy keys, CI secrets, or cloud roles.</li>
+          <li>Map each credential to owner, repo/workflow, action class, target system, scope, and lifetime.</li>
+          <li>Separate read-only paths from write, deploy, publish, secret access, and production-adjacent paths.</li>
+          <li>Replace broad standing credentials first on workflows with unattended or shared execution.</li>
+          <li>Introduce approval-required rules before high-risk credential use, not after the run completes.</li>
+          <li>Record proof fields for credential identity, policy verdict, approver, action, target, and outcome.</li>
+          <li>Set re-review triggers for broader scope, longer lifetime, new target systems, or new action classes.</li>
+        </ul>
+        <div class="link-row">
+          <a href="/agent-action-bom/">What is an Agent Action BOM?</a>
+          <span class="divider">|</span>
+          <a href="/secure-ai-coding-agents-ci-cd/">Secure AI coding agents in CI/CD</a>
+          <span class="divider">|</span>
+          <a href="/mcp-tool-risk-ai-engineering-workflows/">MCP tool risk</a>
+        </div>
+      </section>
+
+      <footer class="section article-footer" aria-label="Long-lived credentials footer">
+        <div class="footer-links">
+          <a href="/">Home</a>
+          <span class="divider">|</span>
+          <a href="/roles/">Roles</a>
+          <span class="divider">|</span>
+          <a href="/blog/">Blog</a>
+          <span class="divider">|</span>
+          <a href="/research/">Research</a>
+        </div>
+        <p class="footer-note">
+          Practical question: which AI-assisted workflow still has a credential
+          that is broader or longer-lived than the action path requires?
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>
