@@ -3,6 +3,9 @@
 Independent research and field notes for teams rolling out AI coding agents,
 MCP tools, CI/CD automation, approval controls, and audit evidence.
 
+CAISI stands for the Centre for AI Security and Integrity. It publishes open
+research and operator field notes on governing AI-assisted software delivery.
+
 Core question:
 
 > Your team is rolling out coding agents. Security is asking what they can touch.
