@@ -6,7 +6,7 @@
     <title>AI Coding Agents Are Moving From Suggestions to Actions | CAISI Blog</title>
     <meta
       name="description"
-      content="A CAISI field note on why AI-assisted engineering needs an Agent Action BOM: a practical artifact for mapping what workflows can touch, change, approve, and prove."
+      content="A CAISI field note for teams rolling out AI coding agents: why the missing artifact is an Agent Action BOM for action paths, approvals, credentials, and proof."
     />
     <!-- SEO_META_START -->
     <link rel="canonical" href="https://caisi.dev/blog/ai-coding-agents-from-suggestions-to-actions/" />
@@ -14,7 +14,7 @@
     <meta property="og:site_name" content="CAISI" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="AI Coding Agents Are Moving From Suggestions to Actions | CAISI Blog" />
-    <meta property="og:description" content="A CAISI field note on why AI-assisted engineering needs an Agent Action BOM: a practical artifact for mapping what workflows can touch, change, approve, and prove." />
+    <meta property="og:description" content="A CAISI field note for teams rolling out AI coding agents: why the missing artifact is an Agent Action BOM for action paths, approvals, credentials, and proof." />
     <meta property="og:url" content="https://caisi.dev/blog/ai-coding-agents-from-suggestions-to-actions/" />
     <meta property="og:image" content="https://caisi.dev/assets/caisi-social.png" />
     <meta property="og:image:alt" content="AI Coding Agents Are Moving From Suggestions to Actions | CAISI Blog" />
@@ -22,14 +22,14 @@
     <meta property="og:image:height" content="900" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="AI Coding Agents Are Moving From Suggestions to Actions | CAISI Blog" />
-    <meta name="twitter:description" content="A CAISI field note on why AI-assisted engineering needs an Agent Action BOM: a practical artifact for mapping what workflows can touch, change, approve, and prove." />
+    <meta name="twitter:description" content="A CAISI field note for teams rolling out AI coding agents: why the missing artifact is an Agent Action BOM for action paths, approvals, credentials, and proof." />
     <meta name="twitter:image" content="https://caisi.dev/assets/caisi-social.png" />
     <link rel="alternate" type="text/plain" href="/llms.txt" title="CAISI llms.txt" />
     <link rel="alternate" type="text/plain" href="/llms-full.txt" title="CAISI llms-full.txt" />
     <meta name="author" content="David Ahmann" />
     <link rel="author" href="https://caisi.dev/authors/david-ahmann/" />
     <meta property="article:published_time" content="2026-05-05" />
-    <meta property="article:modified_time" content="2026-05-05" />
+    <meta property="article:modified_time" content="2026-05-06" />
     <!-- SEO_META_END -->
 
     <link rel="stylesheet" href="/assets/site.css" />
@@ -80,7 +80,7 @@
           "@id": "https://caisi.dev#website",
           "url": "https://caisi.dev",
           "name": "CAISI",
-          "description": "A CAISI field note on why AI-assisted engineering needs an Agent Action BOM: a practical artifact for mapping what workflows can touch, change, approve, and prove.",
+          "description": "Independent research and field notes for teams rolling out AI coding agents, MCP tools, CI/CD automation, approval controls, and audit evidence.",
           "publisher": {
             "@id": "https://caisi.dev#organization"
           },
@@ -91,7 +91,7 @@
           "@id": "https://caisi.dev/blog/ai-coding-agents-from-suggestions-to-actions/#webpage",
           "url": "https://caisi.dev/blog/ai-coding-agents-from-suggestions-to-actions/",
           "name": "AI Coding Agents Are Moving From Suggestions to Actions | CAISI Blog",
-          "description": "A CAISI field note on why AI-assisted engineering needs an Agent Action BOM: a practical artifact for mapping what workflows can touch, change, approve, and prove.",
+          "description": "A CAISI field note for teams rolling out AI coding agents: why the missing artifact is an Agent Action BOM for action paths, approvals, credentials, and proof.",
           "inLanguage": "en",
           "about": {
             "@id": "https://caisi.dev#organization"
@@ -143,12 +143,12 @@
           "@type": "BlogPosting",
           "@id": "https://caisi.dev/blog/ai-coding-agents-from-suggestions-to-actions/#article",
           "headline": "AI Coding Agents Are Moving From Suggestions to Actions",
-          "description": "A CAISI field note on why AI-assisted engineering needs an Agent Action BOM: a practical artifact for mapping what workflows can touch, change, approve, and prove.",
+          "description": "A CAISI field note for teams rolling out AI coding agents: why the missing artifact is an Agent Action BOM for action paths, approvals, credentials, and proof.",
           "mainEntityOfPage": "https://caisi.dev/blog/ai-coding-agents-from-suggestions-to-actions/",
           "url": "https://caisi.dev/blog/ai-coding-agents-from-suggestions-to-actions/",
           "image": "https://caisi.dev/assets/caisi-social.png",
           "datePublished": "2026-05-05",
-          "dateModified": "2026-05-05",
+          "dateModified": "2026-05-06",
           "inLanguage": "en",
           "about": {
             "@id": "https://caisi.dev#organization"
@@ -201,9 +201,10 @@
         </div>
         <h1>AI Coding Agents Are Moving From Suggestions to Actions</h1>
         <p class="lead">
-          The missing artifact is not another model inventory. It is an Agent
-          Action BOM: a practical record of what AI-assisted engineering
-          workflows can touch, change, approve, and prove.
+          Your team is rolling out coding agents. Engineering wants speed.
+          Security wants to know what can touch code, CI/CD, credentials, MCP
+          tools, and release paths. The missing artifact is not another model
+          inventory. It is an Agent Action BOM.
         </p>
         <p class="body">
           The practical shift shows up in ordinary delivery paths: a workflow
@@ -220,8 +221,29 @@
           <a href="#shift">The shift</a>
           <a href="#missing-artifact">The missing artifact</a>
           <a href="#fields">What belongs in it</a>
+          <a href="#first-row">A first row</a>
           <a href="#start">Where to start</a>
         </div>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="first-row">A first row</h2>
+        <p>
+          A first Agent Action BOM row can be ordinary and still useful:
+        </p>
+        <pre><code>Actor: AI PR repair workflow
+Owner: Platform engineering
+Repo/path: payments-api/.github/workflows/pr-repair.yml
+Credential: CI token scoped to repo and branch
+Reachable actions: write branch, run tests, comment on PR
+Approval-required: workflow-file changes, package publish, deploy
+Proof: PR link, workflow run, credential identity, policy verdict, approver, test result</code></pre>
+        <p>
+          This is the level where the conversation gets useful. The team can
+          now decide whether the token is too broad, whether workflow changes
+          need pre-execution approval, and whether the proof packet would be
+          good enough during an audit or incident review.
+        </p>
       </section>
 
       <section class="section article-section">

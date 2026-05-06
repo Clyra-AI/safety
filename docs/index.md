@@ -1,16 +1,27 @@
 # Centre for AI Security and Integrity
 
-Independent research and field notes on AI Software Delivery Control for
-AppSec, security leaders, engineering leaders, and platform teams.
+Independent research and field notes for teams rolling out AI coding agents,
+MCP tools, CI/CD automation, approval controls, and audit evidence.
 
 Core question:
 
-> Know what AI-assisted engineering can touch, what needs approval, and what proof remains.
+> Your team is rolling out coding agents. Security is asking what they can touch.
+
+## Common buyer questions
+
+- We are rolling out coding agents and security is nervous.
+- We need audit evidence for AI-assisted SDLC.
+- We do not know what agents, MCP tools, CI jobs, or tokens can reach.
+- We need to approve risky actions, not every prompt.
+- We do not want long-lived credentials in agent workflows.
+
+CAISI translates those questions into action paths: actor, owner, repo,
+workflow, credential, action, target, approval rule, and proof.
 
 ## Start with the artifact
 
 - [Agent Action BOM](./agent-action-bom/) - map actor, owner, repo, workflow, credential, reachable actions, targets, approval, and proof.
-- [Secure AI coding agents in CI/CD](./secure-ai-coding-agents-ci-cd/) - practical controls for PRs, GitHub Actions, CI/CD, credentials, and release paths.
+- [Secure AI coding agents in CI/CD](./secure-ai-coding-agents-ci-cd/) - practical controls for PRs, GitHub Actions, CI/CD, credentials, MCP/tool calls, approvals, and release paths.
 - [Field note: suggestions are becoming actions](./blog/ai-coding-agents-from-suggestions-to-actions/) - why the missing artifact is an Agent Action BOM.
 
 ## Start by role

@@ -29,7 +29,7 @@
     <meta name="author" content="David Ahmann" />
     <link rel="author" href="https://caisi.dev/authors/david-ahmann/" />
     <meta property="article:published_time" content="2026-03-16" />
-    <meta property="article:modified_time" content="2026-05-05" />
+    <meta property="article:modified_time" content="2026-05-06" />
     <!-- SEO_META_END -->
 <link rel="stylesheet" href="/assets/site.css" />
     <!-- SEO_SCHEMA_START -->
@@ -79,7 +79,7 @@
           "@id": "https://caisi.dev#website",
           "url": "https://caisi.dev",
           "name": "CAISI",
-          "description": "Why AI tooling in CI should be treated as infrastructure exposure, not as developer experimentation.",
+          "description": "Independent research and field notes for teams rolling out AI coding agents, MCP tools, CI/CD automation, approval controls, and audit evidence.",
           "publisher": {
             "@id": "https://caisi.dev#organization"
           },
@@ -153,7 +153,7 @@
           "url": "https://caisi.dev/blog/wrkr/ci-is-where-ai-tooling-becomes-infrastructure/",
           "image": "https://caisi.dev/assets/caisi-social.png",
           "datePublished": "2026-03-16",
-          "dateModified": "2026-05-05",
+          "dateModified": "2026-05-06",
           "inLanguage": "en",
           "about": {
             "@id": "https://caisi.dev#organization"
@@ -280,6 +280,14 @@
           broaden scope without explicit re-approval. This is why CI governance
           needs deterministic drift detection, not one-time workflow review.
         </p>
+        <p>
+          The pattern is easy to miss in GitHub Actions: an AI repair step is
+          added to a reusable workflow, the job receives the default repo token,
+          and a later template edit lets it comment on PRs or push to a branch.
+          No one announced a new infrastructure service, but the workflow now
+          has repeatable authority. A diff should show that as an action-path
+          change, not bury it as another YAML edit.
+        </p>
       </section>
 
       <section class="section article-section">
@@ -314,6 +322,13 @@
           appears, the discussion can move straight to impact and approval state
           instead of spending days reconstructing what changed.
         </p>
+        <pre><code>CI path: ai-pr-repair.yml
+Change: new AI step in reusable workflow
+Inherited credential: repo-scoped token
+New reach: write branch, comment on PR, run tests
+Drift signal: interactive assistant use -> unattended CI execution
+Required decision: allow for branch writes, approval-required for workflow-file changes
+Proof: workflow run, token identity, policy verdict, PR link, validation result</code></pre>
         <p>
           A mature model also separates interaction modes: human-in-loop tooling
           versus unattended execution. That distinction enables selective

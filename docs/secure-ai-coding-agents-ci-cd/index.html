@@ -6,7 +6,7 @@
     <title>How to Secure AI Coding Agents in CI/CD | CAISI</title>
     <meta
       name="description"
-      content="A practical guide for securing AI coding agents in CI/CD by mapping action paths, credentials, workflow changes, approval rules, and proof trails."
+      content="How to secure AI coding agents in CI/CD: map action paths, limit credentials, control workflow changes, approve risky actions, and preserve audit evidence."
     />
     <!-- SEO_META_START -->
     <link rel="canonical" href="https://caisi.dev/secure-ai-coding-agents-ci-cd/" />
@@ -14,7 +14,7 @@
     <meta property="og:site_name" content="CAISI" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="How to Secure AI Coding Agents in CI/CD | CAISI" />
-    <meta property="og:description" content="A practical guide for securing AI coding agents in CI/CD by mapping action paths, credentials, workflow changes, approval rules, and proof trails." />
+    <meta property="og:description" content="How to secure AI coding agents in CI/CD: map action paths, limit credentials, control workflow changes, approve risky actions, and preserve audit evidence." />
     <meta property="og:url" content="https://caisi.dev/secure-ai-coding-agents-ci-cd/" />
     <meta property="og:image" content="https://caisi.dev/assets/caisi-social.png" />
     <meta property="og:image:alt" content="How to Secure AI Coding Agents in CI/CD | CAISI" />
@@ -22,14 +22,14 @@
     <meta property="og:image:height" content="900" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="How to Secure AI Coding Agents in CI/CD | CAISI" />
-    <meta name="twitter:description" content="A practical guide for securing AI coding agents in CI/CD by mapping action paths, credentials, workflow changes, approval rules, and proof trails." />
+    <meta name="twitter:description" content="How to secure AI coding agents in CI/CD: map action paths, limit credentials, control workflow changes, approve risky actions, and preserve audit evidence." />
     <meta name="twitter:image" content="https://caisi.dev/assets/caisi-social.png" />
     <link rel="alternate" type="text/plain" href="/llms.txt" title="CAISI llms.txt" />
     <link rel="alternate" type="text/plain" href="/llms-full.txt" title="CAISI llms-full.txt" />
     <meta name="author" content="David Ahmann" />
     <link rel="author" href="https://caisi.dev/authors/david-ahmann/" />
     <meta property="article:published_time" content="2026-05-05" />
-    <meta property="article:modified_time" content="2026-05-05" />
+    <meta property="article:modified_time" content="2026-05-06" />
     <!-- SEO_META_END -->
 
     <link rel="stylesheet" href="/assets/site.css" />
@@ -80,7 +80,7 @@
           "@id": "https://caisi.dev#website",
           "url": "https://caisi.dev",
           "name": "CAISI",
-          "description": "A practical guide for securing AI coding agents in CI/CD by mapping action paths, credentials, workflow changes, approval rules, and proof trails.",
+          "description": "Independent research and field notes for teams rolling out AI coding agents, MCP tools, CI/CD automation, approval controls, and audit evidence.",
           "publisher": {
             "@id": "https://caisi.dev#organization"
           },
@@ -91,7 +91,7 @@
           "@id": "https://caisi.dev/secure-ai-coding-agents-ci-cd/#webpage",
           "url": "https://caisi.dev/secure-ai-coding-agents-ci-cd/",
           "name": "How to Secure AI Coding Agents in CI/CD | CAISI",
-          "description": "A practical guide for securing AI coding agents in CI/CD by mapping action paths, credentials, workflow changes, approval rules, and proof trails.",
+          "description": "How to secure AI coding agents in CI/CD: map action paths, limit credentials, control workflow changes, approve risky actions, and preserve audit evidence.",
           "inLanguage": "en",
           "about": {
             "@id": "https://caisi.dev#organization"
@@ -137,12 +137,12 @@
           "@type": "TechArticle",
           "@id": "https://caisi.dev/secure-ai-coding-agents-ci-cd/#article",
           "headline": "How to Secure AI Coding Agents in CI/CD",
-          "description": "A practical guide for securing AI coding agents in CI/CD by mapping action paths, credentials, workflow changes, approval rules, and proof trails.",
+          "description": "How to secure AI coding agents in CI/CD: map action paths, limit credentials, control workflow changes, approve risky actions, and preserve audit evidence.",
           "mainEntityOfPage": "https://caisi.dev/secure-ai-coding-agents-ci-cd/",
           "url": "https://caisi.dev/secure-ai-coding-agents-ci-cd/",
           "image": "https://caisi.dev/assets/caisi-social.png",
           "datePublished": "2026-05-05",
-          "dateModified": "2026-05-05",
+          "dateModified": "2026-05-06",
           "inLanguage": "en",
           "about": {
             "@id": "https://caisi.dev#organization"
@@ -189,9 +189,16 @@
         <p class="eyebrow">Reference / CI/CD Control</p>
         <h1>How to Secure AI Coding Agents in CI/CD</h1>
         <p class="lead">
-          Start by mapping the action path: which agent or workflow can change
-          code, trigger CI/CD, use credentials, call tools, deploy, or affect
-          production-adjacent systems.
+          If a team is rolling out coding agents and security is nervous, start
+          in CI/CD. That is where suggestions become repeatable execution:
+          workflow changes, inherited credentials, tool calls, package publish
+          jobs, release scripts, and production-adjacent automation.
+        </p>
+        <p class="body">
+          The practical job is to map the action path, limit standing
+          credentials, require approval for risky actions before execution, and
+          keep audit evidence strong enough for AppSec, platform, and security
+          leadership to reconstruct what happened.
         </p>
         <p class="body">Last updated: May 5, 2026</p>
         <!-- Source notes: this page avoids external statistics, recent events, and vendor capability claims. Verify any added factual or current claims before publishing. -->
@@ -201,12 +208,25 @@
         <h2 id="page-nav-heading">On this page</h2>
         <div class="page-nav-list">
           <a href="#model">Control model</a>
+          <a href="#short-answer">Short answer</a>
           <a href="#paths">Action paths to map</a>
           <a href="#controls">Controls that matter</a>
           <a href="#proof">Proof trail</a>
           <a href="#buyer-questions">Buyer questions</a>
           <a href="#checklist">Checklist</a>
         </div>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="short-answer">Short answer</h2>
+        <p>
+          To secure AI coding agents in CI/CD, treat every agent-assisted path
+          as an action path, not just a code change. Identify the workflow,
+          credential, reachable action, target system, approval rule, and proof
+          record. Low-risk actions can stay fast. Write, deploy, publish,
+          secret access, workflow mutation, and production-adjacent actions need
+          stronger boundaries and pre-execution approval.
+        </p>
       </section>
 
       <section class="section article-section">
@@ -234,6 +254,13 @@
           <li>MCP tools or APIs callable from the workflow.</li>
           <li>Cloud commands, database writes, or production-adjacent jobs.</li>
         </ul>
+        <p>
+          A first pass should be small. Pick one repo where an AI-assisted
+          workflow can affect delivery and document the exact path from PR to
+          credential to action to target. That single path will usually reveal
+          whether the problem is missing inventory, broad credentials, unclear
+          approval rules, or weak proof.
+        </p>
       </section>
 
       <section class="section article-section">
@@ -273,16 +300,21 @@
           <li>whether approval was required and who approved it</li>
           <li>what outcome was produced</li>
         </ul>
+        <p>
+          The proof trail should not require a future reviewer to stitch
+          together screenshots, chat logs, CI output, and memory. It should be a
+          durable record attached to the action path.
+        </p>
       </section>
 
       <section class="section article-section">
         <h2 id="buyer-questions">Buyer questions</h2>
         <ul class="list-plain">
-          <li>Can an AI-assisted workflow modify the CI/CD file that controls its own permissions?</li>
+          <li>We are rolling out coding agents. Can an AI-assisted workflow modify the CI/CD file that controls its own permissions?</li>
           <li>Which jobs receive secrets, publish packages, deploy, or call cloud APIs?</li>
-          <li>Which actions should require a human approval before execution, not after review?</li>
-          <li>Can credentials be scoped to repo, branch, task, owner, and time?</li>
-          <li>What evidence remains if a reviewer asks who approved the action and which credential was used?</li>
+          <li>Which actions should require a human approval before execution, not after review of a completed run?</li>
+          <li>Can credentials be scoped to repo, branch, task, owner, and time instead of staying long-lived?</li>
+          <li>What audit evidence remains if a reviewer asks who approved the action and which credential was used?</li>
         </ul>
       </section>
 

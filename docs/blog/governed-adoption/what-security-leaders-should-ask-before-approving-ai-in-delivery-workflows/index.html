@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Questions Before Approving AI in Delivery Workflows | CAISI Blog</title>
+    <title>What Security Leaders Should Ask Before Approving AI in Delivery Workflows | CAISI Blog</title>
     <meta
       name="description"
       content="A practical approval frame for security leaders evaluating AI tools that can change code, CI, approvals, or delivery behavior."
@@ -13,15 +13,15 @@
     <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
     <meta property="og:site_name" content="CAISI" />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="Questions Before Approving AI in Delivery Workflows | CAISI Blog" />
+    <meta property="og:title" content="What Security Leaders Should Ask Before Approving AI in Delivery Workflows | CAISI Blog" />
     <meta property="og:description" content="A practical approval frame for security leaders evaluating AI tools that can change code, CI, approvals, or delivery behavior." />
     <meta property="og:url" content="https://caisi.dev/blog/governed-adoption/what-security-leaders-should-ask-before-approving-ai-in-delivery-workflows/" />
     <meta property="og:image" content="https://caisi.dev/assets/caisi-social.png" />
-    <meta property="og:image:alt" content="Questions Before Approving AI in Delivery Workflows | CAISI Blog" />
+    <meta property="og:image:alt" content="What Security Leaders Should Ask Before Approving AI in Delivery Workflows | CAISI Blog" />
     <meta property="og:image:width" content="1600" />
     <meta property="og:image:height" content="900" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Questions Before Approving AI in Delivery Workflows | CAISI Blog" />
+    <meta name="twitter:title" content="What Security Leaders Should Ask Before Approving AI in Delivery Workflows | CAISI Blog" />
     <meta name="twitter:description" content="A practical approval frame for security leaders evaluating AI tools that can change code, CI, approvals, or delivery behavior." />
     <meta name="twitter:image" content="https://caisi.dev/assets/caisi-social.png" />
     <link rel="alternate" type="text/plain" href="/llms.txt" title="CAISI llms.txt" />
@@ -29,7 +29,7 @@
     <meta name="author" content="David Ahmann" />
     <link rel="author" href="https://caisi.dev/authors/david-ahmann/" />
     <meta property="article:published_time" content="2026-03-18" />
-    <meta property="article:modified_time" content="2026-05-05" />
+    <meta property="article:modified_time" content="2026-05-06" />
     <!-- SEO_META_END -->
 
     <link rel="stylesheet" href="/assets/site.css" />
@@ -80,7 +80,7 @@
           "@id": "https://caisi.dev#website",
           "url": "https://caisi.dev",
           "name": "CAISI",
-          "description": "A practical approval frame for security leaders evaluating AI tools that can change code, CI, approvals, or delivery behavior.",
+          "description": "Independent research and field notes for teams rolling out AI coding agents, MCP tools, CI/CD automation, approval controls, and audit evidence.",
           "publisher": {
             "@id": "https://caisi.dev#organization"
           },
@@ -90,7 +90,7 @@
           "@type": "WebPage",
           "@id": "https://caisi.dev/blog/governed-adoption/what-security-leaders-should-ask-before-approving-ai-in-delivery-workflows/#webpage",
           "url": "https://caisi.dev/blog/governed-adoption/what-security-leaders-should-ask-before-approving-ai-in-delivery-workflows/",
-          "name": "Questions Before Approving AI in Delivery Workflows | CAISI Blog",
+          "name": "What Security Leaders Should Ask Before Approving AI in Delivery Workflows | CAISI Blog",
           "description": "A practical approval frame for security leaders evaluating AI tools that can change code, CI, approvals, or delivery behavior.",
           "inLanguage": "en",
           "about": {
@@ -154,7 +154,7 @@
           "url": "https://caisi.dev/blog/governed-adoption/what-security-leaders-should-ask-before-approving-ai-in-delivery-workflows/",
           "image": "https://caisi.dev/assets/caisi-social.png",
           "datePublished": "2026-03-18",
-          "dateModified": "2026-05-05",
+          "dateModified": "2026-05-06",
           "inLanguage": "en",
           "about": {
             "@id": "https://caisi.dev#organization"
@@ -217,12 +217,13 @@
         </div>
         <h1>What Security Leaders Should Ask Before Approving AI in Delivery Workflows</h1>
         <p class="lead">
-          The approval meeting often arrives with a polished demo, vendor
-          packet, and urgent delivery ask. What is missing are the runtime facts
-          security needs to approve the path responsibly. Once an AI system can
-          change code, approvals, or delivery behavior, the useful review
-          question is much narrower: what exactly can it do, under what
-          boundary, with what proof left behind?
+          The approval meeting often arrives with a familiar sentence: "We want
+          to roll out coding agents, but security is nervous." The packet may
+          include a polished demo and an urgent delivery ask. What is often
+          missing are the runtime facts security needs to approve the path
+          responsibly. Once an AI system can change code, approvals, credentials,
+          or delivery behavior, the useful review question is narrower: what
+          exactly can it do, under what boundary, with what proof left behind?
         </p>
       </section>
 
@@ -312,6 +313,15 @@
           <a href="/secure-ai-coding-agents-ci-cd/">CI/CD control guide</a>
           covers delivery behavior and proof.
         </p>
+        <pre><code>Workflow: AI-assisted dependency update
+Owner: Platform engineering
+Repo: customer-api
+Credential: CI token scoped to repo and branch
+Action class: write branch, open PR, run tests
+Approval rule: pre-approval required for workflow-file changes, package publish, or deploy
+Evidence: PR link, workflow run, policy verdict, credential identity, approver, test result
+Rollback owner: platform on-call
+Re-review trigger: new secret access, new deployment path, broader repo scope</code></pre>
         <p>
           The meeting should not be used to discover those fields live. It
           should be used to decide whether the written action class, boundary,

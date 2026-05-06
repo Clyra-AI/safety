@@ -6,7 +6,7 @@
     <title>AI Agent Governance Field Guide | CAISI Blog</title>
     <meta
       name="description"
-      content="A CAISI field guide to AI agent governance for AppSec, platform, and engineering leaders covering control, proof, execution boundaries, and safe adoption."
+      content="A practical AI agent governance field guide for teams rolling out coding agents, MCP tools, CI/CD automation, approvals, credentials, and audit evidence."
     />
     <!-- SEO_META_START -->
     <link rel="canonical" href="https://caisi.dev/blog/ai-agent-governance/" />
@@ -14,7 +14,7 @@
     <meta property="og:site_name" content="CAISI" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="AI Agent Governance Field Guide | CAISI Blog" />
-    <meta property="og:description" content="A CAISI field guide to AI agent governance for AppSec, platform, and engineering leaders covering control, proof, execution boundaries, and safe adoption." />
+    <meta property="og:description" content="A practical AI agent governance field guide for teams rolling out coding agents, MCP tools, CI/CD automation, approvals, credentials, and audit evidence." />
     <meta property="og:url" content="https://caisi.dev/blog/ai-agent-governance/" />
     <meta property="og:image" content="https://caisi.dev/assets/caisi-social.png" />
     <meta property="og:image:alt" content="AI Agent Governance Field Guide | CAISI Blog" />
@@ -22,14 +22,14 @@
     <meta property="og:image:height" content="900" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="AI Agent Governance Field Guide | CAISI Blog" />
-    <meta name="twitter:description" content="A CAISI field guide to AI agent governance for AppSec, platform, and engineering leaders covering control, proof, execution boundaries, and safe adoption." />
+    <meta name="twitter:description" content="A practical AI agent governance field guide for teams rolling out coding agents, MCP tools, CI/CD automation, approvals, credentials, and audit evidence." />
     <meta name="twitter:image" content="https://caisi.dev/assets/caisi-social.png" />
     <link rel="alternate" type="text/plain" href="/llms.txt" title="CAISI llms.txt" />
     <link rel="alternate" type="text/plain" href="/llms-full.txt" title="CAISI llms-full.txt" />
     <meta name="author" content="David Ahmann" />
     <link rel="author" href="https://caisi.dev/authors/david-ahmann/" />
     <meta property="article:published_time" content="2026-03-17" />
-    <meta property="article:modified_time" content="2026-05-05" />
+    <meta property="article:modified_time" content="2026-05-06" />
     <!-- SEO_META_END -->
 <link rel="stylesheet" href="/assets/site.css" />
     <!-- SEO_SCHEMA_START -->
@@ -79,7 +79,7 @@
           "@id": "https://caisi.dev#website",
           "url": "https://caisi.dev",
           "name": "CAISI",
-          "description": "A CAISI field guide to AI agent governance for AppSec, platform, and engineering leaders covering control, proof, execution boundaries, and safe adoption.",
+          "description": "Independent research and field notes for teams rolling out AI coding agents, MCP tools, CI/CD automation, approval controls, and audit evidence.",
           "publisher": {
             "@id": "https://caisi.dev#organization"
           },
@@ -90,7 +90,7 @@
           "@id": "https://caisi.dev/blog/ai-agent-governance/#webpage",
           "url": "https://caisi.dev/blog/ai-agent-governance/",
           "name": "AI Agent Governance Field Guide | CAISI Blog",
-          "description": "A CAISI field guide to AI agent governance for AppSec, platform, and engineering leaders covering control, proof, execution boundaries, and safe adoption.",
+          "description": "A practical AI agent governance field guide for teams rolling out coding agents, MCP tools, CI/CD automation, approvals, credentials, and audit evidence.",
           "inLanguage": "en",
           "about": {
             "@id": "https://caisi.dev#organization"
@@ -142,12 +142,12 @@
           "@type": "TechArticle",
           "@id": "https://caisi.dev/blog/ai-agent-governance/#article",
           "headline": "AI Agent Governance: A Field Guide to Control, Proof, and Safe Adoption",
-          "description": "A CAISI field guide to AI agent governance for AppSec, platform, and engineering leaders covering control, proof, execution boundaries, and safe adoption.",
+          "description": "A practical AI agent governance field guide for teams rolling out coding agents, MCP tools, CI/CD automation, approvals, credentials, and audit evidence.",
           "mainEntityOfPage": "https://caisi.dev/blog/ai-agent-governance/",
           "url": "https://caisi.dev/blog/ai-agent-governance/",
           "image": "https://caisi.dev/assets/caisi-social.png",
           "datePublished": "2026-03-17",
-          "dateModified": "2026-05-05",
+          "dateModified": "2026-05-06",
           "inLanguage": "en",
           "about": {
             "@id": "https://caisi.dev#organization"
@@ -207,15 +207,17 @@
         </div>
         <h1>AI Agent Governance: A Field Guide to Control, Proof, and Safe Adoption</h1>
         <p class="lead">
-          The governance problem becomes real the moment an agent can change
-          something real. From that point, the question is no longer whether
-          the prompt was clear. It is whether the organization can approve,
-          bound, observe, and reconstruct the work after it touched code,
-          tools, CI, or infrastructure.
+          The governance problem becomes real when a team moves from "people are
+          trying AI tools" to "agents and workflows can touch repos, CI/CD,
+          MCP tools, credentials, and release paths." From that point, the
+          useful question is whether the organization can approve, bound,
+          observe, and reconstruct the work after it changes state.
         </p>
         <p class="body">
-          CAISI treats this as AI Software Delivery Control: what AI-assisted
-          engineering workflows can touch, change, approve, and prove.
+          CAISI treats the mature version as AI Software Delivery Control, but
+          most teams should start with the buyer-language question in front of
+          them: what can this workflow touch, what needs approval, and what
+          proof remains?
         </p>
       </section>
 
@@ -223,6 +225,7 @@
         <h2 id="page-nav-heading">In this guide</h2>
         <div class="page-nav-list">
           <a href="#what-it-means">What it means</a>
+          <a href="#buyer-language">Start with the buyer language</a>
           <a href="#the-10-minute-accountability-test">The 10-minute accountability test</a>
           <a href="#the-core-control-layers">The core control layers</a>
           <a href="#where-teams-go-wrong">Where teams go wrong</a>
@@ -234,6 +237,27 @@
           <span class="divider">|</span>
           <a href="/blog/glossary/">Open the glossary</a>
         </div>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="buyer-language">Start with the buyer language</h2>
+        <p>
+          Do not force the organization to learn a category name before it has
+          named the operating problem. Start with the sentence people are
+          already saying:
+        </p>
+        <ul class="list-plain">
+          <li>We are rolling out coding agents and security is nervous.</li>
+          <li>We need audit evidence for AI-assisted SDLC.</li>
+          <li>We do not know what agents, MCP tools, or CI jobs can reach.</li>
+          <li>We need to approve risky actions, not every prompt.</li>
+          <li>We do not want long-lived credentials sitting inside agent workflows.</li>
+        </ul>
+        <p>
+          Then translate that sentence into an action path: actor, owner, repo,
+          workflow, credential, action, target, approval rule, and proof. That
+          translation is where governance becomes operational.
+        </p>
       </section>
 
       <section class="section">
@@ -312,7 +336,7 @@
             <p>
               Inventory unknown-to-security tools, MCP configs, repo
               entrypoints, CI workflows, credentials, reachable actions, target
-              systems, owners, approval status, and proof coverage.
+              systems, owners, approval rules, and proof coverage.
             </p>
           </article>
           <article class="card">

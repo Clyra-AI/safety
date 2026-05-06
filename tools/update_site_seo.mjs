@@ -16,6 +16,8 @@ const AUTHOR_IMAGE = `${BASE_URL}/assets/david-ahmann-headshot.png`;
 const ORG_ID = `${BASE_URL}#organization`;
 const WEBSITE_ID = `${BASE_URL}#website`;
 const AUTHOR_ID = `${AUTHOR_PROFILE}#person`;
+const SITE_DESCRIPTION =
+  "Independent research and field notes for teams rolling out AI coding agents, MCP tools, CI/CD automation, approval controls, and audit evidence.";
 
 const PAGE_TYPES = {
   home: "home",
@@ -205,13 +207,13 @@ function authorObject() {
   };
 }
 
-function websiteObject(description) {
+function websiteObject() {
   return {
     "@type": "WebSite",
     "@id": WEBSITE_ID,
     url: BASE_URL,
     name: SITE_NAME,
-    description,
+    description: SITE_DESCRIPTION,
     publisher: {
       "@id": ORG_ID,
     },
@@ -311,7 +313,7 @@ function profileGraph(url, title, description) {
     "@context": "https://schema.org",
     "@graph": [
       organizationObject(),
-      websiteObject(description),
+      websiteObject(),
       webpageObject(PAGE_TYPES.profile, url, title, description),
       {
         "@type": "ProfilePage",
@@ -334,7 +336,7 @@ function homeGraph(url, title, description) {
     "@context": "https://schema.org",
     "@graph": [
       organizationObject(),
-      websiteObject(description),
+      websiteObject(),
       webpageObject(PAGE_TYPES.home, url, title, description),
     ],
   };
@@ -356,7 +358,7 @@ function buildGraph(meta) {
 
   const graph = [
     organizationObject(),
-    websiteObject(description),
+    websiteObject(),
     webpageObject(type, url, title, description),
   ];
   if (type === PAGE_TYPES.article || type === PAGE_TYPES.reference) {

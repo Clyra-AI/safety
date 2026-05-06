@@ -1,5 +1,5 @@
 # CAISI
-> Independent research and field notes on AI Software Delivery Control: how AI-assisted engineering workflows touch PRs, CI/CD, credentials, tools, and release paths, and what proof should exist after privileged actions.
+> Independent research and field notes for teams rolling out AI coding agents, MCP tools, CI/CD automation, approval controls, and audit evidence.
 
 ## Research
 - [Research hub](https://caisi.dev/research/): Canonical entry point for CAISI reports, artifact-backed findings, methodology notes, and interpretation links.
@@ -22,6 +22,9 @@
 - [What is an Agent Action BOM?](https://caisi.dev/agent-action-bom/): Canonical CAISI definition of the artifact for mapping AI-assisted software delivery action paths: actor, owner, repo, workflow, credential, reachable action, target, approval, and proof.
 - [How to secure AI coding agents in CI/CD](https://caisi.dev/secure-ai-coding-agents-ci-cd/): Practical control guide for GitHub Actions, CI/CD, workflow files, credentials, approval decisions, revocation, and proof trails.
 - [Role paths for AppSec, CISO/security leadership, engineering leadership, and platform teams](https://caisi.dev/roles/): Audience routes that connect CAISI research and operating notes to common review, approval, and delivery decisions.
+- [AppSec role path](https://caisi.dev/roles/#appsec): Start here for control failure, proof quality, review surfaces, runtime boundaries, and incident reconstruction.
+- [CISO / Security leadership role path](https://caisi.dev/roles/#ciso): Start here for approval posture, risk ownership, auditability, evidence quality, and governance reporting.
+- [Engineering / Platform role path](https://caisi.dev/roles/#engineering-platform): Start here for standards, CI/CD workflow design, developer adoption, credential patterns, MCP/tool integration, and delivery control.
 - [AI Agent Governance Guide](https://caisi.dev/blog/ai-agent-governance/): Field guide to core CAISI concepts including control, proof, execution boundaries, and safe adoption.
 - [AI Agent Governance Glossary](https://caisi.dev/blog/glossary/): Vocabulary reference for terms such as write path, non-executable state, proof packet, approval mediation, and execution boundary.
 - [David Ahmann author profile](https://caisi.dev/authors/david-ahmann/): Author context, background, and route into CAISI research and framework writing.
@@ -32,6 +35,10 @@
 - **How is an Agent Action BOM different from an SBOM?** An SBOM lists software components. An Agent Action BOM maps what AI-assisted workflows can do: which systems they can touch, which credentials they use, which actions are reachable, and what proof remains.
 - **How should teams secure AI coding agents in CI/CD?** Teams should map action paths, classify actions as allowed, approval-required, or blocked, scope credentials, require pre-execution approval for high-risk paths, preserve proof, and keep revocation practical.
 - **What should buyers evaluate in agentic control?** Buyers should evaluate action risk scenarios, control efficacy, proof completeness, and pilot exit criteria rather than relying on feature claims or demo quality.
+- **What should a team do if it is rolling out coding agents and security is nervous?** Start with the workflows that can write, call tools, trigger CI/CD, inherit credentials, or touch release paths. Map one Agent Action BOM before expanding write authority.
+- **What audit evidence should exist for AI-assisted SDLC?** A durable proof packet should identify actor, owner, credential, action, target, approval, validation, outcome, and rollback or re-review trigger.
+- **How can teams approve risky AI agent actions without approving every prompt?** Classify actions by authority. Keep low-risk assistance fast, require pre-execution approval for write, deploy, publish, secret access, workflow mutation, and production-adjacent actions, and block unacceptable paths.
+- **How should teams think about MCP/tool risk and long-lived credentials?** Treat MCP declarations, tool calls, inherited identities, CI secrets, and standing tokens as part of the software delivery boundary, not only developer setup.
 
 ## Contact
 - [Homepage](https://caisi.dev/): Overview of CAISI research, contributors, and role routes for AppSec, CISO/security leadership, engineering leadership, and platform teams.
