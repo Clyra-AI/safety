@@ -228,7 +228,7 @@
           "We have controls" is one of the least useful sentences in this
           market because it can mean almost anything. A policy file exists. A
           reviewer eventually signs off. A dashboard shows a verdict somewhere.
-          None of that answers the question a buyer actually cares about: when
+          None of that answers the question an evaluator actually cares about: when
           the system tries to do something risky, what changes at execution
           time, how quickly does it change, and what proof survives afterward?
         </p>
@@ -262,7 +262,7 @@
             lane, <code>100%</code> governed destructive-action block rate,
             <code>99.96%</code> governed evidence verification rate, and
             <code>0</code> seconds stop-to-halt p95 in the governed lane. Those
-            are not marketing metrics. They are examples of what buyers should
+            are not marketing metrics. They are examples of what evaluators should
             be asking to compare. See the
             <a href="/openclaw-2026/">OpenClaw report</a> for the measured run
             context.
@@ -279,7 +279,7 @@
           leave behind proof strong enough for a third party to inspect later.
         </p>
         <p>
-          That definition matters because it narrows the buying conversation to
+          That definition matters because it narrows the evaluation conversation to
           the point where control becomes real. If the system can still execute
           the unsafe action while policy gets discussed later, the control may
           be useful for learning, but it is weak as an execution boundary.
@@ -288,7 +288,7 @@
           The easiest way to remember the distinction is this: control presence
           tells you what the product claims to have. Control efficacy tells you
           what the runtime actually prevented, delayed, or required in a tested
-          scenario. Buyers should care about the second much more than the
+          scenario. Evaluators should care about the second much more than the
           first.
         </p>
       </section>
@@ -298,7 +298,7 @@
         <p>
           The anti-pattern is to accept proxies for control. Prompt guidance,
           reviewer expectations, and post-hoc logs can all be helpful. None of
-          them answer the core buyer question: did the system change what could
+          them answer the core team question: did the system change what could
           execute at the moment the action crossed the boundary?
         </p>
         <p>
@@ -314,7 +314,7 @@
         <p>
           A third weak pattern is to separate efficacy from operational cost.
           A team can produce a gate that blocks aggressively and still fail the
-          organization if every review turns into an exception queue. Buyers
+          organization if every review turns into an exception queue. Teams
           should not confuse "blocks a lot" with "works well." A credible
           control has to change runtime behavior and remain operable enough that
           teams will actually keep it turned on.
@@ -324,17 +324,17 @@
       <section class="section article-section">
         <h2 id="the-five-metrics-that-matter">The five metrics that matter</h2>
         <p>
-          Buyers should start with five efficacy metrics.
+          Evaluators should start with five efficacy metrics.
         </p>
         <ul class="list-plain">
           <li><strong>Non-allow non-executable rate.</strong> When the control says block or require approval, how often does the action actually stay non-executable? This is the core fail-closed test.</li>
           <li><strong>Stop-to-halt behavior.</strong> After a stop signal, how quickly and reliably does the runtime stop making new side effects possible? This is where "stop" becomes a control contract instead of a UI affordance.</li>
-          <li><strong>Destructive-action block rate.</strong> Across delete, share, restart, or similar actions, how often does the system hold the unsafe action? This shows whether the boundary works on the classes buyers care about most.</li>
-          <li><strong>Approval mediation quality.</strong> Does approval change execution state, or does it only leave a process record? This is how buyers tell the difference between workflow theater and actual mediation.</li>
+          <li><strong>Destructive-action block rate.</strong> Across delete, share, restart, or similar actions, how often does the system hold the unsafe action? This shows whether the boundary works on the classes evaluators care about most.</li>
+          <li><strong>Approval mediation quality.</strong> Does approval change execution state, or does it only leave a process record? This is how evaluators tell the difference between workflow theater and actual mediation.</li>
           <li><strong>Evidence verification rate.</strong> After the decision, how often is the proof artifact complete and verifiable enough to support review? This is how efficacy survives outside the live run.</li>
         </ul>
         <p>
-          Buyers do not need to start with perfect statistical sophistication.
+          Teams do not need to start with perfect statistical sophistication.
           They do need to stop comparing control quality with slogans. These
           five measures already force much better conversations than "they have
           policy-as-code" or "they support approvals."
@@ -344,7 +344,7 @@
           tool can show strong destructive blocking and weak proof. It can show
           strong proof and weak approval mediation. It can even show strong
           blocking and still be operationally brittle because the stop contract
-          or human escalation path is too vague. Buyers are not looking for a
+          or human escalation path is too vague. Evaluators are not looking for a
           single magic number. They are looking for a believable control profile.
         </p>
         <pre><code>Scenario: agent attempts workflow-file change
@@ -368,7 +368,7 @@ Operational note: approval completed in 14 minutes; no exception path used</code
           Those metrics also let security describe residual risk honestly. A
           tool can have strong destructive-action blocking and still have weak
           proof completeness. It can have great proof and weak stop behavior.
-          Buyers need that kind of precision if they want to expand safely.
+          Evaluators need that kind of precision if they want to expand safely.
         </p>
         <p>
           That precision is what lets AppSec say yes to a narrower scope without

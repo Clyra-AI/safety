@@ -3,26 +3,26 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Agent Action Risk Scenarios: The Buyer Test Set | CAISI Blog</title>
+    <title>Agent Action Risk Scenarios: The Evaluator Test Set | CAISI Blog</title>
     <meta
       name="description"
-      content="A practical minimum scenario set for evaluating agentic systems before buyers trust control claims near real write paths."
+      content="A practical minimum scenario set for evaluating agentic systems before evaluators trust control claims near real write paths."
     />
     <!-- SEO_META_START -->
     <link rel="canonical" href="https://caisi.dev/blog/control-benchmarks/agent-action-risk-scenarios-minimum-test-set/" />
     <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
     <meta property="og:site_name" content="CAISI" />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="Agent Action Risk Scenarios: The Buyer Test Set | CAISI Blog" />
-    <meta property="og:description" content="A practical minimum scenario set for evaluating agentic systems before buyers trust control claims near real write paths." />
+    <meta property="og:title" content="Agent Action Risk Scenarios: The Evaluator Test Set | CAISI Blog" />
+    <meta property="og:description" content="A practical minimum scenario set for evaluating agentic systems before evaluators trust control claims near real write paths." />
     <meta property="og:url" content="https://caisi.dev/blog/control-benchmarks/agent-action-risk-scenarios-minimum-test-set/" />
     <meta property="og:image" content="https://caisi.dev/assets/caisi-social.png" />
-    <meta property="og:image:alt" content="Agent Action Risk Scenarios: The Buyer Test Set | CAISI Blog" />
+    <meta property="og:image:alt" content="Agent Action Risk Scenarios: The Evaluator Test Set | CAISI Blog" />
     <meta property="og:image:width" content="1600" />
     <meta property="og:image:height" content="900" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Agent Action Risk Scenarios: The Buyer Test Set | CAISI Blog" />
-    <meta name="twitter:description" content="A practical minimum scenario set for evaluating agentic systems before buyers trust control claims near real write paths." />
+    <meta name="twitter:title" content="Agent Action Risk Scenarios: The Evaluator Test Set | CAISI Blog" />
+    <meta name="twitter:description" content="A practical minimum scenario set for evaluating agentic systems before evaluators trust control claims near real write paths." />
     <meta name="twitter:image" content="https://caisi.dev/assets/caisi-social.png" />
     <link rel="alternate" type="text/plain" href="/llms.txt" title="CAISI llms.txt" />
     <link rel="alternate" type="text/plain" href="/llms-full.txt" title="CAISI llms-full.txt" />
@@ -94,8 +94,8 @@
           "@type": "WebPage",
           "@id": "https://caisi.dev/blog/control-benchmarks/agent-action-risk-scenarios-minimum-test-set/#webpage",
           "url": "https://caisi.dev/blog/control-benchmarks/agent-action-risk-scenarios-minimum-test-set/",
-          "name": "Agent Action Risk Scenarios: The Buyer Test Set | CAISI Blog",
-          "description": "A practical minimum scenario set for evaluating agentic systems before buyers trust control claims near real write paths.",
+          "name": "Agent Action Risk Scenarios: The Evaluator Test Set | CAISI Blog",
+          "description": "A practical minimum scenario set for evaluating agentic systems before evaluators trust control claims near real write paths.",
           "inLanguage": "en",
           "about": {
             "@id": "https://caisi.dev#organization"
@@ -145,15 +145,15 @@
             {
               "@type": "ListItem",
               "position": 4,
-              "name": "Agent Action Risk Scenarios: The Minimum Test Set Every Buyer Should Use"
+              "name": "Agent Action Risk Scenarios: The Minimum Test Set Every Evaluator Should Use"
             }
           ]
         },
         {
           "@type": "BlogPosting",
           "@id": "https://caisi.dev/blog/control-benchmarks/agent-action-risk-scenarios-minimum-test-set/#article",
-          "headline": "Agent Action Risk Scenarios: The Minimum Test Set Every Buyer Should Use",
-          "description": "A practical minimum scenario set for evaluating agentic systems before buyers trust control claims near real write paths.",
+          "headline": "Agent Action Risk Scenarios: The Minimum Test Set Every Evaluator Should Use",
+          "description": "A practical minimum scenario set for evaluating agentic systems before evaluators trust control claims near real write paths.",
           "mainEntityOfPage": "https://caisi.dev/blog/control-benchmarks/agent-action-risk-scenarios-minimum-test-set/",
           "url": "https://caisi.dev/blog/control-benchmarks/agent-action-risk-scenarios-minimum-test-set/",
           "image": "https://caisi.dev/assets/caisi-social.png",
@@ -214,7 +214,7 @@
           <span class="divider">/</span>
           <a href="/blog/control-benchmarks/">Benchmark Series</a>
           <span class="divider">/</span>
-          <span>Agent Action Risk Scenarios: The Minimum Test Set Every Buyer Should Use</span>
+          <span>Agent Action Risk Scenarios: The Minimum Test Set Every Evaluator Should Use</span>
         </p>
         <p class="eyebrow">Benchmark Series / Post 2 of 5 / AppSec</p>
         <div class="post-author">
@@ -223,11 +223,11 @@
             By <a href="https://www.linkedin.com/in/dahmann/">David Ahmann (LinkedIn)</a>
           </p>
         </div>
-        <h1>Agent Action Risk Scenarios: The Minimum Test Set Every Buyer Should Use</h1>
+        <h1>Agent Action Risk Scenarios: The Minimum Test Set Every Evaluator Should Use</h1>
         <p class="lead">
           Vendor demos are almost always optimized for the moment everyone in
           the room nods. The task completes, the workflow looks clean, and the
-          operator seems productive. None of that tells a buyer what will happen
+          operator seems productive. None of that tells a team what will happen
           when the system tries to delete, share, restart, or write without the
           right boundary in place. If the tool can take actions with real side
           effects, the evaluation needs a scenario set designed for pressure.
@@ -270,7 +270,7 @@
             public-share actions, <code>87</code> finance write-class actions
             without approval, and <code>260</code> operations restart attempts
             in the ungoverned lane. That matters because those are not abstract
-            categories. They are concrete action classes buyers can test. See
+            categories. They are concrete action classes evaluators can test. See
             the <a href="/openclaw-2026/">OpenClaw report</a> for the measured
             run context.
           </p>
@@ -280,7 +280,7 @@
       <section class="section article-section">
         <h2 id="why-scenario-design-matters">Why scenario design matters</h2>
         <p>
-          Buyers often talk about control in general and scenarios in passing.
+          Teams often talk about control in general and scenarios in passing.
           That order should be reversed. A control claim only becomes meaningful
           when a real action class is in scope. "We enforce policy" tells you
           very little until you ask: against which actions, under which
@@ -301,7 +301,7 @@
           Operational mutation tests whether the tool can affect the systems
           around the code, not just the code itself. Proof reconstruction tests
           whether the organization could explain the run later. Without a
-          scenario family for each, buyers end up generalizing from the easiest
+          scenario family for each, evaluators end up generalizing from the easiest
           case.
         </p>
       </section>
@@ -318,7 +318,7 @@
         <p>
           Another weak pattern is to test only one risk class. A stop demo does
           not tell you anything about approval-dependent writes. A finance-write
-          demo does not tell you whether public sharing gets blocked. Buyers
+          demo does not tell you whether public sharing gets blocked. Teams
           need a small but varied set of scenarios that reveal different failure
           modes.
         </p>
@@ -326,7 +326,7 @@
           A third weak pattern is to treat a scenario as one scripted moment
           instead of a family with a denominator. One successful approval demo
           is not the same as repeated approval-dependent attempts across a
-          defined sample. Buyers need enough repetition to learn whether the
+          defined sample. Evaluators need enough repetition to learn whether the
           control is consistent or just capable of passing a stage-managed case.
         </p>
       </section>
@@ -334,7 +334,7 @@
       <section class="section article-section">
         <h2 id="the-minimum-test-set">The minimum test set</h2>
         <p>
-          A serious buyer should require at least five scenario
+          A serious evaluator should require at least five scenario
           families.
         </p>
         <ul class="list-plain">
@@ -353,7 +353,7 @@
           to decide which action classes belong in the first test set.
         </p>
         <p>
-          "Minimum" matters here. Buyers do not need a thousand-case harness
+          "Minimum" matters here. Teams do not need a thousand-case harness
           before they can learn something useful. They do need enough range to
           avoid being fooled by a tool that looks controlled only because it was
           tested on low-consequence workflows. The right first step is a small,
@@ -399,14 +399,14 @@
         <p>
           Scenario discipline also makes pilots more reusable. Once one team has
           a credible action-risk matrix, the next team does not have to start
-          the buying conversation from zero.
+          the evaluation conversation from zero.
         </p>
         <p>
           There is a design benefit too. Scenario families help platform teams
           decide what the orchestrator, repo contract, and validation path
           should own. If a stop scenario keeps failing, that points to runtime
           state. If proof reconstruction keeps failing, that points to evidence
-          packaging. A scenario set is not just a buying tool. It is a roadmap
+          packaging. A scenario set is not just an evaluation artifact. It is a roadmap
           for the next control improvements.
         </p>
       </section>
@@ -436,7 +436,7 @@
             <article class="artifact-step">
               <h3>Expected evidence</h3>
               <p>
-                What proof should exist if the buyer later needs to review the
+                What proof should exist if the reviewer later needs to review the
                 scenario outcome cold?
               </p>
             </article>
@@ -467,13 +467,13 @@
         </ul>
         <p>
           If the pilot team cannot answer those questions in advance, the
-          control story is still too soft for a serious buying decision.
+          control story is still too soft for a serious evaluation decision.
         </p>
       </section>
 
       <footer class="section article-footer" aria-label="Post footer">
         <div class="series-nav">
-          <a class="nav-link" href="/blog/control-benchmarks/buyers-cannot-evaluate-agentic-control-clearly/">Previous post</a>
+          <a class="nav-link" href="/blog/control-benchmarks/evaluators-cannot-evaluate-agentic-control-clearly/">Previous post</a>
           <a class="nav-link" href="/blog/control-benchmarks/">Back to series</a>
           <a class="nav-link" href="/blog/control-benchmarks/measure-control-efficacy-for-ai-agents/">Next post</a>
         </div>

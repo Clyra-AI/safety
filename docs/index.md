@@ -10,7 +10,7 @@ Core question:
 
 > Your team is rolling out coding agents. Security is asking what they can touch.
 
-## Common buyer questions
+## Practical rollout questions
 
 - We are rolling out coding agents and security is nervous.
 - We need audit evidence for AI-assisted SDLC.

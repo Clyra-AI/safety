@@ -236,11 +236,11 @@
           badge.
         </p>
         <p class="body">
-          This piece is for buyers scoring proof quality in a pilot or vendor
+          This piece is for evaluators scoring proof quality in a pilot or vendor
           evaluation. The related
           <a href="/blog/proof-of-work-for-ai-generated-changes/">proof-of-work
           article</a> is for teams designing their internal workflow artifact.
-          The distinction matters: buyers need a scoring rubric; builders need
+          The distinction matters: evaluators need a scoring rubric; builders need
           an implementation pattern.
         </p>
       </section>
@@ -291,7 +291,7 @@
           alone.
         </p>
         <p>
-          This matters most for buyers because incomplete proof creates hidden
+          This matters most for evaluators because incomplete proof creates hidden
           costs. The system may look fine during the pilot. The pain appears
           later, when a reviewer, auditor, or incident responder tries to
           reconstruct the change and discovers that the workflow left a trail of
@@ -300,7 +300,7 @@
         <p>
           We keep coming back to the same rule at CAISI: the approval is not
           the proof. Authorization tells you what the system was allowed to try.
-          Proof tells you what actually happened. Mature buyers need both
+          Proof tells you what actually happened. Mature evaluators need both
           because they answer different questions and they tend to fail in
           different ways.
         </p>
@@ -318,7 +318,7 @@
         <p>
           Another weak pattern is to let the vendor define proof in a
           dashboard-native way. If the evidence only makes sense while you are
-          logged into one product surface, the buyer still has an explanation
+          logged into one product surface, the evaluator still has an explanation
           problem. Proof should survive time, tool changes, and disputes.
         </p>
         <p>
@@ -326,7 +326,7 @@
           review. That creates neat summaries for successful runs and brittle
           evidence for the moments that matter most: contested outcomes, failed
           validations, disputed approvals, or questions that arrive weeks later.
-          Buyers should judge proof by how it behaves under scrutiny, not just
+          Evaluators should judge proof by how it behaves under scrutiny, not just
           by how cleanly it renders in a demo.
         </p>
       </section>
@@ -334,7 +334,7 @@
       <section class="section article-section">
         <h2 id="the-seven-fields-of-a-complete-proof-packet">The seven fields of a complete proof packet</h2>
         <p>
-          A buyer-grade proof packet should include seven fields.
+          An evaluation-grade proof packet should include seven fields.
         </p>
         <ul class="list-plain">
           <li><strong>Trigger and scope.</strong> What initiated the work, and what paths, tools, or systems were in scope?</li>
@@ -346,7 +346,7 @@
           <li><strong>Rollback or recovery note.</strong> What the team should do if the outcome needs to be reversed or investigated later.</li>
         </ul>
         <p>
-          Buyers do not need every packet to be verbose. They do need it to be
+          Teams do not need every packet to be verbose. They do need it to be
           complete enough that a third party could review the run cold. That is
           the standard that separates a proof artifact from a collection of
           traces.

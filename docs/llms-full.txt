@@ -15,7 +15,7 @@
 - [What the Sprawl Report Means for AppSec, CISO, and Engineering Leaders](https://caisi.dev/blog/sprawl-2026/): Four-post series on evidence posture, approval opacity, deployability proof, and how AppSec, security, engineering, and platform leaders should interpret public AI adoption data.
 - [Invisible Write Paths](https://caisi.dev/blog/wrkr/): Implementation series on discovery across repos, local setup, MCP configuration, CI workflows, and evidence collection.
 - [Policy Before Action](https://caisi.dev/blog/gait/): Implementation series on tool-boundary policy, MCP trust boundaries, signed traces, and deterministic regressions.
-- [How to Evaluate Agentic Control](https://caisi.dev/blog/control-benchmarks/): Benchmark series on buyer-grade pilots, risk scenario coverage, control efficacy, and proof completeness.
+- [How to Evaluate Agentic Control](https://caisi.dev/blog/control-benchmarks/): Benchmark series on evaluation-grade pilots, risk scenario coverage, control efficacy, and proof completeness.
 - [From AI Pilots to Governed Adoption](https://caisi.dev/blog/governed-adoption/): Executive series on platform standards, sanctioned pathways, approval discipline, and governed rollout patterns.
 
 ## Key Reference Pages
@@ -44,7 +44,7 @@
 - **What is MCP tool risk in AI engineering workflows?** MCP tool risk is the risk created when AI-assisted workflows can discover, call, or rely on tools that reach systems outside the model conversation. Evaluate the invocation context, credential context, reachable action, target, approval rule, and proof.
 - **Why are long-lived credentials risky in AI agent workflows?** Long-lived credentials are risky when they give an AI-assisted workflow more authority, reach, or time than the task requires. Map each credential to owner, workflow, action class, target, scope, lifetime, approval rule, and proof.
 - **How should teams secure AI coding agents in CI/CD?** Teams should map action paths, classify actions as allowed, approval-required, or blocked, scope credentials, require pre-execution approval for high-risk paths, preserve proof, and keep revocation practical.
-- **What should buyers evaluate in agentic control?** Buyers should evaluate action risk scenarios, control efficacy, proof completeness, and pilot exit criteria rather than relying on feature claims or demo quality.
+- **What should teams evaluate in agentic control?** Teams should evaluate action risk scenarios, control efficacy, proof completeness, and pilot exit criteria rather than relying on feature claims or demo quality.
 - **What should a team do if it is rolling out coding agents and security is nervous?** Start with the workflows that can write, call tools, trigger CI/CD, inherit credentials, or touch release paths. Map one Agent Action BOM before expanding write authority.
 - **What audit evidence should exist for AI-assisted SDLC?** A durable proof packet should identify actor, owner, credential, action, target, approval, validation, outcome, and rollback or re-review trigger.
 - **How can teams approve risky AI agent actions without approving every prompt?** Classify actions by authority. Keep low-risk assistance fast, require pre-execution approval for write, deploy, publish, secret access, workflow mutation, and production-adjacent actions, and block unacceptable paths.
