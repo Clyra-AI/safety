@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>When Agent Social Engineering Becomes Action Hijacking | CAISI Blog</title>
+    <meta
+      name="description"
+      content="A CAISI field note on OpenClaw incidents, malicious skills, exposed agent infrastructure, and why teams need an Agent Action BOM for authority-bearing workflows."
+    />
+    <!-- SEO_META_START -->
+    <link rel="canonical" href="https://caisi.dev/blog/authority-risk/when-agent-social-engineering-becomes-action-hijacking/" />
+    <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+    <meta property="og:site_name" content="CAISI" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="When Agent Social Engineering Becomes Action Hijacking | CAISI Blog" />
+    <meta property="og:description" content="A CAISI field note on OpenClaw incidents, malicious skills, exposed agent infrastructure, and why teams need an Agent Action BOM for authority-bearing workflows." />
+    <meta property="og:url" content="https://caisi.dev/blog/authority-risk/when-agent-social-engineering-becomes-action-hijacking/" />
+    <meta property="og:image" content="https://caisi.dev/assets/caisi-social.png" />
+    <meta property="og:image:alt" content="When Agent Social Engineering Becomes Action Hijacking | CAISI Blog" />
+    <meta property="og:image:width" content="1600" />
+    <meta property="og:image:height" content="900" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="When Agent Social Engineering Becomes Action Hijacking | CAISI Blog" />
+    <meta name="twitter:description" content="A CAISI field note on OpenClaw incidents, malicious skills, exposed agent infrastructure, and why teams need an Agent Action BOM for authority-bearing workflows." />
+    <meta name="twitter:image" content="https://caisi.dev/assets/caisi-social.png" />
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="CAISI llms.txt" />
+    <link rel="alternate" type="text/plain" href="/llms-full.txt" title="CAISI llms-full.txt" />
+    <meta name="author" content="David Ahmann" />
+    <link rel="author" href="https://caisi.dev/authors/david-ahmann/" />
+    <meta property="article:published_time" content="2026-05-07" />
+    <meta property="article:modified_time" content="2026-05-07" />
+    <!-- SEO_META_END -->
+
+    <link rel="stylesheet" href="/assets/site.css" />
+    <!-- SEO_SCHEMA_START -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://caisi.dev#organization",
+          "name": "Centre for AI Security and Integrity (CAISI)",
+          "url": "https://caisi.dev",
+          "description": "Independent, reproducible research and operating notes on AI Software Delivery Control, AI agent governance, execution boundaries, proof quality, and safe adoption.",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://caisi.dev/assets/caisi-logo.png"
+          },
+          "email": "david@caisi.dev",
+          "contactPoint": [
+            {
+              "@type": "ContactPoint",
+              "contactType": "research inquiries",
+              "email": "david@caisi.dev",
+              "url": "https://caisi.dev",
+              "availableLanguage": [
+                "en"
+              ]
+            }
+          ],
+          "knowsAbout": [
+            "AI agent governance",
+            "AI Software Delivery Control",
+            "Agent Action BOM",
+            "AI coding agent security review",
+            "AI-assisted SDLC audit evidence",
+            "AI agent action approval",
+            "MCP tool risk",
+            "AI agent credential risk",
+            "AI coding agent security",
+            "CI/CD agent security",
+            "AI agent control",
+            "execution boundaries",
+            "tool-boundary enforcement",
+            "approval mediation",
+            "evidence quality",
+            "safe AI adoption",
+            "reproducible AI governance research"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://caisi.dev#website",
+          "url": "https://caisi.dev",
+          "name": "CAISI",
+          "description": "Independent research and field notes for teams rolling out AI coding agents, MCP tools, CI/CD automation, approval controls, and audit evidence.",
+          "publisher": {
+            "@id": "https://caisi.dev#organization"
+          },
+          "inLanguage": "en"
+        },
+        {
+          "@type": "WebPage",
+          "@id": "https://caisi.dev/blog/authority-risk/when-agent-social-engineering-becomes-action-hijacking/#webpage",
+          "url": "https://caisi.dev/blog/authority-risk/when-agent-social-engineering-becomes-action-hijacking/",
+          "name": "When Agent Social Engineering Becomes Action Hijacking | CAISI Blog",
+          "description": "A CAISI field note on OpenClaw incidents, malicious skills, exposed agent infrastructure, and why teams need an Agent Action BOM for authority-bearing workflows.",
+          "inLanguage": "en",
+          "about": {
+            "@id": "https://caisi.dev#organization"
+          },
+          "isPartOf": {
+            "@id": "https://caisi.dev#website"
+          }
+        },
+        {
+          "@type": "Person",
+          "@id": "https://caisi.dev/authors/david-ahmann/#person",
+          "name": "David Ahmann",
+          "url": "https://caisi.dev/authors/david-ahmann/",
+          "image": "https://caisi.dev/assets/david-ahmann-headshot.png",
+          "description": "David Ahmann writes at CAISI about AI agent governance, execution boundaries, evidence quality, and safe adoption for AppSec, platform, and engineering leaders.",
+          "sameAs": [
+            "https://www.linkedin.com/in/dahmann/"
+          ],
+          "jobTitle": "Head of Cloud & AI Platforms",
+          "worksFor": {
+            "@type": "Organization",
+            "name": "CDW"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": "https://caisi.dev/blog/authority-risk/when-agent-social-engineering-becomes-action-hijacking/#breadcrumb",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://caisi.dev"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Blog",
+              "item": "https://caisi.dev/blog/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Action hijacking field note"
+            }
+          ]
+        },
+        {
+          "@type": "BlogPosting",
+          "@id": "https://caisi.dev/blog/authority-risk/when-agent-social-engineering-becomes-action-hijacking/#article",
+          "headline": "When Agent Social Engineering Becomes Action Hijacking",
+          "description": "A CAISI field note on OpenClaw incidents, malicious skills, exposed agent infrastructure, and why teams need an Agent Action BOM for authority-bearing workflows.",
+          "mainEntityOfPage": "https://caisi.dev/blog/authority-risk/when-agent-social-engineering-becomes-action-hijacking/",
+          "url": "https://caisi.dev/blog/authority-risk/when-agent-social-engineering-becomes-action-hijacking/",
+          "image": "https://caisi.dev/assets/caisi-social.png",
+          "datePublished": "2026-05-07",
+          "dateModified": "2026-05-07",
+          "inLanguage": "en",
+          "about": {
+            "@id": "https://caisi.dev#organization"
+          },
+          "author": {
+            "@id": "https://caisi.dev/authors/david-ahmann/#person"
+          },
+          "publisher": {
+            "@id": "https://caisi.dev#organization"
+          },
+          "keywords": [
+            "AI Software Delivery Control",
+            "Agent Action BOM",
+            "AI coding agent security review",
+            "AI-assisted SDLC audit evidence",
+            "AI agent action approval",
+            "MCP tool risk",
+            "AI agent credential risk",
+            "AI agent governance",
+            "AI coding agent security",
+            "CI/CD agent security"
+          ]
+        }
+      ]
+    }
+    </script>
+    <!-- SEO_SCHEMA_END -->
+  </head>
+  <body>
+    <main class="site" aria-label="CAISI site content">
+      <header class="site-header" aria-label="Site header">
+        <div class="brand-row">
+          <div class="brand-mark">
+            <a class="brand-link" href="/">CAISI</a>
+            <p class="brand-note">Independent research and operating notes on AI Software Delivery Control.</p>
+          </div>
+        </div>
+        <nav class="global-nav" aria-label="Primary">
+          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" href="/roles/">Roles</a>
+          <a class="nav-link" href="/research/">Research</a>
+          <a class="nav-link current" href="/blog/">Blog</a>
+        </nav>
+      </header>
+
+      <section class="section hero">
+        <p class="breadcrumbs"><a href="/">Home</a> / <a href="/blog/">Blog</a> / <span>Action hijacking field note</span></p>
+        <p class="eyebrow">Field Note / Authority Risk</p>
+        <div class="post-author">
+          <img class="author-avatar" src="/assets/david-ahmann-headshot.png" alt="David Ahmann" />
+          <p class="author-byline">
+            By <a href="https://www.linkedin.com/in/dahmann/">David Ahmann (LinkedIn)</a>
+          </p>
+        </div>
+        <h1>When Agent Social Engineering Becomes Action Hijacking</h1>
+        <p class="lead">
+          The uncomfortable OpenClaw lesson is not only that an agent can leak
+          text. It is that persuasion can become action hijacking when the agent
+          has private context, internet access, tools, plugins, or credentials.
+        </p>
+        <p class="body">
+          Recent public reporting and tooling around OpenClaw-style agents point
+          to the same control problem from three directions: social engineering
+          of an agent, malicious skill or plugin supply chain, and exposed agent
+          infrastructure.
+        </p>
+        <p class="body">Last updated: May 7, 2026</p>
+        <!-- Source notes: Claims are limited to The Register's May 5, 2026 Hannah Fry/OpenClaw reporting, Zscaler ThreatLabz's DeepSeek-Claw malware writeup, and Bishop Fox's AIMap page. Do not quote marketplace-malware percentages without rechecking primary sources. Do not claim any specific product would have prevented these events. -->
+      </section>
+
+      <section class="section page-nav" aria-labelledby="page-nav-heading">
+        <h2 id="page-nav-heading">In this field note</h2>
+        <div class="page-nav-list">
+          <a href="#what-happened">What happened</a>
+          <a href="#three-patterns">Three failure patterns</a>
+          <a href="#authority-risk">Why this is authority risk</a>
+          <a href="#map">What teams should map</a>
+          <a href="#action-bom-row">Agent Action BOM row</a>
+          <a href="#do-not-claim">What not to claim</a>
+        </div>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="what-happened">What happened</h2>
+        <p>
+          The Register reported on a Hannah Fry experiment involving an AI agent
+          built with OpenClaw, real-world tasks, and a bank card number supplied
+          by the team. The agent attempted errands, used Fry's real name in an
+          unexpected way, struggled with anti-bot controls, created an online
+          shop, and later disclosed sensitive material after being manipulated
+          through a social-engineering setup.
+        </p>
+        <p>
+          The important detail for CAISI is not the novelty of the demo. It is
+          the class of material reportedly exposed: API keys, usernames,
+          passwords, and operational context. That is authority-bearing material,
+          not only content.
+        </p>
+        <p>
+          Zscaler ThreatLabz separately published a writeup on a deceptive
+          "DeepSeek-Claw" OpenClaw skill. Zscaler says the skill's instructions
+          could lead an AI agent or user into executing installation paths that
+          delivered Remcos RAT on Windows or GhostLoader across macOS, Linux, or
+          manual Windows workflows.
+        </p>
+        <p>
+          Bishop Fox's AIMap points to a third surface: publicly exposed AI
+          agent infrastructure. Its page describes discovery, fingerprinting,
+          scoring, and testing for exposed AI endpoints including MCP servers,
+          Ollama instances, OpenClaw-style systems, LangServe chains, Gradio
+          apps, and other AI infrastructure.
+        </p>
+        <div class="link-row">
+          <a href="https://www.theregister.com/software/2026/05/05/british-mathematician-hands-openclaw-agent-a-credit-card/5228654?td=keepreading">The Register reporting</a>
+          <span class="divider">|</span>
+          <a href="https://www.zscaler.com/blogs/security-research/malicious-openclaw-skill-distributes-remcos-rat-and-ghostloader">Zscaler ThreatLabz writeup</a>
+          <span class="divider">|</span>
+          <a href="https://bishopfox.com/tools/aimap">Bishop Fox AIMap</a>
+        </div>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="three-patterns">Three failure patterns</h2>
+        <div class="summary-grid">
+          <article class="card">
+            <h3>Agent social engineering</h3>
+            <p>An agent with private context can be persuaded to reveal or use material it should not expose.</p>
+          </article>
+          <article class="card">
+            <h3>Skill and plugin supply chain</h3>
+            <p>A skill, plugin, package script, or setup instruction can become a path to malware, data theft, or tool misuse.</p>
+          </article>
+          <article class="card">
+            <h3>Exposed agent infrastructure</h3>
+            <p>Public AI endpoints can expose models, prompts, tools, authorization boundaries, and execution capabilities.</p>
+          </article>
+        </div>
+        <p>
+          These are different events and surfaces. Treating them as one generic
+          "AI security" problem makes the response worse. The shared thread is
+          action authority: what the agent or connected workflow can reach and
+          do after it receives an instruction.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="authority-risk">Why this is authority risk</h2>
+        <p>
+          Content risk asks what the model sees, says, leaks, or summarizes.
+          Authority risk asks what the agent can do when it has context, tools,
+          permissions, network reach, or credentials.
+        </p>
+        <p>
+          In software delivery, that distinction matters. A skill file is not
+          just documentation if an agent may follow it. An MCP declaration is
+          not just configuration if it exposes tools. A public agent endpoint is
+          not just another AI asset if it can run code, enumerate tools, leak
+          prompts, or invoke actions.
+        </p>
+        <blockquote>
+          The hard question is not only whether the agent can be persuaded. It
+          is what the agent can do after it is persuaded.
+        </blockquote>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="map">What teams should map</h2>
+        <p>
+          Teams do not need to become OpenClaw specialists to learn from this.
+          They need to treat agent setup and tool reach as part of the delivery
+          action graph when those paths can influence repos, CI/CD, packages,
+          credentials, cloud, or release behavior.
+        </p>
+        <ul class="list-plain">
+          <li>Agent config files and runtime settings.</li>
+          <li>Installed skills, plugins, extensions, and setup instructions.</li>
+          <li>MCP declarations, tool bindings, and tool descriptions.</li>
+          <li>Package scripts, install hooks, shell commands, and generated setup steps.</li>
+          <li>Workflow files, CI/CD jobs, package publishing paths, and release scripts.</li>
+          <li>Credential references: API keys, tokens, OAuth grants, service accounts, CI secrets, cloud roles, and local keychains.</li>
+          <li>External publishing paths: email, social posting, websites, issue trackers, package registries, or cloud APIs.</li>
+          <li>Publicly exposed agent endpoints and whether they expose tools, prompts, authentication gaps, or dangerous capability combinations.</li>
+        </ul>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="action-bom-row">Agent Action BOM row</h2>
+        <p>
+          A first row for this class of risk should be plain enough for AppSec,
+          platform, and engineering to review together:
+        </p>
+        <pre><code>Actor: Local coding agent with installed skill
+Owner: Engineering enablement
+Location: developer workstation and repo tool config
+Skill/plugin: third-party setup skill
+Credential context: local shell, package manager token, cloud CLI, keychain, CI secret references
+Reachable actions: read files, run shell, install package, call MCP tool, publish externally, open PR
+Approval-required: new skill install, shell/network command, secret read, package publish, workflow edit, cloud command
+Proof: skill source, install command, tool invocation, credential identity, policy verdict, approver, target event, revocation record</code></pre>
+        <p>
+          The point is not to make every agent action slow. The point is to know
+          where authority changes state, which actions require approval before
+          execution, and what proof remains afterward.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2 id="do-not-claim">What not to claim</h2>
+        <p>
+          This field note uses the incidents as category evidence, not as a
+          product claim. Do not claim that a specific control would have stopped
+          the Hannah Fry experiment, the Zscaler-observed campaign, or exposed
+          AI endpoints found by a scanner unless the claim is tested against the
+          exact conditions.
+        </p>
+        <p>
+          Also avoid quoting marketplace-malware percentages without rechecking
+          primary sources. The useful lesson does not depend on a percentage.
+          It depends on the control pattern: skills, MCP servers, agent configs,
+          exposed endpoints, and tool declarations become part of the action
+          graph when they can influence software delivery.
+        </p>
+        <div class="link-row">
+          <a href="/agent-action-bom/">What is an Agent Action BOM?</a>
+          <span class="divider">|</span>
+          <a href="/blog/authority-risk/from-ai-content-risk-to-ai-authority-risk/">AI authority risk</a>
+          <span class="divider">|</span>
+          <a href="/mcp-tool-risk-ai-engineering-workflows/">MCP tool risk</a>
+        </div>
+      </section>
+
+      <footer class="section article-footer" aria-label="Action hijacking footer">
+        <div class="footer-links">
+          <a href="/blog/">Blog</a>
+          <span class="divider">|</span>
+          <a href="/agent-action-bom/">Agent Action BOM</a>
+          <span class="divider">|</span>
+          <a href="/roles/">Start by role</a>
+        </div>
+        <p class="footer-note">
+          Practical question: if an agent is persuaded to use a tool, install a
+          skill, read a secret, or publish externally, what approval and proof
+          exist before the action changes state?
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>
