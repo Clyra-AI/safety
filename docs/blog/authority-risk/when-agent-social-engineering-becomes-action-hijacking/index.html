@@ -221,7 +221,6 @@
           infrastructure.
         </p>
         <p class="body">Last updated: May 7, 2026</p>
-        <!-- Source notes: Claims are limited to The Register's May 5, 2026 Hannah Fry/OpenClaw reporting, Zscaler ThreatLabz's DeepSeek-Claw malware writeup, and Bishop Fox's AIMap page. Do not quote marketplace-malware percentages without rechecking primary sources. Do not claim any specific product would have prevented these events. -->
       </section>
 
       <section class="section page-nav" aria-labelledby="page-nav-heading">
@@ -232,7 +231,7 @@
           <a href="#authority-risk">Why this is authority risk</a>
           <a href="#map">What teams should map</a>
           <a href="#action-bom-row">Agent Action BOM row</a>
-          <a href="#do-not-claim">What not to claim</a>
+          <a href="#evidence">What the evidence supports</a>
         </div>
       </section>
 
@@ -247,10 +246,10 @@
           through a social-engineering setup.
         </p>
         <p>
-          The important detail for CAISI is not the novelty of the demo. It is
-          the class of material reportedly exposed: API keys, usernames,
-          passwords, and operational context. That is authority-bearing material,
-          not only content.
+          The important detail is not the novelty of the demo. It is the class
+          of material reportedly exposed: API keys, usernames, passwords, and
+          operational context. That is authority-bearing material, not only
+          content.
         </p>
         <p>
           Zscaler ThreatLabz separately published a writeup on a deceptive
@@ -361,20 +360,19 @@ Proof: skill source, install command, tool invocation, credential identity, poli
       </section>
 
       <section class="section article-section">
-        <h2 id="do-not-claim">What not to claim</h2>
+        <h2 id="evidence">What the evidence supports</h2>
         <p>
-          This field note uses the incidents as category evidence, not as a
-          product claim. Do not claim that a specific control would have stopped
-          the Hannah Fry experiment, the Zscaler-observed campaign, or exposed
-          AI endpoints found by a scanner unless the claim is tested against the
-          exact conditions.
+          These incidents are best read as evidence of a control pattern, not
+          proof that one control would have prevented every reported outcome.
+          The pattern is narrower and more useful: once an AI-assisted workflow
+          can use tools, credentials, plugins, skills, or exposed endpoints, the
+          security question moves from content safety to action authority.
         </p>
         <p>
-          Also avoid quoting marketplace-malware percentages without rechecking
-          primary sources. The useful lesson does not depend on a percentage.
-          It depends on the control pattern: skills, MCP servers, agent configs,
-          exposed endpoints, and tool declarations become part of the action
-          graph when they can influence software delivery.
+          The practical lesson is the action graph: skills, MCP servers, agent
+          configs, exposed endpoints, and tool declarations become part of
+          software-delivery governance when they can influence repos, CI/CD,
+          packages, credentials, cloud paths, or release behavior.
         </p>
         <div class="link-row">
           <a href="/agent-action-bom/">What is an Agent Action BOM?</a>
