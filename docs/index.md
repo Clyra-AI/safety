@@ -10,16 +10,21 @@ Core question:
 
 > Your team is rolling out coding agents. Security is asking what they can touch.
 
+Near-term operating goal:
+
+> Adopt AI coding tools without losing visibility, review discipline, or proof.
+
 ## Practical rollout questions
 
 - We are rolling out coding agents and security is nervous.
+- AI-assisted output is rising faster than review capacity.
 - We need audit evidence for AI-assisted SDLC.
 - We do not know what agents, MCP tools, CI jobs, or tokens can reach.
 - We need to approve risky actions, not every prompt.
 - We do not want long-lived credentials in agent workflows.
 
 CAISI translates those questions into action paths: actor, owner, repo,
-workflow, credential, action, target, approval rule, and proof.
+workflow, credential, action, target, review or approval rule, and proof.
 
 ## Start with the artifact
 

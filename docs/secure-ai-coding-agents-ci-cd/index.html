@@ -29,7 +29,7 @@
     <meta name="author" content="David Ahmann" />
     <link rel="author" href="https://caisi.dev/authors/david-ahmann/" />
     <meta property="article:published_time" content="2026-05-05" />
-    <meta property="article:modified_time" content="2026-05-06" />
+    <meta property="article:modified_time" content="2026-05-07" />
     <!-- SEO_META_END -->
 
     <link rel="stylesheet" href="/assets/site.css" />
@@ -147,7 +147,7 @@
           "url": "https://caisi.dev/secure-ai-coding-agents-ci-cd/",
           "image": "https://caisi.dev/assets/caisi-social.png",
           "datePublished": "2026-05-05",
-          "dateModified": "2026-05-06",
+          "dateModified": "2026-05-07",
           "inLanguage": "en",
           "about": {
             "@id": "https://caisi.dev#organization"
@@ -208,9 +208,10 @@
           The practical job is to map the action path, limit standing
           credentials, require approval for risky actions before execution, and
           keep audit evidence strong enough for AppSec, platform, and security
-          leadership to reconstruct what happened.
+          leadership to reconstruct what happened. The aim is adoption without
+          losing visibility, review discipline, or proof.
         </p>
-        <p class="body">Last updated: May 5, 2026</p>
+        <p class="body">Last updated: May 7, 2026</p>
         <!-- Source notes: this page avoids external statistics, recent events, and vendor capability claims. Verify any added factual or current claims before publishing. -->
       </section>
 
@@ -245,7 +246,9 @@
           CI/CD is where AI-assisted engineering often stops being a suggestion
           layer and becomes a delivery actor. A pull request can trigger tests,
           workflows, package publishing, deployment scripts, cloud commands, or
-          release automation.
+          release automation. That is where the old review model starts to
+          strain: output can rise faster than the team's ability to manually
+          inspect every path.
         </p>
         <p>
           The practical control model is simple:
@@ -321,7 +324,9 @@
         <h2 id="rollout-questions">Team questions</h2>
         <ul class="list-plain">
           <li>We are rolling out coding agents. Can an AI-assisted workflow modify the CI/CD file that controls its own permissions?</li>
+          <li>Where are AI-assisted workflows being used, and who owns each one?</li>
           <li>Which jobs receive secrets, publish packages, deploy, or call cloud APIs?</li>
+          <li>Are any workflows touching PRs, CI/CD, secrets, auth, IaC, packages, or production-adjacent paths?</li>
           <li>Which actions should require a human approval before execution, not after review of a completed run?</li>
           <li>Can credentials be scoped to repo, branch, task, owner, and time instead of staying long-lived?</li>
           <li>What audit evidence remains if a reviewer asks who approved the action and which credential was used?</li>

@@ -29,7 +29,7 @@
     <meta name="author" content="David Ahmann" />
     <link rel="author" href="https://caisi.dev/authors/david-ahmann/" />
     <meta property="article:published_time" content="2026-05-05" />
-    <meta property="article:modified_time" content="2026-05-06" />
+    <meta property="article:modified_time" content="2026-05-07" />
     <!-- SEO_META_END -->
 
     <link rel="stylesheet" href="/assets/site.css" />
@@ -147,7 +147,7 @@
           "url": "https://caisi.dev/agent-action-bom/",
           "image": "https://caisi.dev/assets/caisi-social.png",
           "datePublished": "2026-05-05",
-          "dateModified": "2026-05-06",
+          "dateModified": "2026-05-07",
           "inLanguage": "en",
           "about": {
             "@id": "https://caisi.dev#organization"
@@ -205,7 +205,7 @@
           workflow, credential, reachable actions, target systems, approval
           rule, and proof coverage.
         </p>
-        <p class="body">Last updated: May 5, 2026</p>
+        <p class="body">Last updated: May 7, 2026</p>
         <!-- Source notes: this page avoids external statistics, recent events, and vendor capability claims. Verify any added factual or current claims before publishing. -->
       </section>
 
@@ -228,7 +228,9 @@
         <p>
           Create the first Agent Action BOM when a team is about to let an
           AI-assisted workflow move beyond local suggestions. The trigger is not
-          "AI exists." The trigger is action authority.
+          "AI exists." The trigger is action authority: output is rising, review
+          capacity is limited, and the team needs conditions of trust it can
+          defend later.
         </p>
         <ul class="list-plain">
           <li>A coding agent can open or update pull requests.</li>
@@ -264,7 +266,8 @@
         </p>
         <p>
           A normal inventory can show that a tool exists. An Agent Action BOM
-          should show what the tool or workflow can do.
+          should show what the tool or workflow can do, which review applies,
+          and what evidence survives afterward.
         </p>
       </section>
 
@@ -327,6 +330,7 @@ Proof: PR link, workflow run, credential identity, policy verdict, approver, tes
         <h2 id="rollout-questions">Team questions</h2>
         <ul class="list-plain">
           <li>We are rolling out coding agents and security is nervous. Which workflows can write code, change CI/CD, or trigger deployment paths?</li>
+          <li>AI-assisted output is rising faster than review capacity. Which actions need stronger validation or proof?</li>
           <li>We need audit evidence for AI-assisted SDLC. Which proof fields survive after the action?</li>
           <li>We do not want long-lived credentials in agent workflows. Which credentials are standing, inherited, or broader than the task requires?</li>
           <li>We need to approve risky actions, not every prompt. Which actions should be allowed automatically, require approval, or be blocked?</li>

@@ -37,6 +37,7 @@
 
 ## Canonical Answers
 - AI Software Delivery Control: control over what AI-assisted engineering workflows can touch, change, approve, and prove across PRs, CI/CD, credentials, tools, and release paths.
+- Near-term AI coding tool adoption: adopt AI coding tools without losing visibility, review discipline, or proof.
 - Agent Action BOM: inventory of AI-assisted software delivery action paths, including actor, owner, repo, workflow, credential, reachable action, target, approval, and proof.
 - Rolling out coding agents security review: first map action authority for workflows that can write, call tools, trigger CI/CD, inherit credentials, or touch secrets; then classify actions and proof requirements.
 - Audit evidence for AI-assisted SDLC: proof packet that connects actor, owner, credential, action, target, approval, validation, outcome, and rollback or re-review trigger.
