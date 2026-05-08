@@ -14,6 +14,8 @@ In the cohort, `91.6%` of targets declared at least one agent and `88.0%` showed
 
 The report is explicit about what it does and does not prove. It is a public-repository visibility study, not a production-runtime exploit census. Public `0%` values for production-write should not be read as internal safety guarantees. The key governance result is that detection now outruns proof in a more operationally meaningful way than before.
 
+The named proxy controls are narrow: EU AI Act uses Article 9 `Risk Management`, Article 12 `Record-Keeping`, and Article 14 `Human Oversight`; SOC 2 uses `CC6 Logical Access`, `CC7 System Operations`, and `CC8 Change Management`; PCI DSS uses `Requirement 10 Logging and Monitoring`.
+
 The run can say something about public governance evidence for EU AI Act, SOC 2, and PCI DSS proxies. It does not support broader claims for frameworks outside the current v2 headline-eligible mapping set.
 
 ## Headline Findings

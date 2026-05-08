@@ -209,6 +209,8 @@ Regulatory outputs are deterministic readiness proxies, not legal conclusions. T
 | SOC 2 | `0%` | no visible proxy coverage in public artifacts |
 | PCI DSS | `0%` | no visible proxy coverage in public artifacts |
 
+The proxy controls in scope are narrow and named. For EU AI Act, the run checks Article 9 `Risk Management`, Article 12 `Record-Keeping`, and Article 14 `Human Oversight`. For SOC 2, it checks `CC6 Logical Access`, `CC7 System Operations`, and `CC8 Change Management`. For PCI DSS, it checks `Requirement 10 Logging and Monitoring`.
+
 The run can therefore say something about public governance evidence for EU AI Act, SOC 2, and PCI DSS proxies. It does not support broader claims about frameworks that are not currently in the v2 headline-eligible mapping set.
 
 The meaningful conclusion for AppSec and platform governance is that public AI and agent signals are common, but the evidence needed to support stronger control assertions remains sparse.
