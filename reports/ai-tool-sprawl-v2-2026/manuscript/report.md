@@ -209,6 +209,8 @@ Regulatory outputs are deterministic readiness proxies, not legal conclusions. T
 | SOC 2 | `0%` | no visible proxy coverage in public artifacts |
 | PCI DSS | `0%` | no visible proxy coverage in public artifacts |
 
+The run can therefore say something about public governance evidence for EU AI Act, SOC 2, and PCI DSS proxies. It does not support broader claims about frameworks that are not currently in the v2 headline-eligible mapping set.
+
 The meaningful conclusion for AppSec and platform governance is that public AI and agent signals are common, but the evidence needed to support stronger control assertions remains sparse.
 
 ## 7) What the Report Proves
