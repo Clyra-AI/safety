@@ -4,9 +4,9 @@
     {
       "name": "wrkr",
       "repository": "git@github.com:Clyra-AI/wrkr.git",
-      "commit": "b7d44530aaca015c029695364a89c87a55d3a1e6",
-      "ref": "v1.2.0",
-      "tree_sha256": "11e556a56afe04d00c8a00bce135ffb014fc296911046f3d98eec98bb3ede035"
+      "commit": "9134c3cf2ab903905babf5a38aa29e1526928bc7",
+      "ref": "9134c3c",
+      "tree_sha256": "1599a4640cd55ccaffd7890088cb5ca5c25953ccf718b3ccd1e80bf45ddd2a7f"
     }
   ]
 }
