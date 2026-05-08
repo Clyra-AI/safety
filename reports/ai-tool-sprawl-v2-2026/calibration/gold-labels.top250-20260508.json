@@ -1,0 +1,177 @@
+[
+  {
+    "target": "amd/gaia",
+    "expected_non_source_exists": true,
+    "expected_agents_exist": true,
+    "reviewer": "Codex manual public-artifact review",
+    "notes": "README explicitly describes an AI agent framework with tools and local runtime support."
+  },
+  {
+    "target": "apify/apify-mcp-server",
+    "expected_non_source_exists": true,
+    "expected_agents_exist": true,
+    "reviewer": "Codex manual public-artifact review",
+    "notes": "package.json declares an MCP server package and model-context tooling surface."
+  },
+  {
+    "target": "ascending-llc/jarvis-registry",
+    "expected_non_source_exists": true,
+    "expected_agents_exist": true,
+    "reviewer": "Codex manual public-artifact review",
+    "notes": "README describes MCP gateway, A2A orchestration, and autonomous agents."
+  },
+  {
+    "target": "bobmatnyc/claude-mpm",
+    "expected_non_source_exists": true,
+    "expected_agents_exist": true,
+    "reviewer": "Codex manual public-artifact review",
+    "notes": "package.json describes Claude orchestration with agent delegation."
+  },
+  {
+    "target": "code-yeongyu/oh-my-openagent",
+    "expected_non_source_exists": true,
+    "expected_agents_exist": true,
+    "reviewer": "Codex manual public-artifact review",
+    "notes": "package.json declares an openagent CLI with agent and LLM keywords."
+  },
+  {
+    "target": "ComposioHQ/agent-orchestrator",
+    "expected_non_source_exists": true,
+    "expected_agents_exist": true,
+    "reviewer": "Codex manual public-artifact review",
+    "notes": "README describes parallel AI coding agents and an orchestrator runtime."
+  },
+  {
+    "target": "cosmicstack-labs/mercury-agent",
+    "expected_non_source_exists": true,
+    "expected_agents_exist": true,
+    "reviewer": "Codex manual public-artifact review",
+    "notes": "package.json declares an AI agent with OpenAI and Anthropic provider support."
+  },
+  {
+    "target": "cuga-project/cuga-agent",
+    "expected_non_source_exists": true,
+    "expected_agents_exist": true,
+    "reviewer": "Codex manual public-artifact review",
+    "notes": "pyproject.toml describes a generalist agent with MCP and model integrations."
+  },
+  {
+    "target": "doobidoo/mcp-memory-service",
+    "expected_non_source_exists": true,
+    "expected_agents_exist": true,
+    "reviewer": "Codex manual public-artifact review",
+    "notes": "pyproject.toml declares MCP memory tooling and AI agent memory use cases."
+  },
+  {
+    "target": "Galaxy-Dawn/claude-scholar",
+    "expected_non_source_exists": true,
+    "expected_agents_exist": true,
+    "reviewer": "Codex manual public-artifact review",
+    "notes": "README describes a semi-automated research assistant with agent and Claude/Codex support."
+  },
+  {
+    "target": "khive-ai/lionagi",
+    "expected_non_source_exists": true,
+    "expected_agents_exist": true,
+    "reviewer": "Codex manual public-artifact review",
+    "notes": "README describes multi-agent AI workflows and multiple model backends."
+  },
+  {
+    "target": "langfuse/langfuse",
+    "expected_non_source_exists": true,
+    "expected_agents_exist": true,
+    "reviewer": "Codex manual public-artifact review",
+    "notes": "README and package scripts reference LLM tracing and agent actions."
+  },
+  {
+    "target": "mcp-use/mcp-use",
+    "expected_non_source_exists": true,
+    "expected_agents_exist": true,
+    "reviewer": "Codex manual public-artifact review",
+    "notes": "README and package metadata describe MCP use for agents and tool calling."
+  },
+  {
+    "target": "nextlevelbuilder/goclaw",
+    "expected_non_source_exists": true,
+    "expected_agents_exist": true,
+    "reviewer": "Codex manual public-artifact review",
+    "notes": "Repository purpose and metadata identify an agent-focused runtime/tooling project."
+  },
+  {
+    "target": "NousResearch/hermes-agent",
+    "expected_non_source_exists": true,
+    "expected_agents_exist": true,
+    "reviewer": "Codex manual public-artifact review",
+    "notes": "Repository naming and public metadata identify an agent implementation surface."
+  },
+  {
+    "target": "nuxt-modules/mcp-toolkit",
+    "expected_non_source_exists": true,
+    "expected_agents_exist": true,
+    "reviewer": "Codex manual public-artifact review",
+    "notes": "package.json declares an MCP toolkit monorepo and related docs/playground packages."
+  },
+  {
+    "target": "ogx-ai/ogx",
+    "expected_non_source_exists": true,
+    "expected_agents_exist": true,
+    "reviewer": "Codex manual public-artifact review",
+    "notes": "README describes an OpenAI-compatible agentic API server with tool calling and MCP integration."
+  },
+  {
+    "target": "paperclipai/paperclip",
+    "expected_non_source_exists": true,
+    "expected_agents_exist": true,
+    "reviewer": "Codex manual public-artifact review",
+    "notes": "README describes orchestrating teams of AI agents across an organization."
+  },
+  {
+    "target": "pipecat-ai/pipecat",
+    "expected_non_source_exists": true,
+    "expected_agents_exist": true,
+    "reviewer": "Codex manual public-artifact review",
+    "notes": "README and pyproject describe conversational agents with MCP and model-provider support."
+  },
+  {
+    "target": "rcarmo/piclaw",
+    "expected_non_source_exists": true,
+    "expected_agents_exist": true,
+    "reviewer": "Codex manual public-artifact review",
+    "notes": "README describes a stateful agent workspace with MCP tooling and provider state."
+  },
+  {
+    "target": "SolaceLabs/solace-agent-mesh",
+    "expected_non_source_exists": true,
+    "expected_agents_exist": true,
+    "reviewer": "Codex manual public-artifact review",
+    "notes": "README describes an event-driven multi-agent AI framework."
+  },
+  {
+    "target": "stacklok/toolhive",
+    "expected_non_source_exists": true,
+    "expected_agents_exist": true,
+    "reviewer": "Codex manual public-artifact review",
+    "notes": "README and go.mod describe MCP runtime support for agentic workflows."
+  },
+  {
+    "target": "swarmclawai/swarmclaw",
+    "expected_non_source_exists": true,
+    "expected_agents_exist": true,
+    "reviewer": "Codex manual public-artifact review",
+    "notes": "package.json describes autonomous AI agents, orchestration, and multiple model providers."
+  },
+  {
+    "target": "triggerdotdev/trigger.dev",
+    "expected_non_source_exists": true,
+    "expected_agents_exist": true,
+    "reviewer": "Codex manual public-artifact review",
+    "notes": "README describes building and deploying AI agents and workflows."
+  },
+  {
+    "target": "valory-xyz/open-autonomy",
+    "expected_non_source_exists": true,
+    "expected_agents_exist": true,
+    "reviewer": "Codex manual public-artifact review",
+    "notes": "README explicitly describes a framework for creating AI agents and multi-agent systems."
+  }
+]

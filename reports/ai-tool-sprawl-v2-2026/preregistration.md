@@ -1,18 +1,19 @@
 # AI Tool Sprawl V2 2026 Pre-Registration
 
 Status: locked  
-Version: `v2`
+Version: `v2.1`
 
-This file governs the initial v2 full-scale collection and post-run publish validation workflow.
+This file governs the v2 publication collection and post-run publish validation workflow.
 
 ## Study Identity
 
 - Report ID: `ai-tool-sprawl-v2-2026`
 - Working title: `The State of AI Tool and Agent Sprawl, 2026`
-- Target list source: `pipelines/sprawl/generate_targets_v2.sh --purpose publication`
+- Target list source: locked frozen cohort `internal/repos-v2-publication-250.md`
 - Default cohort weighting: `50% ai_native`, `30% dev_platform`, `20% security_platform`
 - Run root: `runs/tool-sprawl/<run_id>/`
 - Initial lock created: `2026-03-11`
+- Replacement publication lock: `2026-05-08`
 
 ## Hypotheses
 
@@ -46,6 +47,7 @@ This file governs the initial v2 full-scale collection and post-run publish vali
 - Appendix artifact: `runs/tool-sprawl/<run_id>/appendix/combined-appendix-v2.json`
 - Sampling frame: one public `owner/repo` per owner with deterministic exclusions for obvious tutorial, template, docs, prompt-pack, and mirror repos
 - Publication cohort emphasis: weight the denominator toward mature software-delivery and security-platform repositories so AppSec and trust-pressure findings remain relevant outside AI-native builders
+- Replacement publication cohort: `250` frozen public repositories selected locally from the v2 publication frame to preserve the `50/30/20` mix while avoiding GitHub API-driven target drift during rerun
 - Full collection run: `pipelines/sprawl/run_v2.sh --lane full --purpose publication`
 - Strict publish validation occurs after claim values are populated from the immutable run and gold-label calibration evaluation is complete
 
@@ -66,4 +68,4 @@ This file governs the initial v2 full-scale collection and post-run publish vali
 
 - Locked by: `David Ahmann`
 - Locked at (UTC): `2026-03-12T17:42:11Z`
-- Notes: `v2 control update: publication cohort shifted to 50/30/20 AI-dev-sec mix and report framing centered on software-delivery, AppSec, and evidence posture.`
+- Notes: `v2.1 publication replacement lock: frozen 250-target local cohort derived from the v2 publication frame, same 50/30/20 weighting, threshold policy updated so orgs_scanned gates reflect the locked 250-target publication denominator.`

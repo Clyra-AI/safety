@@ -3,33 +3,33 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Declared Agents Are Not Deployed Agents | CAISI Blog</title>
+    <title>Deployment Signal Is Not Binding Proof | CAISI Blog</title>
     <meta
       name="description"
-      content="Why engineering and platform leaders should separate declared agent frameworks from deployable agent surfaces when reading AI adoption signals."
+      content="Why engineering and platform leaders should separate deployed-agent signal from tool, data, and auth binding proof when reading AI adoption data."
     />
     <!-- SEO_META_START -->
     <link rel="canonical" href="https://caisi.dev/blog/sprawl-2026/declared-agents-are-not-deployed-agents/" />
     <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
     <meta property="og:site_name" content="CAISI" />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="Declared Agents Are Not Deployed Agents | CAISI Blog" />
-    <meta property="og:description" content="Why engineering and platform leaders should separate declared agent frameworks from deployable agent surfaces when reading AI adoption signals." />
+    <meta property="og:title" content="Deployment Signal Is Not Binding Proof | CAISI Blog" />
+    <meta property="og:description" content="Why engineering and platform leaders should separate deployed-agent signal from tool, data, and auth binding proof when reading AI adoption data." />
     <meta property="og:url" content="https://caisi.dev/blog/sprawl-2026/declared-agents-are-not-deployed-agents/" />
     <meta property="og:image" content="https://caisi.dev/assets/caisi-social.png" />
-    <meta property="og:image:alt" content="Declared Agents Are Not Deployed Agents | CAISI Blog" />
+    <meta property="og:image:alt" content="Deployment Signal Is Not Binding Proof | CAISI Blog" />
     <meta property="og:image:width" content="1600" />
     <meta property="og:image:height" content="900" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Declared Agents Are Not Deployed Agents | CAISI Blog" />
-    <meta name="twitter:description" content="Why engineering and platform leaders should separate declared agent frameworks from deployable agent surfaces when reading AI adoption signals." />
+    <meta name="twitter:title" content="Deployment Signal Is Not Binding Proof | CAISI Blog" />
+    <meta name="twitter:description" content="Why engineering and platform leaders should separate deployed-agent signal from tool, data, and auth binding proof when reading AI adoption data." />
     <meta name="twitter:image" content="https://caisi.dev/assets/caisi-social.png" />
     <link rel="alternate" type="text/plain" href="/llms.txt" title="CAISI llms.txt" />
     <link rel="alternate" type="text/plain" href="/llms-full.txt" title="CAISI llms-full.txt" />
     <meta name="author" content="David Ahmann" />
     <link rel="author" href="https://caisi.dev/authors/david-ahmann/" />
     <meta property="article:published_time" content="2026-03-14" />
-    <meta property="article:modified_time" content="2026-05-06" />
+    <meta property="article:modified_time" content="2026-05-08" />
     <!-- SEO_META_END -->
 <link rel="stylesheet" href="/assets/site.css" />
     <!-- SEO_SCHEMA_START -->
@@ -94,8 +94,8 @@
           "@type": "WebPage",
           "@id": "https://caisi.dev/blog/sprawl-2026/declared-agents-are-not-deployed-agents/#webpage",
           "url": "https://caisi.dev/blog/sprawl-2026/declared-agents-are-not-deployed-agents/",
-          "name": "Declared Agents Are Not Deployed Agents | CAISI Blog",
-          "description": "Why engineering and platform leaders should separate declared agent frameworks from deployable agent surfaces when reading AI adoption signals.",
+          "name": "Deployment Signal Is Not Binding Proof | CAISI Blog",
+          "description": "Why engineering and platform leaders should separate deployed-agent signal from tool, data, and auth binding proof when reading AI adoption data.",
           "inLanguage": "en",
           "about": {
             "@id": "https://caisi.dev#organization"
@@ -145,15 +145,15 @@
             {
               "@type": "ListItem",
               "position": 4,
-              "name": "Declared Agents Are Not Deployed Agents"
+              "name": "Deployment Signal Is Not Binding Proof"
             }
           ]
         },
         {
           "@type": "BlogPosting",
           "@id": "https://caisi.dev/blog/sprawl-2026/declared-agents-are-not-deployed-agents/#article",
-          "headline": "Declared Agents Are Not Deployed Agents",
-          "description": "Why engineering and platform leaders should separate declared agent frameworks from deployable agent surfaces when reading AI adoption signals.",
+          "headline": "Deployment Signal Is Not Binding Proof",
+          "description": "Why engineering and platform leaders should separate deployed-agent signal from tool, data, and auth binding proof when reading AI adoption data.",
           "mainEntityOfPage": "https://caisi.dev/blog/sprawl-2026/declared-agents-are-not-deployed-agents/",
           "url": "https://caisi.dev/blog/sprawl-2026/declared-agents-are-not-deployed-agents/",
           "image": "https://caisi.dev/assets/caisi-social.png",
@@ -214,7 +214,7 @@
           <span class="divider">/</span>
           <a href="/blog/sprawl-2026/">Sprawl Series</a>
           <span class="divider">/</span>
-          <span>Declared Agents Are Not Deployed Agents</span>
+          <span>Deployment Signal Is Not Binding Proof</span>
         </p>
         <p class="eyebrow">Sprawl Series / Post 3 of 4 / Platform</p>
         <div class="post-author">
@@ -223,17 +223,15 @@
             By <a href="https://www.linkedin.com/in/dahmann/">David Ahmann (LinkedIn)</a>
           </p>
         </div>
-        <h1>Declared Agents Are Not Deployed Agents</h1>
+        <h1>Deployment Signal Is Not Binding Proof</h1>
         <p class="lead">
-          A recurring platform mistake is treating declarations as operational
-          truth. Repos mention agents early because experimentation is cheap.
-          Runtime-ready, bounded, supportable agents arrive much later. The
-          sprawl data makes that gap explicit, and that is useful because
-          platform contracts are built on what can run, not on what a repo
-          references.
+          A recurring platform mistake is treating deployment markers as
+          operational truth. Repos now expose plenty of agent deployment
+          signal. What they still fail to expose is the complete tool, data,
+          and auth wiring needed to govern those agents cleanly.
         </p>
         <p class="lead">
-          Declaration is cheap. Deployment is the governed part.
+          Deployment evidence is useful. Binding proof is the governed part.
         </p>
       </section>
 
@@ -258,12 +256,12 @@
         <div class="quote-card">
           <h2 id="grounding">Grounding</h2>
           <p>
-            Run ID: <code>sprawl-v2-full-20260312b</code><br />
-            Declared-agent prevalence: <code>98.2%</code><br />
-            Deployed-agent prevalence: <code>4.04%</code><br />
+            Run ID: <code>sprawl-v2-top250-20260508a</code><br />
+            Declared-agent prevalence: <code>91.6%</code><br />
+            Deployed-agent prevalence: <code>88.0%</code><br />
             Binding-complete agents: <code>0</code><br />
             Core artifact:
-            <code>runs/tool-sprawl/sprawl-v2-full-20260312b/agg/campaign-summary-v2.json</code><br />
+            <code>runs/tool-sprawl/sprawl-v2-top250-20260508a/agg/campaign-summary-v2.json</code><br />
             Deterministic queries:
             <code>jq '.campaign.metrics.orgs_with_agents_pct'</code>,
             <code>jq '.campaign.metrics.orgs_with_deployed_agents_pct'</code>,
@@ -275,19 +273,19 @@
       <section class="section article-section">
         <h2 id="the-declaration-trap">The declaration trap</h2>
         <p>
-          Engineering and platform leaders are now surrounded by repos that mention agent
-          frameworks, orchestration libraries, MCP patterns, or agent-specific
-          configuration. Those signals matter. They show where teams are
-          experimenting and where future delivery surface may emerge. But they
-          are not the same thing as deployed, bound, and governable runtime
-          actors.
+          Engineering and platform leaders are now surrounded by repos that
+          expose agent frameworks, orchestration libraries, MCP patterns,
+          deployment configuration, and agent-specific workflows. Those
+          signals matter. They show where teams are building real delivery
+          paths. But they are still not the same thing as bound and governable
+          runtime actors.
         </p>
         <p>
-          The report makes that distinction measurable. Almost every completed
-          target declared agents. Only a small minority showed deployable-agent
-          signals. None of the detected agents were binding-complete. The
-          public repo surface is therefore rich in declarations and thin on
-          operational completeness.
+          The report makes that distinction measurable. Most targets declared
+          agents. Almost as many showed deployed-agent signals. None of the
+          detected agents were binding-complete. The public repo surface is
+          therefore rich in deployment markers and still thin on operational
+          completeness.
         </p>
         <p>
           The mistake many organizations make is collapsing all of those states
@@ -301,19 +299,20 @@
         <h2 id="a-better-platform-lifecycle-for-agents">A better platform lifecycle for agents</h2>
         <p>
           A practical model is to separate at least five states: declared,
-          bound, runnable, privileged, and production-supported. The report
-          shows plenty of the first state and little evidence for the later
-          ones. That is not a moral failure. It is a lifecycle signal. The
+          deployed, bound, privileged, and production-supported. The report
+          shows plenty of the first two states and little evidence for the
+          later ones. That is not a moral failure. It is a lifecycle signal. The
           <a href="/agent-action-bom/">Agent Action BOM</a> is one way to move
-          from declaration state to action-path state.
+          from visible deployment state to action-path state.
         </p>
         <p>
           Declared means the repo references an agent framework or configuration.
-          Bound means the repo exposes the tool, identity, and data contracts
-          that make the agent legible. Runnable means the path appears complete
-          enough to operate. Privileged means it can write, execute, or access
-          higher-risk surfaces. Production-supported means the organization is
-          willing to stand behind it operationally.
+          Deployed means the repo exposes deployment artifacts or deployment
+          status that imply a runnable path. Bound means the repo exposes the
+          tool, identity, and data contracts that make the agent legible.
+          Privileged means it can write, execute, or access higher-risk
+          surfaces. Production-supported means the organization is willing to
+          stand behind it operationally.
         </p>
       </section>
 
@@ -323,8 +322,8 @@
           Platform work depends on precise contracts. A platform team needs to
           know what the agent can call, what identity it will use, what data
           scope it can see, and where approval and evidence handoffs live. A
-          declaration-only agent tells you that adoption pressure exists. It
-          does not tell you that the runtime boundary is ready.
+          deployed-looking agent tells you that adoption pressure exists. It
+          still does not tell you that the runtime boundary is ready.
         </p>
         <p>
           That is why the report is useful for engineering and platform leadership. It gives a
@@ -347,7 +346,7 @@
           from declaration to deployment explicit and reviewable.
         </p>
         <ul class="list-plain">
-          <li>Track declaration presence and deployable-agent evidence as separate lifecycle states.</li>
+          <li>Track declaration presence, deployment signal, and binding completeness as separate lifecycle states.</li>
           <li>Require binding completeness before platform support is treated as production-ready.</li>
           <li>Normalize agent identity, tool invocation, and approval handoff patterns across repos.</li>
           <li>Keep experimentation cheap, but make runtime elevation explicit and reviewable.</li>
@@ -366,10 +365,10 @@
       <section class="section article-section">
         <h2 id="the-platform-lesson">The platform lesson</h2>
         <p>
-          The report is not warning that every repo with agents is already
-          dangerous. It is showing how quickly declaration can outrun the
-          underlying contracts that make deployment governable. That is exactly
-          where platform teams should intervene.
+          The report is not warning that every repo with deployed agents is
+          already dangerous. It is showing how quickly deployment signal can
+          outrun the underlying contracts that make operation governable. That
+          is exactly where platform teams should intervene.
         </p>
         <p>
           If a platform organization can define the path from declaration to
@@ -391,7 +390,7 @@
         </div>
         <p class="footer-note">
           Practical question: do your current platform standards distinguish
-          clearly between declaring an agent and operating one?
+          clearly between deployment signal and binding-complete operation?
         </p>
       </footer>
     </main>

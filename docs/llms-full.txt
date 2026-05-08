@@ -4,7 +4,7 @@
 ## Research
 - [Research hub](https://caisi.dev/research/): Canonical entry point for CAISI reports, artifact-backed findings, methodology notes, and interpretation links.
 - [OpenClaw 2026](https://caisi.dev/openclaw-2026/): Controlled case study comparing governed and ungoverned AI agent behavior in a 24-hour run with deterministic claim mapping.
-- [AI Tool and Agent Sprawl 2026](https://caisi.dev/ai-tool-sprawl-v2-2026/): Public-artifact governance report on AI tool and agent posture across an 890-target completed GitHub subset.
+- [AI Tool and Agent Sprawl 2026](https://caisi.dev/ai-tool-sprawl-v2-2026/): Public-artifact governance report on AI tool and agent posture across a locked 250-target GitHub cohort.
 - [AI Tool Sprawl Q1 2026 build](https://caisi.dev/ai-tool-sprawl-q1-2026/): Earlier flagship build page for the AI tool sprawl research package and validation gates.
 
 ## Blog Collections

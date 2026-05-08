@@ -1,14 +1,14 @@
 # AI Tool Sprawl V2 2026 Study Protocol
 
-Status: locked  
-Version: `v2`  
+Status: locked
+Version: `v2.1`
 Objective: produce a reproducible multi-organization AI tool and agent governance baseline.
 
 ## 1) Campaign Design
 
 - canonical campaign mode: deterministic baseline scan
 - supplemental enrich mode: separate run with explicit provenance (`as_of`, `source`), never merged into baseline headline claims
-- target cohort: use a v2-specific public-repository frame generated with `pipelines/sprawl/generate_targets_v2.sh --purpose publication`
+- target cohort: use a v2-specific public-repository frame and freeze the publication rerun to `internal/repos-v2-publication-250.md`
 - runtime pinning: prefer repo-pinned Wrkr runtime (`go run` from `WRKR_REPO_PATH`) over ambient PATH binary unless explicit `WRKR_BIN` override is supplied
 
 The v2 selection profile must preserve the v1 core eligibility rules while changing the sampling mix:
@@ -20,6 +20,7 @@ The v2 selection profile must preserve the v1 core eligibility rules while chang
 - optional size cap
 - default cohort weighting: `50% ai_native`, `30% dev_platform`, `20% security_platform`
 - publication weighting is intentionally delivery- and security-heavier than the calibration cohort so the denominator better reflects AppSec-relevant software-delivery surface
+- replacement publication run uses a locked `250`-target cohort drawn from that frame; the weighting is preserved even though the denominator is narrower than the earlier 1000-target publication plan
 - deterministic exclusions for obvious tutorial, example, template, docs, prompt-pack, and mirror repos
 
 ## 2) Required Scanner Surfaces

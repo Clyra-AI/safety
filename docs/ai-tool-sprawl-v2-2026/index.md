@@ -4,5 +4,5 @@ This route is rendered from `index.html` for consistent site UX.
 
 - [Open report page](./)
 - [Report PDF](/assets/reports/ai-tool-sprawl-v2-2026/report.pdf)
-- [Artifacts](https://github.com/Clyra-AI/safety/tree/main/runs/tool-sprawl/sprawl-v2-full-20260312b)
+- [Artifacts](https://github.com/Clyra-AI/safety/tree/main/runs/tool-sprawl/sprawl-v2-top250-20260508a)
 - [Sprawl blog series](/blog/sprawl-2026/)

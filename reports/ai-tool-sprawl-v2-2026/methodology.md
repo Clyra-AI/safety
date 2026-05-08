@@ -1,5 +1,7 @@
 # Methodology - AI Tool Sprawl V2 2026
 
+Version: `v2.1`
+
 ## Scope
 
 V2 expands the sprawl study from tool-only baseline inventory to tool plus agent posture.
@@ -25,6 +27,8 @@ V2 changes the publication sampling frame through an explicit generator profile:
 
 The publication weighting is not intended to mimic the broader public GitHub population.
 It is intentionally biased toward repositories that combine visible AI adoption with meaningful software-delivery and security surface, because those are the environments where AppSec, audit, and platform-governance questions become operationally important.
+
+For the current publication replacement, the report is locked to `250` frozen public repositories in `internal/repos-v2-publication-250.md`. This keeps the v2 weighting profile intact while making the rerun locally reproducible without depending on live GitHub API target regeneration.
 
 The default generator path remains `v1`, so the legacy Q1 2026 sampling frame is unchanged unless the new profile is requested.
 

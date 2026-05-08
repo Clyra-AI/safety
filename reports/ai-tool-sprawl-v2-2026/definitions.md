@@ -1,11 +1,13 @@
 # AI Tool Sprawl V2 2026 Definitions
 
-Status: locked  
-Version: `v2`  
+Status: locked
+Version: `v2.1`
 Created: `2026-03-11`
 
 This file defines the locked classifications and formulas for the v2 tool+agent sprawl report.
 The report interpretation is centered on software-delivery governance, evidence posture, and AppSec-relevant delivery paths.
+
+The `v2.1` publication replacement keeps the metric formulas unchanged while locking the public report denominator to the frozen `250`-target cohort in `internal/repos-v2-publication-250.md`.
 
 ## Headline Scope Filters
 
@@ -165,7 +167,7 @@ Supporting:
 
 - Locked by: `David Ahmann`
 - Locked at (UTC): `2026-03-12T17:42:11Z`
-- Notes: `v2 control update: AppSec/software-delivery publication framing retained without changing headline metric formulas.`
+- Notes: `v2.1 publication replacement: headline metric formulas unchanged; publication denominator and threshold policy aligned to the locked 250-target cohort.`
 
 ## Change Control
 
