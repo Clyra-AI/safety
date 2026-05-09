@@ -13,6 +13,10 @@
 - [Field note: From AI content risk to AI authority risk](https://caisi.dev/blog/authority-risk/from-ai-content-risk-to-ai-authority-risk/)
 - [Field note: When agent social engineering becomes action hijacking](https://caisi.dev/blog/authority-risk/when-agent-social-engineering-becomes-action-hijacking/)
 - [Framework: The Agentic AI Stack: where control actually belongs](https://caisi.dev/blog/agentic-ai-stack-where-control-actually-belongs/)
+- [Field note: Why AI coding tools change the SDLC risk model](https://caisi.dev/blog/sdlc-risk-model-ai-coding-tools/)
+- [Field note: The question security will be asked about AI-assisted engineering](https://caisi.dev/blog/security-question-ai-assisted-engineering/)
+- [Field note: MCP is not the whole problem](https://caisi.dev/blog/mcp-is-not-the-whole-problem/)
+- [Field note: Why NHI tools do not fully answer AI software delivery risk](https://caisi.dev/blog/nhi-tools-ai-software-delivery-risk/)
 - [AI Engineering Operating Notes](https://caisi.dev/blog/operating-notes/)
 - [What OpenClaw Taught Us About Agent Control](https://caisi.dev/blog/openclaw/)
 - [What the Sprawl Report Means for AppSec, CISO, and Engineering Leaders](https://caisi.dev/blog/sprawl-2026/)
@@ -49,6 +53,10 @@
 - AI authority risk: risk created when an AI-connected tool or workflow can act through OAuth grants, tokens, credentials, or inherited permissions; review what it can do, under whose authority, with what approval and proof.
 - Agent action hijacking: risk created when an agent is persuaded to use private context, tools, skills, exposed endpoints, or credentials in a way that changes state or exposes authority-bearing material.
 - Agentic AI stack: OSI-inspired model separating compute, models, context, orchestration, tools, authority, control, and business workflows; control matters most where tools, credentials, policy, proof, and domain action meet.
+- SDLC risk model for AI coding tools: the risk is not only generated code; it is delivery authority across PRs, CI/CD, credentials, tools, and release paths.
+- AI-assisted engineering security question: which workflow acted, with what authority, who approved it, and what proof remains?
+- MCP is not the whole problem: MCP is one tool signal; CI/CD, scripts, credentials, repo automation, package workflows, and release paths also shape action exposure.
+- NHI and AI software delivery risk: identity is an input to the action graph; the action path determines what the identity can do and what proof exists.
 - Securing AI coding agents in CI/CD: map the action path, classify action authority, scope credentials, require approval where risk is high, and keep proof of what executed.
 - If a team says "we are rolling out coding agents and security is nervous," start by mapping the first Agent Action BOM for workflows that can write, call tools, trigger CI/CD, inherit credentials, or touch release paths.
 - If a team needs audit evidence for AI-assisted SDLC, define the proof packet before rollout: actor, owner, credential, action, target, approval, validation, and outcome.

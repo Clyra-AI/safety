@@ -29,7 +29,7 @@
     <meta name="author" content="David Ahmann" />
     <link rel="author" href="https://caisi.dev/authors/david-ahmann/" />
     <meta property="article:published_time" content="2026-05-05" />
-    <meta property="article:modified_time" content="2026-05-07" />
+    <meta property="article:modified_time" content="2026-05-09" />
     <!-- SEO_META_END -->
 
     <link rel="stylesheet" href="/assets/site.css" />
@@ -147,7 +147,7 @@
           "url": "https://caisi.dev/agent-action-bom/",
           "image": "https://caisi.dev/assets/caisi-social.png",
           "datePublished": "2026-05-05",
-          "dateModified": "2026-05-07",
+          "dateModified": "2026-05-09",
           "inLanguage": "en",
           "about": {
             "@id": "https://caisi.dev#organization"
@@ -215,6 +215,7 @@
           <a href="#when">When to create one</a>
           <a href="#why">Why it exists</a>
           <a href="#fields">Core fields</a>
+          <a href="#checklist">Checklist version</a>
           <a href="#difference">How it differs from an SBOM and an AI inventory</a>
           <a href="#example">A first-pass example</a>
           <a href="#rollout-questions">Team questions</a>
@@ -293,6 +294,25 @@
       </section>
 
       <section class="section article-section">
+        <h2 id="checklist">Checklist version</h2>
+        <p>
+          If the artifact needs to fit into an AppSec review, security briefing,
+          or platform standard, the minimum useful checklist is:
+        </p>
+        <ul class="list-plain">
+          <li><strong>Actor:</strong> agent, workflow, bot, assistant, or automation name.</li>
+          <li><strong>Owner:</strong> accountable human team, service owner, or platform owner.</li>
+          <li><strong>Location:</strong> repo, PR, branch, workflow file, config file, local setup, MCP declaration, or script.</li>
+          <li><strong>Tool path:</strong> APIs, MCP servers, package managers, shell, browser automation, cloud CLI, CI/CD jobs, or SaaS connectors.</li>
+          <li><strong>Credential:</strong> token, OAuth grant, service account, CI secret, deploy key, inherited user identity, or short-lived credential.</li>
+          <li><strong>Action classes:</strong> read, write, execute, change workflow, access secret, publish package, deploy, call cloud API, or modify data.</li>
+          <li><strong>Target systems:</strong> repo, branch, package registry, CI/CD system, cloud account, database, issue tracker, deployment path, or release workflow.</li>
+          <li><strong>Control rule:</strong> allowed, approval-required, or blocked.</li>
+          <li><strong>Proof:</strong> actor, owner, credential identity, action, target, approval decision, validation result, timestamp, and outcome.</li>
+        </ul>
+      </section>
+
+      <section class="section article-section">
         <h2 id="difference">How it differs from an SBOM and an AI inventory</h2>
         <p>
           An SBOM lists software components. An AI inventory may list models,
@@ -357,6 +377,8 @@ Proof: PR link, workflow run, credential identity, policy verdict, approver, tes
           <a href="/secure-ai-coding-agents-ci-cd/">Secure AI coding agents in CI/CD</a>
           <span class="divider">|</span>
           <a href="/blog/glossary/">Glossary</a>
+          <span class="divider">|</span>
+          <a href="https://clyra.cc/#bom">Related Clyra Agent Action BOM example</a>
         </div>
       </section>
 

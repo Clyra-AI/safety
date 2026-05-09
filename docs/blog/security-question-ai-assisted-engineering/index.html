@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>The Question Security Will Be Asked About AI-Assisted Engineering | CAISI Blog</title>
+    <meta
+      name="description"
+      content="A CAISI field note for security leaders: the AI-assisted engineering question is which workflow acted, with what authority, who approved it, and what proof remains."
+    />
+    <!-- SEO_META_START -->
+    <link rel="canonical" href="https://caisi.dev/blog/security-question-ai-assisted-engineering/" />
+    <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+    <meta property="og:site_name" content="CAISI" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="The Question Security Will Be Asked About AI-Assisted Engineering | CAISI Blog" />
+    <meta property="og:description" content="A CAISI field note for security leaders: the AI-assisted engineering question is which workflow acted, with what authority, who approved it, and what proof remains." />
+    <meta property="og:url" content="https://caisi.dev/blog/security-question-ai-assisted-engineering/" />
+    <meta property="og:image" content="https://caisi.dev/assets/caisi-social.png" />
+    <meta property="og:image:alt" content="The Question Security Will Be Asked About AI-Assisted Engineering | CAISI Blog" />
+    <meta property="og:image:width" content="1600" />
+    <meta property="og:image:height" content="900" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="The Question Security Will Be Asked About AI-Assisted Engineering | CAISI Blog" />
+    <meta name="twitter:description" content="A CAISI field note for security leaders: the AI-assisted engineering question is which workflow acted, with what authority, who approved it, and what proof remains." />
+    <meta name="twitter:image" content="https://caisi.dev/assets/caisi-social.png" />
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="CAISI llms.txt" />
+    <link rel="alternate" type="text/plain" href="/llms-full.txt" title="CAISI llms-full.txt" />
+    <meta name="author" content="David Ahmann" />
+    <link rel="author" href="https://caisi.dev/authors/david-ahmann/" />
+    <meta property="article:published_time" content="2026-05-09" />
+    <meta property="article:modified_time" content="2026-05-09" />
+    <!-- SEO_META_END -->
+    <link rel="stylesheet" href="/assets/site.css" />
+    <!-- SEO_SCHEMA_START -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://caisi.dev#organization",
+          "name": "Centre for AI Security and Integrity (CAISI)",
+          "url": "https://caisi.dev",
+          "description": "Independent, reproducible research and operating notes on AI Software Delivery Control, AI agent governance, execution boundaries, proof quality, and safe adoption.",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://caisi.dev/assets/caisi-logo.png"
+          },
+          "email": "david@caisi.dev",
+          "contactPoint": [
+            {
+              "@type": "ContactPoint",
+              "contactType": "research inquiries",
+              "email": "david@caisi.dev",
+              "url": "https://caisi.dev",
+              "availableLanguage": [
+                "en"
+              ]
+            }
+          ],
+          "knowsAbout": [
+            "AI agent governance",
+            "AI Software Delivery Control",
+            "Agent Action BOM",
+            "AI coding agent security review",
+            "AI-assisted SDLC audit evidence",
+            "AI agent action approval",
+            "MCP tool risk",
+            "AI agent credential risk",
+            "AI coding agent security",
+            "CI/CD agent security",
+            "AI agent control",
+            "execution boundaries",
+            "tool-boundary enforcement",
+            "approval mediation",
+            "evidence quality",
+            "safe AI adoption",
+            "reproducible AI governance research"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://caisi.dev#website",
+          "url": "https://caisi.dev",
+          "name": "CAISI",
+          "description": "Independent research and field notes for teams rolling out AI coding agents, MCP tools, CI/CD automation, approval controls, and audit evidence.",
+          "publisher": {
+            "@id": "https://caisi.dev#organization"
+          },
+          "inLanguage": "en"
+        },
+        {
+          "@type": "WebPage",
+          "@id": "https://caisi.dev/blog/security-question-ai-assisted-engineering/#webpage",
+          "url": "https://caisi.dev/blog/security-question-ai-assisted-engineering/",
+          "name": "The Question Security Will Be Asked About AI-Assisted Engineering | CAISI Blog",
+          "description": "A CAISI field note for security leaders: the AI-assisted engineering question is which workflow acted, with what authority, who approved it, and what proof remains.",
+          "inLanguage": "en",
+          "about": {
+            "@id": "https://caisi.dev#organization"
+          },
+          "isPartOf": {
+            "@id": "https://caisi.dev#website"
+          }
+        },
+        {
+          "@type": "Person",
+          "@id": "https://caisi.dev/authors/david-ahmann/#person",
+          "name": "David Ahmann",
+          "url": "https://caisi.dev/authors/david-ahmann/",
+          "image": "https://caisi.dev/assets/david-ahmann-headshot.png",
+          "description": "David Ahmann writes at CAISI about AI agent governance, execution boundaries, evidence quality, and safe adoption for AppSec, platform, and engineering leaders.",
+          "sameAs": [
+            "https://www.linkedin.com/in/dahmann/"
+          ],
+          "jobTitle": "Head of Cloud & AI Platforms",
+          "worksFor": {
+            "@type": "Organization",
+            "name": "CDW"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": "https://caisi.dev/blog/security-question-ai-assisted-engineering/#breadcrumb",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://caisi.dev"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Blog",
+              "item": "https://caisi.dev/blog/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Security question"
+            }
+          ]
+        },
+        {
+          "@type": "BlogPosting",
+          "@id": "https://caisi.dev/blog/security-question-ai-assisted-engineering/#article",
+          "headline": "The Question Security Will Be Asked About AI-Assisted Engineering",
+          "description": "A CAISI field note for security leaders: the AI-assisted engineering question is which workflow acted, with what authority, who approved it, and what proof remains.",
+          "mainEntityOfPage": "https://caisi.dev/blog/security-question-ai-assisted-engineering/",
+          "url": "https://caisi.dev/blog/security-question-ai-assisted-engineering/",
+          "image": "https://caisi.dev/assets/caisi-social.png",
+          "datePublished": "2026-05-09",
+          "dateModified": "2026-05-09",
+          "inLanguage": "en",
+          "about": {
+            "@id": "https://caisi.dev#organization"
+          },
+          "author": {
+            "@id": "https://caisi.dev/authors/david-ahmann/#person"
+          },
+          "publisher": {
+            "@id": "https://caisi.dev#organization"
+          },
+          "keywords": [
+            "AI Software Delivery Control",
+            "Agent Action BOM",
+            "AI coding agent security review",
+            "AI-assisted SDLC audit evidence",
+            "AI agent action approval",
+            "MCP tool risk",
+            "AI agent credential risk",
+            "AI agent governance",
+            "AI coding agent security",
+            "CI/CD agent security"
+          ]
+        }
+      ]
+    }
+    </script>
+    <!-- SEO_SCHEMA_END -->
+
+  </head>
+  <body>
+    <main class="site" aria-label="CAISI blog post">
+      <header class="site-header" aria-label="Site header">
+        <div class="brand-row">
+          <div class="brand-mark">
+            <a class="brand-link" href="/">CAISI</a>
+            <p class="brand-note">Independent research and operating notes on AI Software Delivery Control.</p>
+          </div>
+        </div>
+        <nav class="global-nav" aria-label="Primary">
+          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" href="/roles/">Roles</a>
+          <a class="nav-link" href="/research/">Research</a>
+          <a class="nav-link current" href="/blog/">Blog</a>
+        </nav>
+      </header>
+
+      <section class="section hero">
+        <p class="breadcrumbs"><a href="/">Home</a> / <a href="/blog/">Blog</a> / <span>Security question</span></p>
+        <p class="eyebrow">Field Note / Security Leadership</p>
+        <div class="post-author">
+          <img class="author-avatar" src="/assets/david-ahmann-headshot.png" alt="David Ahmann" />
+          <p class="author-byline">By <a href="https://www.linkedin.com/in/dahmann/">David Ahmann (LinkedIn)</a></p>
+        </div>
+        <h1>The Question Security Will Be Asked About AI-Assisted Engineering</h1>
+        <p class="lead">
+          The board question will not be "did employees use AI?" for long. The
+          harder question is already forming: which workflow acted, with what
+          authority, who approved it, and what proof exists?
+        </p>
+        <p class="body">Last updated: May 9, 2026</p>
+      </section>
+
+      <section class="section article-section">
+        <h2>The question behind the policy</h2>
+        <p>
+          Most AI usage policies start with allowed tools, data-handling rules,
+          and employee guidance. Those are useful, but they are not enough once
+          AI-assisted engineering enters software delivery.
+        </p>
+        <p>
+          When a workflow can open a PR, change a workflow file, inherit a
+          credential, call an engineering tool, or trigger CI/CD, security will
+          eventually be asked to explain the action path.
+        </p>
+        <blockquote>
+          Which workflow acted, with what authority, who approved it, and what
+          proof remains?
+        </blockquote>
+      </section>
+
+      <section class="section article-section">
+        <h2>Why this is a leadership question</h2>
+        <p>
+          This is not only an AppSec implementation detail. It affects risk
+          ownership, auditability, customer trust, and executive reporting.
+          Leadership needs a defensible answer that does not depend on memory,
+          screenshots, or a heroic reconstruction after something goes wrong.
+        </p>
+        <p>
+          The answer should be available for normal review, not only incident
+          response. If a privileged AI-assisted action happened last week, the
+          team should be able to reconstruct the actor, owner, credential,
+          action, target, approval, validation, and outcome.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>What security should ask before rollout</h2>
+        <ul class="list-plain">
+          <li>Where are AI-assisted engineering workflows being used?</li>
+          <li>Which workflows can write code, change CI/CD, call tools, or reach release paths?</li>
+          <li>Which identities, credentials, tokens, or service accounts do they inherit?</li>
+          <li>Which actions are allowed automatically?</li>
+          <li>Which actions require approval before execution?</li>
+          <li>Which actions should be blocked regardless of prompt or user intent?</li>
+          <li>What evidence remains after the action?</li>
+        </ul>
+      </section>
+
+      <section class="section article-section">
+        <h2>What a good answer looks like</h2>
+        <p>
+          A good answer is specific. It names the workflow, owner, repo, tool,
+          credential, target system, approval rule, and proof trail. It does not
+          stop at "we approved the AI tool" or "the PR was reviewed."
+        </p>
+        <pre><code>Workflow: AI-assisted release-note PR
+Owner: Developer productivity
+Authority: branch write, issue tracker read, CI test run
+Approval-required: workflow-file change, package publish, release job
+Proof: PR, workflow run, credential identity, reviewer, policy verdict, outcome</code></pre>
+        <p>
+          This level of specificity changes the internal conversation. Security
+          can approve useful workflows without pretending that every AI-assisted
+          action has the same risk.
+        </p>
+        <div class="link-row">
+          <a href="/audit-evidence-ai-assisted-sdlc/">Audit evidence for AI-assisted SDLC</a>
+          <span class="divider">|</span>
+          <a href="/approve-actions-not-prompts/">Approve actions, not prompts</a>
+          <span class="divider">|</span>
+          <a href="https://clyra.cc/#assessment">Related Clyra assessment</a>
+        </div>
+      </section>
+
+      <footer class="section article-footer" aria-label="Post footer">
+        <p class="footer-note">
+          Practical question: could your team answer the workflow, authority,
+          approval, and proof question without starting a manual investigation?
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>

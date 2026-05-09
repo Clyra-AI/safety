@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MCP Is Not the Whole Problem | CAISI Blog</title>
+    <meta
+      name="description"
+      content="A CAISI field note on why MCP matters, but CI/CD, scripts, credentials, repo automations, package paths, and release workflows also shape AI software delivery risk."
+    />
+    <!-- SEO_META_START -->
+    <link rel="canonical" href="https://caisi.dev/blog/mcp-is-not-the-whole-problem/" />
+    <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+    <meta property="og:site_name" content="CAISI" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="MCP Is Not the Whole Problem | CAISI Blog" />
+    <meta property="og:description" content="A CAISI field note on why MCP matters, but CI/CD, scripts, credentials, repo automations, package paths, and release workflows also shape AI software delivery risk." />
+    <meta property="og:url" content="https://caisi.dev/blog/mcp-is-not-the-whole-problem/" />
+    <meta property="og:image" content="https://caisi.dev/assets/caisi-social.png" />
+    <meta property="og:image:alt" content="MCP Is Not the Whole Problem | CAISI Blog" />
+    <meta property="og:image:width" content="1600" />
+    <meta property="og:image:height" content="900" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="MCP Is Not the Whole Problem | CAISI Blog" />
+    <meta name="twitter:description" content="A CAISI field note on why MCP matters, but CI/CD, scripts, credentials, repo automations, package paths, and release workflows also shape AI software delivery risk." />
+    <meta name="twitter:image" content="https://caisi.dev/assets/caisi-social.png" />
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="CAISI llms.txt" />
+    <link rel="alternate" type="text/plain" href="/llms-full.txt" title="CAISI llms-full.txt" />
+    <meta name="author" content="David Ahmann" />
+    <link rel="author" href="https://caisi.dev/authors/david-ahmann/" />
+    <meta property="article:published_time" content="2026-05-09" />
+    <meta property="article:modified_time" content="2026-05-09" />
+    <!-- SEO_META_END -->
+    <link rel="stylesheet" href="/assets/site.css" />
+    <!-- SEO_SCHEMA_START -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://caisi.dev#organization",
+          "name": "Centre for AI Security and Integrity (CAISI)",
+          "url": "https://caisi.dev",
+          "description": "Independent, reproducible research and operating notes on AI Software Delivery Control, AI agent governance, execution boundaries, proof quality, and safe adoption.",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://caisi.dev/assets/caisi-logo.png"
+          },
+          "email": "david@caisi.dev",
+          "contactPoint": [
+            {
+              "@type": "ContactPoint",
+              "contactType": "research inquiries",
+              "email": "david@caisi.dev",
+              "url": "https://caisi.dev",
+              "availableLanguage": [
+                "en"
+              ]
+            }
+          ],
+          "knowsAbout": [
+            "AI agent governance",
+            "AI Software Delivery Control",
+            "Agent Action BOM",
+            "AI coding agent security review",
+            "AI-assisted SDLC audit evidence",
+            "AI agent action approval",
+            "MCP tool risk",
+            "AI agent credential risk",
+            "AI coding agent security",
+            "CI/CD agent security",
+            "AI agent control",
+            "execution boundaries",
+            "tool-boundary enforcement",
+            "approval mediation",
+            "evidence quality",
+            "safe AI adoption",
+            "reproducible AI governance research"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://caisi.dev#website",
+          "url": "https://caisi.dev",
+          "name": "CAISI",
+          "description": "Independent research and field notes for teams rolling out AI coding agents, MCP tools, CI/CD automation, approval controls, and audit evidence.",
+          "publisher": {
+            "@id": "https://caisi.dev#organization"
+          },
+          "inLanguage": "en"
+        },
+        {
+          "@type": "WebPage",
+          "@id": "https://caisi.dev/blog/mcp-is-not-the-whole-problem/#webpage",
+          "url": "https://caisi.dev/blog/mcp-is-not-the-whole-problem/",
+          "name": "MCP Is Not the Whole Problem | CAISI Blog",
+          "description": "A CAISI field note on why MCP matters, but CI/CD, scripts, credentials, repo automations, package paths, and release workflows also shape AI software delivery risk.",
+          "inLanguage": "en",
+          "about": {
+            "@id": "https://caisi.dev#organization"
+          },
+          "isPartOf": {
+            "@id": "https://caisi.dev#website"
+          }
+        },
+        {
+          "@type": "Person",
+          "@id": "https://caisi.dev/authors/david-ahmann/#person",
+          "name": "David Ahmann",
+          "url": "https://caisi.dev/authors/david-ahmann/",
+          "image": "https://caisi.dev/assets/david-ahmann-headshot.png",
+          "description": "David Ahmann writes at CAISI about AI agent governance, execution boundaries, evidence quality, and safe adoption for AppSec, platform, and engineering leaders.",
+          "sameAs": [
+            "https://www.linkedin.com/in/dahmann/"
+          ],
+          "jobTitle": "Head of Cloud & AI Platforms",
+          "worksFor": {
+            "@type": "Organization",
+            "name": "CDW"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": "https://caisi.dev/blog/mcp-is-not-the-whole-problem/#breadcrumb",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://caisi.dev"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Blog",
+              "item": "https://caisi.dev/blog/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "MCP is not the whole problem"
+            }
+          ]
+        },
+        {
+          "@type": "BlogPosting",
+          "@id": "https://caisi.dev/blog/mcp-is-not-the-whole-problem/#article",
+          "headline": "MCP Is Not the Whole Problem",
+          "description": "A CAISI field note on why MCP matters, but CI/CD, scripts, credentials, repo automations, package paths, and release workflows also shape AI software delivery risk.",
+          "mainEntityOfPage": "https://caisi.dev/blog/mcp-is-not-the-whole-problem/",
+          "url": "https://caisi.dev/blog/mcp-is-not-the-whole-problem/",
+          "image": "https://caisi.dev/assets/caisi-social.png",
+          "datePublished": "2026-05-09",
+          "dateModified": "2026-05-09",
+          "inLanguage": "en",
+          "about": {
+            "@id": "https://caisi.dev#organization"
+          },
+          "author": {
+            "@id": "https://caisi.dev/authors/david-ahmann/#person"
+          },
+          "publisher": {
+            "@id": "https://caisi.dev#organization"
+          },
+          "keywords": [
+            "AI Software Delivery Control",
+            "Agent Action BOM",
+            "AI coding agent security review",
+            "AI-assisted SDLC audit evidence",
+            "AI agent action approval",
+            "MCP tool risk",
+            "AI agent credential risk",
+            "AI agent governance",
+            "AI coding agent security",
+            "CI/CD agent security"
+          ]
+        }
+      ]
+    }
+    </script>
+    <!-- SEO_SCHEMA_END -->
+
+  </head>
+  <body>
+    <main class="site" aria-label="CAISI blog post">
+      <header class="site-header" aria-label="Site header">
+        <div class="brand-row">
+          <div class="brand-mark">
+            <a class="brand-link" href="/">CAISI</a>
+            <p class="brand-note">Independent research and operating notes on AI Software Delivery Control.</p>
+          </div>
+        </div>
+        <nav class="global-nav" aria-label="Primary">
+          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" href="/roles/">Roles</a>
+          <a class="nav-link" href="/research/">Research</a>
+          <a class="nav-link current" href="/blog/">Blog</a>
+        </nav>
+      </header>
+
+      <section class="section hero">
+        <p class="breadcrumbs"><a href="/">Home</a> / <a href="/blog/">Blog</a> / <span>MCP is not the whole problem</span></p>
+        <p class="eyebrow">Field Note / Tool Risk</p>
+        <div class="post-author">
+          <img class="author-avatar" src="/assets/david-ahmann-headshot.png" alt="David Ahmann" />
+          <p class="author-byline">By <a href="https://www.linkedin.com/in/dahmann/">David Ahmann (LinkedIn)</a></p>
+        </div>
+        <h1>MCP Is Not the Whole Problem</h1>
+        <p class="lead">
+          MCP matters because it makes tools easier for agents to reach. But
+          focusing only on MCP can hide the broader action path: CI/CD, scripts,
+          credentials, repo automations, package workflows, and release paths.
+        </p>
+        <p class="body">Last updated: May 9, 2026</p>
+      </section>
+
+      <section class="section article-section">
+        <h2>MCP is a signal, not the whole boundary</h2>
+        <p>
+          MCP is useful because it gives AI-assisted workflows a more standard
+          way to discover and call tools. That also makes it a useful review
+          surface. Teams should know which MCP servers exist, which tools they
+          expose, which credentials they use, and which calls can change state.
+        </p>
+        <p>
+          The mistake is treating MCP as the entire security problem. In
+          software delivery, many high-impact action paths do not start or end
+          with MCP.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>The other action surfaces</h2>
+        <p>
+          A complete review has to include the delivery artifacts that already
+          carry authority:
+        </p>
+        <ul class="list-plain">
+          <li>CI/CD workflow files and reusable actions.</li>
+          <li>Package scripts, install hooks, and build commands.</li>
+          <li>Repo automations, bots, branch protections, and CODEOWNERS paths.</li>
+          <li>Credential references, CI secrets, deploy keys, cloud roles, and service accounts.</li>
+          <li>Release jobs, package publishing paths, deployment rules, and infrastructure templates.</li>
+          <li>Local agent instructions, tool configs, shell access, and browser automation.</li>
+        </ul>
+        <p>
+          MCP can connect to some of these surfaces, but it does not replace
+          them. The action path is the control object.
+        </p>
+        <pre><code>agent/workflow -> tool or script -> credential -> action -> target -> approval/proof</code></pre>
+      </section>
+
+      <section class="section article-section">
+        <h2>Why this matters for security review</h2>
+        <p>
+          If the review only asks "which MCP servers are enabled?" it may miss a
+          workflow-file change that exposes secrets, a package script that runs
+          during CI, or a release automation path that inherited broad
+          credentials.
+        </p>
+        <p>
+          A better review starts with the action classes: read, write, execute,
+          publish, deploy, delete, access secret, change workflow, call cloud
+          API, or write to a system of record. Then it maps which surfaces can
+          produce those actions.
+        </p>
+      </section>
+
+      <section class="section article-section">
+        <h2>Practical review order</h2>
+        <ol class="list-plain">
+          <li>Inventory MCP and tool declarations.</li>
+          <li>Map CI/CD workflows and package scripts touched by AI-assisted work.</li>
+          <li>Identify credentials and identities inherited by those workflows.</li>
+          <li>Classify reachable actions as allowed, approval-required, or blocked.</li>
+          <li>Confirm proof exists for actor, credential, action, target, approval, validation, and outcome.</li>
+        </ol>
+        <div class="link-row">
+          <a href="/mcp-tool-risk-ai-engineering-workflows/">MCP tool risk</a>
+          <span class="divider">|</span>
+          <a href="/agent-action-bom/">Agent Action BOM</a>
+          <span class="divider">|</span>
+          <a href="https://clyra.cc/#assessment">Related Clyra assessment</a>
+        </div>
+      </section>
+
+      <footer class="section article-footer" aria-label="Post footer">
+        <p class="footer-note">
+          Practical question: if MCP disappeared tomorrow, which AI-assisted
+          delivery paths would still have authority through CI/CD, scripts,
+          credentials, repo automation, or release workflows?
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>
