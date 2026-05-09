@@ -80,13 +80,19 @@
   </url>
   <url>
     <loc>https://caisi.dev/blog/</loc>
-    <lastmod>2026-05-07</lastmod>
+    <lastmod>2026-05-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://caisi.dev/authors/david-ahmann/</loc>
     <lastmod>2026-05-06</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://caisi.dev/blog/agentic-ai-stack-where-control-actually-belongs/</loc>
+    <lastmod>2026-05-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
