@@ -1,5 +1,5 @@
 # CAISI
-> Independent research and field notes for teams rolling out AI coding agents, MCP tools, CI/CD automation, approval controls, and audit evidence.
+> Independent research, field notes, and frameworks for teams rolling out AI coding agents, MCP tools, CI/CD automation, approval controls, and audit evidence.
 
 ## Research
 - [Research hub](https://caisi.dev/research/)
@@ -7,8 +7,9 @@
 - [AI Tool and Agent Sprawl 2026](https://caisi.dev/ai-tool-sprawl-v2-2026/)
 - [AI Tool Sprawl Q1 2026 build](https://caisi.dev/ai-tool-sprawl-q1-2026/)
 
-## Blog Collections
-- [CAISI blog hub](https://caisi.dev/blog/)
+## Field Notes and Frameworks
+- [CAISI Field Notes hub](https://caisi.dev/blog/)
+- [CAISI Frameworks hub](https://caisi.dev/frameworks/)
 - [Field note: AI coding agents are moving from suggestions to actions](https://caisi.dev/blog/ai-coding-agents-from-suggestions-to-actions/)
 - [Field note: From AI content risk to AI authority risk](https://caisi.dev/blog/authority-risk/from-ai-content-risk-to-ai-authority-risk/)
 - [Field note: When agent social engineering becomes action hijacking](https://caisi.dev/blog/authority-risk/when-agent-social-engineering-becomes-action-hijacking/)
@@ -20,8 +21,8 @@
 - [AI Engineering Operating Notes](https://caisi.dev/blog/operating-notes/)
 - [What OpenClaw Taught Us About Agent Control](https://caisi.dev/blog/openclaw/)
 - [What the Sprawl Report Means for AppSec, CISO, and Engineering Leaders](https://caisi.dev/blog/sprawl-2026/)
-- [Invisible Write Paths](https://caisi.dev/blog/wrkr/)
-- [Policy Before Action](https://caisi.dev/blog/gait/)
+- [Methods archive: Invisible Write Paths](https://caisi.dev/blog/wrkr/)
+- [Methods archive: Policy Before Action](https://caisi.dev/blog/gait/)
 - [How to Evaluate Agentic Control](https://caisi.dev/blog/control-benchmarks/)
 - [From AI Pilots to Governed Adoption](https://caisi.dev/blog/governed-adoption/)
 
@@ -37,6 +38,7 @@
 - [AppSec role path](https://caisi.dev/roles/#appsec)
 - [CISO / Security leadership role path](https://caisi.dev/roles/#ciso)
 - [Engineering / Platform role path](https://caisi.dev/roles/#engineering-platform)
+- [GRC / Audit role path](https://caisi.dev/roles/#grc-audit)
 - [AI Agent Governance Guide](https://caisi.dev/blog/ai-agent-governance/)
 - [AI Agent Governance Glossary](https://caisi.dev/blog/glossary/)
 - [David Ahmann author profile](https://caisi.dev/authors/david-ahmann/)

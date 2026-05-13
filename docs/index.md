@@ -1,10 +1,12 @@
 # Centre for AI Security and Integrity
 
-Independent research and field notes for teams rolling out AI coding agents,
-MCP tools, CI/CD automation, approval controls, and audit evidence.
+Independent research, field notes, and frameworks for teams rolling out AI
+coding agents, MCP tools, CI/CD automation, approval controls, and audit
+evidence.
 
 CAISI stands for the Centre for AI Security and Integrity. It publishes open
-research and operator field notes on governing AI-assisted software delivery.
+research, operator field notes, and reusable frameworks on governing
+AI-assisted software delivery.
 
 Core question:
 
@@ -36,6 +38,13 @@ workflow, credential, action, target, review or approval rule, and proof.
 - [Long-lived credentials in AI agent workflows](./long-lived-credentials-ai-agent-workflows/) - reduce standing-token risk across agents, CI/CD, tools, and release paths.
 - [Secure AI coding agents in CI/CD](./secure-ai-coding-agents-ci-cd/) - practical controls for PRs, GitHub Actions, CI/CD, credentials, MCP/tool calls, approvals, and release paths.
 - [Field note: suggestions are becoming actions](./blog/ai-coding-agents-from-suggestions-to-actions/) - why the missing artifact is an Agent Action BOM.
+
+## Start with the library
+
+- [Research](./research/) - published reports, methods, claims, artifacts, and citations.
+- [Field Notes](./blog/) - timely interpretation and operating lessons.
+- [Frameworks](./frameworks/) - Agent Action BOM, proof packets, approval models, CI/CD controls, maturity, and stack models.
+- [Roles](./roles/) - routes for AppSec, CISO/security leadership, and Engineering/Platform.
 
 ## Start by role
 

@@ -3,26 +3,26 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>CAISI Roles | AppSec, CISO, Engineering, and Platform Paths</title>
+    <title>CAISI Roles | AppSec, CISO, Engineering, Platform, and Audit Paths</title>
     <meta
       name="description"
-      content="Role-based CAISI paths for AppSec, security leadership, engineering, and platform teams handling AI coding-agent rollout, CI/CD control, approval, and audit evidence."
+      content="Role-based CAISI paths for AppSec, security leadership, engineering, platform, GRC, and audit teams handling AI coding-agent rollout, CI/CD control, approval, and evidence."
     />
     <!-- SEO_META_START -->
     <link rel="canonical" href="https://caisi.dev/roles/" />
     <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
     <meta property="og:site_name" content="CAISI" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="CAISI Roles | AppSec, CISO, Engineering, and Platform Paths" />
-    <meta property="og:description" content="Role-based CAISI paths for AppSec, security leadership, engineering, and platform teams handling AI coding-agent rollout, CI/CD control, approval, and audit evidence." />
+    <meta property="og:title" content="CAISI Roles | AppSec, CISO, Engineering, Platform, and Audit Paths" />
+    <meta property="og:description" content="Role-based CAISI paths for AppSec, security leadership, engineering, platform, GRC, and audit teams handling AI coding-agent rollout, CI/CD control, approval, and evidence." />
     <meta property="og:url" content="https://caisi.dev/roles/" />
     <meta property="og:image" content="https://caisi.dev/assets/caisi-social.png" />
-    <meta property="og:image:alt" content="CAISI Roles | AppSec, CISO, Engineering, and Platform Paths" />
+    <meta property="og:image:alt" content="CAISI Roles | AppSec, CISO, Engineering, Platform, and Audit Paths" />
     <meta property="og:image:width" content="1600" />
     <meta property="og:image:height" content="900" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="CAISI Roles | AppSec, CISO, Engineering, and Platform Paths" />
-    <meta name="twitter:description" content="Role-based CAISI paths for AppSec, security leadership, engineering, and platform teams handling AI coding-agent rollout, CI/CD control, approval, and audit evidence." />
+    <meta name="twitter:title" content="CAISI Roles | AppSec, CISO, Engineering, Platform, and Audit Paths" />
+    <meta name="twitter:description" content="Role-based CAISI paths for AppSec, security leadership, engineering, platform, GRC, and audit teams handling AI coding-agent rollout, CI/CD control, approval, and evidence." />
     <meta name="twitter:image" content="https://caisi.dev/assets/caisi-social.png" />
     <link rel="alternate" type="text/plain" href="/llms.txt" title="CAISI llms.txt" />
     <link rel="alternate" type="text/plain" href="/llms-full.txt" title="CAISI llms-full.txt" />
@@ -81,7 +81,7 @@
           "@id": "https://caisi.dev#website",
           "url": "https://caisi.dev",
           "name": "CAISI",
-          "description": "Independent research and field notes for teams rolling out AI coding agents, MCP tools, CI/CD automation, approval controls, and audit evidence.",
+          "description": "Independent research, field notes, and frameworks for teams rolling out AI coding agents, MCP tools, CI/CD automation, approval controls, and audit evidence.",
           "publisher": {
             "@id": "https://caisi.dev#organization"
           },
@@ -91,8 +91,8 @@
           "@type": "CollectionPage",
           "@id": "https://caisi.dev/roles/#webpage",
           "url": "https://caisi.dev/roles/",
-          "name": "CAISI Roles | AppSec, CISO, Engineering, and Platform Paths",
-          "description": "Role-based CAISI paths for AppSec, security leadership, engineering, and platform teams handling AI coding-agent rollout, CI/CD control, approval, and audit evidence.",
+          "name": "CAISI Roles | AppSec, CISO, Engineering, Platform, and Audit Paths",
+          "description": "Role-based CAISI paths for AppSec, security leadership, engineering, platform, GRC, and audit teams handling AI coding-agent rollout, CI/CD control, approval, and evidence.",
           "inLanguage": "en",
           "about": {
             "@id": "https://caisi.dev#organization"
@@ -137,9 +137,10 @@
         </div>
         <nav class="global-nav" aria-label="Primary">
           <a class="nav-link" href="/">Home</a>
-          <a class="nav-link current" href="/roles/">Roles</a>
           <a class="nav-link" href="/research/">Research</a>
-          <a class="nav-link" href="/blog/">Blog</a>
+          <a class="nav-link" href="/blog/">Field Notes</a>
+          <a class="nav-link" href="/frameworks/">Frameworks</a>
+          <a class="nav-link current" href="/roles/">Roles</a>
         </nav>
       </header>
 
@@ -166,7 +167,8 @@
             <p class="body">
               <a href="#appsec">AppSec</a><br />
               <a href="#ciso">CISO / Security leadership</a><br />
-              <a href="#engineering-platform">Engineering / Platform</a>
+              <a href="#engineering-platform">Engineering / Platform</a><br />
+              <a href="#grc-audit">GRC / Audit</a>
             </p>
           </aside>
         </div>
@@ -257,13 +259,43 @@
         </div>
       </section>
 
+      <section class="section article-section" id="grc-audit" aria-labelledby="grc-audit-heading">
+        <p class="eyebrow">GRC / Audit</p>
+        <h2 id="grc-audit-heading">Evidence that survives outside the tool UI</h2>
+        <p>
+          GRC and audit teams need evidence that can be reconstructed after the
+          rollout, incident, exception, or customer review. The question is not
+          only whether an AI-assisted workflow was approved, but whether the
+          organization can prove actor, owner, authority, action, target,
+          validation, outcome, and re-review trigger without relying on
+          screenshots or tribal memory.
+        </p>
+        <div class="quick-grid">
+          <article class="card">
+            <p class="post-stage">Start</p>
+            <h3><a href="/audit-evidence-ai-assisted-sdlc/">Audit evidence for AI-assisted SDLC</a></h3>
+            <p>Define the proof packet before rollout, not during the audit request.</p>
+          </article>
+          <article class="card">
+            <p class="post-stage">Then</p>
+            <h3><a href="/blog/control-benchmarks/proof-completeness-for-ai-agent-changes/">Proof completeness for AI agent changes</a></h3>
+            <p>Use proof completeness to separate observable activity from evidence that can support a decision.</p>
+          </article>
+          <article class="card">
+            <p class="post-stage">Next action</p>
+            <h3><a href="/frameworks/">Choose the evidence framework</a></h3>
+            <p>Start with proof packets, approval models, and CI/CD control paths before expanding the rollout.</p>
+          </article>
+        </div>
+      </section>
+
       <footer class="section article-footer" aria-label="Page footer">
         <div class="footer-links">
           <a href="/">Home</a>
           <span class="divider">|</span>
           <a href="/research/">Research</a>
           <span class="divider">|</span>
-          <a href="/blog/">Blog</a>
+          <a href="/blog/">Field Notes</a>
         </div>
         <p class="footer-note">
           Role paths reduce browsing. Research pages remain the primary source

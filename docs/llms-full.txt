@@ -1,5 +1,5 @@
 # CAISI
-> Independent research and field notes for teams rolling out AI coding agents, MCP tools, CI/CD automation, approval controls, and audit evidence.
+> Independent research, field notes, and frameworks for teams rolling out AI coding agents, MCP tools, CI/CD automation, approval controls, and audit evidence.
 
 ## Research
 - [Research hub](https://caisi.dev/research/): Canonical entry point for CAISI reports, artifact-backed findings, methodology notes, and interpretation links.
@@ -7,8 +7,9 @@
 - [AI Tool and Agent Sprawl 2026](https://caisi.dev/ai-tool-sprawl-v2-2026/): Public-artifact governance report on AI tool and agent posture across a locked 250-target GitHub cohort.
 - [AI Tool Sprawl Q1 2026 build](https://caisi.dev/ai-tool-sprawl-q1-2026/): Earlier flagship build page for the AI tool sprawl research package and validation gates.
 
-## Blog Collections
-- [CAISI blog hub](https://caisi.dev/blog/): Directory for framework essays, report interpretation series, implementation notes, benchmark language, and reference pages.
+## Field Notes and Frameworks
+- [CAISI Field Notes hub](https://caisi.dev/blog/): Directory for timely interpretation, report interpretation series, operating essays, benchmark language, and methods archives.
+- [CAISI Frameworks hub](https://caisi.dev/frameworks/): Durable artifacts for Agent Action BOM, proof packets, approval models, CI/CD controls, maturity, and stack-level reasoning.
 - [Field note: AI coding agents are moving from suggestions to actions](https://caisi.dev/blog/ai-coding-agents-from-suggestions-to-actions/): Field note explaining why AI-assisted engineering needs an Agent Action BOM, not another generic AI inventory.
 - [Field note: From AI content risk to AI authority risk](https://caisi.dev/blog/authority-risk/from-ai-content-risk-to-ai-authority-risk/): Field note explaining why OAuth grants, tokens, connected-tool permissions, approvals, and proof should be reviewed as action authority.
 - [Field note: When agent social engineering becomes action hijacking](https://caisi.dev/blog/authority-risk/when-agent-social-engineering-becomes-action-hijacking/): Field note on OpenClaw incidents, malicious skills, exposed agent infrastructure, and why skills, MCP servers, agent configs, and tool declarations belong in the action graph.
@@ -20,8 +21,8 @@
 - [AI Engineering Operating Notes](https://caisi.dev/blog/operating-notes/): Ten-part framework on repository contracts, orchestration, isolation, evaluation, proof, and maturity for AI-enabled delivery.
 - [What OpenClaw Taught Us About Agent Control](https://caisi.dev/blog/openclaw/): Four-post series on stop semantics, discovery limits, tool-boundary approval, and what the OpenClaw case study does and does not prove.
 - [What the Sprawl Report Means for AppSec, CISO, and Engineering Leaders](https://caisi.dev/blog/sprawl-2026/): Four-post series on evidence posture, approval opacity, deployability proof, and how AppSec, security, engineering, and platform leaders should interpret public AI adoption data.
-- [Invisible Write Paths](https://caisi.dev/blog/wrkr/): Implementation series on discovery across repos, local setup, MCP configuration, CI workflows, and evidence collection.
-- [Policy Before Action](https://caisi.dev/blog/gait/): Implementation series on tool-boundary policy, MCP trust boundaries, signed traces, and deterministic regressions.
+- [Methods archive: Invisible Write Paths](https://caisi.dev/blog/wrkr/): Implementation context on discovery across repos, local setup, MCP configuration, CI workflows, and evidence collection.
+- [Methods archive: Policy Before Action](https://caisi.dev/blog/gait/): Implementation context on tool-boundary policy, MCP trust boundaries, signed traces, and deterministic regressions.
 - [How to Evaluate Agentic Control](https://caisi.dev/blog/control-benchmarks/): Benchmark series on evaluation-grade pilots, risk scenario coverage, control efficacy, and proof completeness.
 - [From AI Pilots to Governed Adoption](https://caisi.dev/blog/governed-adoption/): Executive series on platform standards, sanctioned pathways, approval discipline, and governed rollout patterns.
 
@@ -33,10 +34,11 @@
 - [MCP tool risk in AI engineering workflows](https://caisi.dev/mcp-tool-risk-ai-engineering-workflows/): Reference page for evaluating tool reach, invocation context, credential context, approval triggers, and proof fields.
 - [Long-lived credentials in AI agent workflows](https://caisi.dev/long-lived-credentials-ai-agent-workflows/): Reference page for reducing standing-token and inherited-identity risk across agents, CI/CD, tools, and release paths.
 - [How to secure AI coding agents in CI/CD](https://caisi.dev/secure-ai-coding-agents-ci-cd/): Practical control guide for GitHub Actions, CI/CD, workflow files, credentials, approval decisions, revocation, and proof trails.
-- [Role paths for AppSec, CISO/security leadership, engineering leadership, and platform teams](https://caisi.dev/roles/): Audience routes that connect CAISI research and operating notes to common review, approval, and delivery decisions.
+- [Role paths for AppSec, CISO/security leadership, engineering leadership, platform, GRC, and audit teams](https://caisi.dev/roles/): Audience routes that connect CAISI research, field notes, and frameworks to common review, approval, delivery, and evidence decisions.
 - [AppSec role path](https://caisi.dev/roles/#appsec): Start here for control failure, proof quality, review surfaces, runtime boundaries, and incident reconstruction.
 - [CISO / Security leadership role path](https://caisi.dev/roles/#ciso): Start here for approval posture, risk ownership, auditability, evidence quality, and governance reporting.
 - [Engineering / Platform role path](https://caisi.dev/roles/#engineering-platform): Start here for standards, CI/CD workflow design, developer adoption, credential patterns, MCP/tool integration, and delivery control.
+- [GRC / Audit role path](https://caisi.dev/roles/#grc-audit): Start here for proof packets, approval records, validation outcomes, re-review triggers, and evidence that can be reconstructed outside the product UI.
 - [AI Agent Governance Guide](https://caisi.dev/blog/ai-agent-governance/): Field guide to core CAISI concepts including control, proof, execution boundaries, and safe adoption.
 - [AI Agent Governance Glossary](https://caisi.dev/blog/glossary/): Vocabulary reference for terms such as write path, non-executable state, proof packet, approval mediation, and execution boundary.
 - [David Ahmann author profile](https://caisi.dev/authors/david-ahmann/): Author context, background, and route into CAISI research and framework writing.

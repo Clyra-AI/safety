@@ -17,7 +17,7 @@ const ORG_ID = `${BASE_URL}#organization`;
 const WEBSITE_ID = `${BASE_URL}#website`;
 const AUTHOR_ID = `${AUTHOR_PROFILE}#person`;
 const SITE_DESCRIPTION =
-  "Independent research and field notes for teams rolling out AI coding agents, MCP tools, CI/CD automation, approval controls, and audit evidence.";
+  "Independent research, field notes, and frameworks for teams rolling out AI coding agents, MCP tools, CI/CD automation, approval controls, and audit evidence.";
 
 const PAGE_TYPES = {
   home: "home",
@@ -38,6 +38,7 @@ const COLLECTION_ROUTES = new Set([
   "/blog/control-benchmarks/",
   "/blog/governed-adoption/",
   "/research/",
+  "/frameworks/",
 ]);
 
 const REFERENCE_ROUTES = new Set([
@@ -465,7 +466,12 @@ function replaceOrInsert(html, block, startMarker, endMarker, anchorRe) {
 function sitemapPriority(route, type) {
   if (route === "/") return "1.0";
   if (type === PAGE_TYPES.reference || type === PAGE_TYPES.report) return "0.9";
-  if (type === PAGE_TYPES.collection || route === "/roles/" || route === "/research/") {
+  if (
+    type === PAGE_TYPES.collection ||
+    route === "/roles/" ||
+    route === "/research/" ||
+    route === "/frameworks/"
+  ) {
     return "0.8";
   }
   return "0.6";
@@ -480,8 +486,10 @@ function sitemapChangefreq(type) {
 function buildSitemap(entries) {
   const order = [
     "/",
-    "/roles/",
     "/research/",
+    "/blog/",
+    "/frameworks/",
+    "/roles/",
     "/agent-action-bom/",
     "/rolling-out-coding-agents-security-review/",
     "/audit-evidence-ai-assisted-sdlc/",
@@ -492,7 +500,6 @@ function buildSitemap(entries) {
     "/openclaw-2026/",
     "/ai-tool-sprawl-v2-2026/",
     "/ai-tool-sprawl-q1-2026/",
-    "/blog/",
   ];
   const byRoute = new Map(entries.map((entry) => [entry.route, entry]));
   const sorted = [
